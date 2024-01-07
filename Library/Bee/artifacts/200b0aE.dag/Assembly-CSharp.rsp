@@ -352,6 +352,7 @@
 -analyzer:"/Applications/Unity/Hub/Editor/2022.3.10f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/BirdieMovement.cs"
 "Assets/Scripts/PlayerMovement.cs"
+"Assets/Scripts/SwingRacket.cs"
 -langversion:9.0
 
 /deterministic

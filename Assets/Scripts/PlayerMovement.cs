@@ -6,6 +6,9 @@ public class PlayerMovement : MonoBehaviour
 
     private Transform playerTransform;
     private Rigidbody playerRb;
+    public GameObject racket;
+    private SwingRacket swingRacket;
+
     [SerializeField] private float movementSpeed = 10f;
     [SerializeField] private float jumpHeight = 300f;
     [SerializeField] public bool isPlayerOne;
@@ -15,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     public LayerMask groundLayer;
     public bool isGrounded = true;
+    private bool canSwing = true;
 
 
     // Start is called before the first frame update
@@ -22,20 +26,19 @@ public class PlayerMovement : MonoBehaviour
     {
         playerTransform = GetComponent<Transform>();
         playerRb = GetComponent<Rigidbody>();
+        swingRacket = racket.GetComponent<SwingRacket>();
     }
 
     // Update is called once per frame
     void Update()
     {
         MovePlayer();
-        ApplyGravity();
-
     }
 
     private void FixedUpdate()
     {
+        ApplyGravity();
     }
-
 
     private void ApplyGravity()
     {
@@ -67,9 +70,10 @@ public class PlayerMovement : MonoBehaviour
             playerRb.AddForce(Vector3.up * jumpHeight);
             isGrounded = false;
         }
-        if ((Input.GetKey(KeyCode.S) && isPlayerOne) || (Input.GetKey(KeyCode.DownArrow) && !isPlayerOne))
+        if (((Input.GetKey(KeyCode.S) && isPlayerOne) || (Input.GetKey(KeyCode.DownArrow) && !isPlayerOne)) && canSwing)
         {
-
+            canSwing = false;
+            swingRacket.Swing();
         }
     }
 
@@ -84,6 +88,12 @@ public class PlayerMovement : MonoBehaviour
         return (isPlayerOne && playerTransform.position.x < -frontCourtXCoord) ||
             (!isPlayerOne && playerTransform.position.x < rearCourtXCoord);
     }
+
+    public void SetCanSwing(bool canSwing)
+    {
+        this.canSwing = canSwing;
+    }
+
 
     private void OnCollisionEnter(Collision collision)
     {

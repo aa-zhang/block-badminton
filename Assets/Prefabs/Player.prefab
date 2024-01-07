@@ -56,7 +56,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  raycastDistance: 1.6
   isGrounded: 1
 --- !u!54 &3151730888727318703
 Rigidbody:
@@ -153,13 +152,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 375facb997834452d8304c10c502ef78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  birdieTransform: {fileID: 2571990510527923263, guid: 4ac0668e469b443d1bd9a0f1e88a60fa, type: 3}
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.1
-  player: {fileID: 1036378818288067933}
-  alreadyMadeContact: 0
-  birdieTransform: {fileID: 0}
   minOverhandHeight: 2.6
+  alreadyMadeContact: 0
 --- !u!65 &835141728368954696
 BoxCollider:
   m_ObjectHideFlags: 0
