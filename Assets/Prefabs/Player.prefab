@@ -50,9 +50,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   racket: {fileID: 2581116539132796171}
   movementSpeed: 8.5
-  jumpHeight: 1000
+  jumpHeight: 800
   isPlayerOne: 1
-  gravity: 16
+  gravity: 40
   groundLayer:
     serializedVersion: 2
     m_Bits: 64

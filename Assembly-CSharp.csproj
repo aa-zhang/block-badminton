@@ -59,7 +59,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets/Scripts/SwingRacket.cs" />
-    <Compile Include="Assets/BirdieMovement.cs" />
+    <Compile Include="Assets/Scripts/BirdieMovement.cs" />
+    <Compile Include="Assets/Scripts/BirdieHit.cs" />
     <Compile Include="Assets/Scripts/PlayerMovement.cs" />
   </ItemGroup>
   <ItemGroup>
