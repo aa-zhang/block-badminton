@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &59255006 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2571990510527923263, guid: 4ac0668e469b443d1bd9a0f1e88a60fa, type: 3}
+  m_PrefabInstance: {fileID: 756219676}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &68055663
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -135,6 +140,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4581602975282364509, guid: d43e2fdb70f25483e9f045a83a674223, type: 3}
+      propertyPath: birdieTransform
+      value: 
+      objectReference: {fileID: 59255006}
     - target: {fileID: 8400001493716180215, guid: d43e2fdb70f25483e9f045a83a674223, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.14
@@ -508,6 +517,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4581602975282364509, guid: d43e2fdb70f25483e9f045a83a674223, type: 3}
+      propertyPath: birdieTransform
+      value: 
+      objectReference: {fileID: 59255006}
     - target: {fileID: 8400001493716180215, guid: d43e2fdb70f25483e9f045a83a674223, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.14
