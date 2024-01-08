@@ -7,21 +7,38 @@ public class BirdieMovement : MonoBehaviour
     private ScoreManager scoreManager;
     private Rigidbody birdieRb;
     private Transform birdieTransform;
+
+    private Transform playerOneTransform;
+    private Transform playerTwoTransform;
+
+    private Vector3 servingOffsetOne = new Vector3(2, -0.7f, 0);
+    private Vector3 servingOffsetTwo = new Vector3(-2, -0.7f, 0);
+
+
     public bool isServing = true;
+    private int scoringPlayer = 1;
     // Start is called before the first frame update
     void Start()
     {
         birdieRb = gameObject.GetComponent<Rigidbody>();
         birdieTransform = gameObject.transform;
         scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+        playerOneTransform = GameObject.Find("Player 1").transform;
+        playerTwoTransform = GameObject.Find("Player 2").transform;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+    }
+
+    private void FixedUpdate()
+    {
         if (isServing)
         {
-            //FollowPlayer();
+            FollowPlayer();
         }
         else
         {
@@ -29,26 +46,36 @@ public class BirdieMovement : MonoBehaviour
         }
     }
 
+    private void FollowPlayer()
+    {
+        if (scoringPlayer == 1)
+        {
+            birdieTransform.position = playerOneTransform.position + servingOffsetOne;
+        }
+        else
+        {
+            birdieTransform.position = playerTwoTransform.position + servingOffsetTwo;
+        }
+    }
+
     private void ApplyGravity()
     {
-        birdieRb.AddForce(new Vector3(0, -1, 0));
+        birdieRb.AddForce(new Vector3(0, -2, 0));
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Floor"))
         {
-            int scoringPlayer = birdieTransform.position.x > 0 ? 1 : 2;
+            scoringPlayer = birdieTransform.position.x > 0 ? 1 : 2;
             scoreManager.IncreaseScore(scoringPlayer);
 
-            Invoke("RespawnBirdie", 1);
-            Debug.Log("touched grass");
+            isServing = true;
         }
     }
 
-    private void RespawnBirdie()
+    public void setIsServing(bool isServing)
     {
-        gameObject.transform.position = new Vector3(-8.46f, 6.4f, 0);
-        gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+        this.isServing = isServing;
     }
 }

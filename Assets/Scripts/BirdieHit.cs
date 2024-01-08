@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BirdieHit : MonoBehaviour
 {
+    private BirdieMovement birdieMovement;
     private Transform racketTransform;
     private Rigidbody birdieRb;
     [SerializeField] private float racketForce = 1000f;
@@ -15,6 +16,7 @@ public class BirdieHit : MonoBehaviour
     void Start()
     {
         birdieRb = gameObject.GetComponent<Rigidbody>();
+        birdieMovement = gameObject.GetComponent<BirdieMovement>();
     }
 
     // Update is called once per frame
@@ -59,6 +61,7 @@ public class BirdieHit : MonoBehaviour
                 birdieRb.velocity = Vector3.zero;
                 birdieRb.AddForce(forceVector * racketForce);
                 swingRacket.SetAlreadyMadeContact(true);
+                birdieMovement.setIsServing(false);
                 Debug.Log("hit the bertholdt with force. ARE WE DOING IT REINIER?!?!?" + forceVector);
                 Debug.Log("theta " + theta);
             }
