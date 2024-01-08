@@ -133,20 +133,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2571990510527923263, guid: 4ac0668e469b443d1bd9a0f1e88a60fa, type: 3}
   m_PrefabInstance: {fileID: 756219676}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &59255007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 59255001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9874bc3e98a241ef99dcefbc64047b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  racketForce: 300
-  birdieAngleAdjustment: 0.4
 --- !u!114 &59255008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,13 +397,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Birdie
       objectReference: {fileID: 0}
+    - target: {fileID: 8293879021293375692, guid: 4ac0668e469b443d1bd9a0f1e88a60fa, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8293879021293375692, guid: 4ac0668e469b443d1bd9a0f1e88a60fa, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 59255007}
     - targetCorrespondingSourceObject: {fileID: 8293879021293375692, guid: 4ac0668e469b443d1bd9a0f1e88a60fa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 59255008}
