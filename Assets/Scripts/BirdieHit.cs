@@ -54,7 +54,7 @@ public class BirdieHit : MonoBehaviour
             theta = theta * Mathf.PI / 180;
             Vector3 forceVector = new Vector3(Mathf.Cos(theta), Mathf.Sin(theta) + birdieAngleAdjustment, 0).normalized;
 
-            if (!swingRacket.alreadyMadeContact && (swingRacket.inForwardSwingAnimation || swingRacket.inBackwardSwingAnimation))
+            if (!swingRacket.alreadyMadeContact && swingRacket.inForwardSwingAnimation)
             {
                 birdieRb.velocity = Vector3.zero;
                 birdieRb.AddForce(forceVector * racketForce);
