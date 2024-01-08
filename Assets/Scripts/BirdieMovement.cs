@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class BirdieMovement : MonoBehaviour
 {
-
+    private ScoreManager scoreManager;
     private Rigidbody birdieRb;
+    private Transform birdieTransform;
     public bool isServing = true;
     // Start is called before the first frame update
     void Start()
     {
         birdieRb = gameObject.GetComponent<Rigidbody>();
-
+        birdieTransform = gameObject.transform;
+        scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
     }
 
     // Update is called once per frame
@@ -36,6 +38,9 @@ public class BirdieMovement : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Floor"))
         {
+            int scoringPlayer = birdieTransform.position.x > 0 ? 1 : 2;
+            scoreManager.IncreaseScore(scoringPlayer);
+
             Invoke("RespawnBirdie", 1);
             Debug.Log("touched grass");
         }
