@@ -7,6 +7,8 @@ public class BirdieHit : MonoBehaviour
     private Transform racketTransform;
     private Rigidbody birdieRb;
     [SerializeField] private float racketForce = 1000f;
+    [SerializeField] private float birdieAngleAdjustment = 0.1f;
+
 
 
     // Start is called before the first frame update
@@ -28,7 +30,6 @@ public class BirdieHit : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        Debug.Log("collided");
         if (collider.gameObject.layer == LayerMask.NameToLayer("Racket"))
         {
             racketTransform = collider.gameObject.transform;
@@ -51,10 +52,11 @@ public class BirdieHit : MonoBehaviour
             }
 
             theta = theta * Mathf.PI / 180;
-            Vector3 forceVector = new Vector3(Mathf.Cos(theta), Mathf.Sin(theta), 0);
+            Vector3 forceVector = new Vector3(Mathf.Cos(theta), Mathf.Sin(theta) + birdieAngleAdjustment, 0).normalized;
 
             if (!swingRacket.alreadyMadeContact && (swingRacket.inForwardSwingAnimation || swingRacket.inBackwardSwingAnimation))
             {
+                birdieRb.velocity = Vector3.zero;
                 birdieRb.AddForce(forceVector * racketForce);
                 swingRacket.SetAlreadyMadeContact(true);
                 Debug.Log("hit the bertholdt with force. ARE WE DOING IT REINIER?!?!?" + forceVector);
