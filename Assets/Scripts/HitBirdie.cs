@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class HitBirdie : MonoBehaviour
 {
-    private BirdieMovement birdieMovement;
     private Transform racketTransform;
     private Rigidbody birdieRb;
     private SwingRacket swingRacket;
+    private GameObject player;
+    private PlayerMovement playerMovement;
+
     [SerializeField] private float racketForce = 300;
     [SerializeField] private float birdieAngleAdjustment = 0.1f;
 
@@ -19,7 +21,8 @@ public class HitBirdie : MonoBehaviour
         racketTransform = gameObject.transform;
         swingRacket = gameObject.GetComponent<SwingRacket>();
         birdieRb = GameObject.Find("Birdie").GetComponent<Rigidbody>();
-        birdieMovement = GameObject.Find("Birdie").GetComponent<BirdieMovement>();
+        player = racketTransform.parent.gameObject;
+        playerMovement = player.GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -37,10 +40,8 @@ public class HitBirdie : MonoBehaviour
     {
         if (collider.gameObject.layer == LayerMask.NameToLayer("Birdie"))
         {
-            GameObject player = racketTransform.parent.gameObject;
-
             float theta;
-            if (player.GetComponent<PlayerMovement>().isPlayerOne)
+            if (playerMovement.isPlayerOne)
             {
                 theta = racketTransform.eulerAngles.z;
             }
@@ -74,7 +75,7 @@ public class HitBirdie : MonoBehaviour
                 birdieRb.velocity = Vector3.zero;
                 birdieRb.AddForce(forceVector * racketForce);
                 swingRacket.SetAlreadyMadeContact(true);
-                birdieMovement.setIsServing(false);
+                playerMovement.SetIsServing(false);
                 Debug.Log("hit the bertholdt with force. ARE WE DOING IT REINIER?!?!?" + forceVector);
                 Debug.Log("theta " + theta);
             }

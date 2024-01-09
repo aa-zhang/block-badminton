@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpHeight = 800f;
     [SerializeField] public bool isPlayerOne;
     [SerializeField] private float gravity = 40;
+    [SerializeField] public bool isServing = false;
     private float rearCourtXCoord = 11.4f;
     private float frontCourtXCoord = 0.8f;
     private float servingLineXCoord = 5f;
@@ -80,21 +81,43 @@ public class PlayerMovement : MonoBehaviour
 
     private bool CanGoLeft()
     {
-        return (isPlayerOne && playerTransform.position.x > -rearCourtXCoord) ||
-            (!isPlayerOne && playerTransform.position.x > frontCourtXCoord);
+        if (isPlayerOne)
+        {
+            return playerTransform.position.x > -rearCourtXCoord;
+        }
+        else
+        {
+            if (isServing)
+            {
+                return playerTransform.position.x > servingLineXCoord;
+            }
+            else
+            {
+                return playerTransform.position.x > frontCourtXCoord;
+            }
+        }
+
     }
 
     private bool CanGoRight()
     {
-        return (isPlayerOne && playerTransform.position.x < -frontCourtXCoord) ||
-            (!isPlayerOne && playerTransform.position.x < rearCourtXCoord);
-    }
 
-    public void SetCanSwing(bool canSwing)
-    {
-        this.canSwing = canSwing;
+        if (isPlayerOne)
+        {
+            if (isServing)
+            {
+                return playerTransform.position.x < -servingLineXCoord;
+            }
+            else
+            {
+                return playerTransform.position.x < -frontCourtXCoord;
+            }
+        }
+        else
+        {
+            return playerTransform.position.x < rearCourtXCoord;
+        }
     }
-
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -102,5 +125,30 @@ public class PlayerMovement : MonoBehaviour
         {
             isGrounded = true;
         }
+    }
+
+    public void SetCanSwing(bool canSwing)
+    {
+        this.canSwing = canSwing;
+    }
+
+    public void SetIsServing(bool isServing)
+    {
+        this.isServing = isServing;
+        if (isServing)
+        {
+            // Force the serving player to serve behind the serving line
+            if (isPlayerOne)
+            {
+                float boundedX = Mathf.Min(playerTransform.position.x, -servingLineXCoord);
+                playerTransform.position = new Vector3(boundedX, playerTransform.position.y, playerTransform.position.z);
+            }
+            else
+            {
+                float boundedX = Mathf.Max(playerTransform.position.x, servingLineXCoord);
+                playerTransform.position = new Vector3(boundedX, playerTransform.position.y, playerTransform.position.z);
+            }
+        }
+        
     }
 }

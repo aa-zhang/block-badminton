@@ -11,12 +11,14 @@ public class BirdieMovement : MonoBehaviour
     private Transform playerOneTransform;
     private Transform playerTwoTransform;
 
+    private PlayerMovement playerOneMovement;
+    private PlayerMovement playerTwoMovement;
+
+    private int scoringPlayerNum;
+
     private Vector3 servingOffsetOne = new Vector3(2, -0.7f, 0);
     private Vector3 servingOffsetTwo = new Vector3(-2, -0.7f, 0);
 
-
-    public bool isServing = true;
-    private int scoringPlayer = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +27,8 @@ public class BirdieMovement : MonoBehaviour
         scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         playerOneTransform = GameObject.Find("Player 1").transform;
         playerTwoTransform = GameObject.Find("Player 2").transform;
-
+        playerOneMovement = GameObject.Find("Player 1").GetComponent<PlayerMovement>();
+        playerTwoMovement = GameObject.Find("Player 2").GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -36,7 +39,7 @@ public class BirdieMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isServing)
+        if (playerOneMovement.isServing || playerTwoMovement.isServing)
         {
             FollowPlayer();
         }
@@ -48,7 +51,7 @@ public class BirdieMovement : MonoBehaviour
 
     private void FollowPlayer()
     {
-        if (scoringPlayer == 1)
+        if (playerOneMovement.isServing)
         {
             birdieTransform.position = playerOneTransform.position + servingOffsetOne;
         }
@@ -67,8 +70,8 @@ public class BirdieMovement : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Floor"))
         {
-            scoringPlayer = birdieTransform.position.x > 0 ? 1 : 2;
-            scoreManager.IncreaseScore(scoringPlayer);
+            scoringPlayerNum = birdieTransform.position.x > 0 ? 1 : 2;
+            scoreManager.IncreaseScore(scoringPlayerNum);
 
             Invoke("StartNextServe", 1);
         }
@@ -77,12 +80,14 @@ public class BirdieMovement : MonoBehaviour
 
     private void StartNextServe()
     {
-        // Using this method to delay the serve after the birdie lands on the ground
-        setIsServing(true);
+        if (scoringPlayerNum == 1)
+        {
+            playerOneMovement.SetIsServing(true);
+        }
+        else
+        {
+            playerTwoMovement.SetIsServing(true);
+        }
     }
 
-    public void setIsServing(bool isServing)
-    {
-        this.isServing = isServing;
-    }
 }
