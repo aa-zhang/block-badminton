@@ -36,7 +36,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MovePlayer();
     }
 
     private void FixedUpdate()
@@ -52,44 +51,79 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void MovePlayer()
+    public void MoveLeft()
     {
-        if (isControlEnabled)
+        if (CanGoLeft())
         {
-            // Move left
-            if ((Input.GetKey(KeyCode.A) && isPlayerOne) || (Input.GetKey(KeyCode.LeftArrow) && !isPlayerOne))
-            {
-                if (CanGoLeft())
-                {
-                    playerTransform.transform.position += Vector3.left * movementSpeed * Time.deltaTime;
+            playerTransform.transform.position += Vector3.left * movementSpeed * Time.deltaTime;
 
-                }
-            }
-
-            // Move right
-            if ((Input.GetKey(KeyCode.D) && isPlayerOne) || (Input.GetKey(KeyCode.RightArrow) && !isPlayerOne))
-            {
-                if (CanGoRight())
-                {
-                    playerTransform.transform.position += Vector3.right * movementSpeed * Time.deltaTime;
-                }
-            }
-
-            // Jump
-            if (((Input.GetKey(KeyCode.W) && isPlayerOne) || (Input.GetKey(KeyCode.UpArrow) && !isPlayerOne)) && isGrounded)
-            {
-                playerRb.AddForce(Vector3.up * jumpHeight);
-                isGrounded = false;
-            }
-
-            // Swing racket
-            if (((Input.GetKey(KeyCode.S) && isPlayerOne) || (Input.GetKey(KeyCode.DownArrow) && !isPlayerOne)) && canSwing)
-            {
-                canSwing = false;
-                swingRacket.Swing();
-            }
         }
     }
+
+    public void MoveRight()
+    {
+        if (CanGoRight())
+        {
+            playerTransform.transform.position += Vector3.right * movementSpeed * Time.deltaTime;
+        }
+    }
+
+    public void Jump()
+    {
+        if (isGrounded)
+        {
+            playerRb.AddForce(Vector3.up * jumpHeight);
+            isGrounded = false;
+        }
+    }
+
+    public void SwingRacket()
+    {
+        if (canSwing)
+        {
+            canSwing = false;
+            swingRacket.Swing();
+        }
+    }
+
+    //private void MovePlayer()
+    //{
+    //    if (isControlEnabled)
+    //    {
+    //        // Move left
+    //        if ((Input.GetKey(KeyCode.A) && isPlayerOne) || (Input.GetKey(KeyCode.LeftArrow) && !isPlayerOne))
+    //        {
+    //            if (CanGoLeft())
+    //            {
+    //                playerTransform.transform.position += Vector3.left * movementSpeed * Time.deltaTime;
+
+    //            }
+    //        }
+
+    //        // Move right
+    //        if ((Input.GetKey(KeyCode.D) && isPlayerOne) || (Input.GetKey(KeyCode.RightArrow) && !isPlayerOne))
+    //        {
+    //            if (CanGoRight())
+    //            {
+    //                playerTransform.transform.position += Vector3.right * movementSpeed * Time.deltaTime;
+    //            }
+    //        }
+
+    //        // Jump
+    //        if (((Input.GetKey(KeyCode.W) && isPlayerOne) || (Input.GetKey(KeyCode.UpArrow) && !isPlayerOne)) && isGrounded)
+    //        {
+    //            playerRb.AddForce(Vector3.up * jumpHeight);
+    //            isGrounded = false;
+    //        }
+
+    //        // Swing racket
+    //        if (((Input.GetKey(KeyCode.S) && isPlayerOne) || (Input.GetKey(KeyCode.DownArrow) && !isPlayerOne)) && canSwing)
+    //        {
+    //            canSwing = false;
+    //            swingRacket.Swing();
+    //        }
+    //    }
+    //}
 
     private bool CanGoLeft()
     {

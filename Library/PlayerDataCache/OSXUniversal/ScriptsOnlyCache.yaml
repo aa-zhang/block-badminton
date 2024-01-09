@@ -1064,7 +1064,7 @@ ScriptsOnlyBuild:
     className: PlayerMovement
   - hash:
       serializedVersion: 2
-      Hash: 6d466a4f09863ebf11058b862ecea45b
+      Hash: 1597137b75f346723df8de33149b794f
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: ScoreManager

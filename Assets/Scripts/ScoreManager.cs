@@ -9,6 +9,7 @@ public class ScoreManager : MonoBehaviour
     private GameMenu menu;
 
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI winnerText;
     public int playerOneScore = 0;
     public int playerTwoScore = 0;
 
@@ -19,6 +20,7 @@ public class ScoreManager : MonoBehaviour
     {
         menu = canvas.GetComponent<GameMenu>();
         menu.ShowMenu(false);
+        winnerText.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -36,11 +38,15 @@ public class ScoreManager : MonoBehaviour
     {
         if (playerOneScore >= winningScore)
         {
+            winnerText.text = "The strongest badminton player in history wins!";
             menu.ShowMenu(true);
+            winnerText.gameObject.SetActive(true);
         }
         else if (playerTwoScore >= winningScore)
         {
+            winnerText.text = "The strongest badminton player of today wins!";
             menu.ShowMenu(true);
+            winnerText.gameObject.SetActive(true);
         }
     }    
 

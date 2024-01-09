@@ -37,6 +37,7 @@ public class GameMenu : MonoBehaviour
 
     public void ShowMenu(bool showMenu)
     {
+        Debug.Log("setting menu to " + showMenu);
         menu.SetActive(showMenu);
         //playerOneMovement.SetIsControlEnabled(false);
         //playerTwoMovement.SetIsControlEnabled(false);
