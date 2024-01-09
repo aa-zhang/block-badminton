@@ -9,12 +9,13 @@ public class PlayerMovement : MonoBehaviour
     public GameObject racket;
     private SwingRacket swingRacket;
 
-    [SerializeField] private float movementSpeed = 10f;
-    [SerializeField] private float jumpHeight = 300f;
+    [SerializeField] private float movementSpeed = 9f;
+    [SerializeField] private float jumpHeight = 800f;
     [SerializeField] public bool isPlayerOne;
     [SerializeField] private float gravity = 40;
     private float rearCourtXCoord = 11.4f;
-    private float frontCourtXCoord = 0.75f;
+    private float frontCourtXCoord = 0.8f;
+    private float servingLineXCoord = 5f;
 
     public LayerMask groundLayer;
     public bool isGrounded = true;

@@ -33,7 +33,7 @@ public class HitBirdie : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter(Collider collider)
+    private void OnTriggerStay(Collider collider)
     {
         if (collider.gameObject.layer == LayerMask.NameToLayer("Birdie"))
         {
@@ -54,12 +54,23 @@ public class HitBirdie : MonoBehaviour
                 theta -= 180;
             }
 
+            // Convert degrees to radians
             theta = theta * Mathf.PI / 180;
+
+            // Use math to calculate (x, y, z) given the theta
             Vector3 forceVector = new Vector3(Mathf.Cos(theta), Mathf.Sin(theta), 0);
+
+            // Need to use oppposite direction if hitting with underhand swing
             forceVector = swingRacket.overhand ? forceVector : -forceVector;
+
+            // Add a slight angle adjustment and then normalize the vector
             forceVector = new Vector3(forceVector.x, forceVector.y + birdieAngleAdjustment, forceVector.z).normalized;
-            if (!swingRacket.alreadyMadeContact && swingRacket.inForwardSwingAnimation)
+
+            if (swingRacket.inForwardSwingAnimation && !swingRacket.alreadyMadeContact)
             {
+                // Racket is currently in the forward swinging animation
+                // And is the first time making contact with the birdie during this swing
+
                 birdieRb.velocity = Vector3.zero;
                 birdieRb.AddForce(forceVector * racketForce);
                 swingRacket.SetAlreadyMadeContact(true);

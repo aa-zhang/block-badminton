@@ -60,7 +60,7 @@ public class BirdieMovement : MonoBehaviour
 
     private void ApplyGravity()
     {
-        birdieRb.AddForce(new Vector3(0, -3, 0));
+        birdieRb.AddForce(new Vector3(0, -4, 0));
     }
 
     private void OnCollisionEnter(Collision collision)

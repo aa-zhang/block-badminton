@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   racket: {fileID: 2581116539132796171}
-  movementSpeed: 8.5
+  movementSpeed: 9
   jumpHeight: 800
   isPlayerOne: 1
   gravity: 40
@@ -156,7 +156,7 @@ MonoBehaviour:
   birdieTransform: {fileID: 2571990510527923263, guid: 4ac0668e469b443d1bd9a0f1e88a60fa, type: 3}
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
-  racketSpeed: 0.1
+  racketSpeed: 0.09
   minOverhandHeight: 2.6
   alreadyMadeContact: 0
   overhand: 0
@@ -179,8 +179,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.73, y: 1, z: 1}
-  m_Center: {x: -0.77, y: 1, z: 0}
+  m_Size: {x: 10.93, y: 1, z: 1}
+  m_Center: {x: 0.15, y: 1, z: 0}
 --- !u!114 &2682673525795941003
 MonoBehaviour:
   m_ObjectHideFlags: 0
