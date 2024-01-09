@@ -10,7 +10,7 @@ public class SwingRacket : MonoBehaviour
 
     public bool inForwardSwingAnimation = false;
     public bool inBackwardSwingAnimation = false;
-    [SerializeField] private float racketSpeed = 0.1f;
+    [SerializeField] private float racketSpeed = 0.09f;
     [SerializeField] private float minOverhandHeight = 2.6f;
 
 
@@ -19,7 +19,7 @@ public class SwingRacket : MonoBehaviour
     private float endAngle;
     private PlayerMovement playerMovement;
     public bool alreadyMadeContact = false;
-    private bool overhand = false;
+    public bool overhand = false;
 
     // Start is called before the first frame update
     void Start()

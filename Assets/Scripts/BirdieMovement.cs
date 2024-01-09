@@ -60,7 +60,7 @@ public class BirdieMovement : MonoBehaviour
 
     private void ApplyGravity()
     {
-        birdieRb.AddForce(new Vector3(0, -2, 0));
+        birdieRb.AddForce(new Vector3(0, -3, 0));
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -70,8 +70,15 @@ public class BirdieMovement : MonoBehaviour
             scoringPlayer = birdieTransform.position.x > 0 ? 1 : 2;
             scoreManager.IncreaseScore(scoringPlayer);
 
-            isServing = true;
+            Invoke("StartNextServe", 1);
         }
+    }
+
+
+    private void StartNextServe()
+    {
+        // Using this method to delay the serve after the birdie lands on the ground
+        setIsServing(true);
     }
 
     public void setIsServing(bool isServing)

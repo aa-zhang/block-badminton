@@ -8,7 +8,7 @@ public class HitBirdie : MonoBehaviour
     private Transform racketTransform;
     private Rigidbody birdieRb;
     private SwingRacket swingRacket;
-    [SerializeField] private float racketForce = 1000f;
+    [SerializeField] private float racketForce = 300;
     [SerializeField] private float birdieAngleAdjustment = 0.1f;
 
 
@@ -55,8 +55,9 @@ public class HitBirdie : MonoBehaviour
             }
 
             theta = theta * Mathf.PI / 180;
-            Vector3 forceVector = new Vector3(Mathf.Cos(theta), Mathf.Sin(theta) + birdieAngleAdjustment, 0).normalized;
-
+            Vector3 forceVector = new Vector3(Mathf.Cos(theta), Mathf.Sin(theta), 0);
+            forceVector = swingRacket.overhand ? forceVector : -forceVector;
+            forceVector = new Vector3(forceVector.x, forceVector.y + birdieAngleAdjustment, forceVector.z).normalized;
             if (!swingRacket.alreadyMadeContact && swingRacket.inForwardSwingAnimation)
             {
                 birdieRb.velocity = Vector3.zero;

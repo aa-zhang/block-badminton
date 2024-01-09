@@ -159,6 +159,7 @@ MonoBehaviour:
   racketSpeed: 0.1
   minOverhandHeight: 2.6
   alreadyMadeContact: 0
+  overhand: 0
 --- !u!65 &835141728368954696
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -192,6 +193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63179b9a9d824849965fd3029c01a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  racketForce: 300
+  birdieAngleAdjustment: 0.3
 --- !u!1 &4370519410467223980
 GameObject:
   m_ObjectHideFlags: 0
