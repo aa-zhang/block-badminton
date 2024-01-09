@@ -6,24 +6,27 @@ public class SwingRacket : MonoBehaviour
 {
     private Transform racketTransform;
     public Transform birdieTransform;
+    private Transform playerTransform;
+    private PlayerMovement playerMovement;
 
+    public bool alreadyMadeContact = false;
+    public bool overhand = false;
 
+    // Animation variables
     public bool inForwardSwingAnimation = false;
     public bool inBackwardSwingAnimation = false;
     [SerializeField] private float racketSpeed = 0.09f;
-    [SerializeField] private float minOverhandHeight = 2.6f;
-
-
     private float racketTimer = 0f;
+
     private Vector3 defaultAngle = new Vector3(0, 0, 55);
     private float endAngle;
-    private PlayerMovement playerMovement;
-    public bool alreadyMadeContact = false;
-    public bool overhand = false;
+
+    
 
     // Start is called before the first frame update
     void Start()
     {
+        playerTransform = transform.parent.gameObject.transform;
         playerMovement = transform.parent.gameObject.GetComponent<PlayerMovement>();
         racketTransform = gameObject.transform;
     }
@@ -48,7 +51,7 @@ public class SwingRacket : MonoBehaviour
         inForwardSwingAnimation = true;
 
         // Check the birdie position to determine how the player should swing
-        if ((birdieTransform.position.y < minOverhandHeight) &&
+        if ((playerTransform.position.y - birdieTransform.position.y > 0) &&
             ((playerMovement.isPlayerOne && birdieTransform.position.x < 0) ||
             (!playerMovement.isPlayerOne && birdieTransform.position.x > 0)))
         {

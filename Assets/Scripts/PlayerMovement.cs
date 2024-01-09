@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private float servingLineXCoord = 5f;
 
     public LayerMask groundLayer;
-    public bool isGrounded = true;
+    private bool isGrounded = true;
     private bool canSwing = true;
 
 
