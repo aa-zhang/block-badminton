@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class HitBirdie : MonoBehaviour
 {
+    public GameObject birdie;
+
     private Transform racketTransform;
     private Rigidbody birdieRb;
     private SwingRacket swingRacket;
@@ -20,7 +22,7 @@ public class HitBirdie : MonoBehaviour
     {
         racketTransform = gameObject.transform;
         swingRacket = gameObject.GetComponent<SwingRacket>();
-        birdieRb = GameObject.Find("Birdie").GetComponent<Rigidbody>();
+        birdieRb = birdie.GetComponent<Rigidbody>();
         player = racketTransform.parent.gameObject;
         playerMovement = player.GetComponent<PlayerMovement>();
     }

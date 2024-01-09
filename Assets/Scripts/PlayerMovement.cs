@@ -17,10 +17,12 @@ public class PlayerMovement : MonoBehaviour
     private float rearCourtXCoord = 11.4f;
     private float frontCourtXCoord = 0.8f;
     private float servingLineXCoord = 5f;
+    public float startingXCoord = 6.14f;
 
     public LayerMask groundLayer;
     private bool isGrounded = true;
     private bool canSwing = true;
+    private bool isControlEnabled = true;
 
 
     // Start is called before the first frame update
@@ -52,30 +54,40 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        if ((Input.GetKey(KeyCode.A) && isPlayerOne) || (Input.GetKey(KeyCode.LeftArrow) && !isPlayerOne))
+        if (isControlEnabled)
         {
-            if (CanGoLeft())
+            // Move left
+            if ((Input.GetKey(KeyCode.A) && isPlayerOne) || (Input.GetKey(KeyCode.LeftArrow) && !isPlayerOne))
             {
-                playerTransform.transform.position += Vector3.left * movementSpeed * Time.deltaTime;
+                if (CanGoLeft())
+                {
+                    playerTransform.transform.position += Vector3.left * movementSpeed * Time.deltaTime;
 
+                }
             }
-        }
-        if ((Input.GetKey(KeyCode.D) && isPlayerOne) || (Input.GetKey(KeyCode.RightArrow) && !isPlayerOne))
-        {
-            if (CanGoRight())
+
+            // Move right
+            if ((Input.GetKey(KeyCode.D) && isPlayerOne) || (Input.GetKey(KeyCode.RightArrow) && !isPlayerOne))
             {
-                playerTransform.transform.position += Vector3.right * movementSpeed * Time.deltaTime;
+                if (CanGoRight())
+                {
+                    playerTransform.transform.position += Vector3.right * movementSpeed * Time.deltaTime;
+                }
             }
-        }
-        if (((Input.GetKey(KeyCode.W) && isPlayerOne) || (Input.GetKey(KeyCode.UpArrow) && !isPlayerOne)) && isGrounded)
-        {
-            playerRb.AddForce(Vector3.up * jumpHeight);
-            isGrounded = false;
-        }
-        if (((Input.GetKey(KeyCode.S) && isPlayerOne) || (Input.GetKey(KeyCode.DownArrow) && !isPlayerOne)) && canSwing)
-        {
-            canSwing = false;
-            swingRacket.Swing();
+
+            // Jump
+            if (((Input.GetKey(KeyCode.W) && isPlayerOne) || (Input.GetKey(KeyCode.UpArrow) && !isPlayerOne)) && isGrounded)
+            {
+                playerRb.AddForce(Vector3.up * jumpHeight);
+                isGrounded = false;
+            }
+
+            // Swing racket
+            if (((Input.GetKey(KeyCode.S) && isPlayerOne) || (Input.GetKey(KeyCode.DownArrow) && !isPlayerOne)) && canSwing)
+            {
+                canSwing = false;
+                swingRacket.Swing();
+            }
         }
     }
 
@@ -150,5 +162,10 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         
+    }
+
+    public void SetIsControlEnabled(bool enabled)
+    {
+        isControlEnabled = enabled;
     }
 }

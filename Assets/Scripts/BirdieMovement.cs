@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class BirdieMovement : MonoBehaviour
 {
-    private ScoreManager scoreManager;
-    private Rigidbody birdieRb;
-    private Transform birdieTransform;
+    public ScoreManager scoreManager;
+
+    public GameObject playerOne;
+    public GameObject playerTwo;
 
     private Transform playerOneTransform;
     private Transform playerTwoTransform;
 
     private PlayerMovement playerOneMovement;
     private PlayerMovement playerTwoMovement;
+
+    private Rigidbody birdieRb;
+    private Transform birdieTransform;
 
     private int scoringPlayerNum;
 
@@ -24,11 +28,12 @@ public class BirdieMovement : MonoBehaviour
     {
         birdieRb = gameObject.GetComponent<Rigidbody>();
         birdieTransform = gameObject.transform;
-        scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-        playerOneTransform = GameObject.Find("Player 1").transform;
-        playerTwoTransform = GameObject.Find("Player 2").transform;
-        playerOneMovement = GameObject.Find("Player 1").GetComponent<PlayerMovement>();
-        playerTwoMovement = GameObject.Find("Player 2").GetComponent<PlayerMovement>();
+        playerOneTransform = playerOne.transform;
+        playerTwoTransform = playerTwo.transform;
+        playerOneMovement = playerOne.GetComponent<PlayerMovement>();
+        playerTwoMovement = playerTwo.GetComponent<PlayerMovement>();
+
+        SetIgnoreBirdieCollision(false);
     }
 
     // Update is called once per frame
@@ -74,9 +79,7 @@ public class BirdieMovement : MonoBehaviour
             scoreManager.IncreaseScore(scoringPlayerNum);
 
             // Prevent players from hitting the birdie after it lands
-            int racketLayer = LayerMask.NameToLayer("Racket");
-            int birdieLayer = LayerMask.NameToLayer("Birdie");
-            Physics.IgnoreLayerCollision(racketLayer, birdieLayer, true);
+            SetIgnoreBirdieCollision(true);
 
             Invoke("StartNextServe", 1);
         }
@@ -86,9 +89,7 @@ public class BirdieMovement : MonoBehaviour
     private void StartNextServe()
     {
         // Re-enable the racket-birdie collision
-        int racketLayer = LayerMask.NameToLayer("Racket");
-        int birdieLayer = LayerMask.NameToLayer("Birdie");
-        Physics.IgnoreLayerCollision(racketLayer, birdieLayer, false);
+        SetIgnoreBirdieCollision(false);
 
         if (scoringPlayerNum == 1)
         {
@@ -98,6 +99,14 @@ public class BirdieMovement : MonoBehaviour
         {
             playerTwoMovement.SetIsServing(true);
         }
+    }
+
+    private void SetIgnoreBirdieCollision(bool ignoreCollision)
+    {
+        int racketLayer = LayerMask.NameToLayer("Racket");
+        int birdieLayer = LayerMask.NameToLayer("Birdie");
+        Physics.IgnoreLayerCollision(racketLayer, birdieLayer, ignoreCollision);
+
     }
 
 }
