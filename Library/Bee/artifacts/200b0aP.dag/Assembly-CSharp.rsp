@@ -308,6 +308,7 @@
 "Assets/Scripts/BirdieMovement.cs"
 "Assets/Scripts/GameMenu.cs"
 "Assets/Scripts/HitBirdie.cs"
+"Assets/Scripts/InputManager.cs"
 "Assets/Scripts/PlayerMovement.cs"
 "Assets/Scripts/ScoreManager.cs"
 "Assets/Scripts/SwingRacket.cs"

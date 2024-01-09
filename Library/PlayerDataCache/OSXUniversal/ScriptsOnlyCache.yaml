@@ -4,6 +4,7 @@ ScriptsOnlyBuild:
     - BirdieMovement
     - GameMenu
     - HitBirdie
+    - InputManager
     - PlayerMovement
     - ScoreManager
     - SwingRacket
@@ -136,6 +137,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 34894}
     - Class: 114
       Script: {instanceID: 50338}
+    - Class: 114
+      Script: {instanceID: 70830}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1080,6 +1083,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: GameMenu
+  - hash:
+      serializedVersion: 2
+      Hash: ec9b5c79dc571bba98f35d49f375bb66
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: InputManager
   platform: 2
   scenePathNames:
   - Assets/Scenes/StartScene.unity

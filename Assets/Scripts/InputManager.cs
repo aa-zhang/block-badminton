@@ -10,6 +10,9 @@ public class InputManager : MonoBehaviour
     private PlayerMovement playerOneMovement;
     private PlayerMovement playerTwoMovement;
 
+    public GameObject canvas;
+    private GameMenu menu;
+
     private bool playerControlsEnabled = true;
 
 
@@ -18,6 +21,7 @@ public class InputManager : MonoBehaviour
     {
         playerOneMovement = playerOne.GetComponent<PlayerMovement>();
         playerTwoMovement = playerTwo.GetComponent<PlayerMovement>();
+        menu = canvas.GetComponent<GameMenu>();
     }
 
     // Update is called once per frame
@@ -72,5 +76,15 @@ public class InputManager : MonoBehaviour
                 playerTwoMovement.SwingRacket();
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            menu.ToggleMenu();
+        }
+    }
+
+    public void setPlayerControlsEnabled(bool enabled)
+    {
+        playerControlsEnabled = enabled;
     }
 }

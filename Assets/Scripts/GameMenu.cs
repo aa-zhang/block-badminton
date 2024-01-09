@@ -43,5 +43,10 @@ public class GameMenu : MonoBehaviour
         //playerTwoMovement.SetIsControlEnabled(false);
     }
 
+    public void ToggleMenu()
+    {
+        menu.SetActive(!menu.activeSelf);
+    }
+
 
 }

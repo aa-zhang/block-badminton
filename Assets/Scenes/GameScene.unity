@@ -1719,6 +1719,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerOne: {fileID: 1146350550}
   playerTwo: {fileID: 210759494}
+  canvas: {fileID: 1009263550}
 --- !u!4 &1231928034
 Transform:
   m_ObjectHideFlags: 0
