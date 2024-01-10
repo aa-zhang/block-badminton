@@ -148,6 +148,19 @@ MonoBehaviour:
   scoreManager: {fileID: 771566073}
   playerOne: {fileID: 1146350550}
   playerTwo: {fileID: 210759494}
+--- !u!114 &59255013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 59255001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 221a8277ffab84763a793620e041fd62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalPs: {fileID: 1257811715}
 --- !u!1001 &68055663
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1331,6 +1344,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8293879021293375692, guid: 4ac0668e469b443d1bd9a0f1e88a60fa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 59255008}
+    - targetCorrespondingSourceObject: {fileID: 8293879021293375692, guid: 4ac0668e469b443d1bd9a0f1e88a60fa, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 59255013}
   m_SourcePrefab: {fileID: 100100000, guid: 4ac0668e469b443d1bd9a0f1e88a60fa, type: 3}
 --- !u!1 &771566072
 GameObject:
@@ -1441,7 +1457,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 65
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1468,7 +1484,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 7.1, z: -15}
+  m_LocalPosition: {x: 0, y: 7.62, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1979,7 +1995,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -2097,7 +2113,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.3
+      scalar: 0.2
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -2561,7 +2577,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.2
+      value: 0.1
       mode: 0
       spread: 0
       speed:
