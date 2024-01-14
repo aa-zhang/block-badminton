@@ -5,9 +5,14 @@ using UnityEngine;
 public class SwingRacket : MonoBehaviour
 {
     private Transform racketTransform;
-    public Transform birdieTransform;
+
+    public GameObject birdie;
+    private Transform birdieTransform;
+    private BirdieParticleController birdiePsController;
+
     private Transform playerTransform;
     private PlayerMovement playerMovement;
+
 
     public bool alreadyMadeContact = false;
     public bool overhand = false;
@@ -29,6 +34,9 @@ public class SwingRacket : MonoBehaviour
         playerTransform = transform.parent.gameObject.transform;
         playerMovement = transform.parent.gameObject.GetComponent<PlayerMovement>();
         racketTransform = gameObject.transform;
+
+        birdieTransform = birdie.transform;
+        birdiePsController = birdie.GetComponent<BirdieParticleController>();
     }
 
     // Update is called once per frame
@@ -60,6 +68,12 @@ public class SwingRacket : MonoBehaviour
         else
         {
             overhand = true;
+        }
+
+        // Start timer for black flash detection
+        if (playerMovement.isServing)
+        {
+            birdiePsController.ResetServeTimer();
         }
     }
 
@@ -112,5 +126,6 @@ public class SwingRacket : MonoBehaviour
     {
         alreadyMadeContact = madeContact;
     }
+
 
 }

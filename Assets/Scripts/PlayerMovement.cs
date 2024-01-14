@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public bool isPlayerOne;
     [SerializeField] private float gravity = 40;
     [SerializeField] public bool isServing = false;
+
+    // Court X-position constants
     private float rearCourtXCoord = 11.4f;
     private float frontCourtXCoord = 0.8f;
     private float servingLineXCoord = 5f;
@@ -22,7 +24,6 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundLayer;
     private bool isGrounded = true;
     private bool canSwing = true;
-    private bool isControlEnabled = true;
 
 
     // Start is called before the first frame update
@@ -70,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
-        if (isGrounded)
+        if (isGrounded && !isServing)
         {
             playerRb.AddForce(Vector3.up * jumpHeight);
             isGrounded = false;
@@ -85,45 +86,6 @@ public class PlayerMovement : MonoBehaviour
             swingRacket.Swing();
         }
     }
-
-    //private void MovePlayer()
-    //{
-    //    if (isControlEnabled)
-    //    {
-    //        // Move left
-    //        if ((Input.GetKey(KeyCode.A) && isPlayerOne) || (Input.GetKey(KeyCode.LeftArrow) && !isPlayerOne))
-    //        {
-    //            if (CanGoLeft())
-    //            {
-    //                playerTransform.transform.position += Vector3.left * movementSpeed * Time.deltaTime;
-
-    //            }
-    //        }
-
-    //        // Move right
-    //        if ((Input.GetKey(KeyCode.D) && isPlayerOne) || (Input.GetKey(KeyCode.RightArrow) && !isPlayerOne))
-    //        {
-    //            if (CanGoRight())
-    //            {
-    //                playerTransform.transform.position += Vector3.right * movementSpeed * Time.deltaTime;
-    //            }
-    //        }
-
-    //        // Jump
-    //        if (((Input.GetKey(KeyCode.W) && isPlayerOne) || (Input.GetKey(KeyCode.UpArrow) && !isPlayerOne)) && isGrounded)
-    //        {
-    //            playerRb.AddForce(Vector3.up * jumpHeight);
-    //            isGrounded = false;
-    //        }
-
-    //        // Swing racket
-    //        if (((Input.GetKey(KeyCode.S) && isPlayerOne) || (Input.GetKey(KeyCode.DownArrow) && !isPlayerOne)) && canSwing)
-    //        {
-    //            canSwing = false;
-    //            swingRacket.Swing();
-    //        }
-    //    }
-    //}
 
     private bool CanGoLeft()
     {
@@ -198,8 +160,4 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
-    public void SetIsControlEnabled(bool enabled)
-    {
-        isControlEnabled = enabled;
-    }
 }

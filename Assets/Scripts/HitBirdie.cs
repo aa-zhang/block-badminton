@@ -5,6 +5,7 @@ using UnityEngine;
 public class HitBirdie : MonoBehaviour
 {
     public GameObject birdie;
+    private BirdieParticleController birdiePsController;
 
     private Transform racketTransform;
     private Rigidbody birdieRb;
@@ -25,6 +26,7 @@ public class HitBirdie : MonoBehaviour
         birdieRb = birdie.GetComponent<Rigidbody>();
         player = racketTransform.parent.gameObject;
         playerMovement = player.GetComponent<PlayerMovement>();
+        birdiePsController = birdie.GetComponent<BirdieParticleController>();
     }
 
     // Update is called once per frame
@@ -58,7 +60,7 @@ public class HitBirdie : MonoBehaviour
             }
 
             // Convert degrees to radians
-            theta = theta * Mathf.PI / 180;
+            theta = theta * Mathf.Deg2Rad;
 
             // Use math to calculate (x, y, z) given the theta
             Vector3 forceVector = new Vector3(Mathf.Cos(theta), Mathf.Sin(theta), 0);
@@ -75,7 +77,7 @@ public class HitBirdie : MonoBehaviour
                 // And is the first time making contact with the birdie during this swing
 
                 birdieRb.velocity = Vector3.zero;
-                birdieRb.AddForce(forceVector * racketForce);
+                birdieRb.AddForce(forceVector * racketForce, ForceMode.Impulse);
                 swingRacket.SetAlreadyMadeContact(true);
                 playerMovement.SetIsServing(false);
                 Debug.Log("hit the bertholdt with force. ARE WE DOING IT REINIER?!?!?" + forceVector);

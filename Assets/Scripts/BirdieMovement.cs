@@ -75,6 +75,7 @@ public class BirdieMovement : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Floor"))
         {
+            // Determine if player 1 or 2 should receive the point
             scoringPlayerNum = birdieTransform.position.x > 0 ? 1 : 2;
             scoreManager.IncreaseScore(scoringPlayerNum);
 

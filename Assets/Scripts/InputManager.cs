@@ -32,6 +32,7 @@ public class InputManager : MonoBehaviour
 
     private void ReadInput()
     {
+        // Player Movement Controls
         if (playerControlsEnabled)
         {
             // Move left
@@ -77,6 +78,7 @@ public class InputManager : MonoBehaviour
             }
         }
 
+        // UI Controls
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             menu.ToggleMenu();

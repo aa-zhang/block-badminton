@@ -160,7 +160,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221a8277ffab84763a793620e041fd62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalPs: {fileID: 1257811715}
+  birdiePs: {fileID: 1257811715}
+  psGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 0, b: 0, a: 1}
+    key1: {r: 1, g: 1, b: 0, a: 1}
+    key2: {r: 1, g: 1, b: 1, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 16384
+    ctime1: 42020
+    ctime2: 65535
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 2
+    m_ColorSpace: -1
+    m_NumColorKeys: 3
+    m_NumAlphaKeys: 2
+  blackFlashPs: {fileID: 798941457}
 --- !u!1001 &68055663
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -187,8 +218,12 @@ PrefabInstance:
       objectReference: {fileID: 59255001}
     - target: {fileID: 2682673525795941003, guid: d43e2fdb70f25483e9f045a83a674223, type: 3}
       propertyPath: racketForce
-      value: 300
+      value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 4581602975282364509, guid: d43e2fdb70f25483e9f045a83a674223, type: 3}
+      propertyPath: birdie
+      value: 
+      objectReference: {fileID: 59255001}
     - target: {fileID: 4581602975282364509, guid: d43e2fdb70f25483e9f045a83a674223, type: 3}
       propertyPath: birdieTransform
       value: 
@@ -6390,7 +6425,7 @@ MonoBehaviour:
     m_Bits: 2
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
-  antialiasingMode: 1
+  antialiasingMode: 0
   temporalAntialiasing:
     jitterSpread: 0.75
     sharpness: 0.25
@@ -11724,6 +11759,14 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2682673525795941003, guid: d43e2fdb70f25483e9f045a83a674223, type: 3}
+      propertyPath: birdie
+      value: 
+      objectReference: {fileID: 59255001}
+    - target: {fileID: 2682673525795941003, guid: d43e2fdb70f25483e9f045a83a674223, type: 3}
+      propertyPath: racketForce
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4581602975282364509, guid: d43e2fdb70f25483e9f045a83a674223, type: 3}
       propertyPath: birdie
       value: 
       objectReference: {fileID: 59255001}
