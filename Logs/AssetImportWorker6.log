@@ -12142,3 +12142,67 @@ AssetImportParameters requested are different than current active one (requested
   custom:scripting/monoscript/fileName/GetInstallerTmpFileName.cs: fa7bda723ac795b48e38504727f44981 -> d09e0b5c7a9af5874530e17ef23025f0
   custom:scripting/monoscript/fileName/AssetModificationProcessor.cs: 84d720d70e5c24b7d0630ef5cea215ce -> a602c9e59e7db185e3a0d68d986e6fef
   custom:scripting/monoscript/fileName/IsCollabProjectMigratedResponse.cs: 4c3294c6a51e6f42161d191230692016 -> af2b76c693935deee55cfcaed2aa7568
+========================================================================
+Received Import Request.
+  Time since last request: 41704.873994 seconds.
+  path: Assets/Materials/BlackLightning.mat
+  artifactKey: Guid(5ab3798224e934494bbc88a6c4eedad8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Materials/BlackLightning.mat using Guid(5ab3798224e934494bbc88a6c4eedad8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f61c3419d5cb8ee46a0b8c45076da1de') in 0.362941 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 121.767509 seconds.
+  path: Assets/Materials/BlackLightningMap.png
+  artifactKey: Guid(5ff672f79c46649f69bb71ba2dd206f1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Materials/BlackLightningMap.png using Guid(5ff672f79c46649f69bb71ba2dd206f1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4bf4b3936bd17bf11dfc1213e3aa2fca') in 0.022656 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 11.959079 seconds.
+  path: Assets/Materials/BlackLightningEmissionMap.png
+  artifactKey: Guid(5ff672f79c46649f69bb71ba2dd206f1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Materials/BlackLightningEmissionMap.png using Guid(5ff672f79c46649f69bb71ba2dd206f1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '530d2ce2c93cf2c515e1dc1b4942db25') in 0.007648 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 4.269712 seconds.
+  path: Assets/Prefabs/Electricity.prefab
+  artifactKey: Guid(0310b8628b5599c4295215fedba1a232) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Electricity.prefab using Guid(0310b8628b5599c4295215fedba1a232) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '39dc19dae91910191951864bbbeb4b3b') in 0.034367 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 6
+========================================================================
+Received Import Request.
+  Time since last request: 83.234666 seconds.
+  path: Assets/Prefabs/Birdie.prefab
+  artifactKey: Guid(4ac0668e469b443d1bd9a0f1e88a60fa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Birdie.prefab using Guid(4ac0668e469b443d1bd9a0f1e88a60fa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bbffd8673d1cdf1c73d363d817c5991e') in 0.140576 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 20
+========================================================================
+Received Import Request.
+  Time since last request: 30.327450 seconds.
+  path: Assets/Scenes/GameScene_Profiles
+  artifactKey: Guid(f3b96297e14cd47179f49c38370c55dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/GameScene_Profiles using Guid(f3b96297e14cd47179f49c38370c55dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'abdbe5c9fb9be9982ed99468f2419523') in 0.000555 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.768978 seconds.
+  path: Assets/Scenes/GameScene.unity
+  artifactKey: Guid(9fc0d4010bbf28b4594072e72b8655ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/GameScene.unity using Guid(9fc0d4010bbf28b4594072e72b8655ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '30e4150cb06527f76c6e113847752aa6') in 0.000733 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.488465 seconds.
+  path: Assets/Scenes/GameScene_Profiles/Main Camera Profile.asset
+  artifactKey: Guid(4529e704da70a46a1ace805d227ccbdb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/GameScene_Profiles/Main Camera Profile.asset using Guid(4529e704da70a46a1ace805d227ccbdb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '46da90ac1e6235d4f7039adf5f556e42') in 0.011911 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
