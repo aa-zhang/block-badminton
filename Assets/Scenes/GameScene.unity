@@ -149,10 +149,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 2581116539132796171, guid: d43e2fdb70f25483e9f045a83a674223, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 2682673525795941003, guid: d43e2fdb70f25483e9f045a83a674223, type: 3}
       propertyPath: birdie
       value: 
@@ -1987,18 +1983,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 2581116539132796171, guid: d43e2fdb70f25483e9f045a83a674223, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 2682673525795941003, guid: d43e2fdb70f25483e9f045a83a674223, type: 3}
       propertyPath: birdie
       value: 
       objectReference: {fileID: 59255001}
-    - target: {fileID: 2682673525795941003, guid: d43e2fdb70f25483e9f045a83a674223, type: 3}
-      propertyPath: racketForce
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 4581602975282364509, guid: d43e2fdb70f25483e9f045a83a674223, type: 3}
       propertyPath: birdie
       value: 

@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 4246975248015433077}
   - component: {fileID: 4581602975282364509}
   - component: {fileID: 2682673525795941003}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Racket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   birdie: {fileID: 0}
-  racketForce: 300
+  racketForce: 6
   birdieAngleAdjustment: 0.3
 --- !u!1 &4370519410467223980
 GameObject:
@@ -436,7 +436,7 @@ GameObject:
   - component: {fileID: 6563204021284687976}
   - component: {fileID: 3299208460756845846}
   - component: {fileID: 3314592012614727660}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Backward Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -491,7 +491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c466f71cbec2d496f8d0d0c300590bcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isForwardCollider: 0
+  isOverhandCollider: 0
 --- !u!1 &8434444680338634680
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,7 +503,7 @@ GameObject:
   - component: {fileID: 4857227714125937069}
   - component: {fileID: 1598587224061133935}
   - component: {fileID: 6149000668041958183}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Forward Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -558,4 +558,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c466f71cbec2d496f8d0d0c300590bcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isForwardCollider: 1
+  isOverhandCollider: 1
