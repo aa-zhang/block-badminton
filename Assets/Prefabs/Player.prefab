@@ -53,10 +53,11 @@ MonoBehaviour:
   jumpHeight: 800
   isPlayerOne: 1
   gravity: 40
+  isServing: 0
+  startingXCoord: 6.14
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  isGrounded: 1
 --- !u!54 &3151730888727318703
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -115,7 +116,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4246975248015433077}
   - component: {fileID: 4581602975282364509}
-  - component: {fileID: 835141728368954696}
   - component: {fileID: 2682673525795941003}
   m_Layer: 9
   m_Name: Racket
@@ -139,6 +139,8 @@ Transform:
   m_Children:
   - {fileID: 2265573417253589615}
   - {fileID: 4858443145902691871}
+  - {fileID: 4857227714125937069}
+  - {fileID: 6563204021284687976}
   m_Father: {fileID: 8400001493716180215}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 55}
 --- !u!114 &4581602975282364509
@@ -153,34 +155,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 375facb997834452d8304c10c502ef78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  birdieTransform: {fileID: 2571990510527923263, guid: 4ac0668e469b443d1bd9a0f1e88a60fa, type: 3}
+  birdie: {fileID: 0}
+  alreadyMadeContact: 0
+  overhand: 0
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
-  minOverhandHeight: 2.6
-  alreadyMadeContact: 0
-  overhand: 0
---- !u!65 &835141728368954696
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2581116539132796171}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 10.93, y: 1, z: 1}
-  m_Center: {x: 0.15, y: 1, z: 0}
 --- !u!114 &2682673525795941003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,6 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63179b9a9d824849965fd3029c01a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  birdie: {fileID: 0}
   racketForce: 300
   birdieAngleAdjustment: 0.3
 --- !u!1 &4370519410467223980
@@ -444,3 +425,137 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7003490851679397528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6563204021284687976}
+  - component: {fileID: 3299208460756845846}
+  - component: {fileID: 3314592012614727660}
+  m_Layer: 9
+  m_Name: Backward Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6563204021284687976
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7003490851679397528}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4246975248015433077}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3299208460756845846
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7003490851679397528}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5, y: 1, z: 1}
+  m_Center: {x: -2.75, y: 1, z: 0}
+--- !u!114 &3314592012614727660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7003490851679397528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c466f71cbec2d496f8d0d0c300590bcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isForwardCollider: 0
+--- !u!1 &8434444680338634680
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4857227714125937069}
+  - component: {fileID: 1598587224061133935}
+  - component: {fileID: 6149000668041958183}
+  m_Layer: 9
+  m_Name: Forward Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4857227714125937069
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434444680338634680}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4246975248015433077}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1598587224061133935
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434444680338634680}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5, y: 1, z: 1}
+  m_Center: {x: 2.75, y: 1, z: 0}
+--- !u!114 &6149000668041958183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434444680338634680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c466f71cbec2d496f8d0d0c300590bcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isForwardCollider: 1

@@ -5,7 +5,6 @@ using UnityEngine;
 public class HitBirdie : MonoBehaviour
 {
     public GameObject birdie;
-    private BirdieParticleController birdiePsController;
 
     private Transform racketTransform;
     private Rigidbody birdieRb;
@@ -26,7 +25,6 @@ public class HitBirdie : MonoBehaviour
         birdieRb = birdie.GetComponent<Rigidbody>();
         player = racketTransform.parent.gameObject;
         playerMovement = player.GetComponent<PlayerMovement>();
-        birdiePsController = birdie.GetComponent<BirdieParticleController>();
     }
 
     // Update is called once per frame
@@ -40,52 +38,57 @@ public class HitBirdie : MonoBehaviour
 
     }
 
-    private void OnTriggerStay(Collider collider)
+    public void ApplyForceToBirdie(bool isOverhandCollider)
     {
-        if (collider.gameObject.layer == LayerMask.NameToLayer("Birdie"))
+        // Don't register collisions for the incorrect collider
+        if ((swingRacket.overhand && !isOverhandCollider) || (!swingRacket.overhand && isOverhandCollider))
         {
-            float theta;
-            if (playerMovement.isPlayerOne)
-            {
-                theta = racketTransform.eulerAngles.z;
-            }
-            else
-            {
-                theta = 180 - racketTransform.eulerAngles.z;
-            }
+            return;
+        }
 
-            if (swingRacket.inBackwardSwingAnimation)
-            {
-                theta -= 180;
-            }
+        // Get racket angle
+        float theta;
+        if (playerMovement.isPlayerOne)
+        {
+            theta = racketTransform.eulerAngles.z;
+        }
+        else
+        {
+            theta = 180 - racketTransform.eulerAngles.z;
+        }
 
-            // Convert degrees to radians
-            theta = theta * Mathf.Deg2Rad;
+        if (swingRacket.inBackwardSwingAnimation)
+        {
+            theta -= 180;
+        }
 
-            // Use math to calculate (x, y, z) given the theta
-            Vector3 forceVector = new Vector3(Mathf.Cos(theta), Mathf.Sin(theta), 0);
+        // Convert degrees to radians
+        theta = theta * Mathf.Deg2Rad;
 
-            // Need to use oppposite direction if hitting with underhand swing
-            forceVector = swingRacket.overhand ? forceVector : -forceVector;
+        // Calculate (x, y, z) vector given the theta
+        Vector3 forceVector = new Vector3(Mathf.Cos(theta), Mathf.Sin(theta), 0);
 
-            // Add a slight angle adjustment and then normalize the vector
-            forceVector = new Vector3(forceVector.x, forceVector.y + birdieAngleAdjustment, forceVector.z).normalized;
+        // Need to use oppposite direction if hitting with underhand swing
+        forceVector = swingRacket.overhand ? forceVector : -forceVector;
 
-            if (swingRacket.inForwardSwingAnimation && !swingRacket.alreadyMadeContact)
-            {
-                // Racket is currently in the forward swinging animation
-                // And is the first time making contact with the birdie during this swing
+        // Add a slight angle adjustment and then normalize the vector
+        forceVector = new Vector3(forceVector.x, forceVector.y + birdieAngleAdjustment, forceVector.z).normalized;
 
-                birdieRb.velocity = Vector3.zero;
-                birdieRb.AddForce(forceVector * racketForce, ForceMode.Impulse);
-                swingRacket.SetAlreadyMadeContact(true);
-                playerMovement.SetIsServing(false);
-                Debug.Log("hit the bertholdt with force. ARE WE DOING IT REINIER?!?!?" + forceVector);
-                Debug.Log("theta " + theta);
-            }
+        if (swingRacket.inForwardSwingAnimation && !swingRacket.alreadyMadeContact)
+        {
+            // Racket is currently in the forward swinging animation
+            // And is the first time making contact with the birdie during this swing
 
+            birdieRb.velocity = Vector3.zero;
+            birdieRb.AddForce(forceVector * racketForce, ForceMode.Impulse);
+            swingRacket.SetAlreadyMadeContact(true);
+            playerMovement.SetIsServing(false);
+            Debug.Log("hit the bertholdt with force. ARE WE DOING IT REINIER?!?!?" + forceVector);
+            Debug.Log("theta " + theta);
         }
 
     }
+
+    
 
 }
