@@ -10,10 +10,14 @@ public class ScoreManager : MonoBehaviour
 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI winnerText;
+    public TextMeshProUGUI matchText;
+
     public int playerOneScore = 0;
     public int playerTwoScore = 0;
 
-    [SerializeField] private int winningScore = 21;
+    [SerializeField] private int winningScore = 21; // Default winning score
+    [SerializeField] private int maxScore = 30; // Deuce score cap
+
 
     // Start is called before the first frame update
     void Start()
@@ -36,18 +40,42 @@ public class ScoreManager : MonoBehaviour
 
     private void CheckScore()
     {
-        if (playerOneScore >= winningScore)
+        int winningPlayerScore = Mathf.Max(playerOneScore, playerTwoScore);
+        int losingPlayerScore = Mathf.Min(playerOneScore, playerTwoScore);
+
+        // Check if the match is in a Duece or Match Point state
+        if (winningPlayerScore >= winningScore - 1)
         {
-            winnerText.text = "The strongest badminton player in history wins!";
-            menu.ShowMenu(true);
-            winnerText.gameObject.SetActive(true);
+            if (winningPlayerScore == losingPlayerScore)
+            {
+                matchText.text = "Deuce";
+            }
+            else
+            {
+                matchText.text = "Match Point";
+            } 
         }
-        else if (playerTwoScore >= winningScore)
+
+
+        // Check if a player has won
+        if ((winningPlayerScore >= winningScore && winningPlayerScore - losingPlayerScore >= 2) || winningPlayerScore == maxScore)
         {
-            winnerText.text = "The strongest badminton player of today wins!";
-            menu.ShowMenu(true);
-            winnerText.gameObject.SetActive(true);
+            matchText.text = "Match Over!";
+
+            if (playerOneScore >= winningScore)
+            {
+                winnerText.text = "The strongest badminton player in history wins!";
+                menu.ShowMenu(true);
+                winnerText.gameObject.SetActive(true);
+            }
+            else if (playerTwoScore >= winningScore)
+            {
+                winnerText.text = "The strongest badminton player of today wins!";
+                menu.ShowMenu(true);
+                winnerText.gameObject.SetActive(true);
+            }
         }
+        
     }    
 
     private void DisplayScore()
