@@ -34,15 +34,6 @@ public class SwingRacket : MonoBehaviour
         playerTransform = transform.parent.gameObject.transform;
         playerMovement = transform.parent.gameObject.GetComponent<PlayerMovement>();
         racketTransform = gameObject.transform;
-
-        birdieTransform = birdie.transform;
-        birdiePsController = birdie.GetComponent<BirdieParticleController>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void FixedUpdate()
@@ -53,9 +44,18 @@ public class SwingRacket : MonoBehaviour
         }
     }
 
+
+    public void InitializeBirdie(GameObject birdie)
+    {
+        this.birdie = birdie;
+        birdieTransform = birdie.transform;
+        birdiePsController = birdie.GetComponent<BirdieParticleController>();
+    }
+
+
     public void Swing()
     {
-        // Begin forward swing animation
+        // Begin the forward swing animation
         inForwardSwingAnimation = true;
 
         // Check the birdie position to determine how the player should swing
@@ -79,6 +79,8 @@ public class SwingRacket : MonoBehaviour
 
     private void PerformSwingAnimation()
     {
+        // This method is called on each FixedUpdate iteration to set the next frame of the swing animation
+
         // Calculate the lerped angle of the racket
         float lerpedAngle = 0;
         if (inForwardSwingAnimation)

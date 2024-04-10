@@ -6,15 +6,6 @@ public class BirdieMovement : MonoBehaviour
 {
     public ScoreManager scoreManager;
 
-    public GameObject playerOne;
-    public GameObject playerTwo;
-
-    private Transform playerOneTransform;
-    private Transform playerTwoTransform;
-
-    private PlayerMovement playerOneMovement;
-    private PlayerMovement playerTwoMovement;
-
     private Rigidbody birdieRb;
     private Transform birdieTransform;
 
@@ -28,42 +19,36 @@ public class BirdieMovement : MonoBehaviour
     {
         birdieRb = gameObject.GetComponent<Rigidbody>();
         birdieTransform = gameObject.transform;
-        playerOneTransform = playerOne.transform;
-        playerTwoTransform = playerTwo.transform;
-        playerOneMovement = playerOne.GetComponent<PlayerMovement>();
-        playerTwoMovement = playerTwo.GetComponent<PlayerMovement>();
 
         SetIgnoreBirdieCollision(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void FixedUpdate()
     {
-        if (playerOneMovement.isServing || playerTwoMovement.isServing)
-        {
-            FollowPlayer();
-        }
-        else
-        {
-            ApplyGravity();
-        }
+        ApplyGravity();
     }
 
-    private void FollowPlayer()
+    private void OnEnable()
     {
-        if (playerOneMovement.isServing)
-        {
-            birdieTransform.position = playerOneTransform.position + servingOffsetOne;
-        }
-        else
-        {
-            birdieTransform.position = playerTwoTransform.position + servingOffsetTwo;
-        }
+        HitBirdie.OnBirdieHit += HitBirdie_OnBirdieHit;
+    }
+
+    private void OnDisable()
+    {
+        HitBirdie.OnBirdieHit -= HitBirdie_OnBirdieHit;
+    }
+
+    private void HitBirdie_OnBirdieHit(Vector3 forceVector)
+    {
+        // Apply a force onto the birdie
+        birdieRb.velocity = Vector3.zero;
+        birdieRb.AddForce(forceVector, ForceMode.Impulse);
+    }
+
+    public void FollowPlayer(Vector3 playerPosition, bool isPlayerOne)
+    {
+        Vector3 servingOffset = isPlayerOne ? servingOffsetOne : servingOffsetTwo;
+        birdieTransform.position = playerPosition + servingOffset;
     }
 
     private void ApplyGravity()
@@ -81,28 +66,11 @@ public class BirdieMovement : MonoBehaviour
 
             // Prevent players from hitting the birdie after it lands
             SetIgnoreBirdieCollision(true);
-
-            Invoke("StartNextServe", 1);
         }
     }
 
 
-    private void StartNextServe()
-    {
-        // Re-enable the racket-birdie collision
-        SetIgnoreBirdieCollision(false);
-
-        if (scoringPlayerNum == 1)
-        {
-            playerOneMovement.SetIsServing(true);
-        }
-        else
-        {
-            playerTwoMovement.SetIsServing(true);
-        }
-    }
-
-    private void SetIgnoreBirdieCollision(bool ignoreCollision)
+    public void SetIgnoreBirdieCollision(bool ignoreCollision)
     {
         int racketLayer = LayerMask.NameToLayer("Racket");
         int birdieLayer = LayerMask.NameToLayer("Birdie");

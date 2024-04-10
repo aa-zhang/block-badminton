@@ -1,17 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
+using TMPro;
+
 
 public class InputManager : MonoBehaviour
 {
-    public GameObject playerOne;
-    public GameObject playerTwo;
+    private GameObject playerOne;
+    private GameObject playerTwo;
 
     private PlayerMovement playerOneMovement;
     private PlayerMovement playerTwoMovement;
 
+    private PhotonView photonView;
+
+
     public GameObject canvas;
     private GameMenu menu;
+
+    public TextMeshProUGUI pingText;
 
     private bool playerControlsEnabled = true;
 
@@ -19,21 +27,31 @@ public class InputManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerOneMovement = playerOne.GetComponent<PlayerMovement>();
-        playerTwoMovement = playerTwo.GetComponent<PlayerMovement>();
         menu = canvas.GetComponent<GameMenu>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        pingText.text = "Ping: " + PhotonNetwork.GetPing();
+
         ReadInput();
     }
+
+    public void initializeOnlinePlayer(GameObject player)
+    {
+        photonView = player.GetComponent<PhotonView>();
+
+        playerOneMovement = player.GetComponent<PlayerMovement>();
+        playerTwoMovement = player.GetComponent<PlayerMovement>();
+    }
+
+
 
     private void ReadInput()
     {
         // Player Movement Controls
-        if (playerControlsEnabled)
+        if (playerControlsEnabled && photonView.IsMine)
         {
             // Move left
             if (Input.GetKey(KeyCode.A))

@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class HitBirdie : MonoBehaviour
 {
-    public GameObject birdie;
-
     private Transform racketTransform;
-    private Rigidbody birdieRb;
     private SwingRacket swingRacket;
     private GameObject player;
     private PlayerMovement playerMovement;
@@ -15,28 +12,17 @@ public class HitBirdie : MonoBehaviour
     [SerializeField] private float racketForce = 300;
     [SerializeField] private float birdieAngleAdjustment = 0.1f;
 
-
+    public static event System.Action<Vector3> OnBirdieHit;
 
     // Start is called before the first frame update
     void Start()
     {
         racketTransform = gameObject.transform;
         swingRacket = gameObject.GetComponent<SwingRacket>();
-        birdieRb = birdie.GetComponent<Rigidbody>();
         player = racketTransform.parent.gameObject;
         playerMovement = player.GetComponent<PlayerMovement>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    private void FixedUpdate()
-    {
-
-    }
 
     public void ApplyForceToBirdie(bool isOverhandCollider)
     {
@@ -78,9 +64,7 @@ public class HitBirdie : MonoBehaviour
         {
             // Racket is currently in the forward swinging animation
             // And is the first time making contact with the birdie during this swing
-
-            birdieRb.velocity = Vector3.zero;
-            birdieRb.AddForce(forceVector * racketForce, ForceMode.Impulse);
+            OnBirdieHit?.Invoke(forceVector * racketForce);
             swingRacket.SetAlreadyMadeContact(true);
             playerMovement.SetIsServing(false);
             Debug.Log("hit the bertholdt with force. ARE WE DOING IT REINIER?!?!?" + forceVector);

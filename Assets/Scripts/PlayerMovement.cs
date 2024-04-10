@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject racket;
     private SwingRacket swingRacket;
 
+
     [SerializeField] private float movementSpeed = 9f;
     [SerializeField] private float jumpHeight = 800f;
     [SerializeField] public bool isPlayerOne;
@@ -83,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
         if (canSwing)
         {
             canSwing = false;
+            isServing = false;
             swingRacket.Swing();
         }
     }
