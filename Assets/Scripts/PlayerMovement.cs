@@ -111,7 +111,6 @@ public class PlayerMovement : MonoBehaviour
 
     private bool CanGoRight()
     {
-
         if (isPlayerOne)
         {
             if (isServing)
