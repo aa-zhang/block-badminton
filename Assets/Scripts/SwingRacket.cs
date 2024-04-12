@@ -54,9 +54,9 @@ public class SwingRacket : MonoBehaviour
         ScoreManager.OnBirdieInitialized -= ScoreManager_OnBirdieInitialized;
     }
 
-    private void ScoreManager_OnBirdieInitialized(Transform birdieTransform)
+    private void ScoreManager_OnBirdieInitialized(GameObject birdie)
     {
-        this.birdieTransform = birdieTransform;
+        birdieTransform = birdie.transform;
     }
 
 

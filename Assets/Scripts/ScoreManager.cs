@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Pun.Demo.PunBasics;
+using Photon.Realtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,8 +30,8 @@ public class ScoreManager : MonoBehaviour
     public GameObject birdiePrefab;
     private Vector3 birdieSpawnPosition = new Vector3(0, 10, 0);
 
-    public delegate void BirdieTransformHandler(Transform birdieTransform);
-    public static BirdieTransformHandler OnBirdieInitialized;
+    public delegate void BirdieObjectHandler(GameObject birdie);
+    public static BirdieObjectHandler OnBirdieInitialized;
 
     private PhotonView photonView;
 
@@ -65,11 +66,13 @@ public class ScoreManager : MonoBehaviour
     private void OnEnable()
     {
         BirdieMovement.OnPointScored += BirdieMovement_OnPointScored;
+        BirdieMovement.OnOwnershipTransferInitiated += BirdieMovement_OnOwnershipTransferInitiated;
     }
 
     private void OnDisable()
     {
         BirdieMovement.OnPointScored -= BirdieMovement_OnPointScored;
+        BirdieMovement.OnOwnershipTransferInitiated -= BirdieMovement_OnOwnershipTransferInitiated;
     }
 
     private void BirdieMovement_OnPointScored(int scoringPlayerNum)
@@ -81,6 +84,25 @@ public class ScoreManager : MonoBehaviour
         else
         {
             playerTwoScore++;
+        }
+    }
+
+    private void BirdieMovement_OnOwnershipTransferInitiated(PhotonView birdieView)
+    {
+        // Transfers ownership of the birdie's PhotonView to the player who initiated the collision.
+
+        // TODO: maybe change it to assign ownership of the birdie's PhotonView to the player about to hit it,
+        // rather than the player who just hit it, can enhance synchronization for smoother gameplay.
+
+        Player[] players = PhotonNetwork.PlayerList;
+        foreach (Player player in players)
+        {
+            if (player.IsLocal)
+            {
+                birdieView.TransferOwnership(player);
+                Debug.Log($"Birdie transferring to player {player}");
+                break;
+            }
         }
     }
 
@@ -104,12 +126,11 @@ public class ScoreManager : MonoBehaviour
         if (PhotonNetwork.IsMasterClient)
         {
             Debug.Log("Creating birdie");
-            GameObject birdie = PhotonNetwork.Instantiate(birdiePrefab.name, birdieSpawnPosition, Quaternion.identity);
-
+            GameObject birdie = PhotonNetwork.InstantiateRoomObject(birdiePrefab.name, birdieSpawnPosition, Quaternion.identity);
             // Call an RPC to notify all players about the initialized birdie
             photonView.RPC("NotifyBirdieInitialization", RpcTarget.All, birdie.GetComponent<PhotonView>().ViewID);
 
-            OnBirdieInitialized(birdie.transform);
+            OnBirdieInitialized(birdie);
         }
     }
 
@@ -118,7 +139,9 @@ public class ScoreManager : MonoBehaviour
     {
         // Find the GameObject with the specified PhotonViewID
         GameObject birdie = PhotonView.Find(birdieViewID).gameObject;
-        OnBirdieInitialized(birdie.transform);
+        Debug.Log(birdie.GetPhotonView().Owner);
+
+        OnBirdieInitialized(birdie);
     }
 
     private void CheckScore()

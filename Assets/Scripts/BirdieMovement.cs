@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class BirdieMovement : MonoBehaviour
@@ -13,11 +14,18 @@ public class BirdieMovement : MonoBehaviour
     public delegate void IncreaseScoreHandler(int scoringPlayerNum);
     public static IncreaseScoreHandler OnPointScored;
 
+    public delegate void BirdieOwnershipHandler(PhotonView birdiePhotonView);
+    public static BirdieOwnershipHandler OnOwnershipTransferInitiated;
+
+    private PhotonView photonView;
+
     // Start is called before the first frame update
     void Start()
     {
         birdieRb = gameObject.GetComponent<Rigidbody>();
         birdieTransform = gameObject.transform;
+
+        photonView = gameObject.GetPhotonView();
 
         SetIgnoreBirdieCollision(false);
     }
@@ -40,8 +48,12 @@ public class BirdieMovement : MonoBehaviour
     private void HitBirdie_OnBirdieHit(Vector3 forceVector)
     {
         // Apply a force onto the birdie
+        Debug.Log("adding force to birdie");
         birdieRb.velocity = Vector3.zero;
         birdieRb.AddForce(forceVector, ForceMode.Impulse);
+
+        // Transfer ownership to the other player (allowing them to control the birdie)
+        OnOwnershipTransferInitiated(photonView);
     }
 
     public void FollowPlayer(Vector3 playerPosition, bool isPlayerOne)
