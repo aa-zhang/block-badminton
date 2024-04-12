@@ -45,14 +45,6 @@ public class SwingRacket : MonoBehaviour
     }
 
 
-    public void InitializeBirdie(GameObject birdie)
-    {
-        this.birdie = birdie;
-        birdieTransform = birdie.transform;
-        birdiePsController = birdie.GetComponent<BirdieParticleController>();
-    }
-
-
     public void Swing()
     {
         // Begin the forward swing animation

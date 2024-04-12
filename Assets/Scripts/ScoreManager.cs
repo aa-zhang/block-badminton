@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class ScoreManager : MonoBehaviour
 {
@@ -11,9 +14,12 @@ public class ScoreManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI winnerText;
     public TextMeshProUGUI matchText;
+    public TextMeshProUGUI readyCountText;
 
     public int playerOneScore = 0;
     public int playerTwoScore = 0;
+
+    private bool hasGameStarted = false;
 
     [SerializeField] private int winningScore = 21; // Default winning score
     [SerializeField] private int maxScore = 30; // Deuce score cap
@@ -34,8 +40,33 @@ public class ScoreManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        CheckScore();
-        DisplayScore();
+        if (!hasGameStarted)
+        {
+            ShowReadyCount();
+        }
+        else
+        {
+            CheckScore();
+            DisplayScore();
+        }
+    }
+
+    private void ShowReadyCount()
+    {
+        int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
+        readyCountText.text = $"{playerCount}/2 Players joined";
+
+        if (playerCount >= 2)
+        {
+            InitiateMatch();
+            hasGameStarted = true;
+        }
+    }
+
+    private void InitiateMatch()
+    {
+        readyCountText.gameObject.SetActive(false);
+        // Spawn birdie
     }
 
     private void CheckScore()

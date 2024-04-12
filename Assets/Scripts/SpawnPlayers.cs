@@ -22,12 +22,12 @@ public class SpawnPlayers : MonoBehaviour
 
         if (playerCount == 1)
         {
-            GameObject birdie = PhotonNetwork.Instantiate(birdiePrefab.name, birdieSpawnPosition, Quaternion.identity);
+            //GameObject birdie = PhotonNetwork.Instantiate(birdiePrefab.name, birdieSpawnPosition, Quaternion.identity);
 
             GameObject onlinePlayerOne = PhotonNetwork.Instantiate(playerOnePrefab.name, playerOneSpawnPosition, Quaternion.identity);
             inputManager.initializeOnlinePlayer(onlinePlayerOne);
 
-            onlinePlayerOne.GetComponent<SwingRacket>().InitializeBirdie(birdie);
+            //onlinePlayerOne.GetComponent<SwingRacket>().InitializeBirdie(birdie);
         }
         else if (playerCount == 2)
         {
