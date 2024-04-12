@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class BirdieMovement : MonoBehaviour
 {
-    public ScoreManager scoreManager;
-
     private Rigidbody birdieRb;
     private Transform birdieTransform;
 
-    private int scoringPlayerNum;
-
     private Vector3 servingOffsetOne = new Vector3(2, -0.7f, 0);
     private Vector3 servingOffsetTwo = new Vector3(-2, -0.7f, 0);
+
+    public delegate void IncreaseScoreHandler(int scoringPlayerNum);
+    public static IncreaseScoreHandler OnPointScored;
 
     // Start is called before the first frame update
     void Start()
@@ -61,8 +60,8 @@ public class BirdieMovement : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Floor"))
         {
             // Determine if player 1 or 2 should receive the point
-            scoringPlayerNum = birdieTransform.position.x > 0 ? 1 : 2;
-            scoreManager.IncreaseScore(scoringPlayerNum);
+            int scoringPlayerNum = birdieTransform.position.x > 0 ? 1 : 2;
+            OnPointScored(scoringPlayerNum);
 
             // Prevent players from hitting the birdie after it lands
             SetIgnoreBirdieCollision(true);

@@ -7,10 +7,9 @@ public class SpawnPlayers : MonoBehaviour
 {
     public GameObject playerOnePrefab;
     public GameObject playerTwoPrefab;
-    public GameObject birdiePrefab;
     private Vector3 playerOneSpawnPosition = new Vector3(-6, 2, 0);
     private Vector3 playerTwoSpawnPosition = new Vector3(6, 2, 0);
-    private Vector3 birdieSpawnPosition = new Vector3(0, 10, 0);
+    
 
     public InputManager inputManager;
 
@@ -22,7 +21,6 @@ public class SpawnPlayers : MonoBehaviour
 
         if (playerCount == 1)
         {
-            //GameObject birdie = PhotonNetwork.Instantiate(birdiePrefab.name, birdieSpawnPosition, Quaternion.identity);
 
             GameObject onlinePlayerOne = PhotonNetwork.Instantiate(playerOnePrefab.name, playerOneSpawnPosition, Quaternion.identity);
             inputManager.initializeOnlinePlayer(onlinePlayerOne);

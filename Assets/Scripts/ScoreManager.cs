@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Pun.Demo.PunBasics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,8 +22,17 @@ public class ScoreManager : MonoBehaviour
 
     private bool hasGameStarted = false;
 
-    [SerializeField] private int winningScore = 21; // Default winning score
-    [SerializeField] private int maxScore = 30; // Deuce score cap
+    [SerializeField] private int winningScore = 11; // Default winning score
+    [SerializeField] private int maxScore = 15; // Deuce score cap
+
+    // Things needed for initializing the birdie
+    public GameObject birdiePrefab;
+    private Vector3 birdieSpawnPosition = new Vector3(0, 10, 0);
+
+    public delegate void BirdieTransformHandler(Transform birdieTransform);
+    public static BirdieTransformHandler OnBirdieInitialized;
+
+    private PhotonView photonView;
 
 
     // Start is called before the first frame update
@@ -31,6 +41,7 @@ public class ScoreManager : MonoBehaviour
         menu = canvas.GetComponent<GameMenu>();
         menu.ShowMenu(false);
         winnerText.gameObject.SetActive(false);
+        photonView = gameObject.GetPhotonView();
     }
 
     // Update is called once per frame
@@ -51,6 +62,28 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        BirdieMovement.OnPointScored += BirdieMovement_OnPointScored;
+    }
+
+    private void OnDisable()
+    {
+        BirdieMovement.OnPointScored -= BirdieMovement_OnPointScored;
+    }
+
+    private void BirdieMovement_OnPointScored(int scoringPlayerNum)
+    {
+        if (scoringPlayerNum == 1)
+        {
+            playerOneScore++;
+        }
+        else
+        {
+            playerTwoScore++;
+        }
+    }
+
     private void ShowReadyCount()
     {
         int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
@@ -65,8 +98,27 @@ public class ScoreManager : MonoBehaviour
 
     private void InitiateMatch()
     {
+        Debug.Log("Game starting!");
         readyCountText.gameObject.SetActive(false);
         // Spawn birdie
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log("Creating birdie");
+            GameObject birdie = PhotonNetwork.Instantiate(birdiePrefab.name, birdieSpawnPosition, Quaternion.identity);
+
+            // Call an RPC to notify all players about the initialized birdie
+            photonView.RPC("NotifyBirdieInitialization", RpcTarget.All, birdie.GetComponent<PhotonView>().ViewID);
+
+            OnBirdieInitialized(birdie.transform);
+        }
+    }
+
+    [PunRPC]
+    private void NotifyBirdieInitialization(int birdieViewID)
+    {
+        // Find the GameObject with the specified PhotonViewID
+        GameObject birdie = PhotonView.Find(birdieViewID).gameObject;
+        OnBirdieInitialized(birdie.transform);
     }
 
     private void CheckScore()
@@ -114,17 +166,6 @@ public class ScoreManager : MonoBehaviour
         scoreText.text = playerOneScore + " - " + playerTwoScore;
     }
 
-    public void IncreaseScore(int playerNum)
-    {
-        if (playerNum == 1)
-        {
-            playerOneScore++;
-        }
-        else
-        {
-            playerTwoScore++;
-        }
-    }
 
     public void ResetScores()
     {

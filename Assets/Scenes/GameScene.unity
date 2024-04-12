@@ -1266,6 +1266,7 @@ GameObject:
   m_Component:
   - component: {fileID: 771566074}
   - component: {fileID: 771566073}
+  - component: {fileID: 771566075}
   m_Layer: 0
   m_Name: Score Manager
   m_TagString: Untagged
@@ -1294,6 +1295,7 @@ MonoBehaviour:
   playerTwoScore: 0
   winningScore: 21
   maxScore: 30
+  birdiePrefab: {fileID: 6962356067455933032, guid: 16c5034de02564be68b4c5aa1b5ded52, type: 3}
 --- !u!4 &771566074
 Transform:
   m_ObjectHideFlags: 0
@@ -1309,6 +1311,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &771566075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 771566072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &815464647
 GameObject:
   m_ObjectHideFlags: 0
@@ -1542,7 +1566,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerOnePrefab: {fileID: 6461785994595331130, guid: 92b3b814f7a734be59622e6070ea8597, type: 3}
   playerTwoPrefab: {fileID: 2520139353616274489, guid: 2b41dc3a28b0840aaaeccc4031d11078, type: 3}
-  birdiePrefab: {fileID: 6962356067455933032, guid: 16c5034de02564be68b4c5aa1b5ded52, type: 3}
   inputManager: {fileID: 1231928033}
 --- !u!4 &976702078
 Transform:

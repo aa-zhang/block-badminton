@@ -44,6 +44,21 @@ public class SwingRacket : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        ScoreManager.OnBirdieInitialized += ScoreManager_OnBirdieInitialized;
+    }
+
+    private void OnDisable()
+    {
+        ScoreManager.OnBirdieInitialized -= ScoreManager_OnBirdieInitialized;
+    }
+
+    private void ScoreManager_OnBirdieInitialized(Transform birdieTransform)
+    {
+        this.birdieTransform = birdieTransform;
+    }
+
 
     public void Swing()
     {
