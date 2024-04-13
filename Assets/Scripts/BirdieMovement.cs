@@ -71,6 +71,7 @@ public class BirdieMovement : MonoBehaviour
     private void GameStateManager_OnBeginServe(int playerNum)
     {
         enableGravity = false;
+        SetIgnoreBirdieCollision(false);
     }
 
 
@@ -89,12 +90,12 @@ public class BirdieMovement : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Floor"))
         {
+            // Prevent players from hitting the birdie after it lands
+            SetIgnoreBirdieCollision(true);
+
             // Determine if player 1 or 2 should receive the point
             int scoringPlayerNum = birdieTransform.position.x > 0 ? 1 : 2;
             OnPointScored(scoringPlayerNum);
-
-            // Prevent players from hitting the birdie after it lands
-            SetIgnoreBirdieCollision(true);
         }
     }
 
@@ -104,7 +105,7 @@ public class BirdieMovement : MonoBehaviour
         int racketLayer = LayerMask.NameToLayer("Racket");
         int birdieLayer = LayerMask.NameToLayer("Birdie");
         Physics.IgnoreLayerCollision(racketLayer, birdieLayer, ignoreCollision);
-
+        Debug.Log($"ignore = {ignoreCollision}");
     }
 
 }

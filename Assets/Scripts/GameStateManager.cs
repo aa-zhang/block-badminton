@@ -20,6 +20,7 @@ public class GameStateManager : MonoBehaviour
 
     public int playerOneScore = 0;
     public int playerTwoScore = 0;
+    private int scoringPlayerNum;
 
     private bool hasGameStarted = false;
 
@@ -88,6 +89,16 @@ public class GameStateManager : MonoBehaviour
         {
             playerTwoScore++;
         }
+        this.scoringPlayerNum = scoringPlayerNum;
+
+        // Start next serve after a 1 second delay
+        Invoke("BeginNextServe", 1);
+    }
+
+    private void BeginNextServe()
+    {
+        // This helper method is used in order to allow for a delay using Invoke()
+        OnBeginServe(scoringPlayerNum);
     }
 
     private void BirdieMovement_OnOwnershipTransferInitiated(PhotonView birdieView)
@@ -142,7 +153,6 @@ public class GameStateManager : MonoBehaviour
     {
         // Find the GameObject with the specified PhotonViewID
         GameObject birdie = PhotonView.Find(birdieViewID).gameObject;
-        Debug.Log(birdie.GetPhotonView().Owner);
 
         OnBirdieInitialized(birdie);
     }
