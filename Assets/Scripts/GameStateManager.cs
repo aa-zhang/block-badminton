@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class ScoreManager : MonoBehaviour
+public class GameStateManager : MonoBehaviour
 {
     public GameObject canvas;
     private GameMenu menu;
@@ -32,6 +32,9 @@ public class ScoreManager : MonoBehaviour
 
     public delegate void BirdieObjectHandler(GameObject birdie);
     public static BirdieObjectHandler OnBirdieInitialized;
+
+    public delegate void ServeHandler(int playerNum);
+    public static ServeHandler OnBeginServe;
 
     private PhotonView photonView;
 
@@ -100,7 +103,6 @@ public class ScoreManager : MonoBehaviour
             if (player.IsLocal)
             {
                 birdieView.TransferOwnership(player);
-                Debug.Log($"Birdie transferring to player {player}");
                 break;
             }
         }
@@ -131,6 +133,7 @@ public class ScoreManager : MonoBehaviour
             photonView.RPC("NotifyBirdieInitialization", RpcTarget.All, birdie.GetComponent<PhotonView>().ViewID);
 
             OnBirdieInitialized(birdie);
+            OnBeginServe(1);
         }
     }
 

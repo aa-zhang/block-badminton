@@ -7,6 +7,7 @@ public class HitBirdie : MonoBehaviour
     private Transform racketTransform;
     private SwingRacket swingRacket;
     private GameObject player;
+    private PlayerManager playerManager;
     private PlayerMovement playerMovement;
 
     [SerializeField] private float racketForce = 300;
@@ -22,6 +23,7 @@ public class HitBirdie : MonoBehaviour
         racketTransform = gameObject.transform;
         swingRacket = gameObject.GetComponent<SwingRacket>();
         player = racketTransform.parent.gameObject;
+        playerManager = player.GetComponent<PlayerManager>();
         playerMovement = player.GetComponent<PlayerMovement>();
     }
 
@@ -36,7 +38,7 @@ public class HitBirdie : MonoBehaviour
 
         // Get racket angle
         float theta;
-        if (playerMovement.isPlayerOne)
+        if (playerManager.playerNum == 1)
         {
             theta = racketTransform.eulerAngles.z;
         }
@@ -68,7 +70,6 @@ public class HitBirdie : MonoBehaviour
             // And is the first time making contact with the birdie during this swing
             OnBirdieHit(forceVector * racketForce);
             swingRacket.SetAlreadyMadeContact(true);
-            playerMovement.SetIsServing(false);
             Debug.Log("hit the bertholdt with force. ARE WE DOING IT REINIER?!?!?" + forceVector);
             Debug.Log("theta " + theta);
         }

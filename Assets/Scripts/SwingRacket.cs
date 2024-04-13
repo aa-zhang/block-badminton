@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun.Demo.PunBasics;
 using UnityEngine;
 
 public class SwingRacket : MonoBehaviour
@@ -10,6 +11,8 @@ public class SwingRacket : MonoBehaviour
     private Transform birdieTransform;
     private BirdieParticleController birdiePsController;
 
+    private GameObject player;
+    private PlayerManager playerManager;
     private Transform playerTransform;
     private PlayerMovement playerMovement;
 
@@ -26,13 +29,16 @@ public class SwingRacket : MonoBehaviour
     private Vector3 defaultAngle = new Vector3(0, 0, 55);
     private float endAngle;
 
-    
+
 
     // Start is called before the first frame update
     void Start()
     {
-        playerTransform = transform.parent.gameObject.transform;
-        playerMovement = transform.parent.gameObject.GetComponent<PlayerMovement>();
+        player = transform.parent.gameObject;
+        playerTransform = player.transform;
+        playerManager = player.GetComponent<PlayerManager>();
+        playerMovement = player.GetComponent<PlayerMovement>();
+
         racketTransform = gameObject.transform;
     }
 
@@ -46,12 +52,12 @@ public class SwingRacket : MonoBehaviour
 
     private void OnEnable()
     {
-        ScoreManager.OnBirdieInitialized += ScoreManager_OnBirdieInitialized;
+        GameStateManager.OnBirdieInitialized += ScoreManager_OnBirdieInitialized;
     }
 
     private void OnDisable()
     {
-        ScoreManager.OnBirdieInitialized -= ScoreManager_OnBirdieInitialized;
+        GameStateManager.OnBirdieInitialized -= ScoreManager_OnBirdieInitialized;
     }
 
     private void ScoreManager_OnBirdieInitialized(GameObject birdie)
@@ -67,20 +73,14 @@ public class SwingRacket : MonoBehaviour
 
         // Check the birdie position to determine how the player should swing
         if ((playerTransform.position.y - birdieTransform.position.y > 0) &&
-            ((playerMovement.isPlayerOne && birdieTransform.position.x < 0) ||
-            (!playerMovement.isPlayerOne && birdieTransform.position.x > 0)))
+            ((playerManager.playerNum == 1 && birdieTransform.position.x < 0) ||
+            (playerManager.playerNum == 2 && birdieTransform.position.x > 0)))
         {
             overhand = false;
         }
         else
         {
             overhand = true;
-        }
-
-        // Start timer for black flash detection
-        if (playerMovement.isServing)
-        {
-            birdiePsController.ResetServeTimer();
         }
     }
 

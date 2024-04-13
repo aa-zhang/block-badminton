@@ -3,24 +3,17 @@ using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    private PlayerManager playerManager;
     private Transform playerTransform;
     private Rigidbody playerRb;
     public GameObject racket;
     private SwingRacket swingRacket;
+    private ServeController serveController;
 
 
     [SerializeField] private float movementSpeed = 9f;
     [SerializeField] private float jumpHeight = 800f;
-    [SerializeField] public bool isPlayerOne;
     [SerializeField] private float gravity = 40;
-    [SerializeField] public bool isServing = false;
-
-    // Court X-position constants
-    private float rearCourtXCoord = 11.4f;
-    private float frontCourtXCoord = 0.8f;
-    private float servingLineXCoord = 5f;
-    public float startingXCoord = 6.14f;
 
     public LayerMask groundLayer;
     private bool isGrounded = true;
@@ -30,9 +23,11 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerManager = GetComponent<PlayerManager>();
         playerTransform = GetComponent<Transform>();
         playerRb = GetComponent<Rigidbody>();
         swingRacket = racket.GetComponent<SwingRacket>();
+        serveController = GetComponent<ServeController>();
     }
 
     // Update is called once per frame
@@ -72,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
-        if (isGrounded && !isServing)
+        if (isGrounded && !serveController.isServing)
         {
             playerRb.AddForce(Vector3.up * jumpHeight);
             isGrounded = false;
@@ -84,47 +79,45 @@ public class PlayerMovement : MonoBehaviour
         if (canSwing)
         {
             canSwing = false;
-            isServing = false;
             swingRacket.Swing();
         }
     }
 
     private bool CanGoLeft()
     {
-        if (isPlayerOne)
+        if (playerManager.playerNum == 1)
         {
-            return playerTransform.position.x > -rearCourtXCoord;
+            return playerTransform.position.x > -Constants.rearCourtXPos;
         }
         else
         {
-            if (isServing)
+            if (serveController.isServing)
             {
-                return playerTransform.position.x > servingLineXCoord;
+                return playerTransform.position.x > Constants.servingLineXPos;
             }
             else
             {
-                return playerTransform.position.x > frontCourtXCoord;
+                return playerTransform.position.x > Constants.frontCourtXPos;
             }
         }
-
     }
 
     private bool CanGoRight()
     {
-        if (isPlayerOne)
+        if (playerManager.playerNum == 1)
         {
-            if (isServing)
+            if (serveController.isServing)
             {
-                return playerTransform.position.x < -servingLineXCoord;
+                return playerTransform.position.x < -Constants.servingLineXPos;
             }
             else
             {
-                return playerTransform.position.x < -frontCourtXCoord;
+                return playerTransform.position.x < -Constants.frontCourtXPos;
             }
         }
         else
         {
-            return playerTransform.position.x < rearCourtXCoord;
+            return playerTransform.position.x < Constants.rearCourtXPos;
         }
     }
 
@@ -139,26 +132,6 @@ public class PlayerMovement : MonoBehaviour
     public void SetCanSwing(bool canSwing)
     {
         this.canSwing = canSwing;
-    }
-
-    public void SetIsServing(bool isServing)
-    {
-        this.isServing = isServing;
-        if (isServing)
-        {
-            // Force the serving player to serve behind the serving line
-            if (isPlayerOne)
-            {
-                float boundedX = Mathf.Min(playerTransform.position.x, -servingLineXCoord);
-                playerTransform.position = new Vector3(boundedX, playerTransform.position.y, playerTransform.position.z);
-            }
-            else
-            {
-                float boundedX = Mathf.Max(playerTransform.position.x, servingLineXCoord);
-                playerTransform.position = new Vector3(boundedX, playerTransform.position.y, playerTransform.position.z);
-            }
-        }
-        
     }
 
 }

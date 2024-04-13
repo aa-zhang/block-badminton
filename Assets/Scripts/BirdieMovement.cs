@@ -7,6 +7,7 @@ public class BirdieMovement : MonoBehaviour
 {
     private Rigidbody birdieRb;
     private Transform birdieTransform;
+    private bool enableGravity = false;
 
     private Vector3 servingOffsetOne = new Vector3(2, -0.7f, 0);
     private Vector3 servingOffsetTwo = new Vector3(-2, -0.7f, 0);
@@ -18,6 +19,7 @@ public class BirdieMovement : MonoBehaviour
     public static BirdieOwnershipHandler OnOwnershipTransferInitiated;
 
     private PhotonView photonView;
+
 
     // Start is called before the first frame update
     void Start()
@@ -32,21 +34,31 @@ public class BirdieMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        ApplyGravity();
+        if (enableGravity)
+        {
+            ApplyGravity();
+        }
     }
 
     private void OnEnable()
     {
         HitBirdie.OnBirdieHit += HitBirdie_OnBirdieHit;
+        GameStateManager.OnBeginServe += GameStateManager_OnBeginServe;
     }
 
     private void OnDisable()
     {
         HitBirdie.OnBirdieHit -= HitBirdie_OnBirdieHit;
+        GameStateManager.OnBeginServe -= GameStateManager_OnBeginServe;
     }
 
     private void HitBirdie_OnBirdieHit(Vector3 forceVector)
     {
+        if (!enableGravity)
+        {
+            enableGravity = true;
+        }
+
         // Apply a force onto the birdie
         Debug.Log("adding force to birdie");
         birdieRb.velocity = Vector3.zero;
@@ -56,9 +68,15 @@ public class BirdieMovement : MonoBehaviour
         OnOwnershipTransferInitiated(photonView);
     }
 
-    public void FollowPlayer(Vector3 playerPosition, bool isPlayerOne)
+    private void GameStateManager_OnBeginServe(int playerNum)
     {
-        Vector3 servingOffset = isPlayerOne ? servingOffsetOne : servingOffsetTwo;
+        enableGravity = false;
+    }
+
+
+    public void SetServingPosition(Vector3 playerPosition, int playerNum)
+    {
+        Vector3 servingOffset = playerNum == 1 ? servingOffsetOne : servingOffsetTwo;
         birdieTransform.position = playerPosition + servingOffset;
     }
 

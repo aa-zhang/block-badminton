@@ -258,7 +258,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1120984452788739999}
+  - component: {fileID: 6265549626894857798}
   - component: {fileID: 4868204107088471939}
+  - component: {fileID: 6834807204954030219}
   - component: {fileID: 5342717327818179174}
   - component: {fileID: 8283675665870000579}
   - component: {fileID: 8778758651642636629}
@@ -287,6 +289,19 @@ Transform:
   - {fileID: 7290334776408452836}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &6265549626894857798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2520139353616274489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1818ed11e6b354d2db73d0aea7e6045e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNum: 2
 --- !u!114 &4868204107088471939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,13 +317,23 @@ MonoBehaviour:
   racket: {fileID: 8057006171713530844}
   movementSpeed: 9
   jumpHeight: 800
-  isPlayerOne: 0
   gravity: 40
-  isServing: 0
-  startingXCoord: 6.14
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &6834807204954030219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2520139353616274489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16b1f96a043264b85ad34b4bd567d180, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isServing: 0
 --- !u!54 &5342717327818179174
 Rigidbody:
   m_ObjectHideFlags: 0

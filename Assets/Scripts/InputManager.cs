@@ -33,19 +33,17 @@ public class InputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        pingText.text = "Ping: " + PhotonNetwork.GetPing();
-
         ReadInput();
+        DisplayPing();
     }
 
-    public void initializeOnlinePlayer(GameObject player)
+    public void InitializeOnlinePlayer(GameObject player)
     {
         photonView = player.GetComponent<PhotonView>();
 
         playerOneMovement = player.GetComponent<PlayerMovement>();
         playerTwoMovement = player.GetComponent<PlayerMovement>();
     }
-
 
 
     private void ReadInput()
@@ -103,8 +101,13 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    public void setPlayerControlsEnabled(bool enabled)
+    public void SetPlayerControlsEnabled(bool enabled)
     {
-        playerControlsEnabled = enabled;
+        playerControlsEnabled = enabled; // TODO: replace this with an open menu event
+    }
+
+    private void DisplayPing()
+    {
+        pingText.text = "Ping: " + PhotonNetwork.GetPing();
     }
 }

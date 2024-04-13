@@ -23,14 +23,14 @@ public class SpawnPlayers : MonoBehaviour
         {
 
             GameObject onlinePlayerOne = PhotonNetwork.Instantiate(playerOnePrefab.name, playerOneSpawnPosition, Quaternion.identity);
-            inputManager.initializeOnlinePlayer(onlinePlayerOne);
+            inputManager.InitializeOnlinePlayer(onlinePlayerOne); // TODO: maybe change this to an event
 
             //onlinePlayerOne.GetComponent<SwingRacket>().InitializeBirdie(birdie);
         }
         else if (playerCount == 2)
         {
             GameObject onlinePlayerTwo = PhotonNetwork.Instantiate(playerTwoPrefab.name, playerTwoSpawnPosition, Quaternion.Euler(0, 180, 0));
-            inputManager.initializeOnlinePlayer(onlinePlayerTwo);
+            inputManager.InitializeOnlinePlayer(onlinePlayerTwo);
 
         }
         else
