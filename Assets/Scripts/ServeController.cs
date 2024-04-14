@@ -36,19 +36,19 @@ public class ServeController : MonoBehaviour
 
     private void OnEnable()
     {
-        GameStateManager.OnBirdieInitialized += ScoreManager_OnBirdieInitialized;
+        GameStateManager.OnBirdieInitialized += GameStateManager_OnBirdieInitialized;
         GameStateManager.OnBeginServe += GameStateManager_OnBeginServe;
         HitBirdie.OnBirdieHit += HitBirdie_OnBirdieHit;
     }
 
     private void OnDisable()
     {
-        GameStateManager.OnBirdieInitialized -= ScoreManager_OnBirdieInitialized;
+        GameStateManager.OnBirdieInitialized -= GameStateManager_OnBirdieInitialized;
         GameStateManager.OnBeginServe -= GameStateManager_OnBeginServe;
         HitBirdie.OnBirdieHit -= HitBirdie_OnBirdieHit;
     }
 
-    private void ScoreManager_OnBirdieInitialized(GameObject birdie)
+    private void GameStateManager_OnBirdieInitialized(GameObject birdie)
     {
         this.birdie = birdie;
         birdieMovement = birdie.GetComponent<BirdieMovement>();

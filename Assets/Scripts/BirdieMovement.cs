@@ -65,7 +65,7 @@ public class BirdieMovement : MonoBehaviour
         birdieRb.AddForce(forceVector, ForceMode.Impulse);
 
         // Transfer ownership to the other player (allowing them to control the birdie)
-        OnOwnershipTransferInitiated(photonView);
+        //OnOwnershipTransferInitiated(photonView);
     }
 
     private void GameStateManager_OnBeginServe(int playerNum)

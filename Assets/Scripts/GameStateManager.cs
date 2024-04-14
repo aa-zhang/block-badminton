@@ -111,7 +111,7 @@ public class GameStateManager : MonoBehaviour
         Player[] players = PhotonNetwork.PlayerList;
         foreach (Player player in players)
         {
-            if (player.IsLocal)
+            if (!player.IsLocal)
             {
                 birdieView.TransferOwnership(player);
                 break;
@@ -144,7 +144,7 @@ public class GameStateManager : MonoBehaviour
             photonView.RPC("NotifyBirdieInitialization", RpcTarget.All, birdie.GetComponent<PhotonView>().ViewID);
 
             OnBirdieInitialized(birdie);
-            OnBeginServe(1);
+            Invoke("SelectRandomServer", 1);
         }
     }
 
@@ -153,8 +153,16 @@ public class GameStateManager : MonoBehaviour
     {
         // Find the GameObject with the specified PhotonViewID
         GameObject birdie = PhotonView.Find(birdieViewID).gameObject;
+        Debug.Log("Notifying" + birdie);
 
         OnBirdieInitialized(birdie);
+    }
+
+    private void SelectRandomServer()
+    {
+        // Select random number from {1, 2}
+        int playerNum = Random.Range(1, 3);
+        OnBeginServe(playerNum);
     }
 
     private void CheckScore()
