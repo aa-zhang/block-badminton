@@ -27,39 +27,8 @@ public class ServeController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //if (birdie == null)
-        //{
-        //    Debug.Log($"birdie is null");
-        //}
-        //else
-        //{
-        //    Debug.Log("birdie not null");
-        //    Debug.Log(birdie.GetPhotonView());
-
-        //}
-
-        if (birdieMovement == null)
-        {
-            Debug.Log($"out birdie movement is null, {playerManager.playerNum}");
-        }
-        else
-        {
-            Debug.Log($"out birdie movement not null, {playerManager.playerNum}");
-        }
-
-
-
         if (isServing)
         {
-            if (birdieMovement == null)
-            {
-                Debug.Log($"birdie movement is null, {playerManager.playerNum}");
-            }
-            else
-            {
-                Debug.Log($"birdie movement not null, {playerManager.playerNum}");
-            }
-            Debug.Log("hold birdi");
             HoldBirdie();
         }
     }

@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 
-public class InputManager : MonoBehaviour
+public class InputManager : NetworkBehaviour
 {
     private PlayerMovement playerMovement;
     private bool playerControlsEnabled = true;
@@ -30,7 +31,7 @@ public class InputManager : MonoBehaviour
     private void ReadInput()
     {
         // Player Movement Controls
-        if (playerControlsEnabled)
+        if (playerControlsEnabled && IsOwner)
         {
             // Move left
             if (Input.GetKey(KeyCode.A))

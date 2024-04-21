@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         playerManager = GetComponent<PlayerManager>();
-        playerTransform = GetComponent<Transform>();
+        playerTransform = gameObject.transform;
         playerRb = GetComponent<Rigidbody>();
         swingRacket = racket.GetComponent<SwingRacket>();
         serveController = GetComponent<ServeController>();
