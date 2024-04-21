@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Photon.Pun.Demo.PunBasics;
 using UnityEngine;
 
 public class SwingRacket : MonoBehaviour
@@ -60,9 +59,10 @@ public class SwingRacket : MonoBehaviour
         GameStateManager.OnBirdieInitialized -= ScoreManager_OnBirdieInitialized;
     }
 
-    private void ScoreManager_OnBirdieInitialized(GameObject birdie)
+    private void ScoreManager_OnBirdieInitialized(int birdieViewId)
     {
-        birdieTransform = birdie.transform;
+        //birdie = PhotonView.Find(birdieViewId).gameObject;
+        //birdieTransform = birdie.transform;
     }
 
 

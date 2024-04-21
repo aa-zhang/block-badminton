@@ -1,8 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Photon.Pun;
-using Photon.Pun.Demo.PunBasics;
-using Photon.Realtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -31,13 +28,11 @@ public class GameStateManager : MonoBehaviour
     public GameObject birdiePrefab;
     private Vector3 birdieSpawnPosition = new Vector3(0, 10, 0);
 
-    public delegate void BirdieObjectHandler(GameObject birdie);
+    public delegate void BirdieObjectHandler(int birdieViewId);
     public static BirdieObjectHandler OnBirdieInitialized;
 
     public delegate void ServeHandler(int playerNum);
     public static ServeHandler OnBeginServe;
-
-    private PhotonView photonView;
 
 
     // Start is called before the first frame update
@@ -46,7 +41,6 @@ public class GameStateManager : MonoBehaviour
         menu = canvas.GetComponent<GameMenu>();
         menu.ShowMenu(false);
         winnerText.gameObject.SetActive(false);
-        photonView = gameObject.GetPhotonView();
     }
 
     // Update is called once per frame
@@ -70,13 +64,11 @@ public class GameStateManager : MonoBehaviour
     private void OnEnable()
     {
         BirdieMovement.OnPointScored += BirdieMovement_OnPointScored;
-        BirdieMovement.OnOwnershipTransferInitiated += BirdieMovement_OnOwnershipTransferInitiated;
     }
 
     private void OnDisable()
     {
         BirdieMovement.OnPointScored -= BirdieMovement_OnPointScored;
-        BirdieMovement.OnOwnershipTransferInitiated -= BirdieMovement_OnOwnershipTransferInitiated;
     }
 
     private void BirdieMovement_OnPointScored(int scoringPlayerNum)
@@ -101,34 +93,18 @@ public class GameStateManager : MonoBehaviour
         OnBeginServe(scoringPlayerNum);
     }
 
-    private void BirdieMovement_OnOwnershipTransferInitiated(PhotonView birdieView)
-    {
-        // Transfers ownership of the birdie's PhotonView to the player who initiated the collision.
-
-        // TODO: maybe change it to assign ownership of the birdie's PhotonView to the player about to hit it,
-        // rather than the player who just hit it, can enhance synchronization for smoother gameplay.
-
-        Player[] players = PhotonNetwork.PlayerList;
-        foreach (Player player in players)
-        {
-            if (!player.IsLocal)
-            {
-                birdieView.TransferOwnership(player);
-                break;
-            }
-        }
-    }
+    
 
     private void ShowReadyCount()
     {
-        int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
-        readyCountText.text = $"{playerCount}/2 Players joined";
+        //int playerCount = 
+        //readyCountText.text = $"{playerCount}/2 Players joined";
 
-        if (playerCount >= 2)
-        {
-            InitiateMatch();
-            hasGameStarted = true;
-        }
+        //if (playerCount >= 2)
+        //{
+        //    InitiateMatch();
+        //    hasGameStarted = true;
+        //}
     }
 
     private void InitiateMatch()
@@ -136,32 +112,16 @@ public class GameStateManager : MonoBehaviour
         Debug.Log("Game starting!");
         readyCountText.gameObject.SetActive(false);
         // Spawn birdie
-        if (PhotonNetwork.IsMasterClient)
-        {
-            Debug.Log("Creating birdie");
-            GameObject birdie = PhotonNetwork.InstantiateRoomObject(birdiePrefab.name, birdieSpawnPosition, Quaternion.identity);
-            // Call an RPC to notify all players about the initialized birdie
-            photonView.RPC("NotifyBirdieInitialization", RpcTarget.All, birdie.GetComponent<PhotonView>().ViewID);
-
-            OnBirdieInitialized(birdie);
-            Invoke("SelectRandomServer", 1);
-        }
+        Debug.Log("Creating birdie");
+        Invoke("SelectRandomServer", 2);
     }
 
-    [PunRPC]
-    private void NotifyBirdieInitialization(int birdieViewID)
-    {
-        // Find the GameObject with the specified PhotonViewID
-        GameObject birdie = PhotonView.Find(birdieViewID).gameObject;
-        Debug.Log("Notifying" + birdie);
-
-        OnBirdieInitialized(birdie);
-    }
 
     private void SelectRandomServer()
     {
         // Select random number from {1, 2}
-        int playerNum = Random.Range(1, 3);
+        //int playerNum = Random.Range(1, 3);
+        int playerNum = 1;
         OnBeginServe(playerNum);
     }
 

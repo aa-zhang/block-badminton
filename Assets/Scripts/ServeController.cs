@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Photon.Pun.Demo.PunBasics;
 using UnityEngine;
 
 public class ServeController : MonoBehaviour
@@ -14,7 +13,7 @@ public class ServeController : MonoBehaviour
     private BirdieParticleController birdiePsController;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         playerManager = GetComponent<PlayerManager>();
         playerTransform = GetComponent<Transform>();
@@ -28,8 +27,39 @@ public class ServeController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //if (birdie == null)
+        //{
+        //    Debug.Log($"birdie is null");
+        //}
+        //else
+        //{
+        //    Debug.Log("birdie not null");
+        //    Debug.Log(birdie.GetPhotonView());
+
+        //}
+
+        if (birdieMovement == null)
+        {
+            Debug.Log($"out birdie movement is null, {playerManager.playerNum}");
+        }
+        else
+        {
+            Debug.Log($"out birdie movement not null, {playerManager.playerNum}");
+        }
+
+
+
         if (isServing)
         {
+            if (birdieMovement == null)
+            {
+                Debug.Log($"birdie movement is null, {playerManager.playerNum}");
+            }
+            else
+            {
+                Debug.Log($"birdie movement not null, {playerManager.playerNum}");
+            }
+            Debug.Log("hold birdi");
             HoldBirdie();
         }
     }
@@ -48,11 +78,14 @@ public class ServeController : MonoBehaviour
         HitBirdie.OnBirdieHit -= HitBirdie_OnBirdieHit;
     }
 
-    private void GameStateManager_OnBirdieInitialized(GameObject birdie)
+    private void GameStateManager_OnBirdieInitialized(int birdieViewId)
     {
-        this.birdie = birdie;
-        birdieMovement = birdie.GetComponent<BirdieMovement>();
-        birdiePsController = birdie.GetComponent<BirdieParticleController>();
+        //Debug.Log($"Serve controller birdie initialized for player {playerManager.playerNum}");
+        //birdie = PhotonView.Find(birdieViewId).gameObject;
+
+        //birdieMovement = birdie.GetComponent<BirdieMovement>();
+        //birdiePsController = birdie.GetComponent<BirdieParticleController>();
+        //Debug.Log(birdieMovement == null);
     }
 
     private void GameStateManager_OnBeginServe(int playerNum)
@@ -85,6 +118,7 @@ public class ServeController : MonoBehaviour
     private void HoldBirdie()
     {
         // Keep birdie infront of the player
+        Debug.Log($"now here {birdieMovement == null}, {playerManager.playerNum}");
         birdieMovement.SetServingPosition(playerTransform.position, playerManager.playerNum);
     }
 

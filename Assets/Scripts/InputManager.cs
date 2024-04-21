@@ -1,113 +1,68 @@
 using System.Collections;
 using System.Collections.Generic;
-using Photon.Pun;
 using UnityEngine;
-using TMPro;
 
 
 public class InputManager : MonoBehaviour
 {
-    private GameObject playerOne;
-    private GameObject playerTwo;
-
-    private PlayerMovement playerOneMovement;
-    private PlayerMovement playerTwoMovement;
-
-    private PhotonView photonView;
-
-
-    public GameObject canvas;
-    private GameMenu menu;
-
-    public TextMeshProUGUI pingText;
-
+    private PlayerMovement playerMovement;
     private bool playerControlsEnabled = true;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        menu = canvas.GetComponent<GameMenu>();
+        playerMovement = GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
     void Update()
     {
         ReadInput();
-        DisplayPing();
     }
 
-    public void InitializeOnlinePlayer(GameObject player)
-    {
-        photonView = player.GetComponent<PhotonView>();
-
-        playerOneMovement = player.GetComponent<PlayerMovement>();
-        playerTwoMovement = player.GetComponent<PlayerMovement>();
-    }
+    //public void InitializeOnlinePlayer(GameObject player)
+    //{
+    //    playerTwoMovement = player.GetComponent<PlayerMovement>();
+    //}
 
 
     private void ReadInput()
     {
         // Player Movement Controls
-        if (playerControlsEnabled && photonView.IsMine)
+        if (playerControlsEnabled)
         {
             // Move left
             if (Input.GetKey(KeyCode.A))
             {
-                playerOneMovement.MoveLeft();
-            }
-
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                playerTwoMovement.MoveLeft();
+                playerMovement.MoveLeft();
             }
 
             // Move right
             if (Input.GetKey(KeyCode.D))
             {
-                playerOneMovement.MoveRight();
-            }
-
-            if (Input.GetKey(KeyCode.RightArrow))
-            {
-                playerTwoMovement.MoveRight();
+                playerMovement.MoveRight();
             }
 
             // Jump
             if (Input.GetKey(KeyCode.W))
             {
-                playerOneMovement.Jump();
-            }
-            if (Input.GetKey(KeyCode.UpArrow))
-            {
-                playerTwoMovement.Jump();
+                playerMovement.Jump();
             }
 
             // Swing racket
             if (Input.GetKey(KeyCode.S))
             {
-                playerOneMovement.SwingRacket();
-            }
-            if (Input.GetKey(KeyCode.DownArrow))
-            {
-                playerTwoMovement.SwingRacket();
+                playerMovement.SwingRacket();
             }
         }
 
         // UI Controls
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            menu.ToggleMenu();
+            playerControlsEnabled = enabled;
+            //menu.ToggleMenu(); // TODO: add an open menu event
         }
     }
 
-    public void SetPlayerControlsEnabled(bool enabled)
-    {
-        playerControlsEnabled = enabled; // TODO: replace this with an open menu event
-    }
-
-    private void DisplayPing()
-    {
-        pingText.text = "Ping: " + PhotonNetwork.GetPing();
-    }
 }
