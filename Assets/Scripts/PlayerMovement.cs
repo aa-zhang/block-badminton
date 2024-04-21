@@ -15,7 +15,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpHeight = 800f;
     [SerializeField] private float gravity = 40;
 
-    public LayerMask groundLayer;
     private bool isGrounded = true;
     private bool canSwing = true;
 
@@ -52,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (CanGoLeft())
         {
-            playerTransform.transform.position += Vector3.left * movementSpeed * Time.deltaTime;
+            playerTransform.position += Vector3.left * movementSpeed * Time.deltaTime;
 
         }
     }
@@ -61,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (CanGoRight())
         {
-            playerTransform.transform.position += Vector3.right * movementSpeed * Time.deltaTime;
+            playerTransform.position += Vector3.right * movementSpeed * Time.deltaTime;
         }
     }
 
