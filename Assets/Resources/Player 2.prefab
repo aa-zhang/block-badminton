@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 6896490275773502755}
   - component: {fileID: 7967078688639347789}
   - component: {fileID: 7540425473426811518}
+  - component: {fileID: 4258370685026959180}
   m_Layer: 0
   m_Name: Racket
   m_TagString: Untagged
@@ -152,6 +153,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   racketForce: 6
   birdieAngleAdjustment: 0.3
+--- !u!114 &4258370685026959180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 326187496924113687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df2868252ab5c4d1da357e8f11f1b524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseUnreliableDeltas: 0
+  SyncPositionX: 0
+  SyncPositionY: 0
+  SyncPositionZ: 0
+  SyncRotAngleX: 0
+  SyncRotAngleY: 0
+  SyncRotAngleZ: 1
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  Interpolate: 0
+  SlerpPosition: 0
 --- !u!1 &953400460987646767
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,9 +437,6 @@ MonoBehaviour:
   movementSpeed: 9
   jumpHeight: 800
   gravity: 40
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!114 &461412212356444934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -498,7 +527,7 @@ MonoBehaviour:
   UseQuaternionCompression: 0
   UseHalfFloatPrecision: 0
   InLocalSpace: 0
-  Interpolate: 1
+  Interpolate: 0
   SlerpPosition: 0
 --- !u!1 &7913263242759728298
 GameObject:
