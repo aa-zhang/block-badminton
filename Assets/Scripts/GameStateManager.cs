@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Unity.Netcode;
 using UnityEngine.UI;
 
 
-public class GameStateManager : MonoBehaviour
+public class GameStateManager : NetworkBehaviour
 {
     public GameObject canvas;
     private GameMenu menu;
@@ -15,8 +16,9 @@ public class GameStateManager : MonoBehaviour
     public TextMeshProUGUI matchText;
     public TextMeshProUGUI readyCountText;
 
-    public int playerOneScore = 0;
-    public int playerTwoScore = 0;
+    private int numPlayersJoined = 0;
+    private NetworkVariable<int> playerOneScore = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    private NetworkVariable<int> playerTwoScore = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     private int scoringPlayerNum;
 
     private bool hasGameStarted = false;
@@ -25,10 +27,9 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] private int maxScore = 15; // Deuce score cap
 
     // Things needed for initializing the birdie
-    public GameObject birdiePrefab;
-    private Vector3 birdieSpawnPosition = new Vector3(0, 10, 0);
+    [SerializeField] private GameObject birdiePrefab;
 
-    public delegate void BirdieObjectHandler(int birdieViewId);
+    public delegate void BirdieObjectHandler(GameObject birdie);
     public static BirdieObjectHandler OnBirdieInitialized;
 
     public delegate void ServeHandler(int playerNum);
@@ -63,23 +64,30 @@ public class GameStateManager : MonoBehaviour
 
     private void OnEnable()
     {
+        NetworkManagerUI.OnPlayerSpawned += NetworkManagerUI_OnPlayerSpawned;
         BirdieMovement.OnPointScored += BirdieMovement_OnPointScored;
     }
 
     private void OnDisable()
     {
+        NetworkManagerUI.OnPlayerSpawned -= NetworkManagerUI_OnPlayerSpawned;
         BirdieMovement.OnPointScored -= BirdieMovement_OnPointScored;
+    }
+
+    private void NetworkManagerUI_OnPlayerSpawned()
+    {
+        numPlayersJoined++;
     }
 
     private void BirdieMovement_OnPointScored(int scoringPlayerNum)
     {
         if (scoringPlayerNum == 1)
         {
-            playerOneScore++;
+            playerOneScore.Value++;
         }
         else
         {
-            playerTwoScore++;
+            playerTwoScore.Value++;
         }
         this.scoringPlayerNum = scoringPlayerNum;
 
@@ -97,14 +105,11 @@ public class GameStateManager : MonoBehaviour
 
     private void ShowReadyCount()
     {
-        //int playerCount = 
-        //readyCountText.text = $"{playerCount}/2 Players joined";
-
-        //if (playerCount >= 2)
-        //{
-        //    InitiateMatch();
-        //    hasGameStarted = true;
-        //}
+        if (numPlayersJoined >= 2)
+        {
+            InitiateMatch();
+            hasGameStarted = true;
+        }
     }
 
     private void InitiateMatch()
@@ -113,7 +118,21 @@ public class GameStateManager : MonoBehaviour
         readyCountText.gameObject.SetActive(false);
         // Spawn birdie
         Debug.Log("Creating birdie");
-        Invoke("SelectRandomServer", 2);
+        GameObject spawnedBirdieGameObject = Instantiate(birdiePrefab);
+        NetworkObject birdieNetworkObject = spawnedBirdieGameObject.GetComponent<NetworkObject>();
+        birdieNetworkObject.Spawn(true);
+
+
+        InitialzeBirdieClientRpc(birdieNetworkObject.NetworkObjectId);
+        
+        Invoke("SelectRandomServer", 1);
+    }
+
+    [ClientRpc]
+    private void InitialzeBirdieClientRpc(ulong birdieNetworkObjectId)
+    {
+        NetworkObject foundObj = NetworkManager.Singleton.SpawnManager.SpawnedObjects[birdieNetworkObjectId];
+        OnBirdieInitialized(foundObj.gameObject);
     }
 
 
@@ -127,8 +146,8 @@ public class GameStateManager : MonoBehaviour
 
     private void CheckScore()
     {
-        int winningPlayerScore = Mathf.Max(playerOneScore, playerTwoScore);
-        int losingPlayerScore = Mathf.Min(playerOneScore, playerTwoScore);
+        int winningPlayerScore = Mathf.Max(playerOneScore.Value, playerTwoScore.Value);
+        int losingPlayerScore = Mathf.Min(playerOneScore.Value, playerTwoScore.Value);
 
         // Check if the match is in a Duece or Match Point state
         if (winningPlayerScore >= winningScore - 1)
@@ -149,13 +168,13 @@ public class GameStateManager : MonoBehaviour
         {
             matchText.text = "Match Over!";
 
-            if (playerOneScore >= winningScore)
+            if (playerOneScore.Value >= winningScore)
             {
                 winnerText.text = "The strongest badminton player in history wins!";
                 menu.ShowMenu(true);
                 winnerText.gameObject.SetActive(true);
             }
-            else if (playerTwoScore >= winningScore)
+            else if (playerTwoScore.Value >= winningScore)
             {
                 winnerText.text = "The strongest badminton player of today wins!";
                 menu.ShowMenu(true);
@@ -167,13 +186,13 @@ public class GameStateManager : MonoBehaviour
 
     private void DisplayScore()
     {
-        scoreText.text = playerOneScore + " - " + playerTwoScore;
+        scoreText.text = playerOneScore.Value + " - " + playerTwoScore.Value;
     }
 
 
     public void ResetScores()
     {
-        playerOneScore = 0;
-        playerTwoScore = 0;
+        playerOneScore.Value = 0;
+        playerTwoScore.Value = 0;
     }
 }

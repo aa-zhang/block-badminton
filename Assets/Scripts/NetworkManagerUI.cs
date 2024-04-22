@@ -11,8 +11,11 @@ public class NetworkManagerUI : NetworkBehaviour
     [SerializeField] private Button hostBtn;
     [SerializeField] private Button clientBtn;
 
-    [SerializeField] private GameObject playerPrefabA; //add prefab in inspector
-    [SerializeField] private GameObject playerPrefabB; //add prefab in inspector
+    [SerializeField] private GameObject playerPrefabA;
+    [SerializeField] private GameObject playerPrefabB;
+
+    public delegate void SpawnPlayerHandler();
+    public static SpawnPlayerHandler OnPlayerSpawned;
 
     private void Awake()
     {
@@ -30,25 +33,29 @@ public class NetworkManagerUI : NetworkBehaviour
         });
     }
 
+    public override void OnNetworkSpawn()
+    {
+        if (IsServer)
+        {
+            SpawnPlayerServerRpc(NetworkManager.Singleton.LocalClientId, 0);
+        }
+        else
+        {
+            SpawnPlayerServerRpc(NetworkManager.Singleton.LocalClientId, 1);
+        }
+    }
 
-    [ServerRpc(RequireOwnership = false)] //server owns this object but client can request a spawn
+    [ServerRpc(RequireOwnership = false)]
     public void SpawnPlayerServerRpc(ulong clientId, int prefabId)
     {
         GameObject newPlayer;
         if (prefabId == 0)
-            newPlayer = (GameObject)Instantiate(playerPrefabA);
+            newPlayer = Instantiate(playerPrefabA);
         else
-            newPlayer = (GameObject)Instantiate(playerPrefabB);
+            newPlayer = Instantiate(playerPrefabB);
         NetworkObject netObj = newPlayer.GetComponent<NetworkObject>();
         newPlayer.SetActive(true);
         netObj.SpawnAsPlayerObject(clientId, true);
-    }
-
-    public override void OnNetworkSpawn()
-    {
-        if (IsServer)
-            SpawnPlayerServerRpc(NetworkManager.Singleton.LocalClientId, 0);
-        else
-            SpawnPlayerServerRpc(NetworkManager.Singleton.LocalClientId, 1);
+        OnPlayerSpawned();
     }
 }

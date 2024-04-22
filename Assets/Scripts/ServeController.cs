@@ -16,7 +16,7 @@ public class ServeController : MonoBehaviour
     void Awake()
     {
         playerManager = GetComponent<PlayerManager>();
-        playerTransform = GetComponent<Transform>();
+        playerTransform = gameObject.transform;
     }
 
     // Update is called once per frame
@@ -47,14 +47,10 @@ public class ServeController : MonoBehaviour
         HitBirdie.OnBirdieHit -= HitBirdie_OnBirdieHit;
     }
 
-    private void GameStateManager_OnBirdieInitialized(int birdieViewId)
+    private void GameStateManager_OnBirdieInitialized(GameObject birdie)
     {
-        //Debug.Log($"Serve controller birdie initialized for player {playerManager.playerNum}");
-        //birdie = PhotonView.Find(birdieViewId).gameObject;
-
-        //birdieMovement = birdie.GetComponent<BirdieMovement>();
-        //birdiePsController = birdie.GetComponent<BirdieParticleController>();
-        //Debug.Log(birdieMovement == null);
+        birdieMovement = birdie.GetComponent<BirdieMovement>();
+        birdiePsController = birdie.GetComponent<BirdieParticleController>();
     }
 
     private void GameStateManager_OnBeginServe(int playerNum)
@@ -87,7 +83,6 @@ public class ServeController : MonoBehaviour
     private void HoldBirdie()
     {
         // Keep birdie infront of the player
-        Debug.Log($"now here {birdieMovement == null}, {playerManager.playerNum}");
         birdieMovement.SetServingPosition(playerTransform.position, playerManager.playerNum);
     }
 

@@ -59,10 +59,9 @@ public class SwingRacket : MonoBehaviour
         GameStateManager.OnBirdieInitialized -= ScoreManager_OnBirdieInitialized;
     }
 
-    private void ScoreManager_OnBirdieInitialized(int birdieViewId)
+    private void ScoreManager_OnBirdieInitialized(GameObject birdie)
     {
-        //birdie = PhotonView.Find(birdieViewId).gameObject;
-        //birdieTransform = birdie.transform;
+        birdieTransform = birdie.transform;
     }
 
 

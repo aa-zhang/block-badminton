@@ -63,7 +63,6 @@ public class BirdieMovement : MonoBehaviour
         SetIgnoreBirdieCollision(false);
     }
 
-
     public void SetServingPosition(Vector3 playerPosition, int playerNum)
     {
         Vector3 servingOffset = playerNum == 1 ? servingOffsetOne : servingOffsetTwo;
