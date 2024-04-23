@@ -13,7 +13,7 @@ public class HitBirdie : MonoBehaviour
     [SerializeField] private float racketForce = 300;
     [SerializeField] private float birdieAngleAdjustment = 0.1f;
 
-    public delegate void BirdieHitHandler(Vector3 force);
+    public delegate void BirdieHitHandler(Vector3 force, int playerNum);
     public static BirdieHitHandler OnBirdieHit;
 
 
@@ -68,7 +68,7 @@ public class HitBirdie : MonoBehaviour
         {
             // Racket is currently in the forward swinging animation
             // And is the first time making contact with the birdie during this swing
-            OnBirdieHit(forceVector * racketForce);
+            OnBirdieHit(forceVector * racketForce, playerManager.playerNum);
             swingRacket.SetAlreadyMadeContact(true);
             Debug.Log("hit the bertholdt with force. ARE WE DOING IT REINIER?!?!?" + forceVector);
             Debug.Log("theta " + theta);

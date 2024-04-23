@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class BirdieMovement : MonoBehaviour
+public class BirdieMovement : NetworkBehaviour
 {
     private Rigidbody birdieRb;
     private Transform birdieTransform;
@@ -44,7 +45,13 @@ public class BirdieMovement : MonoBehaviour
         GameStateManager.OnBeginServe -= GameStateManager_OnBeginServe;
     }
 
-    private void HitBirdie_OnBirdieHit(Vector3 forceVector)
+    private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum)
+    {
+        HitBirdieRpc(forceVector, playerNum);
+    }
+
+    [Rpc(SendTo.Server)]
+    public void HitBirdieRpc(Vector3 forceVector, int playerNum)
     {
         if (!enableGravity)
         {
@@ -59,6 +66,12 @@ public class BirdieMovement : MonoBehaviour
 
     private void GameStateManager_OnBeginServe(int playerNum)
     {
+        BeginServeToServeRpc();
+    }
+
+    [Rpc(SendTo.Server)]
+    private void BeginServeToServeRpc()
+    {
         enableGravity = false;
         SetIgnoreBirdieCollision(false);
     }
@@ -71,12 +84,15 @@ public class BirdieMovement : MonoBehaviour
 
     private void ApplyGravity()
     {
-        birdieRb.AddForce(new Vector3(0, -4, 0));
+        if (IsServer)
+        {
+            birdieRb.AddForce(new Vector3(0, -4, 0));
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Floor"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Floor") && IsServer)
         {
             // Prevent players from hitting the birdie after it lands
             SetIgnoreBirdieCollision(true);

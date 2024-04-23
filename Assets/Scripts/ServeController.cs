@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class ServeController : MonoBehaviour
+public class ServeController : NetworkBehaviour
 {
     public bool isServing = false;
     private PlayerManager playerManager;
@@ -27,9 +28,10 @@ public class ServeController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isServing)
+        Debug.Log(isServing);
+        if (isServing && IsClient)
         {
-            HoldBirdie();
+            HoldBirdieRpc();
         }
     }
 
@@ -80,19 +82,28 @@ public class ServeController : MonoBehaviour
 
     }
 
-    private void HoldBirdie()
+    [Rpc(SendTo.Server)]
+    public void HoldBirdieRpc()
     {
         // Keep birdie infront of the player
         birdieMovement.SetServingPosition(playerTransform.position, playerManager.playerNum);
     }
 
-    private void HitBirdie_OnBirdieHit(Vector3 forceVector)
+    private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum)
     {
-        if (isServing)
-        {
-            // Start timer for black flash detection
-            birdiePsController.ResetServeTimer();
-        }
+        //if (isServing)
+        //{
+        //    // Start timer for black flash detection
+        //    birdiePsController.ResetServeTimer();
+        //}
         isServing = false;
+        SetServeStatusRpc(false);
+    }
+
+    [Rpc(SendTo.Everyone)]
+    public void SetServeStatusRpc(bool isServing)
+    {
+        // Keep birdie infront of the player
+        this.isServing = isServing;
     }
 }

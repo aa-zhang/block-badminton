@@ -14,7 +14,7 @@ public class NetworkManagerUI : NetworkBehaviour
     [SerializeField] private GameObject playerPrefabA;
     [SerializeField] private GameObject playerPrefabB;
 
-    public delegate void SpawnPlayerHandler();
+    public delegate void SpawnPlayerHandler(ulong clientId);
     public static SpawnPlayerHandler OnPlayerSpawned;
 
     private void Awake()
@@ -56,6 +56,6 @@ public class NetworkManagerUI : NetworkBehaviour
         NetworkObject netObj = newPlayer.GetComponent<NetworkObject>();
         newPlayer.SetActive(true);
         netObj.SpawnAsPlayerObject(clientId, true);
-        OnPlayerSpawned();
+        OnPlayerSpawned(clientId);
     }
 }

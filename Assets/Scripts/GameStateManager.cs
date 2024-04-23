@@ -17,6 +17,8 @@ public class GameStateManager : NetworkBehaviour
     public TextMeshProUGUI readyCountText;
 
     private int numPlayersJoined = 0;
+    private int currentBirdieOwner = 1; // the player num that can control the birdie
+    private List<ulong> clientIds = new List<ulong>();
     private NetworkVariable<int> playerOneScore = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     private NetworkVariable<int> playerTwoScore = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     private int scoringPlayerNum;
@@ -28,6 +30,7 @@ public class GameStateManager : NetworkBehaviour
 
     // Things needed for initializing the birdie
     [SerializeField] private GameObject birdiePrefab;
+    private NetworkObject birdieNetworkObject;
 
     public delegate void BirdieObjectHandler(GameObject birdie);
     public static BirdieObjectHandler OnBirdieInitialized;
@@ -53,7 +56,7 @@ public class GameStateManager : NetworkBehaviour
     {
         if (!hasGameStarted)
         {
-            ShowReadyCount();
+            WaitForAllPlayersToJoin();
         }
         else
         {
@@ -65,30 +68,44 @@ public class GameStateManager : NetworkBehaviour
     private void OnEnable()
     {
         NetworkManagerUI.OnPlayerSpawned += NetworkManagerUI_OnPlayerSpawned;
+        HitBirdie.OnBirdieHit += HitBirdie_OnBirdieHit;
         BirdieMovement.OnPointScored += BirdieMovement_OnPointScored;
     }
 
     private void OnDisable()
     {
         NetworkManagerUI.OnPlayerSpawned -= NetworkManagerUI_OnPlayerSpawned;
+        HitBirdie.OnBirdieHit -= HitBirdie_OnBirdieHit;
         BirdieMovement.OnPointScored -= BirdieMovement_OnPointScored;
     }
 
-    private void NetworkManagerUI_OnPlayerSpawned()
+    private void NetworkManagerUI_OnPlayerSpawned(ulong clientId)
     {
         numPlayersJoined++;
+        clientIds.Add(clientId);
     }
+
+    private void HitBirdie_OnBirdieHit(Vector3 force, int playerNum)
+    {
+        
+    }
+
+    
 
     private void BirdieMovement_OnPointScored(int scoringPlayerNum)
     {
-        if (scoringPlayerNum == 1)
+        if (IsServer)
         {
-            playerOneScore.Value++;
+            if (scoringPlayerNum == 1)
+            {
+                playerOneScore.Value++;
+            }
+            else
+            {
+                playerTwoScore.Value++;
+            }
         }
-        else
-        {
-            playerTwoScore.Value++;
-        }
+
         this.scoringPlayerNum = scoringPlayerNum;
 
         // Start next serve after a 1 second delay
@@ -98,12 +115,11 @@ public class GameStateManager : NetworkBehaviour
     private void BeginNextServe()
     {
         // This helper method is used in order to allow for a delay using Invoke()
-        OnBeginServe(scoringPlayerNum);
+        BeginServeRpc(scoringPlayerNum);
     }
 
     
-
-    private void ShowReadyCount()
+    private void WaitForAllPlayersToJoin()
     {
         if (numPlayersJoined >= 2)
         {
@@ -119,17 +135,17 @@ public class GameStateManager : NetworkBehaviour
         // Spawn birdie
         Debug.Log("Creating birdie");
         GameObject spawnedBirdieGameObject = Instantiate(birdiePrefab);
-        NetworkObject birdieNetworkObject = spawnedBirdieGameObject.GetComponent<NetworkObject>();
+        birdieNetworkObject = spawnedBirdieGameObject.GetComponent<NetworkObject>();
         birdieNetworkObject.Spawn(true);
 
 
-        InitialzeBirdieClientRpc(birdieNetworkObject.NetworkObjectId);
+        InitializeBirdieRpc(birdieNetworkObject.NetworkObjectId);
         
         Invoke("SelectRandomServer", 1);
     }
 
-    [ClientRpc]
-    private void InitialzeBirdieClientRpc(ulong birdieNetworkObjectId)
+    [Rpc(SendTo.ClientsAndHost)]
+    private void InitializeBirdieRpc(ulong birdieNetworkObjectId)
     {
         NetworkObject foundObj = NetworkManager.Singleton.SpawnManager.SpawnedObjects[birdieNetworkObjectId];
         OnBirdieInitialized(foundObj.gameObject);
@@ -141,6 +157,12 @@ public class GameStateManager : NetworkBehaviour
         // Select random number from {1, 2}
         //int playerNum = Random.Range(1, 3);
         int playerNum = 1;
+        BeginServeRpc(playerNum);
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    private void BeginServeRpc(int playerNum)
+    {
         OnBeginServe(playerNum);
     }
 
