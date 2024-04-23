@@ -7,12 +7,6 @@ public class GameMenu : MonoBehaviour
 {
     public GameObject menu;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
     public void StartGame()
     {
         //ResetGameValues();

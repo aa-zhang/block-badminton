@@ -28,7 +28,7 @@ public class HitBirdie : MonoBehaviour
     }
 
 
-    public void ApplyForceToBirdie(bool isOverhandCollider)
+    public void CalculateBirdieForce(bool isOverhandCollider)
     {
         // Don't register collisions for the incorrect collider
         if ((swingRacket.overhand && !isOverhandCollider) || (!swingRacket.overhand && isOverhandCollider))

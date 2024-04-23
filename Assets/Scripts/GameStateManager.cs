@@ -8,30 +8,27 @@ using UnityEngine.UI;
 
 public class GameStateManager : NetworkBehaviour
 {
-    public GameObject canvas;
+    // UI elements
     private GameMenu menu;
-
+    public GameObject canvas;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI winnerText;
     public TextMeshProUGUI matchText;
     public TextMeshProUGUI readyCountText;
 
-    private int numPlayersJoined = 0;
-    private int currentBirdieOwner = 1; // the player num that can control the birdie
-    private List<ulong> clientIds = new List<ulong>();
+    // Score variables
     private NetworkVariable<int> playerOneScore = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     private NetworkVariable<int> playerTwoScore = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     private int scoringPlayerNum;
-
     private bool hasGameStarted = false;
 
-    [SerializeField] private int winningScore = 11; // Default winning score
-    [SerializeField] private int maxScore = 15; // Deuce score cap
 
-    // Things needed for initializing the birdie
+    // Network
+    private List<ulong> clientIds = new List<ulong>();
     [SerializeField] private GameObject birdiePrefab;
     private NetworkObject birdieNetworkObject;
 
+    // Events
     public delegate void BirdieObjectHandler(GameObject birdie);
     public static BirdieObjectHandler OnBirdieInitialized;
 
@@ -45,11 +42,6 @@ public class GameStateManager : NetworkBehaviour
         menu = canvas.GetComponent<GameMenu>();
         menu.ShowMenu(false);
         winnerText.gameObject.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     private void FixedUpdate()
@@ -68,48 +60,38 @@ public class GameStateManager : NetworkBehaviour
     private void OnEnable()
     {
         NetworkManagerUI.OnPlayerSpawned += NetworkManagerUI_OnPlayerSpawned;
-        HitBirdie.OnBirdieHit += HitBirdie_OnBirdieHit;
         BirdieMovement.OnPointScored += BirdieMovement_OnPointScored;
     }
 
     private void OnDisable()
     {
         NetworkManagerUI.OnPlayerSpawned -= NetworkManagerUI_OnPlayerSpawned;
-        HitBirdie.OnBirdieHit -= HitBirdie_OnBirdieHit;
         BirdieMovement.OnPointScored -= BirdieMovement_OnPointScored;
     }
 
     private void NetworkManagerUI_OnPlayerSpawned(ulong clientId)
     {
-        numPlayersJoined++;
         clientIds.Add(clientId);
     }
-
-    private void HitBirdie_OnBirdieHit(Vector3 force, int playerNum)
-    {
-        
-    }
-
     
 
     private void BirdieMovement_OnPointScored(int scoringPlayerNum)
     {
-        if (IsServer)
+        if (!IsServer) return; // Only let server handle score
+
+        if (scoringPlayerNum == 1)
         {
-            if (scoringPlayerNum == 1)
-            {
-                playerOneScore.Value++;
-            }
-            else
-            {
-                playerTwoScore.Value++;
-            }
+            playerOneScore.Value++;
+        }
+        else
+        {
+            playerTwoScore.Value++;
         }
 
         this.scoringPlayerNum = scoringPlayerNum;
 
         // Start next serve after a 1 second delay
-        Invoke("BeginNextServe", 1);
+        Invoke("BeginNextServe", 1); 
     }
 
     private void BeginNextServe()
@@ -118,10 +100,15 @@ public class GameStateManager : NetworkBehaviour
         BeginServeRpc(scoringPlayerNum);
     }
 
-    
+    [Rpc(SendTo.ClientsAndHost)]
+    private void BeginServeRpc(int playerNum)
+    {
+        OnBeginServe(playerNum);
+    }
+
     private void WaitForAllPlayersToJoin()
     {
-        if (numPlayersJoined >= 2)
+        if (clientIds.Count >= 2)
         {
             InitiateMatch();
             hasGameStarted = true;
@@ -132,13 +119,13 @@ public class GameStateManager : NetworkBehaviour
     {
         Debug.Log("Game starting!");
         readyCountText.gameObject.SetActive(false);
-        // Spawn birdie
+
         Debug.Log("Creating birdie");
         GameObject spawnedBirdieGameObject = Instantiate(birdiePrefab);
         birdieNetworkObject = spawnedBirdieGameObject.GetComponent<NetworkObject>();
         birdieNetworkObject.Spawn(true);
 
-
+        // Initialize birdie for clients
         InitializeBirdieRpc(birdieNetworkObject.NetworkObjectId);
         
         Invoke("SelectRandomServer", 1);
@@ -147,23 +134,17 @@ public class GameStateManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     private void InitializeBirdieRpc(ulong birdieNetworkObjectId)
     {
+        // Find birdie network object
         NetworkObject foundObj = NetworkManager.Singleton.SpawnManager.SpawnedObjects[birdieNetworkObjectId];
+        // Call event to attach birdie to other scripts
         OnBirdieInitialized(foundObj.gameObject);
     }
-
 
     private void SelectRandomServer()
     {
         // Select random number from {1, 2}
-        //int playerNum = Random.Range(1, 3);
-        int playerNum = 1;
+        int playerNum = Random.Range(1, 3);
         BeginServeRpc(playerNum);
-    }
-
-    [Rpc(SendTo.ClientsAndHost)]
-    private void BeginServeRpc(int playerNum)
-    {
-        OnBeginServe(playerNum);
     }
 
     private void CheckScore()
@@ -171,8 +152,8 @@ public class GameStateManager : NetworkBehaviour
         int winningPlayerScore = Mathf.Max(playerOneScore.Value, playerTwoScore.Value);
         int losingPlayerScore = Mathf.Min(playerOneScore.Value, playerTwoScore.Value);
 
-        // Check if the match is in a Duece or Match Point state
-        if (winningPlayerScore >= winningScore - 1)
+        // Check if the match is in a Deuce or Match Point state
+        if (winningPlayerScore >= Constants.winningScore - 1)
         {
             if (winningPlayerScore == losingPlayerScore)
             {
@@ -184,26 +165,24 @@ public class GameStateManager : NetworkBehaviour
             } 
         }
 
-
         // Check if a player has won
-        if ((winningPlayerScore >= winningScore && winningPlayerScore - losingPlayerScore >= 2) || winningPlayerScore == maxScore)
+        if ((winningPlayerScore >= Constants.winningScore && winningPlayerScore - losingPlayerScore >= 2) || winningPlayerScore == Constants.maxScore)
         {
             matchText.text = "Match Over!";
 
-            if (playerOneScore.Value >= winningScore)
+            if (playerOneScore.Value >= Constants.winningScore)
             {
                 winnerText.text = "The strongest badminton player in history wins!";
                 menu.ShowMenu(true);
                 winnerText.gameObject.SetActive(true);
             }
-            else if (playerTwoScore.Value >= winningScore)
+            else if (playerTwoScore.Value >= Constants.winningScore)
             {
                 winnerText.text = "The strongest badminton player of today wins!";
                 menu.ShowMenu(true);
                 winnerText.gameObject.SetActive(true);
             }
         }
-        
     }    
 
     private void DisplayScore()

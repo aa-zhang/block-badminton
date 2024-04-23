@@ -9,7 +9,7 @@ public class ServeController : NetworkBehaviour
     private PlayerManager playerManager;
     private Transform playerTransform;
 
-    private GameObject birdie;
+    private Transform birdieTransform;
     private BirdieMovement birdieMovement;
     private BirdieParticleController birdiePsController;
 
@@ -20,16 +20,9 @@ public class ServeController : NetworkBehaviour
         playerTransform = gameObject.transform;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void FixedUpdate()
     {
-        Debug.Log(isServing);
-        if (isServing && IsClient)
+        if (isServing && IsLocalPlayer)
         {
             HoldBirdieRpc();
         }
@@ -49,8 +42,18 @@ public class ServeController : NetworkBehaviour
         HitBirdie.OnBirdieHit -= HitBirdie_OnBirdieHit;
     }
 
+    [Rpc(SendTo.Server)]
+    public void HoldBirdieRpc()
+    {
+        // Move the birdie in front of the serving player
+        Vector3 servingOffset = playerManager.playerNum == 1 ? Constants.servingOffsetOne : Constants.servingOffsetTwo;
+        birdieTransform.position = playerTransform.position + servingOffset;
+    }
+
     private void GameStateManager_OnBirdieInitialized(GameObject birdie)
     {
+        // Attach spawned birdie to this script
+        birdieTransform = birdie.transform;
         birdieMovement = birdie.GetComponent<BirdieMovement>();
         birdiePsController = birdie.GetComponent<BirdieParticleController>();
     }
@@ -58,18 +61,33 @@ public class ServeController : NetworkBehaviour
     private void GameStateManager_OnBeginServe(int playerNum)
     {
         // Initiate serving sequence for given playerNum
-        if (playerManager.playerNum == playerNum)
+        if (playerManager.playerNum == playerNum && IsLocalPlayer)
         {
             isServing = true;
-            ResetServingPlayerPosition();
+            ResetServingPlayerPosition(playerNum);
+            SetBirdieGravityRpc(false);
+            SetIgnoreBirdieCollisionRpc(false);
         }   
     }
 
-    private void ResetServingPlayerPosition()
+
+    [Rpc(SendTo.Server)]
+    private void SetBirdieGravityRpc(bool enableGravity)
     {
+        birdieMovement.SetEnableBirdieGravity(enableGravity);
+    }
+
+    [Rpc(SendTo.Server)]
+    private void SetIgnoreBirdieCollisionRpc(bool ignoreCollision)
+    {
+        birdieMovement.SetIgnoreBirdieCollision(ignoreCollision);
+    }
+
+    private void ResetServingPlayerPosition(int playerNum)
+        {
         // Move player behind the serving line
         float newXPos;
-        if (playerManager.playerNum == 1)
+        if (playerNum == 1)
         {
             newXPos = Mathf.Min(playerTransform.position.x, -Constants.servingLineXPos);
         }
@@ -82,28 +100,13 @@ public class ServeController : NetworkBehaviour
 
     }
 
-    [Rpc(SendTo.Server)]
-    public void HoldBirdieRpc()
-    {
-        // Keep birdie infront of the player
-        birdieMovement.SetServingPosition(playerTransform.position, playerManager.playerNum);
-    }
-
     private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum)
     {
-        //if (isServing)
-        //{
-        //    // Start timer for black flash detection
-        //    birdiePsController.ResetServeTimer();
-        //}
+        if (isServing)
+        {
+            // Start timer for black flash detection
+            birdiePsController.ResetServeTimer();
+        }
         isServing = false;
-        SetServeStatusRpc(false);
-    }
-
-    [Rpc(SendTo.Everyone)]
-    public void SetServeStatusRpc(bool isServing)
-    {
-        // Keep birdie infront of the player
-        this.isServing = isServing;
     }
 }

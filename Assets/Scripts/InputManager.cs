@@ -22,11 +22,6 @@ public class InputManager : NetworkBehaviour
         ReadInput();
     }
 
-    //public void InitializeOnlinePlayer(GameObject player)
-    //{
-    //    playerTwoMovement = player.GetComponent<PlayerMovement>();
-    //}
-
 
     private void ReadInput()
     {

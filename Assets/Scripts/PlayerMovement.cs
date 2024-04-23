@@ -29,11 +29,6 @@ public class PlayerMovement : MonoBehaviour
         serveController = GetComponent<ServeController>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     private void FixedUpdate()
     {
         ApplyGravity();

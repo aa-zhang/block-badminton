@@ -15,12 +15,6 @@ public class DetectRacketCollision : MonoBehaviour
         hitBirdie = gameObject.transform.parent.gameObject.GetComponent<HitBirdie>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerStay(Collider collider)
     {
         // Using OnTriggerStay instead of OnTriggerEnter because
@@ -28,7 +22,7 @@ public class DetectRacketCollision : MonoBehaviour
 
         if (collider.gameObject.layer == LayerMask.NameToLayer("Birdie"))
         {
-            hitBirdie.ApplyForceToBirdie(isOverhandCollider);
+            hitBirdie.CalculateBirdieForce(isOverhandCollider);
         }
     }    
 }

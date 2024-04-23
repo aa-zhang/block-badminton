@@ -12,8 +12,6 @@ public class BirdieParticleController : MonoBehaviour
     public ParticleSystem blackFlashPs;
     private bool isBlackFlashPlaying = false;
 
-
-    private Transform birdieTransform;
     private Rigidbody birdieRb;
 
     private float minSpeedForParticles = 15f;
@@ -24,7 +22,6 @@ public class BirdieParticleController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        birdieTransform = gameObject.transform;
         birdieRb = gameObject.GetComponent<Rigidbody>();
 
         psMain = birdiePs.main;
