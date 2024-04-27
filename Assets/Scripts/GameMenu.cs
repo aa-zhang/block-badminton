@@ -7,6 +7,9 @@ public class GameMenu : MonoBehaviour
 {
     public GameObject menu;
 
+    public delegate void GameHandler();
+    public static GameHandler OnGameRestart;
+
     public void StartGame()
     {
         //ResetGameValues();
@@ -18,11 +21,12 @@ public class GameMenu : MonoBehaviour
         Application.Quit();
     }
 
-    private void ResetGameValues()
+    public void ResetGameValues()
     {
         // reset player location:?
         // initiate serve
         // reset score
+        OnGameRestart();
     }
 
     public void ShowMenu(bool showMenu)

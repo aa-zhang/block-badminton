@@ -20,7 +20,8 @@ public class GameStateManager : NetworkBehaviour
     private NetworkVariable<int> playerOneScore = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     private NetworkVariable<int> playerTwoScore = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     private int scoringPlayerNum;
-    private bool hasGameStarted = false;
+    private bool allPlayersJoined = false;
+    private bool gameInProgress = false;
 
 
     // Network
@@ -40,19 +41,17 @@ public class GameStateManager : NetworkBehaviour
     void Start()
     {
         menu = canvas.GetComponent<GameMenu>();
-        menu.ShowMenu(false);
-        winnerText.gameObject.SetActive(false);
+        ShowMenuRpc(false);
     }
 
     private void FixedUpdate()
     {
-        if (!hasGameStarted)
+        if (!allPlayersJoined)
         {
             WaitForAllPlayersToJoin();
         }
         else
         {
-            CheckScore();
             DisplayScore();
         }
     }
@@ -61,19 +60,41 @@ public class GameStateManager : NetworkBehaviour
     {
         NetworkManagerUI.OnPlayerSpawned += NetworkManagerUI_OnPlayerSpawned;
         BirdieMovement.OnPointScored += BirdieMovement_OnPointScored;
+        GameMenu.OnGameRestart += GameMenu_OnGameRestart;
     }
 
     private void OnDisable()
     {
         NetworkManagerUI.OnPlayerSpawned -= NetworkManagerUI_OnPlayerSpawned;
         BirdieMovement.OnPointScored -= BirdieMovement_OnPointScored;
+        GameMenu.OnGameRestart -= GameMenu_OnGameRestart;
     }
 
     private void NetworkManagerUI_OnPlayerSpawned(ulong clientId)
     {
-        clientIds.Add(clientId);
+        if (IsServer)
+        {
+            clientIds.Add(clientId);
+        }
     }
-    
+
+    private void GameMenu_OnGameRestart()
+    {
+        RestartGameRpc();
+    }
+
+    [Rpc(SendTo.Server)]
+    private void RestartGameRpc()
+    {
+        SetMatchTextRpc("");
+        SetWinnerTextRpc("");
+        ShowMenuRpc(false);
+        playerOneScore.Value = 0;
+        playerTwoScore.Value = 0;
+        InitiateGameRpc();
+        Invoke("SelectRandomServer", 1);
+    }
+
 
     private void BirdieMovement_OnPointScored(int scoringPlayerNum)
     {
@@ -90,8 +111,13 @@ public class GameStateManager : NetworkBehaviour
 
         this.scoringPlayerNum = scoringPlayerNum;
 
-        // Start next serve after a 1 second delay
-        Invoke("BeginNextServe", 1); 
+        CheckScore();
+
+        if (gameInProgress)
+        {
+            // Start next serve after a 1 second delay
+            Invoke("BeginNextServe", 1);
+        }
     }
 
     private void BeginNextServe()
@@ -110,19 +136,20 @@ public class GameStateManager : NetworkBehaviour
     {
         if (clientIds.Count >= 2)
         {
-            InitiateMatch();
-            SetGameStartedRpc(true);
+            InitiateGameRpc();
+            SpawnNetworkBirdie();
         }
     }
 
     [Rpc(SendTo.Everyone)]
-    private void SetGameStartedRpc(bool hasGameStarted)
+    private void InitiateGameRpc()
     {
-        this.hasGameStarted = hasGameStarted;
+        allPlayersJoined = true;
+        gameInProgress = true;
     }
 
 
-    private void InitiateMatch()
+    private void SpawnNetworkBirdie()
     {
         Debug.Log("Game starting!");
         readyCountText.gameObject.SetActive(false);
@@ -164,33 +191,52 @@ public class GameStateManager : NetworkBehaviour
         {
             if (winningPlayerScore == losingPlayerScore)
             {
-                matchText.text = "Deuce";
+                SetMatchTextRpc("Deuce");
             }
             else
             {
-                matchText.text = "Match Point";
-            } 
+                SetMatchTextRpc("Match Point");
+            }
         }
 
         // Check if a player has won
         if ((winningPlayerScore >= Constants.winningScore && winningPlayerScore - losingPlayerScore >= 2) || winningPlayerScore == Constants.maxScore)
         {
-            matchText.text = "Match Over!";
+            SetMatchTextRpc("Match Over!");
+            gameInProgress = false;
 
             if (playerOneScore.Value >= Constants.winningScore)
             {
-                winnerText.text = "The strongest badminton player in history wins!";
-                menu.ShowMenu(true);
-                winnerText.gameObject.SetActive(true);
+                SetWinnerTextRpc("The strongest badminton player in history wins!");
+                ShowMenuRpc(true);
             }
             else if (playerTwoScore.Value >= Constants.winningScore)
             {
-                winnerText.text = "The strongest badminton player of today wins!";
-                menu.ShowMenu(true);
-                winnerText.gameObject.SetActive(true);
+                SetWinnerTextRpc("The strongest badminton player of today wins!");
+                ShowMenuRpc(true);
             }
         }
-    }    
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    private void ShowMenuRpc(bool show)
+    {
+        menu.ShowMenu(show);
+
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    private void SetMatchTextRpc(string text)
+    {
+        matchText.text = text;
+
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    private void SetWinnerTextRpc(string text)
+    {
+        winnerText.text = text;
+    }
 
     private void DisplayScore()
     {

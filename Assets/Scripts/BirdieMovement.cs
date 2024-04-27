@@ -59,11 +59,7 @@ public class BirdieMovement : NetworkBehaviour
     [Rpc(SendTo.Server)]
     public void ApplyForceToBirdieRpc(Vector3 forceVector, int playerNum)
     {
-        if (!enableCollision)
-        {
-            Debug.LogError("contacted birdie, but collision disabled");
-            return;
-        }
+        if (!enableCollision) return;
 
         enableGravity = true;
         birdieRb.velocity = Vector3.zero;
