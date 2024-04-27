@@ -1814,8 +1814,6 @@ MonoBehaviour:
   winnerText: {fileID: 562262023}
   matchText: {fileID: 430377712}
   readyCountText: {fileID: 1660805429}
-  winningScore: 11
-  maxScore: 15
   birdiePrefab: {fileID: 6962356067455933032, guid: 16c5034de02564be68b4c5aa1b5ded52, type: 3}
 --- !u!4 &771566074
 Transform:
@@ -2553,8 +2551,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1408979870}
-  - component: {fileID: 1408979871}
   - component: {fileID: 1408979872}
+  - component: {fileID: 1408979871}
   m_Layer: 5
   m_Name: Network Manager UI
   m_TagString: Untagged
