@@ -18,16 +18,12 @@ public class GameMenu : MonoBehaviour
         Application.Quit();
     }
 
-    //private void ResetGameValues()
-    //{
-    //    playerOneMovement.SetIsServing(true);
-    //    playerTwoMovement.SetIsServing(false);
-
-    //    playerOneTransform.position = new Vector3(-playerOneMovement.startingXCoord, playerOneTransform.position.y, playerOneTransform.position.z);
-    //    playerTwoTransform.position = new Vector3(playerTwoMovement.startingXCoord, playerTwoTransform.position.y, playerTwoTransform.position.z);
-
-    //    scoreManager.ResetScores();
-    //}
+    private void ResetGameValues()
+    {
+        // reset player location:?
+        // initiate serve
+        // reset score
+    }
 
     public void ShowMenu(bool showMenu)
     {

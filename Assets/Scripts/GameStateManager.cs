@@ -17,8 +17,8 @@ public class GameStateManager : NetworkBehaviour
     public TextMeshProUGUI readyCountText;
 
     // Score variables
-    private NetworkVariable<int> playerOneScore = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-    private NetworkVariable<int> playerTwoScore = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    private NetworkVariable<int> playerOneScore = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+    private NetworkVariable<int> playerTwoScore = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     private int scoringPlayerNum;
     private bool hasGameStarted = false;
 
@@ -111,9 +111,16 @@ public class GameStateManager : NetworkBehaviour
         if (clientIds.Count >= 2)
         {
             InitiateMatch();
-            hasGameStarted = true;
+            SetGameStartedRpc(true);
         }
     }
+
+    [Rpc(SendTo.Everyone)]
+    private void SetGameStartedRpc(bool hasGameStarted)
+    {
+        this.hasGameStarted = hasGameStarted;
+    }
+
 
     private void InitiateMatch()
     {
