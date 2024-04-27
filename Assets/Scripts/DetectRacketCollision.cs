@@ -12,7 +12,7 @@ public class DetectRacketCollision : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hitBirdie = gameObject.transform.parent.gameObject.GetComponent<HitBirdie>();
+        hitBirdie = GetComponentInParent<HitBirdie>();
     }
 
     private void OnTriggerStay(Collider collider)

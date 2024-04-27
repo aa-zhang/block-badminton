@@ -65,23 +65,11 @@ public class ServeController : NetworkBehaviour
         {
             isServing = true;
             ResetServingPlayerPosition(playerNum);
-            SetBirdieGravityRpc(false);
-            SetIgnoreBirdieCollisionRpc(false);
+            birdieMovement.SetBirdieGravityRpc(false);
+            birdieMovement.SetBirdieCollisionRpc(true);
         }   
     }
 
-
-    [Rpc(SendTo.Server)]
-    private void SetBirdieGravityRpc(bool enableGravity)
-    {
-        birdieMovement.SetEnableBirdieGravity(enableGravity);
-    }
-
-    [Rpc(SendTo.Server)]
-    private void SetIgnoreBirdieCollisionRpc(bool ignoreCollision)
-    {
-        birdieMovement.SetIgnoreBirdieCollision(ignoreCollision);
-    }
 
     private void ResetServingPlayerPosition(int playerNum)
         {

@@ -5,8 +5,6 @@ using UnityEngine;
 public class SwingRacket : MonoBehaviour
 {
     private Transform racketTransform;
-
-    public GameObject birdie;
     private Transform birdieTransform;
     private BirdieParticleController birdiePsController;
 

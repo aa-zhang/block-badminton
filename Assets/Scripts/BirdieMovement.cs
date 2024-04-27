@@ -8,6 +8,7 @@ public class BirdieMovement : NetworkBehaviour
     private Rigidbody birdieRb;
     private Transform birdieTransform;
     private bool enableGravity = false;
+    private bool enableCollision = true;
 
     public delegate void IncreaseScoreHandler(int scoringPlayerNum);
     public static IncreaseScoreHandler OnPointScored;
@@ -18,8 +19,6 @@ public class BirdieMovement : NetworkBehaviour
     {
         birdieRb = gameObject.GetComponent<Rigidbody>();
         birdieTransform = gameObject.transform;
-
-        SetIgnoreBirdieCollision(false);
     }
 
     private void FixedUpdate()
@@ -40,7 +39,8 @@ public class BirdieMovement : NetworkBehaviour
         HitBirdie.OnBirdieHit -= HitBirdie_OnBirdieHit;
     }
 
-    public void SetEnableBirdieGravity(bool enableGravity)
+    [Rpc(SendTo.Server)]
+    public void SetBirdieGravityRpc(bool enableGravity)
     {
         this.enableGravity = enableGravity;
     }
@@ -59,22 +59,23 @@ public class BirdieMovement : NetworkBehaviour
     [Rpc(SendTo.Server)]
     public void ApplyForceToBirdieRpc(Vector3 forceVector, int playerNum)
     {
-        if (!enableGravity)
+        if (!enableCollision)
         {
-            enableGravity = true;
+            Debug.LogError("contacted birdie, but collision disabled");
+            return;
         }
+
+        enableGravity = true;
         birdieRb.velocity = Vector3.zero;
         birdieRb.AddForce(forceVector, ForceMode.Impulse);
     }
-
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Floor"))
         {
             // Prevent players from hitting the birdie after it lands
-            Debug.LogError("disable collision"); // TODO: client collision not being disabled
-            SetIgnoreBirdieCollision(true);
+            SetBirdieCollisionRpc(false);
 
             // Determine if player 1 or 2 should receive the point
             int scoringPlayerNum = birdieTransform.position.x > 0 ? 1 : 2;
@@ -82,12 +83,10 @@ public class BirdieMovement : NetworkBehaviour
         }
     }
 
-
-    public void SetIgnoreBirdieCollision(bool ignoreCollision)
+    [Rpc(SendTo.Server)]
+    public void SetBirdieCollisionRpc(bool enableCollision)
     {
-        int racketLayer = LayerMask.NameToLayer("Racket");
-        int birdieLayer = LayerMask.NameToLayer("Birdie");
-        Physics.IgnoreLayerCollision(racketLayer, birdieLayer, ignoreCollision);
+        this.enableCollision = enableCollision;
     }
 
 }
