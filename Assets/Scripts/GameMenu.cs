@@ -5,10 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class GameMenu : MonoBehaviour
 {
-    public GameObject menu;
+    private static GameMenu _instance;
+    public static GameMenu Instance { get { return _instance; } }
 
     public delegate void GameHandler();
     public static GameHandler OnGameRestart;
+
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;
+            _instance.ShowMenu(false);
+        }
+    }
 
     public void StartGame()
     {
@@ -31,16 +46,13 @@ public class GameMenu : MonoBehaviour
 
     public void ShowMenu(bool showMenu)
     {
-        Debug.Log("setting menu to " + showMenu);
-        menu.SetActive(showMenu);
+        gameObject.SetActive(showMenu);
         //playerOneMovement.SetIsControlEnabled(false);
         //playerTwoMovement.SetIsControlEnabled(false);
     }
 
     public void ToggleMenu()
     {
-        menu.SetActive(!menu.activeSelf);
+        gameObject.SetActive(!gameObject.activeSelf);
     }
-
-
 }

@@ -56,8 +56,8 @@ public class InputManager : NetworkBehaviour
         // UI Controls
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            playerControlsEnabled = enabled;
-            //menu.ToggleMenu(); // TODO: add an open menu event
+            //playerControlsEnabled = enabled;
+            GameMenu.Instance.ToggleMenu();
         }
     }
 

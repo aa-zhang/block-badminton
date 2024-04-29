@@ -12,7 +12,11 @@ using TMPro;
 
 public class CreateAndJoinRelay : MonoBehaviour
 {
-    public TMP_InputField joinRoomInput;
+    [SerializeField] private TMP_InputField joinRoomInput;
+
+    public delegate void RelayHandler(bool isHost, string joinCode);
+    public static RelayHandler OnRelayJoined;
+
     // Start is called before the first frame update
     async void Start()
     {
@@ -37,7 +41,7 @@ public class CreateAndJoinRelay : MonoBehaviour
             RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
             NetworkManager.Singleton.StartHost();
-
+            OnRelayJoined(true, joinCode);
         }
         catch (RelayServiceException e)
         {
@@ -54,8 +58,8 @@ public class CreateAndJoinRelay : MonoBehaviour
 
             RelayServerData relayServerData = new RelayServerData(joinAllocation, "dtls");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
-
             NetworkManager.Singleton.StartClient();
+            OnRelayJoined(false, joinRoomInput.text);
         }
         catch (RelayServiceException e)
         {

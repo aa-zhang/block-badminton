@@ -9,12 +9,10 @@ using UnityEngine.UI;
 public class GameStateManager : NetworkBehaviour
 {
     // UI elements
-    private GameMenu menu;
     public GameObject canvas;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI winnerText;
     public TextMeshProUGUI matchText;
-    public TextMeshProUGUI readyCountText;
 
     // Score variables
     private NetworkVariable<int> playerOneScore = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
@@ -33,6 +31,9 @@ public class GameStateManager : NetworkBehaviour
     public delegate void BirdieObjectHandler(GameObject birdie);
     public static BirdieObjectHandler OnBirdieInitialized;
 
+    public delegate void StartMatchHandler();
+    public static StartMatchHandler OnStartMatch;
+
     public delegate void ServeHandler(int playerNum);
     public static ServeHandler OnBeginServe;
 
@@ -40,7 +41,6 @@ public class GameStateManager : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        menu = canvas.GetComponent<GameMenu>();
         ShowMenuRpc(false);
     }
 
@@ -58,19 +58,19 @@ public class GameStateManager : NetworkBehaviour
 
     private void OnEnable()
     {
-        NetworkManagerUI.OnPlayerSpawned += NetworkManagerUI_OnPlayerSpawned;
+        PlayerSpawner.OnPlayerSpawned += PlayerSpawner_OnPlayerSpawned;
         BirdieMovement.OnPointScored += BirdieMovement_OnPointScored;
         GameMenu.OnGameRestart += GameMenu_OnGameRestart;
     }
 
     private void OnDisable()
     {
-        NetworkManagerUI.OnPlayerSpawned -= NetworkManagerUI_OnPlayerSpawned;
+        PlayerSpawner.OnPlayerSpawned -= PlayerSpawner_OnPlayerSpawned;
         BirdieMovement.OnPointScored -= BirdieMovement_OnPointScored;
         GameMenu.OnGameRestart -= GameMenu_OnGameRestart;
     }
 
-    private void NetworkManagerUI_OnPlayerSpawned(ulong clientId)
+    private void PlayerSpawner_OnPlayerSpawned(ulong clientId)
     {
         if (IsServer)
         {
@@ -146,14 +146,13 @@ public class GameStateManager : NetworkBehaviour
     {
         allPlayersJoined = true;
         gameInProgress = true;
+        OnStartMatch();
     }
 
 
     private void SpawnNetworkBirdie()
     {
         Debug.Log("Game starting!");
-        readyCountText.gameObject.SetActive(false);
-
         Debug.Log("Creating birdie");
         GameObject spawnedBirdieGameObject = Instantiate(birdiePrefab);
         birdieNetworkObject = spawnedBirdieGameObject.GetComponent<NetworkObject>();
@@ -221,7 +220,7 @@ public class GameStateManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     private void ShowMenuRpc(bool show)
     {
-        menu.ShowMenu(show);
+        GameMenu.Instance.ShowMenu(show);
 
     }
 
