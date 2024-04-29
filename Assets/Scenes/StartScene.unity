@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465788, g: 0.49641287, b: 0.5748173, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 149320914}
+  - component: {fileID: 149320915}
   m_Layer: 0
   m_Name: Menu
   m_TagString: Untagged
@@ -156,6 +157,19 @@ Transform:
   - {fileID: 1106542536}
   m_Father: {fileID: 1100899801}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &149320915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 149320913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8106f69102a24332ae18246f0779085, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showOnStart: 1
 --- !u!1 &467165252
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,7 +478,6 @@ GameObject:
   - component: {fileID: 1100899800}
   - component: {fileID: 1100899799}
   - component: {fileID: 1100899798}
-  - component: {fileID: 1100899797}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -472,18 +485,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1100899797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1100899796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8106f69102a24332ae18246f0779085, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1100899798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,7 +654,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1100899797}
+      - m_Target: {fileID: 149320915}
         m_TargetAssemblyTypeName: GameMenu, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
@@ -920,7 +921,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1100899797}
+      - m_Target: {fileID: 149320915}
         m_TargetAssemblyTypeName: GameMenu, Assembly-CSharp
         m_MethodName: StartGame
         m_Mode: 1

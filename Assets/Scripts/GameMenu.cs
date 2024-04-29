@@ -11,6 +11,8 @@ public class GameMenu : MonoBehaviour
     public delegate void GameHandler();
     public static GameHandler OnGameRestart;
 
+    [SerializeField] private bool showOnStart = false;
+
 
     private void Awake()
     {
@@ -21,7 +23,7 @@ public class GameMenu : MonoBehaviour
         else
         {
             _instance = this;
-            _instance.ShowMenu(false);
+            _instance.ShowMenu(showOnStart);
         }
     }
 
