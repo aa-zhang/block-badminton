@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameMenu : MonoBehaviour
 {
-    private static GameMenu _instance;
-    public static GameMenu Instance { get { return _instance; } }
+    private static GameMenu instance;
+    public static GameMenu Instance { get { return instance; } }
 
     public delegate void GameHandler();
     public static GameHandler OnGameRestart;
@@ -16,14 +16,14 @@ public class GameMenu : MonoBehaviour
 
     private void Awake()
     {
-        if (_instance != null && _instance != this)
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
         }
         else
         {
-            _instance = this;
-            _instance.ShowMenu(showOnStart);
+            instance = this;
+            instance.ShowMenu(showOnStart);
         }
     }
 
