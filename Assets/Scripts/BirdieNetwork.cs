@@ -12,19 +12,21 @@ public class BirdieNetwork : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        birdieRb = GetComponent<Rigidbody>();   
+        birdieRb = GetComponent<Rigidbody>();
+        birdieRb.isKinematic = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (IsOwner)
+        if (IsServer)
         {
             networkPosition.Value = transform.position;
             networkVelocity.Value = birdieRb.velocity; // TODO: will probably have to change this, or make birdie kinematic
         }
         else
         {
+            Debug.Log(networkVelocity.Value + " " + birdieRb.isKinematic);
             transform.position = networkPosition.Value;
             birdieRb.velocity = networkVelocity.Value;
         }
