@@ -30,6 +30,7 @@ public class GameMenu : MonoBehaviour
     public void StartGame()
     {
         //ResetGameValues();
+        Application.targetFrameRate = 60;
         SceneManager.LoadScene(1);
     }
 
