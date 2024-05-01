@@ -9959,3 +9959,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   positionErrorThreshold: 0.1
   isExtrapolationEnabled: 1
+  isInterpolationEnabled: 0
+  lerpSpeed: 10

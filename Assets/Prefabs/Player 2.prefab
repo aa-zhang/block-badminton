@@ -133,7 +133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 375facb997834452d8304c10c502ef78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  birdie: {fileID: 0}
   alreadyMadeContact: 0
   overhand: 0
   inForwardSwingAnimation: 0
@@ -182,7 +181,7 @@ MonoBehaviour:
   UseQuaternionCompression: 0
   UseHalfFloatPrecision: 0
   InLocalSpace: 0
-  Interpolate: 0
+  Interpolate: 1
   SlerpPosition: 0
 --- !u!1 &953400460987646767
 GameObject:
@@ -351,6 +350,7 @@ GameObject:
   - component: {fileID: 6258716121917968995}
   - component: {fileID: 8252627694130245303}
   - component: {fileID: 471364930206575019}
+  - component: {fileID: -4282553508997813193}
   m_Layer: 7
   m_Name: Player 2
   m_TagString: Untagged
@@ -505,7 +505,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6461785994595331130}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df2868252ab5c4d1da357e8f11f1b524, type: 3}
   m_Name: 
@@ -527,8 +527,24 @@ MonoBehaviour:
   UseQuaternionCompression: 0
   UseHalfFloatPrecision: 0
   InLocalSpace: 0
-  Interpolate: 0
+  Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &-4282553508997813193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6461785994595331130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f21d7cc5b80bb0747bda14baaf41d02e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positionErrorThreshold: 0.1
+  isExtrapolationEnabled: 0
+  isInterpolationEnabled: 1
+  lerpSpeed: 25
 --- !u!1 &7913263242759728298
 GameObject:
   m_ObjectHideFlags: 0
