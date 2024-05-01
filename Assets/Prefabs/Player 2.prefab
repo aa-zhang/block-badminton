@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 7967078688639347789}
   - component: {fileID: 7540425473426811518}
   - component: {fileID: 4258370685026959180}
+  - component: {fileID: 6697431974395869955}
   m_Layer: 0
   m_Name: Racket
   m_TagString: Untagged
@@ -159,7 +160,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 326187496924113687}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df2868252ab5c4d1da357e8f11f1b524, type: 3}
   m_Name: 
@@ -183,6 +184,19 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &6697431974395869955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 326187496924113687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96b80537561ecf41961cdc802c25492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lerpSpeed: 25
 --- !u!1 &953400460987646767
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,7 +558,7 @@ MonoBehaviour:
   positionErrorThreshold: 0.1
   isExtrapolationEnabled: 0
   isInterpolationEnabled: 1
-  lerpSpeed: 25
+  lerpSpeed: 35
 --- !u!1 &7913263242759728298
 GameObject:
   m_ObjectHideFlags: 0
