@@ -28,7 +28,7 @@ public class MovingNetworkObject : NetworkBehaviour
     {
         if (IsOwner)
         {
-            networkPosition.Value = transform.position;
+            networkPosition.Value = rb.position;
             networkVelocity.Value = rb.velocity;
             networkTime.Value = NetworkManager.Singleton.ServerTime.Time;
         }
@@ -36,18 +36,7 @@ public class MovingNetworkObject : NetworkBehaviour
         {
             if (isExtrapolationEnabled)
             {
-                Vector3 estimatedPosition = networkPosition.Value + networkVelocity.Value * (float)(NetworkManager.Singleton.ServerTime.Time - networkTime.Value);
-
-                Vector3 positionError = estimatedPosition - rb.position;
-                if (positionError.magnitude > positionErrorThreshold)
-                {
-                    rb.position = Vector3.Lerp(rb.position, estimatedPosition, Time.deltaTime * lerpSpeed);
-                }
-
-                // rb.transform.forward = Vector3.Lerp(rb.transform.forward, networkVelocity.Value.normalized, Time.deltaTime * lerpSpeed);
-
-                //transform.position = networkPosition.Value;
-                rb.velocity = networkVelocity.Value;
+                rb.position = GetExtrapolatedPosition();
             }
             else if (isInterpolationEnabled)
             {
@@ -55,9 +44,30 @@ public class MovingNetworkObject : NetworkBehaviour
             }
             else
             {
-                transform.position = networkPosition.Value;
-                rb.velocity = networkVelocity.Value;
+                rb.position = networkPosition.Value;
             }
+            rb.velocity = networkVelocity.Value;
         }
+    }
+
+    private Vector3 GetExtrapolatedPosition()
+    {
+        Vector3 estimatedPosition = networkPosition.Value + networkVelocity.Value * (float)(NetworkManager.Singleton.ServerTime.Time - networkTime.Value);
+
+        Vector3 positionError = estimatedPosition - rb.position;
+        if (positionError.magnitude > positionErrorThreshold)
+        {
+            return Vector3.Lerp(rb.position, estimatedPosition, Time.deltaTime * lerpSpeed);
+        }
+        else
+        {
+            return estimatedPosition;
+        }
+    }
+
+    [Rpc(SendTo.Server)]
+    private void SetNetworkVariablesRpc()
+    {
+
     }
 }
