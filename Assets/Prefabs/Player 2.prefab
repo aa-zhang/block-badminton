@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63179b9a9d824849965fd3029c01a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  racketForce: 6
+  racketForce: 60
   birdieAngleAdjustment: 0.3
 --- !u!114 &4258370685026959180
 MonoBehaviour:

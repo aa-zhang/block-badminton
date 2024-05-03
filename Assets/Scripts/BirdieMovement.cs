@@ -9,7 +9,6 @@ public class BirdieMovement : NetworkBehaviour
     private Transform birdieTransform;
     private bool enableGravity = false;
     private bool enableCollision = true;
-    [SerializeField] private int forceMultiplier;
 
     public delegate void IncreaseScoreHandler(int scoringPlayerNum);
     public static IncreaseScoreHandler OnPointScored;
@@ -63,7 +62,7 @@ public class BirdieMovement : NetworkBehaviour
         if (!enableCollision) return;
 
         enableGravity = true;
-        birdieRb.velocity = forceVector * forceMultiplier;
+        birdieRb.velocity = forceVector;
         // birdieRb.AddForce(forceVector, ForceMode.Impulse);
     }
 
