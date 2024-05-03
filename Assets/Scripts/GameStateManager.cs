@@ -86,6 +86,7 @@ public class GameStateManager : NetworkBehaviour
     [Rpc(SendTo.Server)]
     private void RestartGameRpc()
     {
+        // Reset text and score values
         SetMatchTextRpc("");
         SetWinnerTextRpc("");
         ShowMenuRpc(false);
@@ -111,7 +112,7 @@ public class GameStateManager : NetworkBehaviour
 
         this.scoringPlayerNum = scoringPlayerNum;
 
-        CheckScore();
+        CheckScore(); // sets gameInProgress to false if game has ended
 
         if (gameInProgress)
         {

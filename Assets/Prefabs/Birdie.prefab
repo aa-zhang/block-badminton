@@ -9837,7 +9837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1107540222
+  GlobalObjectIdHash: 1313842503
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -9858,7 +9858,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0108afc51e51b46848a28c64eb74ba0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMultiplier: 10
 --- !u!114 &2950094436699677461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9958,7 +9957,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f21d7cc5b80bb0747bda14baaf41d02e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positionErrorThreshold: 1
+  positionErrorThreshold: 0.1
   isExtrapolationEnabled: 1
   isInterpolationEnabled: 0
-  lerpSpeed: 15
+  lerpSpeed: 10

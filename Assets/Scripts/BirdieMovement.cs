@@ -13,6 +13,9 @@ public class BirdieMovement : NetworkBehaviour
     public delegate void IncreaseScoreHandler(int scoringPlayerNum);
     public static IncreaseScoreHandler OnPointScored;
 
+    public delegate void ClientHitDelayHandler(bool readEnabled);
+    public static ClientHitDelayHandler OnSetReadEnabled;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -52,19 +55,36 @@ public class BirdieMovement : NetworkBehaviour
 
     private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum)
     {
+        if (!IsServer)
+        {
+            // Freeze birdie at position that it was hit
+            //birdieRb.velocity = Vector3.zero;
+            //OnSetReadEnabled(false);
+        }
+
+
         // Let server handle birdie movement
-        ApplyForceToBirdieRpc(forceVector, playerNum);
+        ApplyForceToBirdieRpc(forceVector, birdieRb.position, playerNum);
     }
 
     [Rpc(SendTo.Server)]
-    public void ApplyForceToBirdieRpc(Vector3 forceVector, int playerNum)
+    public void ApplyForceToBirdieRpc(Vector3 forceVector, Vector3 position, int playerNum)
     {
         if (!enableCollision) return;
 
         enableGravity = true;
         birdieRb.velocity = forceVector;
-        // birdieRb.AddForce(forceVector, ForceMode.Impulse);
+        birdieRb.position = position;
+        //NotifyClientHitReceivedRpc();
     }
+
+    //[Rpc(SendTo.NotServer)]
+    //public void NotifyClientHitReceivedRpc()
+    //{
+    //    // The server has received and set its values to the client's hit
+    //    // Client can resume reading from server values
+    //    OnSetReadEnabled(true);
+    //}
 
     private void OnCollisionEnter(Collision collision)
     {
