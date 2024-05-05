@@ -62,15 +62,15 @@ public class BirdieMovement : NetworkBehaviour
             OnSetReadEnabled(false);
         }
 
-
         // Let server handle birdie movement
-        if (!enableCollision) return;
         ApplyForceToBirdieRpc(forceVector, birdieRb.position, playerNum);
     }
 
     [Rpc(SendTo.Server)]
     public void ApplyForceToBirdieRpc(Vector3 forceVector, Vector3 position, int playerNum)
     {
+        if (!enableCollision) return;
+
         enableGravity = true;
         birdieRb.velocity = forceVector;
         birdieRb.position = position;
@@ -98,7 +98,7 @@ public class BirdieMovement : NetworkBehaviour
         }
     }
 
-    [Rpc(SendTo.Everyone)]
+    [Rpc(SendTo.Server)]
     public void SetBirdieCollisionRpc(bool enableCollision)
     {
         this.enableCollision = enableCollision;

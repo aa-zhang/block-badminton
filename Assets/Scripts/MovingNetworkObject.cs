@@ -15,16 +15,20 @@ public class MovingNetworkObject : NetworkBehaviour
 
 
     private bool readEnabled = true;
-    private NetworkVariable<Vector3> networkPosition = new NetworkVariable<Vector3>(Vector3.zero, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-    private NetworkVariable<Vector3> networkVelocity = new NetworkVariable<Vector3>(Vector3.zero, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-    private NetworkVariable<double> networkTime = new NetworkVariable<double>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    private NetworkVariable<Vector3> networkPosition;
+    private NetworkVariable<Vector3> networkVelocity;
+    private NetworkVariable<double> networkTime;
 
     private Rigidbody rb;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = false;
+
+        networkPosition = new NetworkVariable<Vector3>(rb.position, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        networkVelocity = new NetworkVariable<Vector3>(Vector3.zero, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        networkTime = new NetworkVariable<double>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     }
 
 
@@ -74,18 +78,38 @@ public class MovingNetworkObject : NetworkBehaviour
 
     private Vector3 GetExtrapolatedPosition()
     {
-        Vector3 estimatedPosition = networkPosition.Value + networkVelocity.Value * (float)(NetworkManager.Singleton.ServerTime.Time - networkTime.Value);
+        Vector3 estimatedPos = networkPosition.Value + networkVelocity.Value * (float)(NetworkManager.Singleton.ServerTime.Time - networkTime.Value);
 
-        Vector3 positionError = estimatedPosition - rb.position;
+        Vector3 positionError = estimatedPos - rb.position;
         if (positionError.magnitude > positionErrorThreshold)
         {
-            return Vector3.Lerp(rb.position, estimatedPosition, Time.deltaTime * lerpSpeed);
+            return Vector3.Lerp(rb.position, estimatedPos, Time.deltaTime * lerpSpeed);
         }
         else
         {
-            return estimatedPosition;
+            return estimatedPos;
         }
     }
+
+    private Vector3 GetPredictedTrajectoryPosition(int steps)
+    {
+        Vector3 predictedPos = networkPosition.Value;
+        float timestep = Time.fixedDeltaTime / Physics.defaultSolverVelocityIterations;
+        Vector3 gravityAccel = Constants.gravity * timestep * timestep;
+        float drag = 1f - timestep * rb.drag;
+        Vector3 moveStep = networkVelocity.Value * timestep;
+
+        // Iterate to get the {steps}th predicted position in the trajectory
+        for (int i = 0; i < steps; i++)
+        {
+            moveStep += gravityAccel;
+            moveStep *= drag;
+            predictedPos += moveStep;
+        }
+
+        return Vector3.Lerp(rb.position, predictedPos, Time.deltaTime * lerpSpeed); ;
+    }
+
 
     private void OnEnable()
     {
@@ -100,23 +124,5 @@ public class MovingNetworkObject : NetworkBehaviour
     private void BirdieMovement_OnSetReadEnabled(bool readEnabled)
     {
         this.readEnabled = readEnabled;
-    }
-
-    private Vector3 GetPredictedTrajectoryPosition(int steps)
-    {
-        Vector3 predictedPos = networkPosition.Value;
-        float timestep = Time.fixedDeltaTime / Physics.defaultSolverVelocityIterations;
-        Vector3 gravityAccel = Constants.gravity * timestep * timestep;
-        float drag = 1f - timestep * rb.drag;
-        Vector3 moveStep = networkVelocity.Value * timestep;
-
-        for (int i = 0; i < steps; i++)
-        {
-            moveStep += gravityAccel;
-            moveStep *= drag;
-            predictedPos += moveStep;
-        }
-
-        return Vector3.Lerp(rb.position, predictedPos, Time.deltaTime * lerpSpeed); ;
     }
 }

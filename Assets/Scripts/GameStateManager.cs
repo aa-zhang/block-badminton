@@ -17,7 +17,8 @@ public class GameStateManager : NetworkBehaviour
     // Score variables
     private NetworkVariable<int> playerOneScore = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     private NetworkVariable<int> playerTwoScore = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
-    private int scoringPlayerNum;
+    private NetworkVariable<int> servingPlayerNum = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+
     private bool allPlayersJoined = false;
     private bool gameInProgress = false;
 
@@ -78,61 +79,6 @@ public class GameStateManager : NetworkBehaviour
         }
     }
 
-    private void GameMenu_OnGameRestart()
-    {
-        RestartGameRpc();
-    }
-
-    [Rpc(SendTo.Server)]
-    private void RestartGameRpc()
-    {
-        // Reset text and score values
-        SetMatchTextRpc("");
-        SetWinnerTextRpc("");
-        ShowMenuRpc(false);
-        playerOneScore.Value = 0;
-        playerTwoScore.Value = 0;
-        InitiateGameRpc();
-        Invoke("SelectRandomServer", 1);
-    }
-
-
-    private void BirdieMovement_OnPointScored(int scoringPlayerNum)
-    {
-        if (!IsServer) return; // Only let server handle score
-
-        if (scoringPlayerNum == 1)
-        {
-            playerOneScore.Value++;
-        }
-        else
-        {
-            playerTwoScore.Value++;
-        }
-
-        this.scoringPlayerNum = scoringPlayerNum;
-
-        CheckScore(); // sets gameInProgress to false if game has ended
-
-        if (gameInProgress)
-        {
-            // Start next serve after a 1 second delay
-            Invoke("BeginNextServe", 1);
-        }
-    }
-
-    private void BeginNextServe()
-    {
-        // This helper method is used in order to allow for a delay using Invoke()
-        BeginServeRpc(scoringPlayerNum);
-    }
-
-    [Rpc(SendTo.ClientsAndHost)]
-    private void BeginServeRpc(int playerNum)
-    {
-        OnBeginServe(playerNum);
-    }
-
     private void WaitForAllPlayersToJoin()
     {
         if (clientIds.Count >= 2)
@@ -165,7 +111,7 @@ public class GameStateManager : NetworkBehaviour
         Invoke("SelectRandomServer", 1);
     }
 
-    [Rpc(SendTo.ClientsAndHost)]
+    [Rpc(SendTo.Everyone)]
     private void InitializeBirdieRpc(ulong birdieNetworkObjectId)
     {
         // Find birdie network object
@@ -177,8 +123,39 @@ public class GameStateManager : NetworkBehaviour
     private void SelectRandomServer()
     {
         // Select random number from {1, 2}
-        int playerNum = Random.Range(1, 3);
-        BeginServeRpc(playerNum);
+        servingPlayerNum.Value = Random.Range(1, 3);
+        BeginServeRpc();
+    }
+
+    [Rpc(SendTo.Everyone)]
+    private void BeginServeRpc()
+    {
+        Debug.Log("serving player num: " + servingPlayerNum.Value);
+        OnBeginServe(servingPlayerNum.Value);
+    }
+
+    private void BirdieMovement_OnPointScored(int scoringPlayerNum)
+    {
+        if (!IsServer) return; // Only let server handle score
+
+        if (scoringPlayerNum == 1)
+        {
+            playerOneScore.Value++;
+        }
+        else
+        {
+            playerTwoScore.Value++;
+        }
+
+        servingPlayerNum.Value = scoringPlayerNum;
+
+        CheckScore(); // sets gameInProgress to false if game has ended
+
+        if (gameInProgress)
+        {
+            // Start next serve after a 1 second delay
+            Invoke("BeginServeRpc", 1);
+        }
     }
 
     private void CheckScore()
@@ -218,21 +195,21 @@ public class GameStateManager : NetworkBehaviour
         }
     }
 
-    [Rpc(SendTo.ClientsAndHost)]
+    [Rpc(SendTo.Everyone)]
     private void ShowMenuRpc(bool show)
     {
         GameMenu.Instance.ShowMenu(show);
 
     }
 
-    [Rpc(SendTo.ClientsAndHost)]
+    [Rpc(SendTo.Everyone)]
     private void SetMatchTextRpc(string text)
     {
         matchText.text = text;
 
     }
 
-    [Rpc(SendTo.ClientsAndHost)]
+    [Rpc(SendTo.Everyone)]
     private void SetWinnerTextRpc(string text)
     {
         winnerText.text = text;
@@ -243,10 +220,21 @@ public class GameStateManager : NetworkBehaviour
         scoreText.text = playerOneScore.Value + " - " + playerTwoScore.Value;
     }
 
-
-    public void ResetScores()
+    private void GameMenu_OnGameRestart()
     {
+        RestartGameRpc();
+    }
+
+    [Rpc(SendTo.Server)]
+    private void RestartGameRpc()
+    {
+        // Reset text and score values
+        SetMatchTextRpc("");
+        SetWinnerTextRpc("");
+        ShowMenuRpc(false);
         playerOneScore.Value = 0;
         playerTwoScore.Value = 0;
+        InitiateGameRpc();
+        Invoke("SelectRandomServer", 1);
     }
 }

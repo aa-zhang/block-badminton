@@ -7,13 +7,15 @@ public class RotatingNetworkObject : NetworkBehaviour
 {
     [SerializeField] private int lerpSpeed;
 
-    private NetworkVariable<Quaternion> networkQuaternion = new NetworkVariable<Quaternion>(Quaternion.identity, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-
+    private NetworkVariable<Quaternion> networkQuaternion;
     private Transform objTransform;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         objTransform = gameObject.transform;
+
+        networkQuaternion = new NetworkVariable<Quaternion>(objTransform.rotation, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
     }
 
     // Update is called once per frame
