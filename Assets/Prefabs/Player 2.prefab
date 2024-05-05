@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e96b80537561ecf41961cdc802c25492, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lerpSpeed: 25
+  lerpSpeed: 30
 --- !u!1 &953400460987646767
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,6 +559,7 @@ MonoBehaviour:
   isExtrapolationEnabled: 0
   isInterpolationEnabled: 1
   lerpSpeed: 35
+  futureScale: 1
 --- !u!1 &7913263242759728298
 GameObject:
   m_ObjectHideFlags: 0

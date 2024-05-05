@@ -50,7 +50,7 @@ public class BirdieMovement : NetworkBehaviour
 
     private void ApplyGravity()
     {
-        birdieRb.AddForce(new Vector3(0, -4, 0));
+        birdieRb.AddForce(Constants.gravity);
     }
 
     private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum)
@@ -58,33 +58,32 @@ public class BirdieMovement : NetworkBehaviour
         if (!IsServer)
         {
             // Freeze birdie at position that it was hit
-            //birdieRb.velocity = Vector3.zero;
-            //OnSetReadEnabled(false);
+            birdieRb.velocity = Vector3.zero;
+            OnSetReadEnabled(false);
         }
 
 
         // Let server handle birdie movement
+        if (!enableCollision) return;
         ApplyForceToBirdieRpc(forceVector, birdieRb.position, playerNum);
     }
 
     [Rpc(SendTo.Server)]
     public void ApplyForceToBirdieRpc(Vector3 forceVector, Vector3 position, int playerNum)
     {
-        if (!enableCollision) return;
-
         enableGravity = true;
         birdieRb.velocity = forceVector;
         birdieRb.position = position;
-        //NotifyClientHitReceivedRpc();
+        NotifyClientHitReceivedRpc();
     }
 
-    //[Rpc(SendTo.NotServer)]
-    //public void NotifyClientHitReceivedRpc()
-    //{
-    //    // The server has received and set its values to the client's hit
-    //    // Client can resume reading from server values
-    //    OnSetReadEnabled(true);
-    //}
+    [Rpc(SendTo.NotServer)]
+    public void NotifyClientHitReceivedRpc()
+    {
+        // The server has received and set its values to the client's hit
+        // Client can resume reading from server values
+        OnSetReadEnabled(true);
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -99,7 +98,7 @@ public class BirdieMovement : NetworkBehaviour
         }
     }
 
-    [Rpc(SendTo.Server)]
+    [Rpc(SendTo.Everyone)]
     public void SetBirdieCollisionRpc(bool enableCollision)
     {
         this.enableCollision = enableCollision;

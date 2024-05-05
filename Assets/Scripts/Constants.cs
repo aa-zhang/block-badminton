@@ -17,4 +17,7 @@ public static class Constants
     // Score constants
     public static readonly int winningScore = 11;
     public static readonly int maxScore = 15;
+
+    // Gravity constant
+    public static readonly Vector3 gravity = new Vector3(0, -4, 0);
 }
