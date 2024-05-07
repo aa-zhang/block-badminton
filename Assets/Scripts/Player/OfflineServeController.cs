@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEngine;
 
-public class ServeController : NetworkBehaviour, IServing
+public class OfflineServeController : MonoBehaviour, IServing
 {
     public bool isServing { get; set; }
     private PlayerManager playerManager;
@@ -23,7 +22,7 @@ public class ServeController : NetworkBehaviour, IServing
 
     private void FixedUpdate()
     {
-        if (isServing && IsLocalPlayer)
+        if (isServing)
         {
             HoldBirdieRpc();
         }
@@ -43,7 +42,6 @@ public class ServeController : NetworkBehaviour, IServing
         HitBirdie.OnBirdieHit -= HitBirdie_OnBirdieHit;
     }
 
-    [Rpc(SendTo.Server)]
     private void HoldBirdieRpc()
     {
         // Move the birdie in front of the serving player
@@ -62,18 +60,18 @@ public class ServeController : NetworkBehaviour, IServing
     private void GameStateManager_OnBeginServe(int playerNum)
     {
         // Initiate serving sequence for given playerNum
-        if (playerManager.playerNum == playerNum && IsLocalPlayer)
+        if (playerManager.playerNum == playerNum)
         {
             isServing = true;
             ResetServingPlayerPosition(playerNum);
             birdieMovement.SetBirdieGravityRpc(false);
             birdieMovement.SetBirdieCollisionRpc(true);
-        }   
+        }
     }
 
 
     private void ResetServingPlayerPosition(int playerNum)
-        {
+    {
         // Move player behind the serving line
         float newXPos;
         if (playerNum == 1)

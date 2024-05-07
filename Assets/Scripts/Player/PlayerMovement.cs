@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody playerRb;
     public GameObject racket;
     private SwingRacket swingRacket;
-    private ServeController serveController;
+    private IServing serveController;
 
 
     [SerializeField] private float movementSpeed = 9f;
@@ -26,7 +26,15 @@ public class PlayerMovement : MonoBehaviour
         playerTransform = gameObject.transform;
         playerRb = GetComponent<Rigidbody>();
         swingRacket = racket.GetComponent<SwingRacket>();
-        serveController = GetComponent<ServeController>();
+
+        if (GetComponent<ServeController>() != null)
+        {
+            serveController = GetComponent<ServeController>();
+        }
+        else
+        {
+            serveController = GetComponent<OfflineServeController>();
+        }
     }
 
     private void FixedUpdate()
