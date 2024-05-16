@@ -25,6 +25,7 @@ public class GameMenu : MonoBehaviour
         else
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
             instance.ShowMenu(showOnStart);
         }
     }
@@ -37,6 +38,11 @@ public class GameMenu : MonoBehaviour
     public void PlayOnlineGame()
     {
         SceneManager.LoadScene(2);
+    }
+
+    public void ReturnToStartScreen()
+    {
+        SceneManager.LoadScene(0);
     }
 
     public void QuitGame()

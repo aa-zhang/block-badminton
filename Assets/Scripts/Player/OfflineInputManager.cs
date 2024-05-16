@@ -55,7 +55,7 @@ public class OfflineInputManager : MonoBehaviour
         }
 
         // UI Controls
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && playerManager.playerNum == 1)
         {
             //playerControlsEnabled = enabled;
             GameMenu.Instance.ToggleMenu();
