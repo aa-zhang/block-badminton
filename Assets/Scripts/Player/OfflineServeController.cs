@@ -9,7 +9,7 @@ public class OfflineServeController : MonoBehaviour, IServing
     private Transform playerTransform;
 
     private Transform birdieTransform;
-    private BirdieMovement birdieMovement;
+    private OfflineBirdieMovement birdieMovement;
     private BirdieParticleController birdiePsController;
 
     // Start is called before the first frame update
@@ -30,15 +30,15 @@ public class OfflineServeController : MonoBehaviour, IServing
 
     private void OnEnable()
     {
-        GameStateManager.OnBirdieInitialized += GameStateManager_OnBirdieInitialized;
-        GameStateManager.OnBeginServe += GameStateManager_OnBeginServe;
+        OfflineGameStateManager.OnBirdieInitialized += GameStateManager_OnBirdieInitialized;
+        OfflineGameStateManager.OnBeginServe += GameStateManager_OnBeginServe;
         HitBirdie.OnBirdieHit += HitBirdie_OnBirdieHit;
     }
 
     private void OnDisable()
     {
-        GameStateManager.OnBirdieInitialized -= GameStateManager_OnBirdieInitialized;
-        GameStateManager.OnBeginServe -= GameStateManager_OnBeginServe;
+        OfflineGameStateManager.OnBirdieInitialized -= GameStateManager_OnBirdieInitialized;
+        OfflineGameStateManager.OnBeginServe -= GameStateManager_OnBeginServe;
         HitBirdie.OnBirdieHit -= HitBirdie_OnBirdieHit;
     }
 
@@ -53,7 +53,7 @@ public class OfflineServeController : MonoBehaviour, IServing
     {
         // Attach spawned birdie to this script
         birdieTransform = birdie.transform;
-        birdieMovement = birdie.GetComponent<BirdieMovement>();
+        birdieMovement = birdie.GetComponent<OfflineBirdieMovement>();
         birdiePsController = birdie.GetComponent<BirdieParticleController>();
     }
 

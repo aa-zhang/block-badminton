@@ -50,11 +50,15 @@ public class SwingRacket : MonoBehaviour
     private void OnEnable()
     {
         GameStateManager.OnBirdieInitialized += ScoreManager_OnBirdieInitialized;
+        OfflineGameStateManager.OnBirdieInitialized += ScoreManager_OnBirdieInitialized;
+
     }
 
     private void OnDisable()
     {
         GameStateManager.OnBirdieInitialized -= ScoreManager_OnBirdieInitialized;
+        OfflineGameStateManager.OnBirdieInitialized += ScoreManager_OnBirdieInitialized;
+
     }
 
     private void ScoreManager_OnBirdieInitialized(GameObject birdie)

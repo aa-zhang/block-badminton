@@ -19,12 +19,8 @@ public class OfflineGameStateManager : MonoBehaviour
     private int playerTwoScore = 0;
     private int servingPlayerNum = 0;
 
-    private bool allPlayersJoined = false;
     private bool gameInProgress = false;
 
-
-    // Network
-    private List<ulong> clientIds = new List<ulong>();
     [SerializeField] private GameObject birdiePrefab;
 
     // Events
@@ -42,47 +38,31 @@ public class OfflineGameStateManager : MonoBehaviour
     void Start()
     {
         ShowMenuRpc(false);
+        InitiateGameRpc();
+        SpawnBirdie();
     }
 
     private void FixedUpdate()
     {
-        if (!allPlayersJoined)
-        {
-            WaitForAllPlayersToJoin();
-        }
-        else
-        {
-            DisplayScore();
-        }
+        DisplayScore();
     }
 
     private void OnEnable()
     {
-        BirdieMovement.OnPointScored += BirdieMovement_OnPointScored;
+        OfflineBirdieMovement.OnPointScored += BirdieMovement_OnPointScored;
         GameMenu.OnGameRestart += GameMenu_OnGameRestart;
     }
 
     private void OnDisable()
     {
-        BirdieMovement.OnPointScored -= BirdieMovement_OnPointScored;
+        OfflineBirdieMovement.OnPointScored -= BirdieMovement_OnPointScored;
         GameMenu.OnGameRestart -= GameMenu_OnGameRestart;
-    }
-
-
-    private void WaitForAllPlayersToJoin()
-    {
-        if (clientIds.Count >= 2)
-        {
-            InitiateGameRpc();
-            SpawnBirdie();
-        }
     }
 
     private void InitiateGameRpc()
     {
-        allPlayersJoined = true;
         gameInProgress = true;
-        OnStartMatch();
+        //OnStartMatch();
         Invoke("SelectRandomServer", 1);
 
     }
