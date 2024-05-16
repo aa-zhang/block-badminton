@@ -89,17 +89,17 @@ public class PlayerMovement : MonoBehaviour
     {
         if (playerManager.playerNum == 1)
         {
-            return playerTransform.position.x > -Constants.rearCourtXPos;
+            return playerTransform.position.x > -Constants.REAR_COURT_X_POS;
         }
         else
         {
             if (serveController.isServing)
             {
-                return playerTransform.position.x > Constants.servingLineXPos;
+                return playerTransform.position.x > Constants.SERVE_X_POS;
             }
             else
             {
-                return playerTransform.position.x > Constants.frontCourtXPos;
+                return playerTransform.position.x > Constants.FRONT_COURT_X_POS;
             }
         }
     }
@@ -110,16 +110,16 @@ public class PlayerMovement : MonoBehaviour
         {
             if (serveController.isServing)
             {
-                return playerTransform.position.x < -Constants.servingLineXPos;
+                return playerTransform.position.x < -Constants.SERVE_X_POS;
             }
             else
             {
-                return playerTransform.position.x < -Constants.frontCourtXPos;
+                return playerTransform.position.x < -Constants.FRONT_COURT_X_POS;
             }
         }
         else
         {
-            return playerTransform.position.x < Constants.rearCourtXPos;
+            return playerTransform.position.x < Constants.REAR_COURT_X_POS;
         }
     }
 

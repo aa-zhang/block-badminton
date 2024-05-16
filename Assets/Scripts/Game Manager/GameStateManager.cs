@@ -164,7 +164,7 @@ public class GameStateManager : NetworkBehaviour
         int losingPlayerScore = Mathf.Min(playerOneScore.Value, playerTwoScore.Value);
 
         // Check if the match is in a Deuce or Match Point state
-        if (winningPlayerScore >= Constants.winningScore - 1)
+        if (winningPlayerScore >= Constants.WINNING_SCORE - 1)
         {
             if (winningPlayerScore == losingPlayerScore)
             {
@@ -177,17 +177,17 @@ public class GameStateManager : NetworkBehaviour
         }
 
         // Check if a player has won
-        if ((winningPlayerScore >= Constants.winningScore && winningPlayerScore - losingPlayerScore >= 2) || winningPlayerScore == Constants.maxScore)
+        if ((winningPlayerScore >= Constants.WINNING_SCORE && winningPlayerScore - losingPlayerScore >= 2) || winningPlayerScore == Constants.MAX_SCORE)
         {
             SetMatchTextRpc("Match Over!");
             gameInProgress = false;
 
-            if (playerOneScore.Value >= Constants.winningScore)
+            if (playerOneScore.Value >= Constants.WINNING_SCORE)
             {
                 SetWinnerTextRpc("The strongest badminton player in history wins!");
                 ShowMenuRpc(true);
             }
-            else if (playerTwoScore.Value >= Constants.winningScore)
+            else if (playerTwoScore.Value >= Constants.WINNING_SCORE)
             {
                 SetWinnerTextRpc("The strongest badminton player of today wins!");
                 ShowMenuRpc(true);

@@ -381,7 +381,7 @@ Transform:
   m_GameObject: {fileID: 6461785994595331130}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 6.14, y: 2, z: 0}
+  m_LocalPosition: {x: 6, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -402,6 +402,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNum: 2
+  jumpKey: 0
+  swingKey: 0
+  leftKey: 0
+  rightKey: 0
 --- !u!114 &3052229908673119723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -463,7 +467,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16b1f96a043264b85ad34b4bd567d180, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isServing: 0
 --- !u!54 &6258716121917968995
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -558,8 +561,9 @@ MonoBehaviour:
   positionErrorThreshold: 0.1
   isExtrapolationEnabled: 0
   isInterpolationEnabled: 1
+  isPredictionEnabled: 0
   lerpSpeed: 35
-  futureScale: 1
+  predictionSteps: 0
 --- !u!1 &7913263242759728298
 GameObject:
   m_ObjectHideFlags: 0

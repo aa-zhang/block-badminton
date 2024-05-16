@@ -119,7 +119,7 @@ public class OfflineGameStateManager : MonoBehaviour
         int losingPlayerScore = Mathf.Min(playerOneScore, playerTwoScore);
 
         // Check if the match is in a Deuce or Match Point state
-        if (winningPlayerScore >= Constants.winningScore - 1)
+        if (winningPlayerScore >= Constants.WINNING_SCORE - 1)
         {
             if (winningPlayerScore == losingPlayerScore)
             {
@@ -132,17 +132,17 @@ public class OfflineGameStateManager : MonoBehaviour
         }
 
         // Check if a player has won
-        if ((winningPlayerScore >= Constants.winningScore && winningPlayerScore - losingPlayerScore >= 2) || winningPlayerScore == Constants.maxScore)
+        if ((winningPlayerScore >= Constants.WINNING_SCORE && winningPlayerScore - losingPlayerScore >= 2) || winningPlayerScore == Constants.MAX_SCORE)
         {
             SetMatchTextRpc("Match Over!");
             gameInProgress = false;
 
-            if (playerOneScore >= Constants.winningScore)
+            if (playerOneScore >= Constants.WINNING_SCORE)
             {
                 SetWinnerTextRpc("The strongest badminton player in history wins!");
                 ShowMenuRpc(true);
             }
-            else if (playerTwoScore >= Constants.winningScore)
+            else if (playerTwoScore >= Constants.WINNING_SCORE)
             {
                 SetWinnerTextRpc("The strongest badminton player of today wins!");
                 ShowMenuRpc(true);
@@ -179,12 +179,18 @@ public class OfflineGameStateManager : MonoBehaviour
 
     private void RestartGameRpc()
     {
-        // Reset text and score values
+        // Hide menu and other UI
+        ShowMenuRpc(false);
         SetMatchTextRpc("");
         SetWinnerTextRpc("");
-        ShowMenuRpc(false);
+
+        // Reset birdie position
+        birdiePrefab.transform.position = Constants.BIRDIE_DEFAULT_POSITION;
+
+        // Reset score values
         playerOneScore = 0;
         playerTwoScore = 0;
+
         InitiateGameRpc();
         Invoke("SelectRandomServer", 1);
     }

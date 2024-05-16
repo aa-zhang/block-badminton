@@ -47,7 +47,7 @@ public class ServeController : NetworkBehaviour, IServing
     private void HoldBirdieRpc()
     {
         // Move the birdie in front of the serving player
-        Vector3 servingOffset = playerManager.playerNum == 1 ? Constants.servingOffsetOne : Constants.servingOffsetTwo;
+        Vector3 servingOffset = playerManager.playerNum == 1 ? Constants.SERVING_OFFSET_PLAYER_ONE : Constants.SERVING_OFFSET_PLAYER_TWO;
         birdieTransform.position = playerTransform.position + servingOffset;
     }
 
@@ -78,11 +78,11 @@ public class ServeController : NetworkBehaviour, IServing
         float newXPos;
         if (playerNum == 1)
         {
-            newXPos = Mathf.Min(playerTransform.position.x, -Constants.servingLineXPos);
+            newXPos = Mathf.Min(playerTransform.position.x, -Constants.SERVE_X_POS);
         }
         else
         {
-            newXPos = Mathf.Max(playerTransform.position.x, Constants.servingLineXPos);
+            newXPos = Mathf.Max(playerTransform.position.x, Constants.SERVE_X_POS);
         }
 
         playerTransform.position = new Vector3(newXPos, playerTransform.position.y, playerTransform.position.z);

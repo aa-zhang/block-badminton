@@ -33,6 +33,7 @@ public class OfflineServeController : MonoBehaviour, IServing
         OfflineGameStateManager.OnBirdieInitialized += GameStateManager_OnBirdieInitialized;
         OfflineGameStateManager.OnBeginServe += GameStateManager_OnBeginServe;
         HitBirdie.OnBirdieHit += HitBirdie_OnBirdieHit;
+        GameMenu.OnGameRestart += GameMenu_OnGameRestart;
     }
 
     private void OnDisable()
@@ -40,12 +41,13 @@ public class OfflineServeController : MonoBehaviour, IServing
         OfflineGameStateManager.OnBirdieInitialized -= GameStateManager_OnBirdieInitialized;
         OfflineGameStateManager.OnBeginServe -= GameStateManager_OnBeginServe;
         HitBirdie.OnBirdieHit -= HitBirdie_OnBirdieHit;
+        GameMenu.OnGameRestart -= GameMenu_OnGameRestart;
     }
 
     private void HoldBirdieRpc()
     {
         // Move the birdie in front of the serving player
-        Vector3 servingOffset = playerManager.playerNum == 1 ? Constants.servingOffsetOne : Constants.servingOffsetTwo;
+        Vector3 servingOffset = playerManager.playerNum == 1 ? Constants.SERVING_OFFSET_PLAYER_ONE : Constants.SERVING_OFFSET_PLAYER_TWO;
         birdieTransform.position = playerTransform.position + servingOffset;
     }
 
@@ -63,24 +65,24 @@ public class OfflineServeController : MonoBehaviour, IServing
         if (playerManager.playerNum == playerNum)
         {
             isServing = true;
-            ResetServingPlayerPosition(playerNum);
+            ResetServingPlayerPosition();
             birdieMovement.SetBirdieGravityRpc(false);
             birdieMovement.SetBirdieCollisionRpc(true);
         }
     }
 
 
-    private void ResetServingPlayerPosition(int playerNum)
+    private void ResetServingPlayerPosition()
     {
-        // Move player behind the serving line
+        // Move player to serve position
         float newXPos;
-        if (playerNum == 1)
+        if (playerManager.playerNum == 1)
         {
-            newXPos = Mathf.Min(playerTransform.position.x, -Constants.servingLineXPos);
+            newXPos = -Constants.SERVE_X_POS;
         }
         else
         {
-            newXPos = Mathf.Max(playerTransform.position.x, Constants.servingLineXPos);
+            newXPos = Constants.SERVE_X_POS;
         }
 
         playerTransform.position = new Vector3(newXPos, playerTransform.position.y, playerTransform.position.z);
@@ -94,6 +96,12 @@ public class OfflineServeController : MonoBehaviour, IServing
             // Start timer for black flash detection
             birdiePsController.ResetServeTimer();
         }
+        isServing = false;
+    }
+
+    private void GameMenu_OnGameRestart()
+    {
+        ResetServingPlayerPosition();
         isServing = false;
     }
 }
