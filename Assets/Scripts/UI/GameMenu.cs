@@ -29,10 +29,14 @@ public class GameMenu : MonoBehaviour
         }
     }
 
-    public void StartGame()
+    public void PlayOfflineGame()
     {
-        //ResetGameValues();
         SceneManager.LoadScene(1);
+    }
+
+    public void PlayOnlineGame()
+    {
+        SceneManager.LoadScene(2);
     }
 
     public void QuitGame()
@@ -42,9 +46,6 @@ public class GameMenu : MonoBehaviour
 
     public void ResetGameValues()
     {
-        // reset player location:?
-        // initiate serve
-        // reset score
         OnGameRestart();
     }
 
