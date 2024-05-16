@@ -87,35 +87,35 @@ public class PlayerMovement : MonoBehaviour
 
     private bool CanGoLeft()
     {
+        // Can't move if serving
+        if (serveController.isServing)
+        {
+            return false;
+        }
+
+        // Check if within court boundaries
         if (playerManager.playerNum == 1)
         {
             return playerTransform.position.x > -Constants.REAR_COURT_X_POS;
         }
         else
         {
-            if (serveController.isServing)
-            {
-                return playerTransform.position.x > Constants.SERVE_X_POS;
-            }
-            else
-            {
-                return playerTransform.position.x > Constants.FRONT_COURT_X_POS;
-            }
+            return playerTransform.position.x > Constants.FRONT_COURT_X_POS;
         }
     }
 
     private bool CanGoRight()
     {
+        // Can't move if serving
+        if (serveController.isServing)
+        {
+            return false;
+        }
+
+        // Check if within court boundaries
         if (playerManager.playerNum == 1)
         {
-            if (serveController.isServing)
-            {
-                return playerTransform.position.x < -Constants.SERVE_X_POS;
-            }
-            else
-            {
-                return playerTransform.position.x < -Constants.FRONT_COURT_X_POS;
-            }
+            return playerTransform.position.x < -Constants.FRONT_COURT_X_POS;
         }
         else
         {
