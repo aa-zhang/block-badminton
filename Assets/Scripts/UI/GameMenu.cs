@@ -25,7 +25,6 @@ public class GameMenu : MonoBehaviour
         else
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
             instance.ShowMenu(showOnStart);
         }
     }

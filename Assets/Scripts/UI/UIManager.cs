@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI roomCodeText;
     [SerializeField] private Button joinRelayButton;
     [SerializeField] private TMP_InputField roomCodeInput;
-    [SerializeField] private Button createLocalButton;
+    [SerializeField] private Button backButton;
 
 
     // Game UI
@@ -41,7 +41,7 @@ public class UIManager : MonoBehaviour
         createRelayButton.gameObject.SetActive(false);
         joinRelayButton.gameObject.SetActive(false);
         roomCodeInput.gameObject.SetActive(false);
-        createLocalButton.gameObject.SetActive(false);
+        backButton.gameObject.SetActive(false);
     }
 
     private void GameStateManager_OnStartMatch()

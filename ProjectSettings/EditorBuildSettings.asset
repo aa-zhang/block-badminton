@@ -9,10 +9,10 @@ EditorBuildSettings:
     path: Assets/Scenes/StartScene.unity
     guid: dcf125ec4a2eb49e99247eadf1a6991d
   - enabled: 1
-    path: Assets/Scenes/LocalGameScene.unity
+    path: Assets/Scenes/OfflineGameScene.unity
     guid: 46e9f7b1962ae73438abc5e4061caa55
   - enabled: 1
-    path: Assets/Scenes/GameScene.unity
+    path: Assets/Scenes/OnlineGameScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 0
     path: Assets/Scenes/LoadingScene.unity
