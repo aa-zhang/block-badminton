@@ -61,15 +61,13 @@ public class OfflineGameStateManager : MonoBehaviour
 
     private void InitiateGameRpc()
     {
+        Debug.Log("Game starting!");
         gameInProgress = true;
         //OnStartMatch();
-        Invoke("SelectRandomServer", 1);
-
     }
 
     private void SpawnBirdie()
     {
-        Debug.Log("Game starting!");
         Debug.Log("Creating birdie");
         // Initialize birdie for clients
         OnBirdieInitialized(birdiePrefab);

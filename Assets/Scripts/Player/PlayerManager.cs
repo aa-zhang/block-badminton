@@ -10,6 +10,8 @@ public class PlayerManager : MonoBehaviour
     public KeyCode swingKey;
     public KeyCode leftKey;
     public KeyCode rightKey;
+    public KeyCode changeServeAngleKey;
+
 
     private void Start()
     {
@@ -19,6 +21,7 @@ public class PlayerManager : MonoBehaviour
             swingKey = KeyCode.S;
             leftKey = KeyCode.A;
             rightKey = KeyCode.D;
+            changeServeAngleKey = KeyCode.W;
         }
         else
         {
@@ -26,6 +29,8 @@ public class PlayerManager : MonoBehaviour
             swingKey = KeyCode.DownArrow;
             leftKey = KeyCode.LeftArrow;
             rightKey = KeyCode.RightArrow;
+            changeServeAngleKey = KeyCode.UpArrow;
+
         }
 
     }

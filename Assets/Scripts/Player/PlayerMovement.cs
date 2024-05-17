@@ -10,7 +10,6 @@ public class PlayerMovement : MonoBehaviour
     private SwingRacket swingRacket;
     private IServing serveController;
 
-
     [SerializeField] private float movementSpeed = 9f;
     [SerializeField] private float jumpHeight = 800f;
     [SerializeField] private float gravity = 40;
@@ -82,6 +81,14 @@ public class PlayerMovement : MonoBehaviour
         {
             canSwing = false;
             swingRacket.Swing();
+        }
+    }
+
+    public void ChangeServeAngle()
+    {
+        if (serveController.isServing)
+        {
+            serveController.ChangeServeAngle();
         }
     }
 

@@ -52,6 +52,12 @@ public class OfflineInputManager : MonoBehaviour
             {
                 playerMovement.SwingRacket();
             }
+
+            // Change Serve Angle
+            if (Input.GetKeyDown(playerManager.changeServeAngleKey))
+            {
+                playerMovement.ChangeServeAngle();
+            }
         }
 
         // UI Controls

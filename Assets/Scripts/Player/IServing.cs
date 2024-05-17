@@ -5,4 +5,5 @@ using UnityEngine;
 public interface IServing
 {
     public bool isServing { get; set; }
+    void ChangeServeAngle();
 }

@@ -12,6 +12,8 @@ public class OfflineServeController : MonoBehaviour, IServing
     private OfflineBirdieMovement birdieMovement;
     private BirdieParticleController birdiePsController;
 
+    [SerializeField] private GameObject serveArrow;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -103,5 +105,17 @@ public class OfflineServeController : MonoBehaviour, IServing
     {
         ResetServingPlayerPosition();
         isServing = false;
+    }
+
+    public void ChangeServeAngle()
+    {
+        if (serveArrow.transform.localEulerAngles == Constants.SERVE_ANGLE_HIGH)
+        {
+            serveArrow.transform.localEulerAngles = Constants.SERVE_ANGLE_LOW;
+        }
+        else
+        {
+            serveArrow.transform.localEulerAngles = Constants.SERVE_ANGLE_HIGH;
+        }
     }
 }

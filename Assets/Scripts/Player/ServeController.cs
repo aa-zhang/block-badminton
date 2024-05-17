@@ -98,4 +98,9 @@ public class ServeController : NetworkBehaviour, IServing
         }
         isServing = false;
     }
+
+    public void ChangeServeAngle()
+    {
+        throw new System.NotImplementedException();
+    }
 }
