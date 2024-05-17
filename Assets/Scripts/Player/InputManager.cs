@@ -7,6 +7,7 @@ using UnityEngine;
 public class InputManager : NetworkBehaviour
 {
     private PlayerMovement playerMovement;
+    private PlayerManager playerManager;
     private bool playerControlsEnabled = true;
 
 
@@ -14,6 +15,7 @@ public class InputManager : NetworkBehaviour
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        playerManager = GetComponent<PlayerManager>();
     }
 
     // Update is called once per frame
@@ -29,27 +31,34 @@ public class InputManager : NetworkBehaviour
         if (playerControlsEnabled && IsOwner)
         {
             // Move left
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(playerManager.leftKey))
             {
                 playerMovement.MoveLeft();
             }
 
             // Move right
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(playerManager.rightKey))
             {
                 playerMovement.MoveRight();
             }
 
             // Jump
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetKey(playerManager.jumpKey))
             {
                 playerMovement.Jump();
             }
 
             // Swing racket
-            if (Input.GetKey(KeyCode.S))
+            if (Input.GetKey(playerManager.swingKey))
             {
                 playerMovement.SwingRacket();
+            }
+
+
+            // Change Serve Angle
+            if (Input.GetKeyDown(playerManager.changeServeAngleKey))
+            {
+                playerMovement.ChangeServeAngle();
             }
         }
 

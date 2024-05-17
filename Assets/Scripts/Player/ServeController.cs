@@ -13,12 +13,19 @@ public class ServeController : NetworkBehaviour, IServing
     private BirdieMovement birdieMovement;
     private BirdieParticleController birdiePsController;
 
+    [SerializeField] private GameObject serveArrow;
+
     // Start is called before the first frame update
     void Awake()
     {
         playerManager = GetComponent<PlayerManager>();
         playerTransform = gameObject.transform;
         isServing = false;
+    }
+
+    void Start()
+    {
+        serveArrow.SetActive(false);
     }
 
     private void FixedUpdate()
@@ -34,6 +41,7 @@ public class ServeController : NetworkBehaviour, IServing
         GameStateManager.OnBirdieInitialized += GameStateManager_OnBirdieInitialized;
         GameStateManager.OnBeginServe += GameStateManager_OnBeginServe;
         HitBirdie.OnBirdieHit += HitBirdie_OnBirdieHit;
+        GameMenu.OnGameRestart += GameMenu_OnGameRestart;
     }
 
     private void OnDisable()
@@ -41,6 +49,7 @@ public class ServeController : NetworkBehaviour, IServing
         GameStateManager.OnBirdieInitialized -= GameStateManager_OnBirdieInitialized;
         GameStateManager.OnBeginServe -= GameStateManager_OnBeginServe;
         HitBirdie.OnBirdieHit -= HitBirdie_OnBirdieHit;
+        GameMenu.OnGameRestart -= GameMenu_OnGameRestart;
     }
 
     [Rpc(SendTo.Server)]
@@ -62,27 +71,30 @@ public class ServeController : NetworkBehaviour, IServing
     private void GameStateManager_OnBeginServe(int playerNum)
     {
         // Initiate serving sequence for given playerNum
-        if (playerManager.playerNum == playerNum && IsLocalPlayer)
+        if (playerManager.playerNum == playerNum)
         {
+            Debug.LogError("I'm gonna serve!");
             isServing = true;
-            ResetServingPlayerPosition(playerNum);
+            ResetServingPlayerPosition();
             birdieMovement.SetBirdieGravityRpc(false);
             birdieMovement.SetBirdieCollisionRpc(true);
-        }   
+
+            serveArrow.SetActive(true);
+        }
     }
 
 
-    private void ResetServingPlayerPosition(int playerNum)
-        {
-        // Move player behind the serving line
+    private void ResetServingPlayerPosition()
+    {
+        // Move player to serve position
         float newXPos;
-        if (playerNum == 1)
+        if (playerManager.playerNum == 1)
         {
-            newXPos = Mathf.Min(playerTransform.position.x, -Constants.SERVE_X_POS);
+            newXPos = -Constants.SERVE_X_POS;
         }
         else
         {
-            newXPos = Mathf.Max(playerTransform.position.x, Constants.SERVE_X_POS);
+            newXPos = Constants.SERVE_X_POS;
         }
 
         playerTransform.position = new Vector3(newXPos, playerTransform.position.y, playerTransform.position.z);
@@ -97,15 +109,29 @@ public class ServeController : NetworkBehaviour, IServing
             birdiePsController.ResetServeTimer();
         }
         isServing = false;
+        serveArrow.SetActive(false);
+    }
+
+    private void GameMenu_OnGameRestart()
+    {
+        ResetServingPlayerPosition();
+        isServing = false;
     }
 
     public void ChangeServeAngle()
     {
-        throw new System.NotImplementedException();
+        if (serveArrow.transform.localEulerAngles == Constants.SERVE_ANGLE_HIGH)
+        {
+            serveArrow.transform.localEulerAngles = Constants.SERVE_ANGLE_LOW;
+        }
+        else
+        {
+            serveArrow.transform.localEulerAngles = Constants.SERVE_ANGLE_HIGH;
+        }
     }
 
     public Vector3 GetServeAngle()
     {
-        throw new System.NotImplementedException();
+        return serveArrow.transform.localEulerAngles;
     }
 }

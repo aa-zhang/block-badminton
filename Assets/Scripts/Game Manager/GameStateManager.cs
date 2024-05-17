@@ -107,8 +107,8 @@ public class GameStateManager : NetworkBehaviour
 
         // Initialize birdie for clients
         InitializeBirdieRpc(birdieNetworkObject.NetworkObjectId);
-        
-        Invoke("SelectRandomServer", 1);
+        SelectRandomServer();
+        Invoke("BeginServeRpc", 1);
     }
 
     [Rpc(SendTo.Everyone)]
@@ -123,14 +123,14 @@ public class GameStateManager : NetworkBehaviour
     private void SelectRandomServer()
     {
         // Select random number from {1, 2}
-        servingPlayerNum.Value = Random.Range(1, 3);
-        BeginServeRpc();
+        servingPlayerNum.Value = 2;//Random.Range(1, 3);
+        //BeginServeRpc();
     }
 
     [Rpc(SendTo.Everyone)]
     private void BeginServeRpc()
     {
-        Debug.Log("serving player num: " + servingPlayerNum.Value);
+        Debug.LogError("serving player num: " + servingPlayerNum.Value);
         OnBeginServe(servingPlayerNum.Value);
     }
 

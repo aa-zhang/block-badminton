@@ -25,7 +25,7 @@ public class HitBirdie : MonoBehaviour
         swingRacket = gameObject.GetComponent<SwingRacket>();
         player = racketTransform.parent.gameObject;
         playerManager = player.GetComponent<PlayerManager>();
-        if (GetComponent<ServeController>() != null)
+        if (player.GetComponent<ServeController>() != null)
         {
             serveController = player.GetComponent<ServeController>();
         }
