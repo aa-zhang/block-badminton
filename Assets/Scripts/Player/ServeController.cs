@@ -103,4 +103,9 @@ public class ServeController : NetworkBehaviour, IServing
     {
         throw new System.NotImplementedException();
     }
+
+    public Vector3 GetServeAngle()
+    {
+        throw new System.NotImplementedException();
+    }
 }

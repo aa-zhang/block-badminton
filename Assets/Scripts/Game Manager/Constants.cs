@@ -5,7 +5,7 @@ public static class Constants
     // Court position constants (Note: player 1 should use negative value of these constants)
     public static readonly float REAR_COURT_X_POS = 11.4f;
     public static readonly float FRONT_COURT_X_POS = 1;
-    public static readonly float SERVE_X_POS = 6f;
+    public static readonly float SERVE_X_POS = 7f;
 
 
     // Birdie serving position constants
@@ -14,8 +14,8 @@ public static class Constants
     public static readonly Vector3 BIRDIE_DEFAULT_POSITION = new Vector3(0, 6.5f, 0);
 
     // Serve arrow angle constants
-    public static readonly Vector3 SERVE_ANGLE_HIGH = new Vector3(0, 0, 60);
-    public static readonly Vector3 SERVE_ANGLE_LOW = new Vector3(0, 0, 25);
+    public static readonly Vector3 SERVE_ANGLE_HIGH = new Vector3(0, 0, 45);
+    public static readonly Vector3 SERVE_ANGLE_LOW = new Vector3(0, 0, 15);
 
 
     // Score constants

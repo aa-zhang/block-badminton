@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class HitBirdie : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class HitBirdie : MonoBehaviour
     private SwingRacket swingRacket;
     private GameObject player;
     private PlayerManager playerManager;
-    private PlayerMovement playerMovement;
+    private IServing serveController;
 
     [SerializeField] private float racketForce = 300;
     [SerializeField] private float birdieAngleAdjustment = 0.1f;
@@ -24,58 +25,69 @@ public class HitBirdie : MonoBehaviour
         swingRacket = gameObject.GetComponent<SwingRacket>();
         player = racketTransform.parent.gameObject;
         playerManager = player.GetComponent<PlayerManager>();
-        playerMovement = player.GetComponent<PlayerMovement>();
+        if (GetComponent<ServeController>() != null)
+        {
+            serveController = player.GetComponent<ServeController>();
+        }
+        else
+        {
+            serveController = player.GetComponent<OfflineServeController>();
+        }
     }
 
 
     public void CalculateBirdieForce(bool isOverhandCollider)
     {
-        // Don't register collisions for the incorrect collider
-        if ((swingRacket.overhand && !isOverhandCollider) || (!swingRacket.overhand && isOverhandCollider))
+        if ((swingRacket.overhand && !isOverhandCollider) || (!swingRacket.overhand && isOverhandCollider) || !swingRacket.inForwardSwingAnimation || swingRacket.alreadyMadeContact)
         {
+            // Ignore collision if collision was registered for the incorrect collider
+            // OR racket is currently in the backward swinging animation
+            // OR collision was already registered during this swing
             return;
         }
 
-        // Get racket angle
-        float theta;
-        if (playerManager.playerNum == 1)
-        {
-            theta = racketTransform.eulerAngles.z;
-        }
-        else
-        {
-            theta = 180 - racketTransform.eulerAngles.z;
-        }
+        Vector3 hitAngle;
+        hitAngle = CalculateRegularHitAngle();
+        
 
-        if (swingRacket.inBackwardSwingAnimation)
-        {
-            theta -= 180;
-        }
 
-        // Convert degrees to radians
-        theta = theta * Mathf.Deg2Rad;
-
-        // Calculate (x, y, z) vector given the theta
-        Vector3 forceVector = new Vector3(Mathf.Cos(theta), Mathf.Sin(theta), 0);
-
-        // Need to use oppposite direction if hitting with underhand swing
-        forceVector = swingRacket.overhand ? forceVector : -forceVector;
-
-        // Add a slight angle adjustment and then normalize the vector
-        forceVector = new Vector3(forceVector.x, forceVector.y + birdieAngleAdjustment, forceVector.z).normalized;
-
-        if (swingRacket.inForwardSwingAnimation && !swingRacket.alreadyMadeContact)
-        {
-            // Racket is currently in the forward swinging animation
-            // And is the first time making contact with the birdie during this swing
-            OnBirdieHit(forceVector * racketForce, playerManager.playerNum);
-            swingRacket.SetAlreadyMadeContact(true);
-            Debug.Log("hit the bertholdt with force. ARE WE DOING IT REINIER?!?!?" + forceVector);
-            Debug.Log("theta " + theta);
-        }
+        OnBirdieHit(hitAngle * racketForce, playerManager.playerNum);
+        swingRacket.SetAlreadyMadeContact(true);
+        Debug.Log($"hit the bertholdt. ARE WE DOING IT REINIER?!?!? angle: {hitAngle}");
 
     }
 
-    
+    private Vector3 CalculateRegularHitAngle()
+    {
+        float racketAngle;
+        if (serveController.isServing)
+        {
+            racketAngle = serveController.GetServeAngle().z - 180;
+        }
+        else
+        {
+            racketAngle = racketTransform.localEulerAngles.z;
+        }
+
+        if (playerManager.playerNum == 2)
+        {
+            racketAngle = 180 - racketAngle;
+        }
+
+        // Convert degrees to radians
+        racketAngle *= Mathf.Deg2Rad;
+
+        // Calculate (x, y, z) vector given the angle in radians
+        Vector3 hitAngle = new Vector3(Mathf.Cos(racketAngle), Mathf.Sin(racketAngle), 0);
+
+        // Need to use oppposite direction if hitting with underhand swing
+        hitAngle = swingRacket.overhand ? hitAngle : -hitAngle;
+
+        // Add a slight angle adjustment and then normalize the vector
+        hitAngle = new Vector3(hitAngle.x, hitAngle.y + birdieAngleAdjustment, hitAngle.z).normalized;
+
+        return hitAngle;
+    }
+
 
 }

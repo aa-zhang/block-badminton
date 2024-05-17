@@ -118,4 +118,9 @@ public class OfflineServeController : MonoBehaviour, IServing
             serveArrow.transform.localEulerAngles = Constants.SERVE_ANGLE_HIGH;
         }
     }
+
+    public Vector3 GetServeAngle()
+    {
+        return serveArrow.transform.localEulerAngles;
+    }
 }

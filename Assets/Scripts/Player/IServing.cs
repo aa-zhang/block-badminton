@@ -6,4 +6,6 @@ public interface IServing
 {
     public bool isServing { get; set; }
     void ChangeServeAngle();
+    Vector3 GetServeAngle();
+
 }
