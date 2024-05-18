@@ -13,6 +13,14 @@ public class OfflineServeController : MonoBehaviour, IServing
     private BirdieParticleController birdiePsController;
 
     [SerializeField] private GameObject serveArrow;
+    [SerializeField] private float lerpDuration = 0.1f;
+    private enum ServeAngle
+    {
+        High,
+        Low
+    }
+
+    private ServeAngle currentServeAngle = ServeAngle.High;
 
     // Start is called before the first frame update
     void Awake()
@@ -113,14 +121,33 @@ public class OfflineServeController : MonoBehaviour, IServing
 
     public void ChangeServeAngle()
     {
-        if (serveArrow.transform.localEulerAngles == Constants.SERVE_ANGLE_HIGH)
+        Vector3 targetRotation;
+        if (currentServeAngle == ServeAngle.High)
         {
-            serveArrow.transform.localEulerAngles = Constants.SERVE_ANGLE_LOW;
+            targetRotation = Constants.SERVE_ANGLE_LOW;
+            currentServeAngle = ServeAngle.Low;
         }
         else
         {
-            serveArrow.transform.localEulerAngles = Constants.SERVE_ANGLE_HIGH;
+            targetRotation = Constants.SERVE_ANGLE_HIGH;
+            currentServeAngle = ServeAngle.High;
+
         }
+        StartCoroutine(LerpServeArrow(Quaternion.Euler(targetRotation), lerpDuration));
+    }
+
+    IEnumerator LerpServeArrow(Quaternion endValue, float duration)
+    {
+        float time = 0;
+        Quaternion startValue = serveArrow.transform.localRotation;
+
+        while (time < duration)
+        {
+            serveArrow.transform.localRotation = Quaternion.Lerp(startValue, endValue, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        serveArrow.transform.localRotation = endValue;
     }
 
     public Vector3 GetServeAngle()

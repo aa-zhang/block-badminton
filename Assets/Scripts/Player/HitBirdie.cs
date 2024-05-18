@@ -47,17 +47,15 @@ public class HitBirdie : MonoBehaviour
         }
 
         Vector3 hitAngle;
-        hitAngle = CalculateRegularHitAngle();
+        hitAngle = CalculateHitAngle();
         
-
-
         OnBirdieHit(hitAngle * racketForce, playerManager.playerNum);
         swingRacket.SetAlreadyMadeContact(true);
         Debug.Log($"hit the bertholdt. ARE WE DOING IT REINIER?!?!? angle: {hitAngle}");
 
     }
 
-    private Vector3 CalculateRegularHitAngle()
+    private Vector3 CalculateHitAngle()
     {
         float racketAngle;
         if (serveController.isServing)
