@@ -8,6 +8,9 @@ using UnityEngine.UI;
 
 public class OfflineGameStateManager : MonoBehaviour
 {
+    private static OfflineGameStateManager instance;
+    public static OfflineGameStateManager Instance { get { return instance; } }
+
     // UI elements
     public GameObject canvas;
     public TextMeshProUGUI scoreText;
@@ -33,6 +36,18 @@ public class OfflineGameStateManager : MonoBehaviour
     public delegate void ServeHandler(int playerNum);
     public static ServeHandler OnBeginServe;
 
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -175,7 +190,7 @@ public class OfflineGameStateManager : MonoBehaviour
         RestartGameRpc();
     }
 
-    private void RestartGameRpc()
+    public void RestartGameRpc()
     {
         // Hide menu and other UI
         ShowMenuRpc(false);
