@@ -23,6 +23,7 @@ public class OfflineGameStateManager : MonoBehaviour
     private int servingPlayerNum = 0;
 
     private bool gameInProgress = false;
+    [SerializeField] private bool trainingEnabled;
 
     [SerializeField] private GameObject birdiePrefab;
 
@@ -86,7 +87,7 @@ public class OfflineGameStateManager : MonoBehaviour
         Debug.Log("Creating birdie");
         // Initialize birdie for clients
         OnBirdieInitialized(birdiePrefab);
-        Invoke("SelectRandomServer", 1);
+        SelectRandomServer();
     }
 
 
@@ -119,7 +120,7 @@ public class OfflineGameStateManager : MonoBehaviour
 
         CheckScore(); // sets gameInProgress to false if game has ended
 
-        if (gameInProgress)
+        if (gameInProgress && !trainingEnabled)
         {
             // Start next serve after a 1 second delay
             Invoke("BeginServeRpc", 1);
@@ -198,13 +199,13 @@ public class OfflineGameStateManager : MonoBehaviour
         SetWinnerTextRpc("");
 
         // Reset birdie position
-        birdiePrefab.transform.position = Constants.BIRDIE_DEFAULT_POSITION;
+        birdiePrefab.transform.localPosition = Constants.BIRDIE_DEFAULT_POSITION;
 
         // Reset score values
         playerOneScore = 0;
         playerTwoScore = 0;
 
         InitiateGameRpc();
-        Invoke("SelectRandomServer", 1);
+        SelectRandomServer();
     }
 }

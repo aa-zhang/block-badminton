@@ -41,10 +41,10 @@ public class PlayerAgent : Agent
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(transform.position);
-        sensor.AddObservation(opponent.transform.position);
+        sensor.AddObservation(transform.localPosition);
+        sensor.AddObservation(opponent.transform.localPosition);
 
-        sensor.AddObservation(birdie.transform.position);
+        sensor.AddObservation(birdie.transform.localPosition);
         sensor.AddObservation(birdie.GetComponent<Rigidbody>().velocity);
     }
 
@@ -90,7 +90,7 @@ public class PlayerAgent : Agent
     {
         if (playerManager.playerNum == playerNum)
         {
-            SetReward(0.2f);
+            AddReward(0.2f);
         }
     }
 
@@ -98,11 +98,11 @@ public class PlayerAgent : Agent
     {
         if (playerManager.playerNum == scoringPlayerNum)
         {
-            SetReward(+1f);
+            AddReward(1f);
         }
         else
         {
-            SetReward(-1f);
+            AddReward(-1f);
         }
         EndEpisode();
         Debug.Log("episode end");

@@ -58,7 +58,7 @@ public class OfflineServeController : MonoBehaviour, IServing
     {
         // Move the birdie in front of the serving player
         Vector3 servingOffset = playerManager.playerNum == 1 ? Constants.SERVING_OFFSET_PLAYER_ONE : Constants.SERVING_OFFSET_PLAYER_TWO;
-        birdieTransform.position = playerTransform.position + servingOffset;
+        birdieTransform.localPosition = playerTransform.localPosition + servingOffset;
     }
 
     private void GameStateManager_OnBirdieInitialized(GameObject birdie)
@@ -97,7 +97,7 @@ public class OfflineServeController : MonoBehaviour, IServing
             newXPos = Constants.SERVE_X_POS;
         }
 
-        playerTransform.position = new Vector3(newXPos, playerTransform.position.y, playerTransform.position.z);
+        playerTransform.localPosition = new Vector3(newXPos, playerTransform.localPosition.y, playerTransform.localPosition.z);
 
     }
 

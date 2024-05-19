@@ -73,9 +73,9 @@ public class SwingRacket : MonoBehaviour
         inForwardSwingAnimation = true;
 
         // Check the birdie position to determine how the player should swing
-        if ((playerTransform.position.y - birdieTransform.position.y > 0) &&
-            ((playerManager.playerNum == 1 && birdieTransform.position.x < 0) ||
-            (playerManager.playerNum == 2 && birdieTransform.position.x > 0)))
+        if ((playerTransform.localPosition.y - birdieTransform.localPosition.y > 0) &&
+            ((playerManager.playerNum == 1 && birdieTransform.localPosition.x < 0) ||
+            (playerManager.playerNum == 2 && birdieTransform.localPosition.x > 0)))
         {
             overhand = false;
         }

@@ -53,7 +53,7 @@ public class OfflineBirdieMovement : MonoBehaviour
 
     private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum)
     {
-        ApplyForceToBirdieRpc(forceVector, birdieRb.position, playerNum);
+        ApplyForceToBirdieRpc(forceVector, birdieTransform.localPosition, playerNum);
     }
 
     public void ApplyForceToBirdieRpc(Vector3 forceVector, Vector3 position, int playerNum)
@@ -62,7 +62,6 @@ public class OfflineBirdieMovement : MonoBehaviour
 
         enableGravity = true;
         birdieRb.velocity = forceVector;
-        birdieRb.position = position;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -73,7 +72,7 @@ public class OfflineBirdieMovement : MonoBehaviour
             SetBirdieCollisionRpc(false);
 
             // Determine if player 1 or 2 should receive the point
-            int scoringPlayerNum = birdieTransform.position.x > 0 ? 1 : 2;
+            int scoringPlayerNum = birdieTransform.localPosition.x > 0 ? 1 : 2;
             OnPointScored(scoringPlayerNum);
         }
     }

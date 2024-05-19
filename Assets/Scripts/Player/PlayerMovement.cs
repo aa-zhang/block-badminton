@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (CanGoLeft())
         {
-            playerTransform.position += Vector3.left * movementSpeed * Time.deltaTime;
+            playerTransform.localPosition += Vector3.left * movementSpeed * Time.deltaTime;
 
         }
     }
@@ -62,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (CanGoRight())
         {
-            playerTransform.position += Vector3.right * movementSpeed * Time.deltaTime;
+            playerTransform.localPosition += Vector3.right * movementSpeed * Time.deltaTime;
         }
     }
 
@@ -103,11 +103,11 @@ public class PlayerMovement : MonoBehaviour
         // Check if within court boundaries
         if (playerManager.playerNum == 1)
         {
-            return playerTransform.position.x > -Constants.REAR_COURT_X_POS;
+            return playerTransform.localPosition.x > -Constants.REAR_COURT_X_POS;
         }
         else
         {
-            return playerTransform.position.x > Constants.FRONT_COURT_X_POS;
+            return playerTransform.localPosition.x > Constants.FRONT_COURT_X_POS;
         }
     }
 
@@ -122,11 +122,11 @@ public class PlayerMovement : MonoBehaviour
         // Check if within court boundaries
         if (playerManager.playerNum == 1)
         {
-            return playerTransform.position.x < -Constants.FRONT_COURT_X_POS;
+            return playerTransform.localPosition.x < -Constants.FRONT_COURT_X_POS;
         }
         else
         {
-            return playerTransform.position.x < Constants.REAR_COURT_X_POS;
+            return playerTransform.localPosition.x < Constants.REAR_COURT_X_POS;
         }
     }
 
