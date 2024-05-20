@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657713, g: 0.49641275, b: 0.57481617, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657654, g: 0.49641383, b: 0.5748155, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -776,7 +776,7 @@ PrefabInstance:
       objectReference: {fileID: 1198169046}
     - target: {fileID: 5641612927076886004, guid: ba9fb043b472f46cea0685fead66b42e, type: 3}
       propertyPath: trainingEnvId
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5641612927076886004, guid: ba9fb043b472f46cea0685fead66b42e, type: 3}
       propertyPath: offlineGameStateManager
@@ -788,7 +788,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7540425473426811518, guid: ba9fb043b472f46cea0685fead66b42e, type: 3}
       propertyPath: trainingEnvId
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7605588717448421781, guid: ba9fb043b472f46cea0685fead66b42e, type: 3}
       propertyPath: TeamId
@@ -802,9 +802,13 @@ PrefabInstance:
       propertyPath: m_BehaviorType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7967078688639347789, guid: ba9fb043b472f46cea0685fead66b42e, type: 3}
+      propertyPath: trainingEnvId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8728143333224140412, guid: ba9fb043b472f46cea0685fead66b42e, type: 3}
       propertyPath: trainingEnvId
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1534,7 +1538,7 @@ PrefabInstance:
       objectReference: {fileID: 1897330085}
     - target: {fileID: 5641612927076886004, guid: ba9fb043b472f46cea0685fead66b42e, type: 3}
       propertyPath: trainingEnvId
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5641612927076886004, guid: ba9fb043b472f46cea0685fead66b42e, type: 3}
       propertyPath: offlineGameStateManager
@@ -1546,7 +1550,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7540425473426811518, guid: ba9fb043b472f46cea0685fead66b42e, type: 3}
       propertyPath: trainingEnvId
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7605588717448421781, guid: ba9fb043b472f46cea0685fead66b42e, type: 3}
       propertyPath: TeamId
@@ -1562,7 +1566,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8728143333224140412, guid: ba9fb043b472f46cea0685fead66b42e, type: 3}
       propertyPath: trainingEnvId
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2049,7 +2053,7 @@ PrefabInstance:
       objectReference: {fileID: 635407324}
     - target: {fileID: 3646685569284568279, guid: 7f5a4d67287e9164cab273c0871aabb9, type: 3}
       propertyPath: trainingEnvId
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3646685569284568279, guid: 7f5a4d67287e9164cab273c0871aabb9, type: 3}
       propertyPath: trainingEnabled
@@ -2098,6 +2102,10 @@ PrefabInstance:
     - target: {fileID: 6962356067455933032, guid: 7f5a4d67287e9164cab273c0871aabb9, type: 3}
       propertyPath: m_Name
       value: Birdie
+      objectReference: {fileID: 0}
+    - target: {fileID: 6962356067455933032, guid: 7f5a4d67287e9164cab273c0871aabb9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7417236632085463163, guid: 7f5a4d67287e9164cab273c0871aabb9, type: 3}
       propertyPath: GlobalObjectIdHash
@@ -2305,7 +2313,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &661860730
 Transform:
   m_ObjectHideFlags: 0
@@ -2900,7 +2908,7 @@ MonoBehaviour:
   matchText: {fileID: 430377712}
   trainingEnabled: 1
   birdiePrefab: {fileID: 571727182}
-  trainingEnvId: 1
+  trainingEnvId: 0
 --- !u!1 &815464647
 GameObject:
   m_ObjectHideFlags: 0
@@ -3712,7 +3720,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &949032264
 Transform:
   m_ObjectHideFlags: 0
@@ -3771,7 +3779,7 @@ MonoBehaviour:
   matchText: {fileID: 494125548}
   trainingEnabled: 1
   birdiePrefab: {fileID: 1949683243}
-  trainingEnvId: 2
+  trainingEnvId: 1
 --- !u!4 &953202305
 Transform:
   m_ObjectHideFlags: 0
@@ -4929,7 +4937,7 @@ PrefabInstance:
       objectReference: {fileID: 164547265}
     - target: {fileID: 5433884075630792877, guid: 7e292db5073bb487b8df97d4dde60bdb, type: 3}
       propertyPath: trainingEnvId
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5433884075630792877, guid: 7e292db5073bb487b8df97d4dde60bdb, type: 3}
       propertyPath: offlineGameStateManager
@@ -4941,11 +4949,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7540425473426811518, guid: 7e292db5073bb487b8df97d4dde60bdb, type: 3}
       propertyPath: trainingEnvId
-      value: 3
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967078688639347789, guid: 7e292db5073bb487b8df97d4dde60bdb, type: 3}
+      propertyPath: trainingEnvId
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8728143333224140412, guid: 7e292db5073bb487b8df97d4dde60bdb, type: 3}
       propertyPath: trainingEnvId
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7571,7 +7583,7 @@ PrefabInstance:
       objectReference: {fileID: 635407324}
     - target: {fileID: 5433884075630792877, guid: 7e292db5073bb487b8df97d4dde60bdb, type: 3}
       propertyPath: trainingEnvId
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5433884075630792877, guid: 7e292db5073bb487b8df97d4dde60bdb, type: 3}
       propertyPath: offlineGameStateManager
@@ -7583,11 +7595,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7540425473426811518, guid: 7e292db5073bb487b8df97d4dde60bdb, type: 3}
       propertyPath: trainingEnvId
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8728143333224140412, guid: 7e292db5073bb487b8df97d4dde60bdb, type: 3}
       propertyPath: trainingEnvId
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7859,7 +7871,7 @@ PrefabInstance:
       objectReference: {fileID: 1889908597}
     - target: {fileID: 5641612927076886004, guid: ba9fb043b472f46cea0685fead66b42e, type: 3}
       propertyPath: trainingEnvId
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5641612927076886004, guid: ba9fb043b472f46cea0685fead66b42e, type: 3}
       propertyPath: offlineGameStateManager
@@ -7871,7 +7883,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7540425473426811518, guid: ba9fb043b472f46cea0685fead66b42e, type: 3}
       propertyPath: trainingEnvId
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7605588717448421781, guid: ba9fb043b472f46cea0685fead66b42e, type: 3}
       propertyPath: TeamId
@@ -7885,9 +7897,13 @@ PrefabInstance:
       propertyPath: m_BehaviorType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7967078688639347789, guid: ba9fb043b472f46cea0685fead66b42e, type: 3}
+      propertyPath: trainingEnvId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8728143333224140412, guid: ba9fb043b472f46cea0685fead66b42e, type: 3}
       propertyPath: trainingEnvId
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8348,7 +8364,7 @@ MonoBehaviour:
   matchText: {fileID: 1198898137}
   trainingEnabled: 1
   birdiePrefab: {fileID: 1882042314}
-  trainingEnvId: 3
+  trainingEnvId: 2
 --- !u!4 &1849577709
 Transform:
   m_ObjectHideFlags: 0
@@ -8859,7 +8875,7 @@ PrefabInstance:
       objectReference: {fileID: 164547265}
     - target: {fileID: 3646685569284568279, guid: 7f5a4d67287e9164cab273c0871aabb9, type: 3}
       propertyPath: trainingEnvId
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3646685569284568279, guid: 7f5a4d67287e9164cab273c0871aabb9, type: 3}
       propertyPath: trainingEnabled
@@ -8998,7 +9014,7 @@ PrefabInstance:
       objectReference: {fileID: 1682693684}
     - target: {fileID: 5433884075630792877, guid: 7e292db5073bb487b8df97d4dde60bdb, type: 3}
       propertyPath: trainingEnvId
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5433884075630792877, guid: 7e292db5073bb487b8df97d4dde60bdb, type: 3}
       propertyPath: offlineGameStateManager
@@ -9010,11 +9026,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7540425473426811518, guid: 7e292db5073bb487b8df97d4dde60bdb, type: 3}
       propertyPath: trainingEnvId
-      value: 2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967078688639347789, guid: 7e292db5073bb487b8df97d4dde60bdb, type: 3}
+      propertyPath: trainingEnvId
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8728143333224140412, guid: 7e292db5073bb487b8df97d4dde60bdb, type: 3}
       propertyPath: trainingEnvId
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9233,7 +9253,7 @@ PrefabInstance:
       objectReference: {fileID: 1682693684}
     - target: {fileID: 3646685569284568279, guid: 7f5a4d67287e9164cab273c0871aabb9, type: 3}
       propertyPath: trainingEnvId
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3646685569284568279, guid: 7f5a4d67287e9164cab273c0871aabb9, type: 3}
       propertyPath: trainingEnabled

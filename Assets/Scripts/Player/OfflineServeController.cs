@@ -7,6 +7,7 @@ public class OfflineServeController : MonoBehaviour, IServing
     public bool isServing { get; set; }
     private PlayerManager playerManager;
     private Transform playerTransform;
+    private Rigidbody playerRb;
 
     private Transform birdieTransform;
     private OfflineBirdieMovement birdieMovement;
@@ -29,6 +30,8 @@ public class OfflineServeController : MonoBehaviour, IServing
     {
         playerManager = GetComponent<PlayerManager>();
         playerTransform = gameObject.transform;
+        playerRb = GetComponent<Rigidbody>();
+
         isServing = false;
     }
 
@@ -63,8 +66,12 @@ public class OfflineServeController : MonoBehaviour, IServing
         birdieTransform.localPosition = playerTransform.localPosition + servingOffset;
     }
 
-    private void GameStateManager_OnBirdieInitialized(GameObject birdie)
+    private void GameStateManager_OnBirdieInitialized(GameObject birdie, int trainingEnvId)
     {
+        if (this.trainingEnvId != trainingEnvId)
+        {
+            return;
+        }
         // Attach spawned birdie to this script
         birdieTransform = birdie.transform;
         birdieMovement = birdie.GetComponent<OfflineBirdieMovement>();
@@ -75,7 +82,6 @@ public class OfflineServeController : MonoBehaviour, IServing
     {
         if (this.trainingEnvId != trainingEnvId)
         {
-            Debug.LogError("not serving");
             return;
         }
 
@@ -107,8 +113,8 @@ public class OfflineServeController : MonoBehaviour, IServing
             newXPos = Constants.SERVE_X_POS;
         }
 
-        playerTransform.localPosition = new Vector3(newXPos, playerTransform.localPosition.y, playerTransform.localPosition.z);
-
+        playerTransform.localPosition = new Vector3(newXPos, Constants.GROUND_Y_POS, playerTransform.localPosition.z);
+        playerRb.velocity = Vector3.zero;
     }
 
     private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum, int trainingEnvId)

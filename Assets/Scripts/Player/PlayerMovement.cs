@@ -70,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isGrounded && !serveController.isServing)
         {
-            playerRb.AddForce(Vector3.up * jumpHeight);
+            playerRb.velocity = (Vector3.up * jumpHeight);
             isGrounded = false;
         }
     }

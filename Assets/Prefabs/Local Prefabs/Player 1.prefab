@@ -151,6 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   racketForce: 60
   birdieAngleAdjustment: 0.3
+  trainingEnvId: 0
 --- !u!1 &953400460987646767
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,6 +386,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serveArrow: {fileID: 101686662521122139}
   lerpDuration: 0.05
+  trainingEnvId: 0
 --- !u!65 &8252627694130245303
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -447,7 +449,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   racket: {fileID: 326187496924113687}
   movementSpeed: 9
-  jumpHeight: 800
+  jumpHeight: 16
   gravity: 40
 --- !u!1 &7913263242759728298
 GameObject:

@@ -25,7 +25,7 @@ public class OfflineGameStateManager : MonoBehaviour
     [SerializeField] private GameObject birdiePrefab;
 
     // Events
-    public delegate void BirdieObjectHandler(GameObject birdie);
+    public delegate void BirdieObjectHandler(GameObject birdie, int trainingEnvId);
     public static BirdieObjectHandler OnBirdieInitialized;
 
     public delegate void StartMatchHandler();
@@ -72,7 +72,7 @@ public class OfflineGameStateManager : MonoBehaviour
     {
         Debug.Log("Creating birdie");
         // Initialize birdie for clients
-        OnBirdieInitialized(birdiePrefab);
+        OnBirdieInitialized(birdiePrefab, trainingEnvId);
 
         if (!trainingEnabled)
         {

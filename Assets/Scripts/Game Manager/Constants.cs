@@ -4,8 +4,9 @@ public static class Constants
 {
     // Court position constants (Note: player 1 should use negative value of these constants)
     public static readonly float REAR_COURT_X_POS = 11.4f;
-    public static readonly float FRONT_COURT_X_POS = 1;
+    public static readonly float FRONT_COURT_X_POS = 1f;
     public static readonly float SERVE_X_POS = 7f;
+    public static readonly float GROUND_Y_POS = 2f;
 
 
     // Birdie serving position constants

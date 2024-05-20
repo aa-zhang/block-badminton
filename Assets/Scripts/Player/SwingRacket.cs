@@ -26,6 +26,8 @@ public class SwingRacket : MonoBehaviour
     private Vector3 defaultAngle = new Vector3(0, 0, 55);
     private float endAngle;
 
+    [SerializeField] private int trainingEnvId;
+
 
 
     // Start is called before the first frame update
@@ -49,20 +51,29 @@ public class SwingRacket : MonoBehaviour
 
     private void OnEnable()
     {
-        GameStateManager.OnBirdieInitialized += ScoreManager_OnBirdieInitialized;
-        OfflineGameStateManager.OnBirdieInitialized += ScoreManager_OnBirdieInitialized;
+        GameStateManager.OnBirdieInitialized += GameStateManager_OnBirdieInitialized;
+        OfflineGameStateManager.OnBirdieInitialized += OfflineGameStateManager_OnBirdieInitialized;
 
     }
 
     private void OnDisable()
     {
-        GameStateManager.OnBirdieInitialized -= ScoreManager_OnBirdieInitialized;
-        OfflineGameStateManager.OnBirdieInitialized += ScoreManager_OnBirdieInitialized;
+        GameStateManager.OnBirdieInitialized -= GameStateManager_OnBirdieInitialized;
+        OfflineGameStateManager.OnBirdieInitialized += OfflineGameStateManager_OnBirdieInitialized;
 
     }
 
-    private void ScoreManager_OnBirdieInitialized(GameObject birdie)
+    private void GameStateManager_OnBirdieInitialized(GameObject birdie)
     {
+        birdieTransform = birdie.transform;
+    }
+
+    private void OfflineGameStateManager_OnBirdieInitialized(GameObject birdie, int trainingEnvId)
+    {
+        if (this.trainingEnvId != trainingEnvId)
+        {
+            return;
+        }
         birdieTransform = birdie.transform;
     }
 
