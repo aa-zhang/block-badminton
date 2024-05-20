@@ -14,8 +14,10 @@ public class HitBirdie : MonoBehaviour
     [SerializeField] private float racketForce = 300;
     [SerializeField] private float birdieAngleAdjustment = 0.1f;
 
-    public delegate void BirdieHitHandler(Vector3 force, int playerNum);
+    public delegate void BirdieHitHandler(Vector3 force, int playerNum, int trainingEnvId);
     public static BirdieHitHandler OnBirdieHit;
+
+    [SerializeField] private int trainingEnvId;
 
 
     // Start is called before the first frame update
@@ -49,7 +51,7 @@ public class HitBirdie : MonoBehaviour
         Vector3 hitAngle;
         hitAngle = CalculateHitAngle();
         
-        OnBirdieHit(hitAngle * racketForce, playerManager.playerNum);
+        OnBirdieHit(hitAngle * racketForce, playerManager.playerNum, trainingEnvId);
         swingRacket.SetAlreadyMadeContact(true);
         Debug.Log($"hit the bertholdt. ARE WE DOING IT REINIER?!?!? angle: {hitAngle}");
 

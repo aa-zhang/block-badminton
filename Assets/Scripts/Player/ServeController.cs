@@ -101,7 +101,7 @@ public class ServeController : NetworkBehaviour, IServing
 
     }
 
-    private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum)
+    private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum, int trainingEnvId)
     {
         if (isServing)
         {
@@ -112,7 +112,7 @@ public class ServeController : NetworkBehaviour, IServing
         serveArrow.SetActive(false);
     }
 
-    private void GameMenu_OnGameRestart()
+    private void GameMenu_OnGameRestart(int trainingEnvId)
     {
         ResetServingPlayerPosition();
         isServing = false;

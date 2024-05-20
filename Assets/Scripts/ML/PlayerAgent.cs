@@ -9,9 +9,12 @@ public class PlayerAgent : Agent
 {
     [SerializeField] private GameObject birdie;
     [SerializeField] private GameObject opponent;
+
+    [SerializeField] private OfflineGameStateManager offlineGameStateManager;
     private PlayerMovement playerMovement;
     private PlayerManager playerManager;
 
+    [SerializeField] private int trainingEnvId;
 
     private void Start()
     {
@@ -19,23 +22,13 @@ public class PlayerAgent : Agent
         playerManager = GetComponent<PlayerManager>();
     }
 
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-        OfflineBirdieMovement.OnPointScored += BirdieMovement_OnPointScored;
-        HitBirdie.OnBirdieHit += HitBirdie_OnBirdieHit;
-    }
-
-    protected override void OnDisable()
-    {
-        base.OnEnable();
-        OfflineBirdieMovement.OnPointScored -= BirdieMovement_OnPointScored;
-        HitBirdie.OnBirdieHit -= HitBirdie_OnBirdieHit;
-    }
 
     public override void OnEpisodeBegin()
     {
-        OfflineGameStateManager.Instance.RestartGameRpc();
+        if (playerManager.playerNum == 1)
+        {
+            GameMenu.Instance.ResetGameValues(trainingEnvId);
+        }
     }
 
 
@@ -86,15 +79,15 @@ public class PlayerAgent : Agent
         }
     }
 
-    private void HitBirdie_OnBirdieHit(Vector3 force, int playerNum)
-    {
-        if (playerManager.playerNum == playerNum)
-        {
-            AddReward(0.2f);
-        }
-    }
+    //private void HitBirdie_OnBirdieHit(Vector3 force, int playerNum)
+    //{
+    //    if (playerManager.playerNum == playerNum)
+    //    {
+    //        AddReward(0.2f);
+    //    }
+    //}
 
-    private void BirdieMovement_OnPointScored(int scoringPlayerNum)
+    public void BirdieMovement_OnPointScored(int scoringPlayerNum)
     {
         if (playerManager.playerNum == scoringPlayerNum)
         {

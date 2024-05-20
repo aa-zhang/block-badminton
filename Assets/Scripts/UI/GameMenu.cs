@@ -8,11 +8,10 @@ public class GameMenu : MonoBehaviour
     private static GameMenu instance;
     public static GameMenu Instance { get { return instance; } }
 
-    public delegate void GameHandler();
+    public delegate void GameHandler(int trainingEnvId);
     public static GameHandler OnGameRestart;
 
     [SerializeField] private bool showOnStart = false;
-
 
     private void Awake()
     {
@@ -49,9 +48,9 @@ public class GameMenu : MonoBehaviour
         Application.Quit();
     }
 
-    public void ResetGameValues()
+    public void ResetGameValues(int trainingEnvId)
     {
-        OnGameRestart();
+        OnGameRestart(trainingEnvId);
     }
 
     public void ShowMenu(bool showMenu)

@@ -220,7 +220,7 @@ public class GameStateManager : NetworkBehaviour
         scoreText.text = playerOneScore.Value + " - " + playerTwoScore.Value;
     }
 
-    private void GameMenu_OnGameRestart()
+    private void GameMenu_OnGameRestart(int trainingEnvId)
     {
         RestartGameRpc();
     }

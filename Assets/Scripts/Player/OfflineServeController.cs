@@ -14,6 +14,8 @@ public class OfflineServeController : MonoBehaviour, IServing
 
     [SerializeField] private GameObject serveArrow;
     [SerializeField] private float lerpDuration = 0.1f;
+
+    [SerializeField] private int trainingEnvId;
     private enum ServeAngle
     {
         High,
@@ -69,11 +71,19 @@ public class OfflineServeController : MonoBehaviour, IServing
         birdiePsController = birdie.GetComponent<BirdieParticleController>();
     }
 
-    private void GameStateManager_OnBeginServe(int playerNum)
+    private void GameStateManager_OnBeginServe(int playerNum, int trainingEnvId)
     {
+        if (this.trainingEnvId != trainingEnvId)
+        {
+            Debug.LogError("not serving");
+            return;
+        }
+
+
         // Initiate serving sequence for given playerNum
         if (playerManager.playerNum == playerNum)
         {
+            Debug.Log("serving works");
             isServing = true;
             ResetServingPlayerPosition();
             birdieMovement.SetBirdieGravityRpc(false);
@@ -101,8 +111,13 @@ public class OfflineServeController : MonoBehaviour, IServing
 
     }
 
-    private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum)
+    private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum, int trainingEnvId)
     {
+        if (this.trainingEnvId != trainingEnvId)
+        {
+            return;
+        }
+
         if (isServing)
         {
             // Start timer for black flash detection
@@ -113,8 +128,12 @@ public class OfflineServeController : MonoBehaviour, IServing
 
     }
 
-    private void GameMenu_OnGameRestart()
+    private void GameMenu_OnGameRestart(int trainingEnvId)
     {
+        if (this.trainingEnvId != trainingEnvId)
+        {
+            return;
+        }
         ResetServingPlayerPosition();
         isServing = false;
     }

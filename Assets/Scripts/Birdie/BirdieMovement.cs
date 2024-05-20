@@ -53,7 +53,7 @@ public class BirdieMovement : NetworkBehaviour
         birdieRb.AddForce(Constants.GRAVITY);
     }
 
-    private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum)
+    private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum, int trainingEnvId)
     {
         if (!IsServer)
         {

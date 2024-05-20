@@ -1,0 +1,42 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1716091720",
+        "python_version": "3.9.5 (default, May 18 2021, 12:31:01) \n[Clang 10.0.0 ]",
+        "command_line_arguments": "/Users/aaronzhang/Block Badminton/venv/bin/mlagents-learn config/trainer_config.yaml --time-scale=1 --run-id=Test_1",
+        "mlagents_version": "0.30.0",
+        "mlagents_envs_version": "0.30.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.11.0",
+        "numpy_version": "1.21.2",
+        "end_time_seconds": "1716091781"
+    },
+    "total": 60.851286641,
+    "count": 1,
+    "self": 0.014542315999996447,
+    "children": {
+        "run_training.setup": {
+            "total": 0.03660827599999994,
+            "count": 1,
+            "self": 0.03660827599999994
+        },
+        "TrainerController.start_learning": {
+            "total": 60.800136049,
+            "count": 1,
+            "self": 0.0007254819999999995,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 60.799246786,
+                    "count": 1,
+                    "self": 60.799246786
+                },
+                "TrainerController._save_models": {
+                    "total": 0.00016378100000480345,
+                    "count": 1,
+                    "self": 0.00016378100000480345
+                }
+            }
+        }
+    }
+}

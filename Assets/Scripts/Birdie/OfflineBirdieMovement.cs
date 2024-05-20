@@ -15,6 +15,11 @@ public class OfflineBirdieMovement : MonoBehaviour
     public delegate void ClientHitDelayHandler(bool readEnabled);
     public static ClientHitDelayHandler OnSetReadEnabled;
 
+    [SerializeField] private GameObject agent1;
+    [SerializeField] private GameObject agent2;
+
+    [SerializeField] private bool trainingEnabled;
+    [SerializeField] private int trainingEnvId;
 
     // Start is called before the first frame update
     void Awake()
@@ -51,8 +56,12 @@ public class OfflineBirdieMovement : MonoBehaviour
         birdieRb.AddForce(Constants.GRAVITY);
     }
 
-    private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum)
+    private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum, int trainingEnvId)
     {
+        if (this.trainingEnvId != trainingEnvId)
+        {
+            return;
+        }
         ApplyForceToBirdieRpc(forceVector, birdieTransform.localPosition, playerNum);
     }
 
@@ -73,7 +82,15 @@ public class OfflineBirdieMovement : MonoBehaviour
 
             // Determine if player 1 or 2 should receive the point
             int scoringPlayerNum = birdieTransform.localPosition.x > 0 ? 1 : 2;
-            OnPointScored(scoringPlayerNum);
+            if (trainingEnabled)
+            {
+                agent1.GetComponent<PlayerAgent>().BirdieMovement_OnPointScored(scoringPlayerNum);
+                agent2.GetComponent<PlayerAgent>().BirdieMovement_OnPointScored(scoringPlayerNum);
+            }
+            else
+            {
+                OnPointScored(scoringPlayerNum);
+            }
         }
     }
 

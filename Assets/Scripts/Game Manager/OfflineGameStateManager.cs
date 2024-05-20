@@ -8,9 +8,6 @@ using UnityEngine.UI;
 
 public class OfflineGameStateManager : MonoBehaviour
 {
-    private static OfflineGameStateManager instance;
-    public static OfflineGameStateManager Instance { get { return instance; } }
-
     // UI elements
     public GameObject canvas;
     public TextMeshProUGUI scoreText;
@@ -34,21 +31,10 @@ public class OfflineGameStateManager : MonoBehaviour
     public delegate void StartMatchHandler();
     public static StartMatchHandler OnStartMatch;
 
-    public delegate void ServeHandler(int playerNum);
+    public delegate void ServeHandler(int playerNum, int trainingEnvId);
     public static ServeHandler OnBeginServe;
 
-
-    private void Awake()
-    {
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
-    }
+    [SerializeField] private int trainingEnvId;
 
     // Start is called before the first frame update
     void Start()
@@ -87,7 +73,11 @@ public class OfflineGameStateManager : MonoBehaviour
         Debug.Log("Creating birdie");
         // Initialize birdie for clients
         OnBirdieInitialized(birdiePrefab);
-        SelectRandomServer();
+
+        if (!trainingEnabled)
+        {
+            SelectRandomServer();
+        }
     }
 
 
@@ -102,7 +92,7 @@ public class OfflineGameStateManager : MonoBehaviour
     private void BeginServeRpc()
     {
         Debug.Log("serving player num: " + servingPlayerNum);
-        OnBeginServe(servingPlayerNum);
+        OnBeginServe(servingPlayerNum, trainingEnvId);
     }
 
     private void BirdieMovement_OnPointScored(int scoringPlayerNum)
@@ -186,9 +176,12 @@ public class OfflineGameStateManager : MonoBehaviour
         scoreText.text = playerOneScore + " - " + playerTwoScore;
     }
 
-    private void GameMenu_OnGameRestart()
+    private void GameMenu_OnGameRestart(int trainingEnvId)
     {
-        RestartGameRpc();
+        if (this.trainingEnvId == trainingEnvId)
+        {
+            RestartGameRpc();
+        }
     }
 
     public void RestartGameRpc()
