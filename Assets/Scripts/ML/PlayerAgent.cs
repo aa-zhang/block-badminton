@@ -11,6 +11,7 @@ public class PlayerAgent : Agent
     [SerializeField] private GameObject opponent;
 
     [SerializeField] private OfflineGameStateManager offlineGameStateManager;
+    private OfflineServeController offlineServeController;
     private PlayerMovement playerMovement;
     private PlayerManager playerManager;
 
@@ -20,6 +21,8 @@ public class PlayerAgent : Agent
     {
         playerMovement = GetComponent<PlayerMovement>();
         playerManager = GetComponent<PlayerManager>();
+        offlineServeController = GetComponent<OfflineServeController>();
+
     }
 
 
@@ -39,6 +42,8 @@ public class PlayerAgent : Agent
 
         sensor.AddObservation(birdie.transform.localPosition);
         sensor.AddObservation(birdie.GetComponent<Rigidbody>().velocity);
+
+        sensor.AddObservation(offlineServeController.isServing);
     }
 
     public override void OnActionReceived(ActionBuffers actions)
