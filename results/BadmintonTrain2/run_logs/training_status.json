@@ -1,0 +1,30 @@
+{
+    "Badminton": {
+        "elo": 1177.5220127811735,
+        "checkpoints": [
+            {
+                "steps": 148867,
+                "file_path": "results\\BadmintonTrain2\\Badminton\\Badminton-148867.onnx",
+                "reward": -0.25225225225225223,
+                "creation_time": 1716237002.255745,
+                "auxillary_file_paths": [
+                    "results\\BadmintonTrain2\\Badminton\\Badminton-148867.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 148867,
+            "file_path": "results\\BadmintonTrain2\\Badminton.onnx",
+            "reward": -0.25225225225225223,
+            "creation_time": 1716237002.255745,
+            "auxillary_file_paths": [
+                "results\\BadmintonTrain2\\Badminton\\Badminton-148867.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.11.0+cu115"
+    }
+}
