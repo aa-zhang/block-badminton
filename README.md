@@ -18,3 +18,8 @@ Player Two:
 - Press Left Arrow and Right Arrow to move left and right
 - Press Up Arrow to jump
 - Press Down Arrow to swing
+
+
+Trained a highly-competitive AI player using the ML-Agents toolkit:
+https://github.com/aa-zhang/block-badminton/assets/32945139/c07b5ae2-335f-484b-98b6-b052db319ae5
+
