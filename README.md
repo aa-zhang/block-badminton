@@ -21,5 +21,7 @@ Player Two:
 
 
 Trained a highly-competitive AI player using the ML-Agents toolkit:
-https://github.com/aa-zhang/block-badminton/assets/32945139/c07b5ae2-335f-484b-98b6-b052db319ae5
+
+![block-badminton-TrainingScene-WindowsMacLinux-Unity2022 3 10f1_DX11_2024-05-2112-04-48-ezgif com-video-to-gif-converter](https://github.com/aa-zhang/block-badminton/assets/32945139/32a5f802-434d-4377-bca5-0c1af3df8cfa)
+
 
