@@ -26,7 +26,7 @@ public class SwingRacket : MonoBehaviour
     private Vector3 defaultAngle = new Vector3(0, 0, 55);
     private float endAngle;
 
-    [SerializeField] private int trainingEnvId;
+    private GameEnvironmentManager gameEnv;
 
 
 
@@ -39,6 +39,8 @@ public class SwingRacket : MonoBehaviour
         playerMovement = player.GetComponent<PlayerMovement>();
 
         racketTransform = gameObject.transform;
+
+        gameEnv = transform.root.GetComponent<GameEnvironmentManager>();
     }
 
     private void FixedUpdate()
@@ -68,9 +70,9 @@ public class SwingRacket : MonoBehaviour
         birdieTransform = birdie.transform;
     }
 
-    private void OfflineGameStateManager_OnBirdieInitialized(GameObject birdie, int trainingEnvId)
+    private void OfflineGameStateManager_OnBirdieInitialized(GameObject birdie, int gameEnvId)
     {
-        if (this.trainingEnvId != trainingEnvId)
+        if (gameEnv.id != gameEnvId)
         {
             return;
         }

@@ -72,7 +72,7 @@ checkpoint_settings:
   run_id: BadmintonTrain3
   initialize_from: null
   load_model: false
-  resume: false
+  resume: true
   force: false
   train_model: false
   inference: false

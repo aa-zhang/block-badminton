@@ -20,25 +20,26 @@ public class OfflineGameStateManager : MonoBehaviour
     private int servingPlayerNum = 0;
 
     private bool gameInProgress = false;
-    [SerializeField] private bool trainingEnabled;
 
     [SerializeField] private GameObject birdiePrefab;
 
     // Events
-    public delegate void BirdieObjectHandler(GameObject birdie, int trainingEnvId);
+    public delegate void BirdieObjectHandler(GameObject birdie, int gameEnvId);
     public static BirdieObjectHandler OnBirdieInitialized;
 
     public delegate void StartMatchHandler();
     public static StartMatchHandler OnStartMatch;
 
-    public delegate void ServeHandler(int playerNum, int trainingEnvId);
+    public delegate void ServeHandler(int playerNum, int gameEnvId);
     public static ServeHandler OnBeginServe;
 
-    [SerializeField] private int trainingEnvId;
+    private GameEnvironmentManager gameEnv;
 
-    // Start is called before the first frame update
+
     void Start()
     {
+        gameEnv = transform.root.GetComponent<GameEnvironmentManager>();
+
         ShowMenuRpc(false);
         InitiateGameRpc();
         SpawnBirdie();
@@ -72,9 +73,9 @@ public class OfflineGameStateManager : MonoBehaviour
     {
         Debug.Log("Creating birdie");
         // Initialize birdie for clients
-        OnBirdieInitialized(birdiePrefab, trainingEnvId);
+        OnBirdieInitialized(birdiePrefab, gameEnv.id);
 
-        if (!trainingEnabled)
+        if (!gameEnv.isTraining)
         {
             SelectRandomServer();
         }
@@ -92,7 +93,7 @@ public class OfflineGameStateManager : MonoBehaviour
     private void BeginServeRpc()
     {
         Debug.Log("serving player num: " + servingPlayerNum);
-        OnBeginServe(servingPlayerNum, trainingEnvId);
+        OnBeginServe(servingPlayerNum, gameEnv.id);
     }
 
     private void BirdieMovement_OnPointScored(int scoringPlayerNum)
@@ -110,7 +111,7 @@ public class OfflineGameStateManager : MonoBehaviour
 
         CheckScore(); // sets gameInProgress to false if game has ended
 
-        if (gameInProgress && !trainingEnabled)
+        if (gameInProgress && !gameEnv.isTraining)
         {
             // Start next serve after a 1 second delay
             Invoke("BeginServeRpc", 1);
@@ -176,9 +177,9 @@ public class OfflineGameStateManager : MonoBehaviour
         scoreText.text = playerOneScore + " - " + playerTwoScore;
     }
 
-    private void GameMenu_OnGameRestart(int trainingEnvId)
+    private void GameMenu_OnGameRestart(int gameEnvId)
     {
-        if (this.trainingEnvId == trainingEnvId)
+        if (gameEnv.id == gameEnvId)
         {
             RestartGameRpc();
         }

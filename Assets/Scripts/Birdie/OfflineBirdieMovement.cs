@@ -18,14 +18,15 @@ public class OfflineBirdieMovement : MonoBehaviour
     [SerializeField] private GameObject agent1;
     [SerializeField] private GameObject agent2;
 
-    [SerializeField] private bool trainingEnabled;
-    [SerializeField] private int trainingEnvId;
+    private GameEnvironmentManager gameEnv;
 
     // Start is called before the first frame update
     void Awake()
     {
         birdieRb = gameObject.GetComponent<Rigidbody>();
         birdieTransform = gameObject.transform;
+
+        gameEnv = transform.root.GetComponent<GameEnvironmentManager>();
     }
 
     private void FixedUpdate()
@@ -56,9 +57,9 @@ public class OfflineBirdieMovement : MonoBehaviour
         birdieRb.AddForce(Constants.GRAVITY);
     }
 
-    private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum, int trainingEnvId)
+    private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum, int gameEnvId)
     {
-        if (this.trainingEnvId != trainingEnvId)
+        if (gameEnv.isTraining && gameEnv.id != gameEnvId)
         {
             return;
         }
@@ -82,10 +83,10 @@ public class OfflineBirdieMovement : MonoBehaviour
 
             // Determine if player 1 or 2 should receive the point
             int scoringPlayerNum = birdieTransform.localPosition.x > 0 ? 1 : 2;
-            if (trainingEnabled)
+            if (gameEnv.isTraining)
             {
-                agent1.GetComponent<PlayerAgent>().BirdieMovement_OnPointScored(scoringPlayerNum);
-                agent2.GetComponent<PlayerAgent>().BirdieMovement_OnPointScored(scoringPlayerNum);
+                agent1.GetComponent<PlayerAgent>().SetReward(scoringPlayerNum);
+                agent2.GetComponent<PlayerAgent>().SetReward(scoringPlayerNum);
             }
             else
             {

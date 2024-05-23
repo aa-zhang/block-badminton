@@ -137,7 +137,6 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
-  trainingEnvId: 0
 --- !u!114 &7540425473426811518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,11 +311,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4854845252678836949}
+  - component: {fileID: 8252627694130245303}
+  - component: {fileID: 6258716121917968995}
   - component: {fileID: 5099335322591380007}
   - component: {fileID: 8602533670118687766}
   - component: {fileID: 8728143333224140412}
-  - component: {fileID: 8252627694130245303}
-  - component: {fileID: 6258716121917968995}
   - component: {fileID: -5763228153118754794}
   - component: {fileID: 7605588717448421781}
   - component: {fileID: 5641612927076886004}
@@ -345,52 +344,7 @@ Transform:
   - {fileID: 6896490275773502755}
   - {fileID: 2382131071222834313}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5099335322591380007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6461785994595331130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1818ed11e6b354d2db73d0aea7e6045e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerNum: 2
-  jumpKey: 0
-  swingKey: 0
-  leftKey: 0
-  rightKey: 0
-  changeServeAngleKey: 0
---- !u!114 &8602533670118687766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6461785994595331130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ed1ec19ebaac467da33977bc5fdafad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8728143333224140412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6461785994595331130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e878956fec4f437dbe32b58ca156422, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serveArrow: {fileID: 7411758498652650305}
-  lerpDuration: 0.05
-  trainingEnvId: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!65 &8252627694130245303
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -439,6 +393,50 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 1
+--- !u!114 &5099335322591380007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6461785994595331130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1818ed11e6b354d2db73d0aea7e6045e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNum: 2
+  jumpKey: 0
+  swingKey: 0
+  leftKey: 0
+  rightKey: 0
+  changeServeAngleKey: 0
+--- !u!114 &8602533670118687766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6461785994595331130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ed1ec19ebaac467da33977bc5fdafad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8728143333224140412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6461785994595331130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e878956fec4f437dbe32b58ca156422, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serveArrow: {fileID: 7411758498652650305}
+  lerpDuration: 0.05
 --- !u!114 &-5763228153118754794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -480,8 +478,8 @@ MonoBehaviour:
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
-  m_BehaviorName: My Behavior
-  TeamId: 0
+  m_BehaviorName: Badminton
+  TeamId: 2
   m_UseChildSensors: 1
   m_UseChildActuators: 1
   m_ObservableAttributeHandling: 0
@@ -504,7 +502,6 @@ MonoBehaviour:
   birdie: {fileID: 0}
   opponent: {fileID: 0}
   offlineGameStateManager: {fileID: 0}
-  trainingEnvId: 0
 --- !u!114 &8581310009298374391
 MonoBehaviour:
   m_ObjectHideFlags: 0

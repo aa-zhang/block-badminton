@@ -15,7 +15,7 @@ public class PlayerAgent : Agent
     private PlayerMovement playerMovement;
     private PlayerManager playerManager;
 
-    [SerializeField] private int trainingEnvId;
+    private GameEnvironmentManager gameEnv;
 
     private void Start()
     {
@@ -23,6 +23,7 @@ public class PlayerAgent : Agent
         playerManager = GetComponent<PlayerManager>();
         offlineServeController = GetComponent<OfflineServeController>();
 
+        gameEnv = transform.root.GetComponent<GameEnvironmentManager>();
     }
 
 
@@ -30,7 +31,7 @@ public class PlayerAgent : Agent
     {
         if (playerManager.playerNum == 1)
         {
-            GameMenu.Instance.ResetGameValues(trainingEnvId);
+            GameMenu.Instance.ResetGameValues(gameEnv.id);
         }
     }
 
@@ -102,7 +103,7 @@ public class PlayerAgent : Agent
     //    }
     //}
 
-    public void BirdieMovement_OnPointScored(int scoringPlayerNum)
+    public void SetReward(int scoringPlayerNum)
     {
         if (playerManager.playerNum == scoringPlayerNum)
         {
@@ -113,6 +114,5 @@ public class PlayerAgent : Agent
             AddReward(-1f);
         }
         EndEpisode();
-        Debug.Log("episode end");
     }
 }

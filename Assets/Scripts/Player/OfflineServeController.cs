@@ -13,10 +13,10 @@ public class OfflineServeController : MonoBehaviour, IServing
     private OfflineBirdieMovement birdieMovement;
     private BirdieParticleController birdiePsController;
 
+
     [SerializeField] private GameObject serveArrow;
     [SerializeField] private float lerpDuration = 0.1f;
 
-    [SerializeField] private int trainingEnvId;
     private enum ServeAngle
     {
         High,
@@ -25,12 +25,16 @@ public class OfflineServeController : MonoBehaviour, IServing
 
     private ServeAngle currentServeAngle = ServeAngle.High;
 
+    private GameEnvironmentManager gameEnv;
+
+
     // Start is called before the first frame update
     void Awake()
     {
         playerManager = GetComponent<PlayerManager>();
         playerTransform = gameObject.transform;
         playerRb = GetComponent<Rigidbody>();
+        gameEnv = transform.root.GetComponent<GameEnvironmentManager>();
 
         isServing = false;
     }
@@ -66,9 +70,9 @@ public class OfflineServeController : MonoBehaviour, IServing
         birdieTransform.localPosition = playerTransform.localPosition + servingOffset;
     }
 
-    private void GameStateManager_OnBirdieInitialized(GameObject birdie, int trainingEnvId)
+    private void GameStateManager_OnBirdieInitialized(GameObject birdie, int gameEnvId)
     {
-        if (this.trainingEnvId != trainingEnvId)
+        if (gameEnv.isTraining && gameEnv.id != gameEnvId)
         {
             return;
         }
@@ -78,9 +82,9 @@ public class OfflineServeController : MonoBehaviour, IServing
         birdiePsController = birdie.GetComponent<BirdieParticleController>();
     }
 
-    private void GameStateManager_OnBeginServe(int playerNum, int trainingEnvId)
+    private void GameStateManager_OnBeginServe(int playerNum, int gameEnvId)
     {
-        if (this.trainingEnvId != trainingEnvId)
+        if (gameEnv.isTraining && gameEnv.id != gameEnvId)
         {
             return;
         }
@@ -117,9 +121,9 @@ public class OfflineServeController : MonoBehaviour, IServing
         playerRb.velocity = Vector3.zero;
     }
 
-    private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum, int trainingEnvId)
+    private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum, int gameEnvId)
     {
-        if (this.trainingEnvId != trainingEnvId)
+        if (gameEnv.isTraining && gameEnv.id != gameEnvId)
         {
             return;
         }
@@ -134,9 +138,9 @@ public class OfflineServeController : MonoBehaviour, IServing
 
     }
 
-    private void GameMenu_OnGameRestart(int trainingEnvId)
+    private void GameMenu_OnGameRestart(int gameEnvId)
     {
-        if (this.trainingEnvId != trainingEnvId)
+        if (gameEnv.isTraining && gameEnv.id != gameEnvId)
         {
             return;
         }
