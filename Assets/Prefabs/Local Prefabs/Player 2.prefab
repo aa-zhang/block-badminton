@@ -134,10 +134,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alreadyMadeContact: 0
   overhand: 0
+  swingType: 0
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
-  trainingEnvId: 0
 --- !u!114 &7540425473426811518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,9 +150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63179b9a9d824849965fd3029c01a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  racketForce: 60
+  racketForceHeavy: 65
+  racketForceLight: 40
   birdieAngleAdjustment: 0.3
-  trainingEnvId: 0
 --- !u!1 &953400460987646767
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,10 +405,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNum: 2
   jumpKey: 273
-  swingKey: 274
+  lightSwingKey: 44
+  heavySwingKey: 46
   leftKey: 276
   rightKey: 275
-  changeServeAngleKey: 273
+  downKey: 274
 --- !u!114 &8602533670118687766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -435,7 +436,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serveArrow: {fileID: 7411758498652650305}
   lerpDuration: 0.05
-  trainingEnvId: 0
 --- !u!114 &-5763228153118754794
 MonoBehaviour:
   m_ObjectHideFlags: 0

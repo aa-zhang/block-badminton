@@ -7,9 +7,10 @@ public class PlayerManager : MonoBehaviour
     public int playerNum;
 
     public KeyCode jumpKey;
-    public KeyCode swingKey;
+    public KeyCode lightSwingKey;
+    public KeyCode heavySwingKey;
     public KeyCode leftKey;
     public KeyCode rightKey;
-    public KeyCode changeServeAngleKey;
+    public KeyCode downKey;
 
 }

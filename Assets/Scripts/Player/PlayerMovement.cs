@@ -75,20 +75,20 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void SwingRacket()
+    public void SwingRacket(SwingType swingType)
     {
         if (canSwing)
         {
             canSwing = false;
-            swingRacket.Swing();
+            swingRacket.Swing(swingType);
         }
     }
 
-    public void ChangeServeAngle()
+    public void SetServeAngle(ServeAngle serveAngle)
     {
         if (serveController.isServing)
         {
-            serveController.ChangeServeAngle();
+            serveController.SetServeAngle(serveAngle);
         }
     }
 

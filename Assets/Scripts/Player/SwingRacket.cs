@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum SwingType
+{
+    Heavy,
+    Light
+}
+
 public class SwingRacket : MonoBehaviour
 {
     private Transform racketTransform;
@@ -16,6 +22,7 @@ public class SwingRacket : MonoBehaviour
 
     public bool alreadyMadeContact = false;
     public bool overhand = false;
+    public SwingType swingType;
 
     // Animation variables
     public bool inForwardSwingAnimation = false;
@@ -27,7 +34,6 @@ public class SwingRacket : MonoBehaviour
     private float endAngle;
 
     private GameEnvironmentManager gameEnv;
-
 
 
     // Start is called before the first frame update
@@ -80,10 +86,13 @@ public class SwingRacket : MonoBehaviour
     }
 
 
-    public void Swing()
+    public void Swing(SwingType swingType)
     {
         // Begin the forward swing animation
         inForwardSwingAnimation = true;
+
+        // Set swing type
+        this.swingType = swingType;
 
         // Check the birdie position to determine how the player should swing
         if ((playerTransform.localPosition.y - birdieTransform.localPosition.y > 0) &&

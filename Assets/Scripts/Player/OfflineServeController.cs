@@ -2,12 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ServeAngle
-{
-    High,
-    Low
-}
-
 public class OfflineServeController : MonoBehaviour, IServing
 {
     public bool isServing { get; set; }
@@ -148,21 +142,24 @@ public class OfflineServeController : MonoBehaviour, IServing
         isServing = false;
     }
 
-    public void ChangeServeAngle()
+    public void SetServeAngle(ServeAngle serveAngle)
     {
         Vector3 targetRotation;
-        if (currentServeAngle == ServeAngle.High)
-        {
-            targetRotation = Constants.SERVE_ANGLE_LOW;
-            currentServeAngle = ServeAngle.Low;
-        }
-        else
-        {
-            targetRotation = Constants.SERVE_ANGLE_HIGH;
-            currentServeAngle = ServeAngle.High;
 
+        if (currentServeAngle != serveAngle)
+        {
+            if (serveAngle == ServeAngle.High)
+            {
+                targetRotation = Constants.SERVE_ANGLE_HIGH;
+            }
+            else
+            {
+                targetRotation = Constants.SERVE_ANGLE_LOW;
+            }
+            StartCoroutine(LerpServeArrow(Quaternion.Euler(targetRotation), lerpDuration));
+            currentServeAngle = serveAngle;
         }
-        StartCoroutine(LerpServeArrow(Quaternion.Euler(targetRotation), lerpDuration));
+
     }
 
     IEnumerator LerpServeArrow(Quaternion endValue, float duration)

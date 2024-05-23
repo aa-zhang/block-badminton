@@ -49,16 +49,25 @@ public class InputManager : NetworkBehaviour
             }
 
             // Swing racket
-            if (Input.GetKey(playerManager.swingKey))
+            if (Input.GetKey(playerManager.lightSwingKey))
             {
-                playerMovement.SwingRacket();
+                playerMovement.SwingRacket(SwingType.Light);
+            }
+
+            if (Input.GetKey(playerManager.heavySwingKey))
+            {
+                playerMovement.SwingRacket(SwingType.Heavy);
             }
 
 
             // Change Serve Angle
-            if (Input.GetKeyDown(playerManager.changeServeAngleKey))
+            if (Input.GetKeyDown(playerManager.jumpKey))
             {
-                playerMovement.ChangeServeAngle();
+                playerMovement.SetServeAngle(ServeAngle.High);
+            }
+            if (Input.GetKeyDown(playerManager.downKey))
+            {
+                playerMovement.SetServeAngle(ServeAngle.Low);
             }
         }
 

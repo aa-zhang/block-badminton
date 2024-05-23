@@ -134,6 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alreadyMadeContact: 0
   overhand: 0
+  swingType: 0
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
@@ -151,7 +152,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   racketForce: 60
   birdieAngleAdjustment: 0.3
-  trainingEnvId: 0
 --- !u!1 &953400460987646767
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,7 +407,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNum: 2
   jumpKey: 0
-  swingKey: 0
+  lightSwingKey: 0
+  heavySwingKey: 0
   leftKey: 0
   rightKey: 0
   changeServeAngleKey: 0
@@ -470,8 +471,8 @@ MonoBehaviour:
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 030000000200000002000000
-    VectorActionSize: 030000000200000002000000
+      BranchSizes: 030000000200000003000000
+    VectorActionSize: 030000000200000003000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1

@@ -14,6 +14,8 @@ public class ServeController : NetworkBehaviour, IServing
     private BirdieParticleController birdiePsController;
 
     [SerializeField] private GameObject serveArrow;
+    private ServeAngle currentServeAngle = ServeAngle.High;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -118,17 +120,23 @@ public class ServeController : NetworkBehaviour, IServing
         isServing = false;
     }
 
-    public void ChangeServeAngle()
+    public void SetServeAngle(ServeAngle serveAngle)
     {
-        if (serveArrow.transform.localEulerAngles == Constants.SERVE_ANGLE_HIGH)
+        if (currentServeAngle != serveAngle)
         {
-            serveArrow.transform.localEulerAngles = Constants.SERVE_ANGLE_LOW;
+            if (serveAngle == ServeAngle.High)
+            {
+                serveArrow.transform.localEulerAngles = Constants.SERVE_ANGLE_HIGH;
+            }
+            else
+            {
+                serveArrow.transform.localEulerAngles = Constants.SERVE_ANGLE_LOW;
+            }
         }
-        else
-        {
-            serveArrow.transform.localEulerAngles = Constants.SERVE_ANGLE_HIGH;
-        }
+
+        currentServeAngle = serveAngle;
     }
+
 
     public Vector3 GetServeAngle()
     {

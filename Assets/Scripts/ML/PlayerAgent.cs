@@ -77,7 +77,11 @@ public class PlayerAgent : Agent
 
         if (swingAction == 0)
         {
-            playerMovement.SwingRacket();
+            playerMovement.SwingRacket(SwingType.Heavy);
+        }
+        else if (swingAction == 1)
+        {
+            playerMovement.SwingRacket(SwingType.Light);
         }
         else
         {
