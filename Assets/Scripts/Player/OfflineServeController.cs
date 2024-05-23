@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ServeAngle
+{
+    High,
+    Low
+}
+
 public class OfflineServeController : MonoBehaviour, IServing
 {
     public bool isServing { get; set; }
@@ -16,12 +22,6 @@ public class OfflineServeController : MonoBehaviour, IServing
 
     [SerializeField] private GameObject serveArrow;
     [SerializeField] private float lerpDuration = 0.1f;
-
-    private enum ServeAngle
-    {
-        High,
-        Low
-    }
 
     private ServeAngle currentServeAngle = ServeAngle.High;
 
