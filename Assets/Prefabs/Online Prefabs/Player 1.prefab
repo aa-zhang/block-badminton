@@ -139,6 +139,7 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  trainingEnvId: 0
 --- !u!114 &7540425473426811518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,11 +405,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNum: 1
-  jumpKey: 0
-  swingKey: 0
-  leftKey: 0
-  rightKey: 0
-  changeServeAngleKey: 0
+  jumpKey: 119
+  swingKey: 115
+  leftKey: 97
+  rightKey: 100
+  changeServeAngleKey: 119
 --- !u!114 &3052229908673119723
 MonoBehaviour:
   m_ObjectHideFlags: 0

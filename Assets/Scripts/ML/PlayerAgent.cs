@@ -82,6 +82,16 @@ public class PlayerAgent : Agent
         {
             // Don't swing racket
         }
+
+        // Add time penalty to prevent taking too long to serve
+        if (offlineServeController.isServing)
+        {
+            AddReward(-0.005f);
+        }
+        else
+        {
+            AddReward(-0.001f);
+        }
     }
 
     //private void HitBirdie_OnBirdieHit(Vector3 force, int playerNum)
