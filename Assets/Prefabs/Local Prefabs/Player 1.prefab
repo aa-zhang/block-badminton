@@ -405,8 +405,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNum: 1
   jumpKey: 119
-  lightSwingKey: 118
-  heavySwingKey: 99
+  lightSwingKey: 114
+  heavySwingKey: 101
   leftKey: 97
   rightKey: 100
   downKey: 115
@@ -450,7 +450,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   racket: {fileID: 326187496924113687}
   movementSpeed: 9
-  jumpHeight: 16
+  jumpHeight: 18
   gravity: 40
 --- !u!1 &7913263242759728298
 GameObject:
