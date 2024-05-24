@@ -9,6 +9,11 @@ public class OfflineInputManager : MonoBehaviour
     private PlayerManager playerManager;
     private bool playerControlsEnabled = true;
 
+    private float leftLastPressTime;
+    private float rightLastPressTime;
+    private float DOUBLE_CLICK_TIME = 0.2f;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -30,17 +35,37 @@ public class OfflineInputManager : MonoBehaviour
         if (playerControlsEnabled)
         {
             // Move left
-            if (Input.GetKeyDown(playerManager.leftKey))
+            if (Input.GetKey(playerManager.leftKey))
             {
-                //playerMovement.MoveLeft();
-                playerMovement.DashLeft();
+                playerMovement.MoveLeft();
             }
 
             // Move right
+            if (Input.GetKey(playerManager.rightKey))
+            {
+                playerMovement.MoveRight();
+            }
+
+            // Detect double press for dash left
+            if (Input.GetKeyDown(playerManager.leftKey))
+            {
+                float timeSinceLastPress = Time.time - leftLastPressTime;
+                if (timeSinceLastPress < DOUBLE_CLICK_TIME && leftLastPressTime > rightLastPressTime)
+                {
+                    playerMovement.DashLeft();
+                }
+                leftLastPressTime = Time.time;
+            }
+
+            // Detect double press for dash right
             if (Input.GetKeyDown(playerManager.rightKey))
             {
-                //playerMovement.MoveRight();
-                playerMovement.DashRight();
+                float timeSinceLastPress = Time.time - rightLastPressTime;
+                if (timeSinceLastPress < DOUBLE_CLICK_TIME && rightLastPressTime > leftLastPressTime)
+                {
+                    playerMovement.DashRight();
+                }
+                rightLastPressTime = Time.time;
             }
 
             // Jump
