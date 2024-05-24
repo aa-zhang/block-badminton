@@ -22,10 +22,10 @@ public static class Constants
     public static readonly int WINNING_SCORE = 11;
     public static readonly int MAX_SCORE = 15;
 
-    // Gravity constant
+    // Physics constants
     public static readonly Vector3 GRAVITY = new Vector3(0, -4, 0);
-
+    public static readonly float PLAYER_X_DRAG = 5f;
 
     // Stamina constants
-    public static readonly float DASH_STAMINA_COST = 33.33f;
+    public static readonly float DASH_STAMINA_COST = 34f;
 }

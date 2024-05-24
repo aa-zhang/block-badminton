@@ -43,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         ApplyGravity();
+        ApplyDrag();
         ClampPlayerPosition();
     }
 
@@ -52,6 +53,15 @@ public class PlayerMovement : MonoBehaviour
         {
             playerRb.AddForce(new Vector3(0, -gravity * playerRb.mass, 0));
         }
+    }
+
+    private void ApplyDrag()
+    {
+        // Need to add custom drag for the dash mechanic
+        // Can't use built-in dash since it will also affect jump physics
+        float newHorizontalVelocity = playerRb.velocity.x * (1 - Time.fixedDeltaTime * Constants.PLAYER_X_DRAG);
+        playerRb.velocity = new Vector3(newHorizontalVelocity, playerRb.velocity.y, 0f);
+
     }
 
     private void ClampPlayerPosition()
@@ -107,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isGrounded && !serveController.isServing)
         {
-            playerRb.velocity = (Vector3.up * jumpHeight);
+            playerRb.velocity = new Vector3(playerRb.velocity.x, jumpHeight, 0f);
             isGrounded = false;
         }
     }

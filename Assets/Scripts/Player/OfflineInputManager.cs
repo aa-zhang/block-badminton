@@ -32,13 +32,15 @@ public class OfflineInputManager : MonoBehaviour
             // Move left
             if (Input.GetKeyDown(playerManager.leftKey))
             {
-                playerMovement.MoveLeft();
+                //playerMovement.MoveLeft();
+                playerMovement.DashLeft();
             }
 
             // Move right
-            if (Input.GetKey(playerManager.rightKey))
+            if (Input.GetKeyDown(playerManager.rightKey))
             {
-                playerMovement.MoveRight();
+                //playerMovement.MoveRight();
+                playerMovement.DashRight();
             }
 
             // Jump
