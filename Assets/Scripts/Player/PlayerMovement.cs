@@ -9,9 +9,12 @@ public class PlayerMovement : MonoBehaviour
     public GameObject racket;
     private SwingRacket swingRacket;
     private IServing serveController;
+    private StaminaManager staminaManager;
 
     [SerializeField] private float movementSpeed = 9f;
     [SerializeField] private float jumpHeight = 800f;
+    [SerializeField] private float dashSpeed = 35f;
+
     [SerializeField] private float gravity = 40;
 
     private bool isGrounded = true;
@@ -25,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
         playerTransform = gameObject.transform;
         playerRb = GetComponent<Rigidbody>();
         swingRacket = racket.GetComponent<SwingRacket>();
+        staminaManager = GetComponent<StaminaManager>();
 
         if (GetComponent<ServeController>() != null)
         {
@@ -39,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         ApplyGravity();
+        ClampPlayerPosition();
     }
 
     private void ApplyGravity()
@@ -47,6 +52,20 @@ public class PlayerMovement : MonoBehaviour
         {
             playerRb.AddForce(new Vector3(0, -gravity * playerRb.mass, 0));
         }
+    }
+
+    private void ClampPlayerPosition()
+    {
+        Vector3 position = transform.position;
+        if (playerManager.playerNum == 1)
+        {
+            position.x = Mathf.Clamp(position.x, -Constants.REAR_COURT_X_POS, -Constants.FRONT_COURT_X_POS);
+        }
+        else
+        {
+            position.x = Mathf.Clamp(position.x, Constants.FRONT_COURT_X_POS, Constants.REAR_COURT_X_POS);
+        }
+        playerTransform.localPosition = position;
     }
 
     public void MoveLeft()
@@ -63,6 +82,24 @@ public class PlayerMovement : MonoBehaviour
         if (CanGoRight())
         {
             playerTransform.localPosition += Vector3.right * movementSpeed * Time.deltaTime;
+        }
+    }
+
+    public void DashLeft()
+    {
+        if (staminaManager.currentStamina >= Constants.DASH_STAMINA_COST)
+        {
+            playerRb.AddForce(Vector3.left * dashSpeed, ForceMode.Impulse);
+            staminaManager.ApplyDashStaminaCost();
+        }
+    }
+
+    public void DashRight()
+    {
+        if (staminaManager.currentStamina >= Constants.DASH_STAMINA_COST)
+        {
+            playerRb.AddForce(Vector3.right * dashSpeed, ForceMode.Impulse);
+            staminaManager.ApplyDashStaminaCost();
         }
     }
 

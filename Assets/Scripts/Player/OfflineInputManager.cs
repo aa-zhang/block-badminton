@@ -30,7 +30,7 @@ public class OfflineInputManager : MonoBehaviour
         if (playerControlsEnabled)
         {
             // Move left
-            if (Input.GetKey(playerManager.leftKey))
+            if (Input.GetKeyDown(playerManager.leftKey))
             {
                 playerMovement.MoveLeft();
             }

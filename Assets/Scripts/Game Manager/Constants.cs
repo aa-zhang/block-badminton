@@ -26,6 +26,6 @@ public static class Constants
     public static readonly Vector3 GRAVITY = new Vector3(0, -4, 0);
 
 
-    // Stamina constant
-    public static readonly float DASH_STAMINA = 40f;
+    // Stamina constants
+    public static readonly float DASH_STAMINA_COST = 33.33f;
 }
