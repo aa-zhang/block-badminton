@@ -54,7 +54,7 @@ public class OfflineBirdieMovement : MonoBehaviour
 
     private void ApplyGravity()
     {
-        birdieRb.AddForce(Constants.GRAVITY);
+        birdieRb.AddForce(new Vector3(0, Constants.GRAVITY * birdieRb.mass, 0));
     }
 
     private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum, int gameEnvId)

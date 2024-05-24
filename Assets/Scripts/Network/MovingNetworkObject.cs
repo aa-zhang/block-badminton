@@ -95,7 +95,8 @@ public class MovingNetworkObject : NetworkBehaviour
     {
         Vector3 predictedPos = networkPosition.Value;
         float timestep = Time.fixedDeltaTime / Physics.defaultSolverVelocityIterations;
-        Vector3 gravityAccel = Constants.GRAVITY * timestep * timestep;
+        Vector3 gravity_vector = new Vector3(0, Constants.GRAVITY * rb.mass, 0);
+        Vector3 gravityAccel = gravity_vector * timestep * timestep;
         float drag = 1f - timestep * rb.drag;
         Vector3 moveStep = networkVelocity.Value * timestep;
 

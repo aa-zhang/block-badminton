@@ -15,8 +15,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpHeight = 800f;
     [SerializeField] private float dashSpeed = 35f;
 
-    [SerializeField] private float gravity = 40;
-
     private bool isGrounded = true;
     private bool canSwing = true;
 
@@ -51,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isGrounded)
         {
-            playerRb.AddForce(new Vector3(0, -gravity * playerRb.mass, 0));
+            playerRb.AddForce(new Vector3(0, Constants.GRAVITY * playerRb.mass, 0));
         }
     }
 

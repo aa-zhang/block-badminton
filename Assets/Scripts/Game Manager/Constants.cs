@@ -23,7 +23,7 @@ public static class Constants
     public static readonly int MAX_SCORE = 15;
 
     // Physics constants
-    public static readonly Vector3 GRAVITY = new Vector3(0, -4, 0);
+    public static readonly float GRAVITY = -40;
     public static readonly float PLAYER_X_DRAG = 5f;
 
     // Stamina constants
