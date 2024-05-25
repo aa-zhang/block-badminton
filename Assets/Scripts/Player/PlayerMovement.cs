@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private SwingRacket swingRacket;
     private IServing serveController;
     private StaminaManager staminaManager;
+    private DashTrailController dashTrailController;
 
     [SerializeField] private float movementSpeed = 9f;
     [SerializeField] private float jumpHeight = 800f;
@@ -27,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
         playerRb = GetComponent<Rigidbody>();
         swingRacket = racket.GetComponent<SwingRacket>();
         staminaManager = GetComponent<StaminaManager>();
+        dashTrailController = GetComponent<DashTrailController>();
 
         if (GetComponent<ServeController>() != null)
         {
@@ -81,7 +83,6 @@ public class PlayerMovement : MonoBehaviour
         if (CanGoLeft())
         {
             playerTransform.localPosition += Vector3.left * movementSpeed * Time.deltaTime;
-
         }
     }
 
@@ -95,19 +96,21 @@ public class PlayerMovement : MonoBehaviour
 
     public void DashLeft()
     {
-        if (staminaManager.currentStamina >= Constants.DASH_STAMINA_COST)
+        if (CanGoLeft() && staminaManager.currentStamina >= Constants.DASH_STAMINA_COST)
         {
             playerRb.AddForce(Vector3.left * dashSpeed, ForceMode.Impulse);
             staminaManager.ApplyDashStaminaCost();
+            dashTrailController.EmitDashTrail();
         }
     }
 
     public void DashRight()
     {
-        if (staminaManager.currentStamina >= Constants.DASH_STAMINA_COST)
+        if (CanGoRight() && staminaManager.currentStamina >= Constants.DASH_STAMINA_COST)
         {
             playerRb.AddForce(Vector3.right * dashSpeed, ForceMode.Impulse);
             staminaManager.ApplyDashStaminaCost();
+            dashTrailController.EmitDashTrail();
         }
     }
 
