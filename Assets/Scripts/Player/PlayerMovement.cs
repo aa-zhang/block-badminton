@@ -132,11 +132,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void SetServeAngle(ServeAngle serveAngle)
+    public void ChangeServeAngle()
     {
         if (serveController.isServing)
         {
-            serveController.SetServeAngle(serveAngle);
+            serveController.ChangeServeAngle();
         }
     }
 

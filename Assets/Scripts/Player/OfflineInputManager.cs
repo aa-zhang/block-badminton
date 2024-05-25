@@ -88,12 +88,9 @@ public class OfflineInputManager : MonoBehaviour
             // Change Serve Angle
             if (Input.GetKeyDown(playerManager.jumpKey))
             {
-                playerMovement.SetServeAngle(ServeAngle.High);
+                playerMovement.ChangeServeAngle();
             }
-            if (Input.GetKeyDown(playerManager.downKey))
-            {
-                playerMovement.SetServeAngle(ServeAngle.Low);
-            }
+
         }
 
         // UI Controls

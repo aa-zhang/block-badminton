@@ -63,11 +63,7 @@ public class InputManager : NetworkBehaviour
             // Change Serve Angle
             if (Input.GetKeyDown(playerManager.jumpKey))
             {
-                playerMovement.SetServeAngle(ServeAngle.High);
-            }
-            if (Input.GetKeyDown(playerManager.downKey))
-            {
-                playerMovement.SetServeAngle(ServeAngle.Low);
+                playerMovement.ChangeServeAngle();
             }
         }
 

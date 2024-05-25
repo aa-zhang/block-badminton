@@ -120,21 +120,18 @@ public class ServeController : NetworkBehaviour, IServing
         isServing = false;
     }
 
-    public void SetServeAngle(ServeAngle serveAngle)
+    public void ChangeServeAngle()
     {
-        if (currentServeAngle != serveAngle)
+        if (currentServeAngle == ServeAngle.High)
         {
-            if (serveAngle == ServeAngle.High)
-            {
-                serveArrow.transform.localEulerAngles = Constants.SERVE_ANGLE_HIGH;
-            }
-            else
-            {
-                serveArrow.transform.localEulerAngles = Constants.SERVE_ANGLE_LOW;
-            }
+            serveArrow.transform.localEulerAngles = Constants.SERVE_ANGLE_LOW;
+            currentServeAngle = ServeAngle.Low;
         }
-
-        currentServeAngle = serveAngle;
+        else
+        {
+            serveArrow.transform.localEulerAngles = Constants.SERVE_ANGLE_HIGH;
+            currentServeAngle = ServeAngle.High;
+        }
     }
 
 

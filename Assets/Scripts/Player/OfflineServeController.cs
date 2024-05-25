@@ -142,24 +142,21 @@ public class OfflineServeController : MonoBehaviour, IServing
         isServing = false;
     }
 
-    public void SetServeAngle(ServeAngle serveAngle)
+    public void ChangeServeAngle()
     {
         Vector3 targetRotation;
 
-        if (currentServeAngle != serveAngle)
+        if (currentServeAngle == ServeAngle.High)
         {
-            if (serveAngle == ServeAngle.High)
-            {
-                targetRotation = Constants.SERVE_ANGLE_HIGH;
-            }
-            else
-            {
-                targetRotation = Constants.SERVE_ANGLE_LOW;
-            }
-            StartCoroutine(LerpServeArrow(Quaternion.Euler(targetRotation), lerpDuration));
-            currentServeAngle = serveAngle;
+            targetRotation = Constants.SERVE_ANGLE_LOW;
+            currentServeAngle = ServeAngle.Low;
         }
-
+        else
+        {
+            targetRotation = Constants.SERVE_ANGLE_HIGH;
+            currentServeAngle = ServeAngle.High;
+        }
+        StartCoroutine(LerpServeArrow(Quaternion.Euler(targetRotation), lerpDuration));
     }
 
     IEnumerator LerpServeArrow(Quaternion endValue, float duration)
