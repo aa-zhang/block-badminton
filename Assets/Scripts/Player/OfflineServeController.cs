@@ -87,7 +87,6 @@ public class OfflineServeController : MonoBehaviour, IServing
         // Initiate serving sequence for given playerNum
         if (playerManager.playerNum == playerNum)
         {
-            Debug.Log("serving works");
             isServing = true;
             ResetServingPlayerPosition();
             birdieMovement.SetBirdieGravityRpc(false);
