@@ -31,6 +31,6 @@ public static class Constants
 
     // Fast Fall contants
     public static readonly float FAST_FALL_TIME_FRAME = 0.1f;
-    public static readonly float FAST_FALL_SPEED = -120;
+    public static readonly float FAST_FALL_SPEED = -150;
 
 }

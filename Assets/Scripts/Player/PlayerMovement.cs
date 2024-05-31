@@ -46,10 +46,6 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         DetectJumpApex();
-        if (playerManager.playerNum == 1)
-        {
-            Debug.Log($"can fast fall: {canFastFall}");
-        }
         ApplyGravity();
         ApplyDrag();
         ClampPlayerPosition();
