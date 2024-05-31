@@ -64,7 +64,7 @@ public class HitBirdie : MonoBehaviour
         }
 
         swingRacket.SetAlreadyMadeContact(true);
-        Debug.Log($"hit the bertholdt. ARE WE DOING IT REINIER?!?!? angle: {hitAngle}");
+        //Debug.Log($"hit the bertholdt. ARE WE DOING IT REINIER?!?!? angle: {hitAngle}");
 
     }
 

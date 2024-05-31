@@ -64,14 +64,12 @@ public class OfflineGameStateManager : MonoBehaviour
 
     private void InitiateGameRpc()
     {
-        Debug.Log("Game starting!");
         gameInProgress = true;
         //OnStartMatch();
     }
 
     private void SpawnBirdie()
     {
-        Debug.Log("Creating birdie");
         // Initialize birdie for clients
         OnBirdieInitialized(birdiePrefab, gameEnv.id);
 
@@ -92,7 +90,6 @@ public class OfflineGameStateManager : MonoBehaviour
 
     private void BeginServeRpc()
     {
-        Debug.Log("serving player num: " + servingPlayerNum);
         OnBeginServe(servingPlayerNum, gameEnv.id);
     }
 

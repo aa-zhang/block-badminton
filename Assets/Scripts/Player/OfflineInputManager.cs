@@ -74,6 +74,16 @@ public class OfflineInputManager : MonoBehaviour
                 playerMovement.Jump();
             }
 
+            // Fast fall
+            if (Input.GetKey(playerManager.downKey))
+            {
+                playerMovement.FastFall();
+            }
+            if (Input.GetKeyUp(playerManager.downKey))
+            {
+                playerMovement.CancelFastFall();
+            }
+
             // Swing racket
             if (Input.GetKey(playerManager.lightSwingKey))
             {

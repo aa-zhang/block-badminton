@@ -18,7 +18,10 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isGrounded = true;
     private bool canSwing = true;
-
+    private bool canFastFall = false;
+    private bool isFastFalling = false;
+    private bool failedFastFalling = false;
+    private float fastFallTimer = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +45,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        DetectJumpApex();
+        if (playerManager.playerNum == 1)
+        {
+            Debug.Log($"can fast fall: {canFastFall}");
+        }
         ApplyGravity();
         ApplyDrag();
         ClampPlayerPosition();
@@ -77,6 +85,27 @@ public class PlayerMovement : MonoBehaviour
         }
         playerTransform.localPosition = position;
     }
+
+    private void DetectJumpApex()
+    {
+        // Detect the apex of the jump
+        if (!isGrounded && playerRb.velocity.y <= 0 && !failedFastFalling)
+        {
+            canFastFall = true;
+            fastFallTimer = 0.0f;
+        }
+
+        // Count down the apex time window
+        if (canFastFall && !isFastFalling)
+        {
+            fastFallTimer += Time.deltaTime;
+            if (fastFallTimer > Constants.FAST_FALL_TIME_FRAME)
+            {
+                canFastFall = false;
+            }
+        }
+    }
+
 
     public void MoveLeft()
     {
@@ -121,6 +150,24 @@ public class PlayerMovement : MonoBehaviour
             playerRb.velocity = new Vector3(playerRb.velocity.x, jumpHeight, 0f);
             isGrounded = false;
         }
+    }
+
+    public void FastFall()
+    {
+        if (canFastFall)
+        {
+            playerRb.AddForce(new Vector3(0, Constants.FAST_FALL_SPEED * playerRb.mass, 0));
+            isFastFalling = true;
+        }
+        else
+        {
+            failedFastFalling = true;
+        }
+    }
+
+    public void CancelFastFall()
+    {
+        failedFastFalling = false;
     }
 
     public void SwingRacket(SwingType swingType)
@@ -183,6 +230,8 @@ public class PlayerMovement : MonoBehaviour
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Floor"))
         {
             isGrounded = true;
+            canFastFall = false;
+            isFastFalling = false;
         }
     }
 

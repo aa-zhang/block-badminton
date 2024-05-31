@@ -28,4 +28,9 @@ public static class Constants
 
     // Stamina constants
     public static readonly float DASH_STAMINA_COST = 34f;
+
+    // Fast Fall contants
+    public static readonly float FAST_FALL_TIME_FRAME = 0.1f;
+    public static readonly float FAST_FALL_SPEED = -120;
+
 }
