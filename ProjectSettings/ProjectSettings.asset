@@ -90,7 +90,7 @@ PlayerSettings:
   bakeCollisionMeshes: 0
   forceSingleInstance: 0
   useFlipModelSwapchain: 1
-  resizableWindow: 1
+  resizableWindow: 0
   useMacAppStoreValidation: 0
   macAppStoreCategory: public.app-category.games
   gpuSkinning: 1
@@ -135,8 +135,11 @@ PlayerSettings:
   vulkanEnableLateAcquireNextImage: 0
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
-  bundleVersion: 0.1
-  preloadedAssets: []
+  bundleVersion: 2.0
+  preloadedAssets:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1

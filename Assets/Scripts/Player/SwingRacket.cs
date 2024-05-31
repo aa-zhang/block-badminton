@@ -37,7 +37,7 @@ public class SwingRacket : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         player = transform.parent.gameObject;
         playerTransform = player.transform;
