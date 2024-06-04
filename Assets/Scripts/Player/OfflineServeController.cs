@@ -91,7 +91,7 @@ public class OfflineServeController : MonoBehaviour, IServing
             ResetServingPlayerPosition();
             birdieMovement.SetBirdieGravityRpc(false);
             birdieMovement.SetBirdieCollisionRpc(true);
-
+            birdieMovement.StopRotation();
             serveArrow.SetActive(true);
         }
     }

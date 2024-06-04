@@ -11,6 +11,7 @@ public class OfflineBirdieMovement : MonoBehaviour
 
     public delegate void IncreaseScoreHandler(int scoringPlayerNum);
     public static IncreaseScoreHandler OnPointScored;
+    private bool pointAlreadyScored = false;
 
     public delegate void ClientHitDelayHandler(bool readEnabled);
     public static ClientHitDelayHandler OnSetReadEnabled;
@@ -64,6 +65,7 @@ public class OfflineBirdieMovement : MonoBehaviour
             return;
         }
         ApplyForceToBirdieRpc(forceVector, birdieTransform.localPosition, playerNum);
+        pointAlreadyScored = false;
     }
 
     public void ApplyForceToBirdieRpc(Vector3 forceVector, Vector3 position, int playerNum)
@@ -72,11 +74,14 @@ public class OfflineBirdieMovement : MonoBehaviour
 
         enableGravity = true;
         birdieRb.velocity = forceVector;
+        int rotationDirection = playerNum == 1 ? 1 : -1;
+        float rotationSpeed = Mathf.Abs(forceVector.y) / 5;
+        birdieRb.angularVelocity = Vector3.forward * rotationDirection * rotationSpeed;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Floor"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Floor") && !pointAlreadyScored)
         {
             // Prevent players from hitting the birdie after it lands
             SetBirdieCollisionRpc(false);
@@ -91,6 +96,7 @@ public class OfflineBirdieMovement : MonoBehaviour
             else
             {
                 OnPointScored(scoringPlayerNum);
+                pointAlreadyScored = true;
             }
         }
     }
@@ -98,6 +104,11 @@ public class OfflineBirdieMovement : MonoBehaviour
     public void SetBirdieCollisionRpc(bool enableCollision)
     {
         this.enableCollision = enableCollision;
+    }
+
+    public void StopRotation()
+    {
+        birdieRb.angularVelocity = Vector3.zero;
     }
 
 }
