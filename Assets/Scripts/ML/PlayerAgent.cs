@@ -52,6 +52,7 @@ public class PlayerAgent : Agent
         int horizontalMovement = actions.DiscreteActions[0];
         int jumpAction = actions.DiscreteActions[1];
         int swingAction = actions.DiscreteActions[2];
+        Debug.Log(swingAction);
 
         if (horizontalMovement == 0)
         {

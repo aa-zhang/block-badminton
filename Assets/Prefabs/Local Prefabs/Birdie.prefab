@@ -9696,6 +9696,7 @@ GameObject:
   - component: {fileID: 3783296858795546832}
   - component: {fileID: 4646954190611453874}
   - component: {fileID: 655480409637169310}
+  - component: {fileID: 8556031586598883685}
   - component: {fileID: 509001219142518718}
   - component: {fileID: 3646685569284568279}
   - component: {fileID: 2950094436699677461}
@@ -9730,7 +9731,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6962356067455933032}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &4646954190611453874
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9790,9 +9791,30 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.6
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &8556031586598883685
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6962356067455933032}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &509001219142518718
 Rigidbody:
@@ -9804,7 +9826,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 0.1
   m_Drag: 2
-  m_AngularDrag: 0.05
+  m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -9819,7 +9841,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 120
+  m_Constraints: 56
   m_CollisionDetection: 1
 --- !u!114 &3646685569284568279
 MonoBehaviour:
@@ -9833,6 +9855,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66a49313b601e4a4282e6528a0420d10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agent1: {fileID: 0}
+  agent2: {fileID: 0}
 --- !u!114 &2950094436699677461
 MonoBehaviour:
   m_ObjectHideFlags: 0

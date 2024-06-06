@@ -71,6 +71,7 @@ public class OfflineGameStateManager : MonoBehaviour
     private void SpawnBirdie()
     {
         // Initialize birdie for clients
+        Debug.Log("initialize birdie");
         OnBirdieInitialized(birdiePrefab, gameEnv.id);
 
         if (!gameEnv.isTraining)
@@ -84,6 +85,7 @@ public class OfflineGameStateManager : MonoBehaviour
     {
         // Select random number from {1, 2}
         servingPlayerNum = Random.Range(1, 3);
+        Debug.Log($"player {servingPlayerNum} serving");
         BeginServeRpc();
     }
 

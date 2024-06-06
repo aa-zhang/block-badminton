@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657654, g: 0.49641383, b: 0.5748155, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657713, g: 0.49641275, b: 0.57481617, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1069,7 +1069,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
-  m_LocalPosition: {x: 60, y: 25, z: -40}
+  m_LocalPosition: {x: 0, y: 25, z: -40}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1720,6 +1720,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1473515546}
     m_Modifications:
     - target: {fileID: -1484008620093180294, guid: 4bc1e262417f92e4ea9cf7bcbbcd6e1f, type: 3}
+      propertyPath: m_BehaviorType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1484008620093180294, guid: 4bc1e262417f92e4ea9cf7bcbbcd6e1f, type: 3}
       propertyPath: m_BrainParameters.VectorObservationSize
       value: 13
       objectReference: {fileID: 0}
@@ -1737,7 +1741,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1484008620093180294, guid: 4bc1e262417f92e4ea9cf7bcbbcd6e1f, type: 3}
       propertyPath: m_BrainParameters.VectorActionSize.Array.data[2]
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -1484008620093180294, guid: 4bc1e262417f92e4ea9cf7bcbbcd6e1f, type: 3}
       propertyPath: m_BrainParameters.m_ActionSpec.BranchSizes.Array.size
@@ -1753,7 +1757,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1484008620093180294, guid: 4bc1e262417f92e4ea9cf7bcbbcd6e1f, type: 3}
       propertyPath: m_BrainParameters.m_ActionSpec.BranchSizes.Array.data[2]
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4497503254144147840, guid: 4bc1e262417f92e4ea9cf7bcbbcd6e1f, type: 3}
       propertyPath: birdie
