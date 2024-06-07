@@ -120,10 +120,10 @@ public class PlayerAgent : Agent
         }
 
         // Add time penalty to prevent taking too long to serve
-        if (offlineServeController.isServing)
-        {
-            AddReward(-0.005f);
-        }
+        //if (offlineServeController.isServing)
+        //{
+        //    AddReward(-0.005f);
+        //}
         //else
         //{
         //    AddReward(-0.001f);
