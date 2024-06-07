@@ -323,6 +323,7 @@ GameObject:
   - component: {fileID: 2124083712747694094}
   - component: {fileID: 1934203274713269359}
   - component: {fileID: -6216379055249764151}
+  - component: {fileID: 1061421015605573739}
   m_Layer: 7
   m_Name: AI Player 2
   m_TagString: Untagged
@@ -617,12 +618,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 1
+    VectorObservationSize: 14
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 01000000
-    VectorActionSize: 01000000
+      BranchSizes: 03000000030000000200000003000000
+    VectorActionSize: 03000000030000000200000003000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -630,7 +631,7 @@ MonoBehaviour:
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: My Behavior
-  TeamId: 2
+  TeamId: 1
   m_UseChildSensors: 1
   m_UseChildActuators: 1
   m_ObservableAttributeHandling: 0
@@ -653,6 +654,20 @@ MonoBehaviour:
   birdie: {fileID: 0}
   opponent: {fileID: 0}
   offlineGameStateManager: {fileID: 0}
+--- !u!114 &1061421015605573739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6461785994595331130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  TakeActionsBetweenDecisions: 1
 --- !u!1 &7913263242759728298
 GameObject:
   m_ObjectHideFlags: 0

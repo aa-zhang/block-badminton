@@ -106,8 +106,9 @@ public class OfflineBirdieMovement : MonoBehaviour
         this.enableCollision = enableCollision;
     }
 
-    public void StopRotation()
+    public void ResetVelocities()
     {
+        birdieRb.velocity = Vector3.zero;
         birdieRb.angularVelocity = Vector3.zero;
     }
 

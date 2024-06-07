@@ -11,10 +11,15 @@ public class StaminaManager : MonoBehaviour
     public delegate void StaminaBarHandler(float fillAmount, int playerNum);
     public static StaminaBarHandler OnStaminaUpdate;
 
+    private GameEnvironmentManager gameEnv;
+
+
     void Start()
     {
         playerManager = GetComponent<PlayerManager>();
         currentStamina = maxStamina;
+        gameEnv = transform.root.GetComponent<GameEnvironmentManager>();
+
     }
 
     private void FixedUpdate()
@@ -52,11 +57,19 @@ public class StaminaManager : MonoBehaviour
 
     private void GameStateManager_OnBeginServe(int playerNum, int gameEnvId)
     {
+        if (gameEnv.isTraining && gameEnv.id != gameEnvId)
+        {
+            return;
+        }
         ResetStamina();
     }
 
-    private void GameMenu_OnGameRestart(int trainingEnvId)
+    private void GameMenu_OnGameRestart(int gameEnvId)
     {
+        if (gameEnv.isTraining && gameEnv.id != gameEnvId)
+        {
+            return;
+        }
         ResetStamina();
     }
 

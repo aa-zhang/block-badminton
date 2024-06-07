@@ -70,16 +70,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void ClampPlayerPosition()
     {
-        Vector3 position = transform.position;
+        Vector3 clampedPosition = transform.localPosition;
         if (playerManager.playerNum == 1)
         {
-            position.x = Mathf.Clamp(position.x, -Constants.REAR_COURT_X_POS, -Constants.FRONT_COURT_X_POS);
+            clampedPosition.x = Mathf.Clamp(clampedPosition.x, -Constants.REAR_COURT_X_POS, -Constants.FRONT_COURT_X_POS);
         }
         else
         {
-            position.x = Mathf.Clamp(position.x, Constants.FRONT_COURT_X_POS, Constants.REAR_COURT_X_POS);
+            clampedPosition.x = Mathf.Clamp(clampedPosition.x, Constants.FRONT_COURT_X_POS, Constants.REAR_COURT_X_POS);
         }
-        playerTransform.localPosition = position;
+        playerTransform.localPosition = clampedPosition;
     }
 
     private void DetectJumpApex()

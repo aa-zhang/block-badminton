@@ -83,7 +83,6 @@ public class OfflineServeController : MonoBehaviour, IServing
             return;
         }
 
-
         // Initiate serving sequence for given playerNum
         if (playerManager.playerNum == playerNum)
         {
@@ -91,7 +90,7 @@ public class OfflineServeController : MonoBehaviour, IServing
             ResetServingPlayerPosition();
             birdieMovement.SetBirdieGravityRpc(false);
             birdieMovement.SetBirdieCollisionRpc(true);
-            birdieMovement.StopRotation();
+            birdieMovement.ResetVelocities();
             serveArrow.SetActive(true);
         }
     }
