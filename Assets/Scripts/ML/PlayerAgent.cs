@@ -60,6 +60,7 @@ public class PlayerAgent : Agent
         int dashAction = actions.DiscreteActions[1];
         int jumpAction = actions.DiscreteActions[2];
         int swingAction = actions.DiscreteActions[3];
+        int fastFallAction = actions.DiscreteActions[4];
 
         if (runAction == 0)
         {
@@ -109,15 +110,24 @@ public class PlayerAgent : Agent
             // Don't swing racket
         }
 
+        if (fastFallAction == 0)
+        {
+            playerMovement.FastFall();
+        }
+        else
+        {
+            playerMovement.CancelFastFall();
+        }
+
         // Add time penalty to prevent taking too long to serve
         if (offlineServeController.isServing)
         {
             AddReward(-0.005f);
         }
-        else
-        {
-            AddReward(-0.001f);
-        }
+        //else
+        //{
+        //    AddReward(-0.001f);
+        //}
     }
 
     //private void HitBirdie_OnBirdieHit(Vector3 force, int playerNum)
