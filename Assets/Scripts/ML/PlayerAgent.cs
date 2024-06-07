@@ -14,6 +14,7 @@ public class PlayerAgent : Agent
     private OfflineServeController offlineServeController;
     private PlayerMovement playerMovement;
     private PlayerManager playerManager;
+    private StaminaManager staminaManager;
 
     private GameEnvironmentManager gameEnv;
 
@@ -44,23 +45,36 @@ public class PlayerAgent : Agent
         sensor.AddObservation(birdie.transform.localPosition);
         sensor.AddObservation(birdie.GetComponent<Rigidbody>().velocity);
 
-        sensor.AddObservation(offlineServeController.isServing);
+        sensor.AddObservation(staminaManager.currentStamina);
     }
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        int horizontalMovement = actions.DiscreteActions[0];
-        int jumpAction = actions.DiscreteActions[1];
-        int swingAction = actions.DiscreteActions[2];
-        Debug.Log(swingAction);
+        int runAction = actions.DiscreteActions[0];
+        int dashAction = actions.DiscreteActions[1];
+        int jumpAction = actions.DiscreteActions[2];
+        int swingAction = actions.DiscreteActions[3];
 
-        if (horizontalMovement == 0)
+        if (runAction == 0)
         {
             playerMovement.MoveLeft();
         }
-        else if (horizontalMovement == 1)
+        else if (runAction == 1)
         {
             playerMovement.MoveRight();
+        }
+        else
+        {
+            // Don't move
+        }
+
+        if (dashAction == 0)
+        {
+            playerMovement.DashLeft();
+        }
+        else if (dashAction == 1)
+        {
+            playerMovement.DashRight();
         }
         else
         {
