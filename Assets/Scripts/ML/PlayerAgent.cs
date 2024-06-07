@@ -15,6 +15,8 @@ public class PlayerAgent : Agent
     private PlayerMovement playerMovement;
     private PlayerManager playerManager;
     private StaminaManager staminaManager;
+    private StaminaManager opponentStaminaManager;
+
 
     private GameEnvironmentManager gameEnv;
 
@@ -23,6 +25,8 @@ public class PlayerAgent : Agent
         playerMovement = GetComponent<PlayerMovement>();
         playerManager = GetComponent<PlayerManager>();
         offlineServeController = GetComponent<OfflineServeController>();
+        staminaManager = GetComponent<StaminaManager>();
+        opponentStaminaManager = opponent.GetComponent<StaminaManager>();
 
         gameEnv = transform.root.GetComponent<GameEnvironmentManager>();
     }
@@ -46,6 +50,8 @@ public class PlayerAgent : Agent
         sensor.AddObservation(birdie.GetComponent<Rigidbody>().velocity);
 
         sensor.AddObservation(staminaManager.currentStamina);
+        sensor.AddObservation(opponentStaminaManager.currentStamina);
+
     }
 
     public override void OnActionReceived(ActionBuffers actions)
