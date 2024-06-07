@@ -12,6 +12,7 @@ public class PlayerAgent : Agent
 
     [SerializeField] private OfflineGameStateManager offlineGameStateManager;
     private OfflineServeController offlineServeController;
+    private OfflineServeController opponentOfflineServeController;
     private PlayerMovement playerMovement;
     private PlayerManager playerManager;
     private StaminaManager staminaManager;
@@ -25,6 +26,7 @@ public class PlayerAgent : Agent
         playerMovement = GetComponent<PlayerMovement>();
         playerManager = GetComponent<PlayerManager>();
         offlineServeController = GetComponent<OfflineServeController>();
+        opponentOfflineServeController = opponent.GetComponent<OfflineServeController>();
         staminaManager = GetComponent<StaminaManager>();
         opponentStaminaManager = opponent.GetComponent<StaminaManager>();
 
@@ -52,6 +54,12 @@ public class PlayerAgent : Agent
         sensor.AddObservation(staminaManager.currentStamina);
         sensor.AddObservation(opponentStaminaManager.currentStamina);
 
+        sensor.AddObservation(offlineServeController.isServing);
+        sensor.AddObservation(opponentOfflineServeController.isServing);
+
+        sensor.AddObservation(offlineServeController.GetServeAngle());
+        sensor.AddObservation(opponentOfflineServeController.GetServeAngle());
+
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -61,6 +69,7 @@ public class PlayerAgent : Agent
         int jumpAction = actions.DiscreteActions[2];
         int swingAction = actions.DiscreteActions[3];
         int fastFallAction = actions.DiscreteActions[4];
+        int changeServeAngleAction = actions.DiscreteActions[5];
 
         if (runAction == 0)
         {
@@ -119,6 +128,18 @@ public class PlayerAgent : Agent
             playerMovement.CancelFastFall();
         }
 
+        if (offlineServeController.isServing)
+        {
+            if (changeServeAngleAction == 0)
+            {
+                offlineServeController.ChangeServeAngle();
+            }
+            else
+            {
+                // Don't change serve angle
+            }
+        }
+
         // Add time penalty to prevent taking too long to serve
         //if (offlineServeController.isServing)
         //{
@@ -142,11 +163,11 @@ public class PlayerAgent : Agent
     {
         if (playerManager.playerNum == scoringPlayerNum)
         {
-            AddReward(1f);
+            SetReward(1f);
         }
         else
         {
-            AddReward(-1f);
+            SetReward(-1f);
         }
         EndEpisode();
     }
