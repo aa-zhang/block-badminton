@@ -6,6 +6,7 @@ public static class Constants
     public static readonly float REAR_COURT_X_POS = 14.4f;
     public static readonly float FRONT_COURT_X_POS = 1f;
     public static readonly float SERVE_X_POS = 7f;
+    public static readonly float SERVING_LINE_X_POS = 5.7f;
     public static readonly float GROUND_Y_POS = 2f;
 
 
@@ -23,7 +24,7 @@ public static class Constants
     public static readonly int MAX_SCORE = 15;
 
     // Physics constants
-    public static readonly float GRAVITY = -40;
+    public static readonly float GRAVITY = -40f;
     public static readonly float PLAYER_X_DRAG = 5f;
 
     // Stamina constants
@@ -31,6 +32,6 @@ public static class Constants
 
     // Fast Fall contants
     public static readonly float FAST_FALL_TIME_FRAME = 0.1f;
-    public static readonly float FAST_FALL_SPEED = -150;
+    public static readonly float FAST_FALL_SPEED = -150f;
 
 }

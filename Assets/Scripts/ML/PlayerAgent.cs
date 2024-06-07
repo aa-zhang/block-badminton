@@ -55,7 +55,7 @@ public class PlayerAgent : Agent
         sensor.AddObservation(opponentStaminaManager.currentStamina);
 
         sensor.AddObservation(offlineServeController.isServing);
-        sensor.AddObservation(opponentOfflineServeController.isServing);
+        sensor.AddObservation(offlineServeController.isOpponentServing);
 
         sensor.AddObservation(offlineServeController.GetServeAngle());
         sensor.AddObservation(opponentOfflineServeController.GetServeAngle());

@@ -5,6 +5,8 @@ using UnityEngine;
 public class OfflineServeController : MonoBehaviour, IServing
 {
     public bool isServing { get; set; }
+    public bool isOpponentServing { get; set; }
+
     private PlayerManager playerManager;
     private Transform playerTransform;
     private Rigidbody playerRb;
@@ -31,6 +33,8 @@ public class OfflineServeController : MonoBehaviour, IServing
         gameEnv = transform.root.GetComponent<GameEnvironmentManager>();
 
         isServing = false;
+        isOpponentServing = false;
+
     }
 
     private void FixedUpdate()
@@ -93,6 +97,10 @@ public class OfflineServeController : MonoBehaviour, IServing
             birdieMovement.ResetVelocities();
             serveArrow.SetActive(true);
         }
+        else
+        {
+            isOpponentServing = true;
+        }
     }
 
 
@@ -126,6 +134,7 @@ public class OfflineServeController : MonoBehaviour, IServing
             birdiePsController.ResetServeTimer();
         }
         isServing = false;
+        isOpponentServing = false;
         serveArrow.SetActive(false);
 
     }
@@ -138,6 +147,8 @@ public class OfflineServeController : MonoBehaviour, IServing
         }
         ResetServingPlayerPosition();
         isServing = false;
+        isOpponentServing = false;
+
     }
 
     public void ChangeServeAngle()

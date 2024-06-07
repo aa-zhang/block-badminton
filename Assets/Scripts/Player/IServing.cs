@@ -12,6 +12,7 @@ public enum ServeAngle
 public interface IServing
 {
     public bool isServing { get; set; }
+    public bool isOpponentServing { get; set; }
     void ChangeServeAngle();
     Vector3 GetServeAngle();
 

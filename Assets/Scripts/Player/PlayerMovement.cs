@@ -73,10 +73,18 @@ public class PlayerMovement : MonoBehaviour
         Vector3 clampedPosition = transform.localPosition;
         if (playerManager.playerNum == 1)
         {
+            if (serveController.isOpponentServing)
+            {
+                clampedPosition.x = Mathf.Clamp(clampedPosition.x, -Constants.REAR_COURT_X_POS, -Constants.SERVING_LINE_X_POS);
+            }
             clampedPosition.x = Mathf.Clamp(clampedPosition.x, -Constants.REAR_COURT_X_POS, -Constants.FRONT_COURT_X_POS);
         }
         else
         {
+            if (serveController.isOpponentServing)
+            {
+                clampedPosition.x = Mathf.Clamp(clampedPosition.x, Constants.SERVING_LINE_X_POS, Constants.REAR_COURT_X_POS);
+            }
             clampedPosition.x = Mathf.Clamp(clampedPosition.x, Constants.FRONT_COURT_X_POS, Constants.REAR_COURT_X_POS);
         }
         playerTransform.localPosition = clampedPosition;
@@ -198,6 +206,10 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            if (serveController.isOpponentServing)
+            {
+                return playerTransform.localPosition.x > Constants.SERVING_LINE_X_POS;
+            }
             return playerTransform.localPosition.x > Constants.FRONT_COURT_X_POS;
         }
     }
@@ -213,6 +225,10 @@ public class PlayerMovement : MonoBehaviour
         // Check if within court boundaries
         if (playerManager.playerNum == 1)
         {
+            if (serveController.isOpponentServing)
+            {
+                return playerTransform.localPosition.x < -Constants.SERVING_LINE_X_POS;
+            }
             return playerTransform.localPosition.x < -Constants.FRONT_COURT_X_POS;
         }
         else

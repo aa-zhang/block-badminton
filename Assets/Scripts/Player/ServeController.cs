@@ -6,6 +6,8 @@ using UnityEngine;
 public class ServeController : NetworkBehaviour, IServing
 {
     public bool isServing { get; set; }
+    public bool isOpponentServing { get; set; }
+
     private PlayerManager playerManager;
     private Transform playerTransform;
 
