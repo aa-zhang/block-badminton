@@ -10,6 +10,7 @@ public class OfflineServeController : MonoBehaviour, IServing
     private PlayerManager playerManager;
     private Transform playerTransform;
     private Rigidbody playerRb;
+    private PlayerMovement playerMovement;
 
     private Transform birdieTransform;
     private OfflineBirdieMovement birdieMovement;
@@ -28,6 +29,7 @@ public class OfflineServeController : MonoBehaviour, IServing
     void Awake()
     {
         playerManager = GetComponent<PlayerManager>();
+        playerMovement = GetComponent<PlayerMovement>();
         playerTransform = gameObject.transform;
         playerRb = GetComponent<Rigidbody>();
         gameEnv = transform.root.GetComponent<GameEnvironmentManager>();
@@ -119,6 +121,7 @@ public class OfflineServeController : MonoBehaviour, IServing
 
         playerTransform.localPosition = new Vector3(newXPos, Constants.GROUND_Y_POS, playerTransform.localPosition.z);
         playerRb.velocity = Vector3.zero;
+        playerMovement.ResetJumpVariables();
     }
 
     private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum, int gameEnvId)

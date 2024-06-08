@@ -241,9 +241,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Floor"))
         {
-            isGrounded = true;
-            canFastFall = false;
-            isFastFalling = false;
+            ResetJumpVariables();
         }
     }
 
@@ -252,4 +250,10 @@ public class PlayerMovement : MonoBehaviour
         this.canSwing = canSwing;
     }
 
+    public void ResetJumpVariables()
+    {
+        isGrounded = true;
+        canFastFall = false;
+        isFastFalling = false;
+    }
 }
