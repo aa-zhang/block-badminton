@@ -99,7 +99,6 @@ public class PlayerAgent : Agent
 
         if (jumpAction == 0)
         {
-            Debug.Log("jump");
             playerMovement.Jump();
         }
         else
