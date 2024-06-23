@@ -15,6 +15,7 @@ public class OfflineServeController : MonoBehaviour, IServing
     private Transform birdieTransform;
     private OfflineBirdieMovement birdieMovement;
     private BirdieParticleController birdiePsController;
+    private TrailRenderer birdieTrailRenderer;
 
 
     [SerializeField] private GameObject serveArrow;
@@ -68,6 +69,9 @@ public class OfflineServeController : MonoBehaviour, IServing
         // Move the birdie in front of the serving player
         Vector3 servingOffset = playerManager.playerNum == 1 ? Constants.SERVING_OFFSET_PLAYER_ONE : Constants.SERVING_OFFSET_PLAYER_TWO;
         birdieTransform.localPosition = playerTransform.localPosition + servingOffset;
+
+        // Hide trail
+        birdieTrailRenderer.Clear();
     }
 
     private void GameStateManager_OnBirdieInitialized(GameObject birdie, int gameEnvId)
@@ -80,6 +84,7 @@ public class OfflineServeController : MonoBehaviour, IServing
         birdieTransform = birdie.transform;
         birdieMovement = birdie.GetComponent<OfflineBirdieMovement>();
         birdiePsController = birdie.GetComponent<BirdieParticleController>();
+        birdieTrailRenderer = birdie.GetComponent<TrailRenderer>();
     }
 
     private void GameStateManager_OnBeginServe(int playerNum, int gameEnvId)
