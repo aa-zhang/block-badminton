@@ -65,11 +65,9 @@ public class PlayerAgent : Agent
     public override void OnActionReceived(ActionBuffers actions)
     {
         int runAction = actions.DiscreteActions[0];
-        int dashAction = actions.DiscreteActions[1];
-        int jumpAction = actions.DiscreteActions[2];
-        int swingAction = actions.DiscreteActions[3];
-        int fastFallAction = actions.DiscreteActions[4];
-        int changeServeAngleAction = actions.DiscreteActions[5];
+        int jumpAction = actions.DiscreteActions[1];
+        int swingAction = actions.DiscreteActions[2];
+        int changeServeAngleAction = actions.DiscreteActions[3];
 
         if (runAction == 0)
         {
@@ -84,18 +82,6 @@ public class PlayerAgent : Agent
             // Don't move
         }
 
-        if (dashAction == 0)
-        {
-            playerMovement.DashLeft();
-        }
-        else if (dashAction == 1)
-        {
-            playerMovement.DashRight();
-        }
-        else
-        {
-            // Don't move
-        }
 
         if (jumpAction == 0)
         {
@@ -110,23 +96,11 @@ public class PlayerAgent : Agent
         {
             playerMovement.SwingRacket(SwingType.Heavy);
         }
-        else if (swingAction == 1)
-        {
-            playerMovement.SwingRacket(SwingType.Light);
-        }
         else
         {
             // Don't swing racket
         }
 
-        if (fastFallAction == 0)
-        {
-            playerMovement.FastFall();
-        }
-        else
-        {
-            playerMovement.CancelFastFall();
-        }
 
         if (offlineServeController.isServing)
         {
