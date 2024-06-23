@@ -408,7 +408,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNum: 1
   jumpKey: 119
-  lightSwingKey: 101
+  lightSwingKey: 0
   heavySwingKey: 115
   leftKey: 97
   rightKey: 100
@@ -455,6 +455,8 @@ MonoBehaviour:
   movementSpeed: 9
   jumpHeight: 18
   dashSpeed: 30
+  dashEnabled: 0
+  fastFallEnabled: 0
 --- !u!114 &2896866758815736046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -730,7 +732,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d846801d43d324cbe81c49b214398d27, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
