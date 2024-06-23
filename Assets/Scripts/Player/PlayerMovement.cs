@@ -16,6 +16,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpHeight = 800f;
     [SerializeField] private float dashSpeed = 35f;
 
+    [SerializeField] private bool dashEnabled = false;
+    [SerializeField] private bool fastFallEnabled = false;
+
+
     private bool isGrounded = true;
     private bool canSwing = true;
     private bool canFastFall = false;
@@ -129,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void DashLeft()
     {
-        if (CanGoLeft() && staminaManager.currentStamina >= Constants.DASH_STAMINA_COST)
+        if (CanGoLeft() && staminaManager.currentStamina >= Constants.DASH_STAMINA_COST && dashEnabled)
         {
             playerRb.AddForce(Vector3.left * dashSpeed, ForceMode.Impulse);
             staminaManager.ApplyDashStaminaCost();
@@ -139,7 +143,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void DashRight()
     {
-        if (CanGoRight() && staminaManager.currentStamina >= Constants.DASH_STAMINA_COST)
+        if (CanGoRight() && staminaManager.currentStamina >= Constants.DASH_STAMINA_COST && dashEnabled)
         {
             playerRb.AddForce(Vector3.right * dashSpeed, ForceMode.Impulse);
             staminaManager.ApplyDashStaminaCost();
@@ -158,7 +162,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void FastFall()
     {
-        if (canFastFall)
+        if (canFastFall && fastFallEnabled)
         {
             playerRb.AddForce(new Vector3(0, Constants.FAST_FALL_SPEED * playerRb.mass, 0));
             isFastFalling = true;
