@@ -14,7 +14,7 @@ public class StaminaManager : MonoBehaviour
     private GameEnvironmentManager gameEnv;
 
 
-    void Start()
+    void Awake()
     {
         playerManager = GetComponent<PlayerManager>();
         currentStamina = maxStamina;

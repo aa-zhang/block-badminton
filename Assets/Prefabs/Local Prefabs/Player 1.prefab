@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63179b9a9d824849965fd3029c01a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  racketForceHeavy: 65
+  racketForceHeavy: 60
   racketForceLight: 40
   birdieAngleAdjustment: 0.3
 --- !u!1 &953400460987646767
@@ -457,6 +457,7 @@ MonoBehaviour:
   dashSpeed: 30
   dashEnabled: 0
   fastFallEnabled: 0
+  moveWhenServingEnabled: 1
 --- !u!114 &2896866758815736046
 MonoBehaviour:
   m_ObjectHideFlags: 0

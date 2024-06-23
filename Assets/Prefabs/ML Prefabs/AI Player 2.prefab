@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63179b9a9d824849965fd3029c01a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  racketForceHeavy: 65
+  racketForceHeavy: 60
   racketForceLight: 40
   birdieAngleAdjustment: 0.3
 --- !u!1 &953400460987646767
@@ -321,9 +321,9 @@ GameObject:
   - component: {fileID: 6127736851893065994}
   - component: {fileID: 4500087171309640279}
   - component: {fileID: 2124083712747694094}
-  - component: {fileID: 1934203274713269359}
-  - component: {fileID: -6216379055249764151}
-  - component: {fileID: 1061421015605573739}
+  - component: {fileID: 5881899965915595316}
+  - component: {fileID: 8305143227335783194}
+  - component: {fileID: 2509799328929683220}
   m_Layer: 7
   m_Name: AI Player 2
   m_TagString: Untagged
@@ -411,7 +411,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNum: 2
   jumpKey: 273
-  lightSwingKey: 46
+  lightSwingKey: 0
   heavySwingKey: 274
   leftKey: 276
   rightKey: 275
@@ -458,6 +458,9 @@ MonoBehaviour:
   movementSpeed: 9
   jumpHeight: 18
   dashSpeed: 30
+  dashEnabled: 0
+  fastFallEnabled: 0
+  moveWhenServingEnabled: 1
 --- !u!114 &6127736851893065994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -605,7 +608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashTrailDuration: 0.4
---- !u!114 &1934203274713269359
+--- !u!114 &5881899965915595316
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -635,7 +638,7 @@ MonoBehaviour:
   m_UseChildSensors: 1
   m_UseChildActuators: 1
   m_ObservableAttributeHandling: 0
---- !u!114 &-6216379055249764151
+--- !u!114 &8305143227335783194
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -654,7 +657,7 @@ MonoBehaviour:
   birdie: {fileID: 0}
   opponent: {fileID: 0}
   offlineGameStateManager: {fileID: 0}
---- !u!114 &1061421015605573739
+--- !u!114 &2509799328929683220
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -796,7 +799,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d846801d43d324cbe81c49b214398d27, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

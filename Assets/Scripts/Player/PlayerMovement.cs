@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private bool dashEnabled = false;
     [SerializeField] private bool fastFallEnabled = false;
+    [SerializeField] private bool moveWhenServingEnabled = true;
+
 
 
     private bool isGrounded = true;
@@ -198,7 +200,7 @@ public class PlayerMovement : MonoBehaviour
     private bool CanGoLeft()
     {
         // Can't move if serving
-        if (serveController.isServing)
+        if (serveController.isServing && !moveWhenServingEnabled)
         {
             return false;
         }
@@ -210,7 +212,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if (serveController.isOpponentServing)
+            if (serveController.isServing || serveController.isOpponentServing)
             {
                 return playerTransform.localPosition.x > Constants.SERVING_LINE_X_POS;
             }
@@ -221,7 +223,7 @@ public class PlayerMovement : MonoBehaviour
     private bool CanGoRight()
     {
         // Can't move if serving
-        if (serveController.isServing)
+        if (serveController.isServing && !moveWhenServingEnabled)
         {
             return false;
         }
@@ -229,7 +231,7 @@ public class PlayerMovement : MonoBehaviour
         // Check if within court boundaries
         if (playerManager.playerNum == 1)
         {
-            if (serveController.isOpponentServing)
+            if (serveController.isServing || serveController.isOpponentServing)
             {
                 return playerTransform.localPosition.x < -Constants.SERVING_LINE_X_POS;
             }
