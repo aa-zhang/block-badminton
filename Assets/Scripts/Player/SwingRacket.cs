@@ -33,6 +33,8 @@ public class SwingRacket : MonoBehaviour
     private Vector3 defaultAngle = new Vector3(0, 0, 55);
     private float endAngle;
 
+    private float underhandDetectHeight = -0.5f;
+
     private GameEnvironmentManager gameEnv;
 
 
@@ -95,7 +97,7 @@ public class SwingRacket : MonoBehaviour
         this.swingType = swingType;
 
         // Check the birdie position to determine how the player should swing
-        if ((playerTransform.localPosition.y - birdieTransform.localPosition.y > 0) &&
+        if ((playerTransform.localPosition.y - birdieTransform.localPosition.y > underhandDetectHeight) &&
             ((playerManager.playerNum == 1 && birdieTransform.localPosition.x < 0) ||
             (playerManager.playerNum == 2 && birdieTransform.localPosition.x > 0)))
         {
