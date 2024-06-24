@@ -51,14 +51,11 @@ public class PlayerAgent : Agent
         sensor.AddObservation(birdie.transform.localPosition);
         sensor.AddObservation(birdie.GetComponent<Rigidbody>().velocity);
 
-        sensor.AddObservation(staminaManager.currentStamina);
-        sensor.AddObservation(opponentStaminaManager.currentStamina);
-
         sensor.AddObservation(offlineServeController.isServing);
         sensor.AddObservation(offlineServeController.isOpponentServing);
 
         sensor.AddObservation(offlineServeController.GetServeAngle());
-        sensor.AddObservation(opponentOfflineServeController.GetServeAngle());
+        // sensor.AddObservation(opponentOfflineServeController.GetServeAngle());
 
     }
 
