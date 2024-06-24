@@ -12,6 +12,7 @@ public class SwingRacket : MonoBehaviour
 {
     private Transform racketTransform;
     private Transform birdieTransform;
+    private Rigidbody birdieRb;
     private BirdieParticleController birdiePsController;
 
     private GameObject player;
@@ -33,7 +34,7 @@ public class SwingRacket : MonoBehaviour
     private Vector3 defaultAngle = new Vector3(0, 0, 55);
     private float endAngle;
 
-    private float underhandDetectHeight = -0.5f;
+    private float underhandDetectHeight = -0.25f;
 
     private GameEnvironmentManager gameEnv;
 
@@ -76,6 +77,7 @@ public class SwingRacket : MonoBehaviour
     private void GameStateManager_OnBirdieInitialized(GameObject birdie)
     {
         birdieTransform = birdie.transform;
+        birdieRb = birdie.GetComponent<Rigidbody>();
     }
 
     private void OfflineGameStateManager_OnBirdieInitialized(GameObject birdie, int gameEnvId)
@@ -85,6 +87,7 @@ public class SwingRacket : MonoBehaviour
             return;
         }
         birdieTransform = birdie.transform;
+        birdieRb = birdie.GetComponent<Rigidbody>();
     }
 
 
@@ -93,20 +96,26 @@ public class SwingRacket : MonoBehaviour
         // Begin the forward swing animation
         inForwardSwingAnimation = true;
 
-        // Set swing type
+        // Set swing type (i.e. strong, weak)
         this.swingType = swingType;
 
         // Check the birdie position to determine how the player should swing
-        if ((playerTransform.localPosition.y - birdieTransform.localPosition.y > underhandDetectHeight) &&
-            ((playerManager.playerNum == 1 && birdieTransform.localPosition.x < 0) ||
-            (playerManager.playerNum == 2 && birdieTransform.localPosition.x > 0)))
-        {
-            overhand = false;
-        }
-        else
-        {
-            overhand = true;
-        }
+        overhand = !DetectUnderhandSwing();
+    }
+
+    private bool DetectUnderhandSwing()
+    {
+        // Check if all conditions for an underhand swing are fulfilled
+        // Check if birdie is low enough
+        bool verticalCondition = playerTransform.localPosition.y - birdieTransform.localPosition.y > underhandDetectHeight;
+
+        // Check if birdie is on your side
+        bool horizontalCondition = (playerManager.playerNum == 1 && birdieTransform.localPosition.x < 0) || (playerManager.playerNum == 2 && birdieTransform.localPosition.x > 0);
+
+        // Check if birdie is falling
+        bool birdieCondition = birdieRb.velocity.y <= 0;
+
+        return verticalCondition && horizontalCondition && birdieCondition;
     }
 
     private void PerformSwingAnimation()

@@ -104,6 +104,7 @@ public class PlayerAgent : Agent
             if (changeServeAngleAction == 0)
             {
                 offlineServeController.ChangeServeAngle();
+                AddReward(-0.05f);
             }
             else
             {
@@ -112,10 +113,10 @@ public class PlayerAgent : Agent
         }
 
         // Add time penalty to prevent taking too long to serve
-        //if (offlineServeController.isServing)
-        //{
-        //    AddReward(-0.005f);
-        //}
+        if (offlineServeController.isServing)
+        {
+            AddReward(-0.005f);
+        }
         //else
         //{
         //    AddReward(-0.001f);
@@ -134,11 +135,11 @@ public class PlayerAgent : Agent
     {
         if (playerManager.playerNum == scoringPlayerNum)
         {
-            SetReward(1f);
+            AddReward(1f);
         }
         else
         {
-            SetReward(-1f);
+            AddReward(-1f);
         }
         EndEpisode();
     }

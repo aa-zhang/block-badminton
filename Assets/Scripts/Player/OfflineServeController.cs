@@ -106,7 +106,10 @@ public class OfflineServeController : MonoBehaviour, IServing
         }
         else
         {
+            ResetServingPlayerPosition();
             isOpponentServing = true;
+            serveArrow.SetActive(false);
+
         }
     }
 
