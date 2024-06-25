@@ -107,11 +107,6 @@ public class ServeController : NetworkBehaviour, IServing
 
     private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum, int trainingEnvId)
     {
-        if (isServing)
-        {
-            // Start timer for black flash detection
-            birdiePsController.ResetServeTimer();
-        }
         isServing = false;
         serveArrow.SetActive(false);
     }

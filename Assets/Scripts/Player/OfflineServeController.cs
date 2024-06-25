@@ -139,11 +139,6 @@ public class OfflineServeController : MonoBehaviour, IServing
             return;
         }
 
-        if (isServing)
-        {
-            // Start timer for black flash detection
-            birdiePsController.ResetServeTimer();
-        }
         isServing = false;
         isOpponentServing = false;
         serveArrow.SetActive(false);
