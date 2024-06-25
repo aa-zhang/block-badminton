@@ -92,6 +92,7 @@ public class PlayerAgent : Agent
         if (swingAction == 0)
         {
             playerMovement.SwingRacket(SwingType.Heavy);
+            AddReward(-0.01f);
         }
         else
         {

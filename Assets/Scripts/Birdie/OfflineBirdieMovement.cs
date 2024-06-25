@@ -65,13 +65,12 @@ public class OfflineBirdieMovement : MonoBehaviour
             return;
         }
         ApplyForceToBirdieRpc(forceVector, birdieTransform.localPosition, playerNum);
-        pointAlreadyScored = false;
     }
 
     public void ApplyForceToBirdieRpc(Vector3 forceVector, Vector3 position, int playerNum)
     {
         if (!enableCollision) return;
-
+        pointAlreadyScored = false;
         enableGravity = true;
         birdieRb.velocity = forceVector;
         int rotationDirection = playerNum == 1 ? 1 : -1;
