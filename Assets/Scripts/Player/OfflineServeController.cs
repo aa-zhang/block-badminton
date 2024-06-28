@@ -35,9 +35,6 @@ public class OfflineServeController : MonoBehaviour, IServing
         playerRb = GetComponent<Rigidbody>();
         gameEnv = transform.root.GetComponent<GameEnvironmentManager>();
 
-        isServing = false;
-        isOpponentServing = false;
-
     }
 
     private void FixedUpdate()
@@ -66,6 +63,7 @@ public class OfflineServeController : MonoBehaviour, IServing
 
     private void HoldBirdieRpc()
     {
+        Debug.Log("hold birdie");
         // Move the birdie in front of the serving player
         Vector3 servingOffset = playerManager.playerNum == 1 ? Constants.SERVING_OFFSET_PLAYER_ONE : Constants.SERVING_OFFSET_PLAYER_TWO;
         birdieTransform.localPosition = playerTransform.localPosition + servingOffset;
@@ -98,23 +96,26 @@ public class OfflineServeController : MonoBehaviour, IServing
         if (playerManager.playerNum == playerNum)
         {
             isServing = true;
-            ResetServingPlayerPosition();
+            isOpponentServing = false;
+            serveArrow.SetActive(true);
+
             birdieMovement.SetBirdieGravityRpc(false);
             birdieMovement.SetBirdieCollisionRpc(true);
             birdieMovement.ResetVelocities();
-            serveArrow.SetActive(true);
         }
         else
         {
-            ResetServingPlayerPosition();
+            isServing = false;
             isOpponentServing = true;
             serveArrow.SetActive(false);
 
         }
+        ResetPlayerPosition();
+
     }
 
 
-    private void ResetServingPlayerPosition()
+    private void ResetPlayerPosition()
     {
         // Move player to serve position
         float newXPos;
@@ -151,7 +152,7 @@ public class OfflineServeController : MonoBehaviour, IServing
         {
             return;
         }
-        ResetServingPlayerPosition();
+        ResetPlayerPosition();
         isServing = false;
         isOpponentServing = false;
 
