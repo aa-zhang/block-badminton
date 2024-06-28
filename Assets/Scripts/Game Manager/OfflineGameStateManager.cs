@@ -189,9 +189,6 @@ public class OfflineGameStateManager : MonoBehaviour
         SetMatchTextRpc("");
         SetWinnerTextRpc("");
 
-        // Reset birdie position
-        birdiePrefab.transform.localPosition = Constants.BIRDIE_DEFAULT_POSITION;
-
         // Reset score values
         playerOneScore = 0;
         playerTwoScore = 0;
