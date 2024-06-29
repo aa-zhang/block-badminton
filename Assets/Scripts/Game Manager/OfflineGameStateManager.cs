@@ -141,12 +141,12 @@ public class OfflineGameStateManager : MonoBehaviour
 
             if (playerOneScore >= Constants.WINNING_SCORE)
             {
-                SetWinnerTextRpc("The strongest badminton player in history wins!");
+                SetWinnerTextRpc("The Goonatar wins!");
                 ShowMenuRpc(true);
             }
             else if (playerTwoScore >= Constants.WINNING_SCORE)
             {
-                SetWinnerTextRpc("The strongest badminton player of today wins!");
+                SetWinnerTextRpc("The Ohio Lord wins!");
                 ShowMenuRpc(true);
             }
         }
