@@ -63,7 +63,6 @@ public class OfflineServeController : MonoBehaviour, IServing
 
     private void HoldBirdieRpc()
     {
-        Debug.Log("hold birdie");
         // Move the birdie in front of the serving player
         Vector3 servingOffset = playerManager.playerNum == 1 ? Constants.SERVING_OFFSET_PLAYER_ONE : Constants.SERVING_OFFSET_PLAYER_TWO;
         birdieTransform.localPosition = playerTransform.localPosition + servingOffset;

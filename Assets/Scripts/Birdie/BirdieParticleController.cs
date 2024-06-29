@@ -19,6 +19,8 @@ public class BirdieParticleController : MonoBehaviour
 
     // The above is pretty old and should probably be removed or rewritten...
     [SerializeField] private GameObject hitEffectPrefab;
+    [SerializeField] private GameObject blackFlashHitEffectPrefab;
+
 
 
 
