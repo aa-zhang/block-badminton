@@ -14,14 +14,15 @@ public class OfflineServeController : MonoBehaviour, IServing
 
     private Transform birdieTransform;
     private OfflineBirdieMovement birdieMovement;
-    private BirdieParticleController birdiePsController;
     private TrailRenderer birdieTrailRenderer;
-
 
     [SerializeField] private GameObject serveArrow;
     [SerializeField] private float lerpDuration = 0.1f;
 
     private ServeAngle currentServeAngle = ServeAngle.High;
+
+    public delegate void HitServeHandler();
+    public static HitServeHandler OnHitServe;
 
     private GameEnvironmentManager gameEnv;
 
@@ -80,7 +81,6 @@ public class OfflineServeController : MonoBehaviour, IServing
         // Attach spawned birdie to this script
         birdieTransform = birdie.transform;
         birdieMovement = birdie.GetComponent<OfflineBirdieMovement>();
-        birdiePsController = birdie.GetComponent<BirdieParticleController>();
         birdieTrailRenderer = birdie.GetComponent<TrailRenderer>();
     }
 
@@ -137,6 +137,11 @@ public class OfflineServeController : MonoBehaviour, IServing
         if (gameEnv.isTraining && gameEnv.id != gameEnvId)
         {
             return;
+        }
+
+        if (isServing)
+        {
+            OnHitServe();
         }
 
         isServing = false;

@@ -14854,7 +14854,7 @@ MonoBehaviour:
     delay: 0
     duration: 0.5
     shakeSpace: 0
-    shakeStrength: {x: 0.1, y: 0.1, z: 0.3}
+    shakeStrength: {x: 0.3, y: 0.3, z: 0.5}
     shakeCurve:
       serializedVersion: 2
       m_Curve:
@@ -15005,7 +15005,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6739787498375867372
 Transform:
   m_ObjectHideFlags: 0
