@@ -157,9 +157,6 @@ public class OfflineServeController : MonoBehaviour, IServing
             return;
         }
         ResetPlayerPosition();
-        isServing = false;
-        isOpponentServing = false;
-
     }
 
     public void ChangeServeAngle()
