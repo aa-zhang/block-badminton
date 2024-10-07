@@ -67,6 +67,7 @@ public class OfflineServeController : MonoBehaviour, IServing
         // Move the birdie in front of the serving player
         Vector3 servingOffset = playerManager.playerNum == 1 ? Constants.SERVING_OFFSET_PLAYER_ONE : Constants.SERVING_OFFSET_PLAYER_TWO;
         birdieTransform.localPosition = playerTransform.localPosition + servingOffset;
+        birdieTransform.rotation = Quaternion.identity;
 
         // Hide trail
         birdieTrailRenderer.Clear();
