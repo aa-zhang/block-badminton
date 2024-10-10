@@ -5772,11 +5772,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1482036151832914175, guid: 4c8cf94e501709d4486f50bb11f74d47, type: 3}
       propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482036151832914175, guid: 4c8cf94e501709d4486f50bb11f74d47, type: 3}
+      propertyPath: m_StaticShadowCaster
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1527042537015644831, guid: 4c8cf94e501709d4486f50bb11f74d47, type: 3}
       propertyPath: m_StaticShadowCaster
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1527346511435385795, guid: 4c8cf94e501709d4486f50bb11f74d47, type: 3}
       propertyPath: m_Enabled
@@ -5849,6 +5853,10 @@ PrefabInstance:
     - target: {fileID: 5653047802831796565, guid: 4c8cf94e501709d4486f50bb11f74d47, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653047802831796565, guid: 4c8cf94e501709d4486f50bb11f74d47, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5698645165505417571, guid: 4c8cf94e501709d4486f50bb11f74d47, type: 3}
       propertyPath: m_LocalScale.z
@@ -5973,6 +5981,10 @@ PrefabInstance:
     - target: {fileID: 8951354768780217898, guid: 4c8cf94e501709d4486f50bb11f74d47, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9109153255075566295, guid: 4c8cf94e501709d4486f50bb11f74d47, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
