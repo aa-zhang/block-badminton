@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/OfflineGameScene.unity
     guid: 46e9f7b1962ae73438abc5e4061caa55
+  - enabled: 1
+    path: Assets/Scenes/AIGameScene.unity
+    guid: cd2d308b894291547b95f8331b2f8526
   - enabled: 0
     path: Assets/Scenes/OnlineGameScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab

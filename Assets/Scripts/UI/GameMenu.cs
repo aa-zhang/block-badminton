@@ -33,9 +33,14 @@ public class GameMenu : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
-    public void PlayOnlineGame()
+    public void PlayAIGame()
     {
         SceneManager.LoadScene(2);
+    }
+
+    public void PlayOnlineGame()
+    {
+        SceneManager.LoadScene(3);
     }
 
     public void ReturnToStartScreen()
