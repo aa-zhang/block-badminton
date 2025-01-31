@@ -2049,7 +2049,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1009263551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4925,7 +4925,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3332840889567887645, guid: 4c8cf94e501709d4486f50bb11f74d47, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4129482491049944650, guid: 4c8cf94e501709d4486f50bb11f74d47, type: 3}
       propertyPath: m_Enabled
@@ -4941,7 +4941,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4716820849331470044, guid: 4c8cf94e501709d4486f50bb11f74d47, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5130627652233787845, guid: 4c8cf94e501709d4486f50bb11f74d47, type: 3}
       propertyPath: m_LocalScale.z
@@ -4949,7 +4949,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5130627652233787845, guid: 4c8cf94e501709d4486f50bb11f74d47, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5302520567749387552, guid: 4c8cf94e501709d4486f50bb11f74d47, type: 3}
       propertyPath: m_LocalScale.x
@@ -4961,7 +4961,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5302520567749387552, guid: 4c8cf94e501709d4486f50bb11f74d47, type: 3}
       propertyPath: m_LocalScale.z
-      value: 12
+      value: 2.8
       objectReference: {fileID: 0}
     - target: {fileID: 5302520567749387552, guid: 4c8cf94e501709d4486f50bb11f74d47, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5089,7 +5089,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7019171672689709903, guid: 4c8cf94e501709d4486f50bb11f74d47, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7153348931249893566, guid: 4c8cf94e501709d4486f50bb11f74d47, type: 3}
       propertyPath: m_Enabled
@@ -5109,7 +5109,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8561362483367613533, guid: 4c8cf94e501709d4486f50bb11f74d47, type: 3}
       propertyPath: m_LocalScale.z
-      value: 12
+      value: 2.8
       objectReference: {fileID: 0}
     - target: {fileID: 8561362483367613533, guid: 4c8cf94e501709d4486f50bb11f74d47, type: 3}
       propertyPath: m_LocalPosition.x
