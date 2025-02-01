@@ -71,7 +71,7 @@ public class OfflineGameStateManager : MonoBehaviour
     private void SpawnBirdie()
     {
         // Initialize birdie for clients
-        OnBirdieInitialized(birdiePrefab, gameEnv.id);
+        OnBirdieInitialized?.Invoke(birdiePrefab, gameEnv.id);
 
         if (!gameEnv.isTraining)
         {
