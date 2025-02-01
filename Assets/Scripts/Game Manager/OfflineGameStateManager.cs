@@ -141,12 +141,12 @@ public class OfflineGameStateManager : MonoBehaviour
 
             if (playerOneScore >= Constants.WINNING_SCORE)
             {
-                SetWinnerTextRpc("The Goonatar wins!");
+                SetWinnerTextRpc("Player 1 wins!");
                 ShowMenuRpc(true);
             }
             else if (playerTwoScore >= Constants.WINNING_SCORE)
             {
-                SetWinnerTextRpc("The Ohio Lord wins!");
+                SetWinnerTextRpc("Player 2 wins!");
                 ShowMenuRpc(true);
             }
         }
