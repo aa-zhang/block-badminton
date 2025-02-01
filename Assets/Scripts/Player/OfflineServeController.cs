@@ -142,7 +142,7 @@ public class OfflineServeController : MonoBehaviour, IServing
 
         if (isServing)
         {
-            OnHitServe();
+            OnHitServe?.Invoke();
         }
 
         isServing = false;

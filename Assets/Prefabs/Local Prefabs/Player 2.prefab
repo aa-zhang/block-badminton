@@ -256,8 +256,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63179b9a9d824849965fd3029c01a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  racketForceHeavy: 65
-  racketForceLight: 40
+  racketForceHeavy: 30
+  racketForceLight: 10
   birdieAngleAdjustment: 0.3
 --- !u!1 &953400460987646767
 GameObject:
@@ -866,7 +866,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6461785994595331130}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 0.5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -944,7 +944,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   racket: {fileID: 326187496924113687}
   movementSpeed: 4
-  jumpHeight: 18
+  jumpHeight: 9
   dashSpeed: 30
   dashEnabled: 0
   fastFallEnabled: 0
