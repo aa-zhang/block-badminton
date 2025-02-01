@@ -80,13 +80,24 @@ public class OfflineBirdieMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Floor") && !pointAlreadyScored)
+        if ((collision.gameObject.layer == LayerMask.NameToLayer("Floor") || collision.gameObject.layer == LayerMask.NameToLayer("Outside Floor")) && !pointAlreadyScored)
         {
             // Prevent players from hitting the birdie after it lands
             SetBirdieCollisionRpc(false);
 
             // Determine if player 1 or 2 should receive the point
-            int scoringPlayerNum = birdieTransform.localPosition.x > 0 ? 1 : 2;
+            int scoringPlayerNum;
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Floor"))
+            {
+                // Birdie landed within the court
+                scoringPlayerNum = birdieTransform.localPosition.x > 0 ? 1 : 2;
+            }
+            else
+            {
+                // Birdie landed out of bounds
+                scoringPlayerNum = birdieTransform.localPosition.x < 0 ? 1 : 2;
+            }
+
             if (gameEnv.isTraining)
             {
                 agent1.GetComponent<PlayerAgent>().SetReward(scoringPlayerNum);

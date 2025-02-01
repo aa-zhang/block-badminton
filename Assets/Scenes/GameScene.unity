@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 9539069}
   - component: {fileID: 9539068}
   - component: {fileID: 9539067}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Stadium Floor (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2133,6 +2133,23 @@ PrefabInstance:
       propertyPath: m_Drag
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2950094436699677461, guid: 7f5a4d67287e9164cab273c0871aabb9,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2950094436699677461, guid: 7f5a4d67287e9164cab273c0871aabb9,
+        type: 3}
+      propertyPath: hitEffectPrefab
+      value: 
+      objectReference: {fileID: 1429954232896169633, guid: 63d1d32401b64104496ecc41b3c0a5ba,
+        type: 3}
+    - target: {fileID: 2950094436699677461, guid: 7f5a4d67287e9164cab273c0871aabb9,
+        type: 3}
+      propertyPath: blackFlashHitEffectPrefab
+      value: 
+      objectReference: {fileID: 1141330259687333427, guid: 896c6e2fdf7f8449e8db4df7fdf150c3,
+        type: 3}
     - target: {fileID: 3975319129958154048, guid: 7f5a4d67287e9164cab273c0871aabb9,
         type: 3}
       propertyPath: NoiseModule.damping
@@ -3991,7 +4008,7 @@ GameObject:
   - component: {fileID: 2035969311}
   - component: {fileID: 2035969310}
   - component: {fileID: 2035969309}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Stadium Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4318,6 +4335,17 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -1.6
       objectReference: {fileID: 0}
+    - target: {fileID: 995863876734684967, guid: 384f9d34afee67d42a376cb0c8599010,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 995863876734684967, guid: 384f9d34afee67d42a376cb0c8599010,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 1a1745d6af01961419912857043b5716,
+        type: 2}
     - target: {fileID: 2117956752408073498, guid: 384f9d34afee67d42a376cb0c8599010,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -4329,6 +4357,17 @@ PrefabInstance:
       value: Main Court
       objectReference: {fileID: 0}
     - target: {fileID: 4585105223242095189, guid: 384f9d34afee67d42a376cb0c8599010,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 1a1745d6af01961419912857043b5716,
+        type: 2}
+    - target: {fileID: 7239212471602928416, guid: 384f9d34afee67d42a376cb0c8599010,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239212471602928416, guid: 384f9d34afee67d42a376cb0c8599010,
         type: 3}
       propertyPath: m_Material
       value: 
