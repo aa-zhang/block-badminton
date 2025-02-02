@@ -39,10 +39,6 @@ public class OfflineGameStateManager : MonoBehaviour
     void Start()
     {
         gameEnv = transform.root.GetComponent<GameEnvironmentManager>();
-
-        ShowMenuRpc(false);
-        InitiateGameRpc();
-        SpawnBirdie();
     }
 
     private void FixedUpdate()
@@ -53,12 +49,14 @@ public class OfflineGameStateManager : MonoBehaviour
     private void OnEnable()
     {
         OfflineBirdieMovement.OnPointScored += BirdieMovement_OnPointScored;
+        GameMenu.OnGameStart += GameMenu_OnGameStart;
         GameMenu.OnGameRestart += GameMenu_OnGameRestart;
     }
 
     private void OnDisable()
     {
         OfflineBirdieMovement.OnPointScored -= BirdieMovement_OnPointScored;
+        GameMenu.OnGameStart -= GameMenu_OnGameStart;
         GameMenu.OnGameRestart -= GameMenu_OnGameRestart;
     }
 
@@ -180,6 +178,11 @@ public class OfflineGameStateManager : MonoBehaviour
         {
             RestartGameRpc();
         }
+    }
+
+    private void GameMenu_OnGameStart()
+    {
+        RestartGameRpc();
     }
 
     public void RestartGameRpc()

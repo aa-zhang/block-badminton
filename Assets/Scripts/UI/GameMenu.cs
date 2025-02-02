@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,8 +9,8 @@ public class GameMenu : MonoBehaviour
     private static GameMenu instance;
     public static GameMenu Instance { get { return instance; } }
 
-    public delegate void GameHandler(int trainingEnvId);
-    public static GameHandler OnGameRestart;
+    public static Action OnGameStart;
+    public static Action<int> OnGameRestart;
 
     [SerializeField] private bool showOnStart = false;
 
@@ -30,7 +31,7 @@ public class GameMenu : MonoBehaviour
 
     public void PlayOfflineGame()
     {
-        SceneManager.LoadScene(1);
+        OnGameStart?.Invoke();
     }
 
     public void PlayAIGame()
@@ -55,7 +56,7 @@ public class GameMenu : MonoBehaviour
 
     public void ResetGameValues(int trainingEnvId)
     {
-        OnGameRestart(trainingEnvId);
+        OnGameRestart?.Invoke(trainingEnvId);
     }
 
     public void ShowMenu(bool showMenu)
