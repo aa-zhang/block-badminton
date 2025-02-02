@@ -3,19 +3,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.Rendering;
+
+
 
 public class GameMenu : MonoBehaviour
 {
+    public enum MenuType { TitleScreen, GameModeSelection, InGame, Settings, None }
+
     private static GameMenu instance;
     public static GameMenu Instance { get { return instance; } }
 
     public static Action OnGameStart;
     public static Action<int> OnGameRestart;
 
-    [SerializeField] private bool isMenuShowing = true;
+    [SerializeField] private MenuType menuState = MenuType.TitleScreen;
     [SerializeField] private float menuOpenXPos = -70f;
     [SerializeField] private float menuCloseXPos = 1150f;
     [SerializeField] private float menuLerpDuration = 0.25f;
+
+    [SerializeField] private List<Button> titleButtonList = new List<Button>();
+    [SerializeField] private List<Button> gameModeButtonList = new List<Button>();
+    [SerializeField] private List<Button> inGameButtonList = new List<Button>();
+    [SerializeField] private List<Button> settingsButtonList = new List<Button>();
+
+    [SerializeField] private float minButtonXPos = -585f;
+    [SerializeField] private float buttonXDiff = 100f;
+    [SerializeField] private float delayBetweenButtons = 0.2f;
+    [SerializeField] private float delayAfterSplashScreen = 1f;
 
 
     private RectTransform menuRect;
@@ -32,13 +48,30 @@ public class GameMenu : MonoBehaviour
         else
         {
             instance = this;
-            //instance.ShowMenu(showOnStart);
         }
     }
+
+    private void Start()
+    {
+        StartCoroutine(WaitForSplashScreenToFinish());
+    }
+
+    private IEnumerator WaitForSplashScreenToFinish()
+    {
+        while (!SplashScreen.isFinished)
+        {
+            yield return null;
+        }
+        // Wait for an additional delay after the splash screen finishes
+        yield return new WaitForSeconds(delayAfterSplashScreen);
+        StartCoroutine(SequentialButtonsCoroutine(titleButtonList));
+    }
+
 
     public void PlayOfflineGame()
     {
         OnGameStart?.Invoke();
+        ToggleMenu();
     }
 
     public void PlayAIGame()
@@ -67,7 +100,7 @@ public class GameMenu : MonoBehaviour
     }
 
 
-    IEnumerator ShowMenu()
+    private IEnumerator ShowMenu()
     {
         float startX = menuRect.anchoredPosition.x;
         float t = 0;
@@ -85,7 +118,7 @@ public class GameMenu : MonoBehaviour
         menuRect.anchoredPosition = new Vector2(menuOpenXPos, menuRect.anchoredPosition.y);
     }
 
-    IEnumerator HideMenu()
+    private IEnumerator HideMenu()
     {
         float startX = menuRect.anchoredPosition.x;
         float t = 0;
@@ -103,17 +136,50 @@ public class GameMenu : MonoBehaviour
         menuRect.anchoredPosition = new Vector2(menuCloseXPos, menuRect.anchoredPosition.y);
     }
 
+    private IEnumerator SequentialButtonsCoroutine(List<Button> buttons)
+    {
+        int buttonCounter = 0;
+        foreach (Button btn in buttons)
+        {
+            RectTransform btnRect = btn.GetComponent<RectTransform>();
+            StartCoroutine(LerpButtonPosition(btnRect, minButtonXPos + (-buttonXDiff * buttonCounter)));
+            buttonCounter++;
+            yield return new WaitForSeconds(delayBetweenButtons); // Wait before moving next button
+        }
+    }
+
+    private IEnumerator LerpButtonPosition(RectTransform rectTransform, float targetX)
+    {
+        float elapsed = 0f;
+        Vector2 startPos = rectTransform.anchoredPosition;
+        Vector2 targetPos = new Vector2(targetX, startPos.y);
+
+        while (elapsed < menuLerpDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / menuLerpDuration;
+            rectTransform.anchoredPosition = Vector2.Lerp(startPos, targetPos, Mathf.SmoothStep(0, 1, t));
+            yield return null;
+        }
+
+        rectTransform.anchoredPosition = targetPos; // Ensure final position is exact
+    }
+
 
     public void ToggleMenu()
     {
-        if (isMenuShowing)
+        // Hide menu
+        if (menuState != MenuType.None)
         {
             StartCoroutine(HideMenu());
+            menuState = MenuType.None;
         }
+        // Show appropriate menu
         else
         {
             StartCoroutine(ShowMenu());
+            StartCoroutine(SequentialButtonsCoroutine(titleButtonList));
+            menuState = MenuType.TitleScreen;
         }
-        isMenuShowing = !isMenuShowing;
     }
 }

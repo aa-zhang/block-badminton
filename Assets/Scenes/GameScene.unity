@@ -822,7 +822,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.9719201, b: 0.8915094, a: 1}
+  m_Color: {r: 1, g: 0.9270109, b: 0.7028302, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -1205,7 +1205,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -585, y: 140}
+  m_AnchoredPosition: {x: 100, y: 140}
   m_SizeDelta: {x: 1100, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &534963700
@@ -3454,7 +3454,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -685, y: 0}
+  m_AnchoredPosition: {x: 100, y: 0}
   m_SizeDelta: {x: 1100, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1201159400
@@ -3895,7 +3895,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -785, y: -140}
+  m_AnchoredPosition: {x: 100, y: -140}
   m_SizeDelta: {x: 1100, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1270114593
@@ -6666,10 +6666,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8106f69102a24332ae18246f0779085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMenuShowing: 1
+  menuState: 0
   menuOpenXPos: -70
   menuCloseXPos: 1150
   menuLerpDuration: 0.25
+  titleButtonList:
+  - {fileID: 534963700}
+  - {fileID: 1201159400}
+  - {fileID: 1270114593}
+  gameModeButtonList: []
+  inGameButtonList: []
+  settingsButtonList: []
+  minButtonXPos: -585
+  buttonXDiff: 100
+  delayBetweenButtons: 0.2
+  delayAfterSplashScreen: 1
 --- !u!1 &1516693488254894179
 GameObject:
   m_ObjectHideFlags: 0
