@@ -7,7 +7,7 @@ public static class Constants
     public static readonly float FRONT_COURT_X_POS = 0.35f;
     public static readonly float SERVE_X_POS = 3.25f;
     public static readonly float SERVING_LINE_X_POS = 2.5f;
-    public static readonly float GROUND_Y_POS = 1.2f;
+    public static readonly float GROUND_Y_POS = 1.18f;
 
 
     // Birdie serving position constants
