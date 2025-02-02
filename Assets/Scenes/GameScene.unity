@@ -3944,8 +3944,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1497158573091819786}
         m_TargetAssemblyTypeName: GameMenu, Assembly-CSharp
-        m_MethodName: ResetGameValues
-        m_Mode: 3
+        m_MethodName: QuitGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6666,7 +6666,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8106f69102a24332ae18246f0779085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showOnStart: 1
+  isMenuShowing: 1
+  menuOpenXPos: -70
+  menuCloseXPos: 1150
+  menuLerpDuration: 0.25
 --- !u!1 &1516693488254894179
 GameObject:
   m_ObjectHideFlags: 0

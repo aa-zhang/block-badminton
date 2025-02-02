@@ -140,21 +140,20 @@ public class OfflineGameStateManager : MonoBehaviour
             if (playerOneScore >= Constants.WINNING_SCORE)
             {
                 SetWinnerTextRpc("Player 1 wins!");
-                ShowMenuRpc(true);
+                //ShowMenuRpc(true);
             }
             else if (playerTwoScore >= Constants.WINNING_SCORE)
             {
                 SetWinnerTextRpc("Player 2 wins!");
-                ShowMenuRpc(true);
+                //ShowMenuRpc(true);
             }
         }
     }
 
-    private void ShowMenuRpc(bool show)
-    {
-        GameMenu.Instance.ShowMenu(show);
-
-    }
+    //private void ShowMenuRpc(bool show)
+    //{
+    //    GameMenu.Instance.ShowMenu(show);
+    //}
 
     private void SetMatchTextRpc(string text)
     {
@@ -189,7 +188,7 @@ public class OfflineGameStateManager : MonoBehaviour
     public void RestartGameRpc()
     {
         // Hide menu and other UI
-        ShowMenuRpc(false);
+        //ShowMenuRpc(false);
         SetMatchTextRpc("");
         SetWinnerTextRpc("");
 

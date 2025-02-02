@@ -12,11 +12,18 @@ public class GameMenu : MonoBehaviour
     public static Action OnGameStart;
     public static Action<int> OnGameRestart;
 
-    [SerializeField] private bool showOnStart = false;
+    [SerializeField] private bool isMenuShowing = true;
+    [SerializeField] private float menuOpenXPos = -70f;
+    [SerializeField] private float menuCloseXPos = 1150f;
+    [SerializeField] private float menuLerpDuration = 0.25f;
+
+
+    private RectTransform menuRect;
 
     private void Awake()
     {
         Application.targetFrameRate = 60;
+        menuRect = GetComponent<RectTransform>();
 
         if (instance != null && instance != this)
         {
@@ -25,7 +32,7 @@ public class GameMenu : MonoBehaviour
         else
         {
             instance = this;
-            instance.ShowMenu(showOnStart);
+            //instance.ShowMenu(showOnStart);
         }
     }
 
@@ -59,15 +66,54 @@ public class GameMenu : MonoBehaviour
         OnGameRestart?.Invoke(trainingEnvId);
     }
 
-    public void ShowMenu(bool showMenu)
+
+    IEnumerator ShowMenu()
     {
-        gameObject.SetActive(showMenu);
-        //playerOneMovement.SetIsControlEnabled(false);
-        //playerTwoMovement.SetIsControlEnabled(false);
+        float startX = menuRect.anchoredPosition.x;
+        float t = 0;
+
+        while (t < 1.0f) // Use < instead of <= to prevent overshooting
+        {
+            t += Time.deltaTime / menuLerpDuration;
+            float easedT = Mathf.SmoothStep(0.0f, 1.0f, t);
+            float newX = Mathf.Lerp(startX, menuOpenXPos, easedT);
+
+            menuRect.anchoredPosition = new Vector2(newX, menuRect.anchoredPosition.y);
+            yield return null;
+        }
+
+        menuRect.anchoredPosition = new Vector2(menuOpenXPos, menuRect.anchoredPosition.y);
     }
+
+    IEnumerator HideMenu()
+    {
+        float startX = menuRect.anchoredPosition.x;
+        float t = 0;
+
+        while (t < 1.0f)
+        {
+            t += Time.deltaTime / menuLerpDuration;
+            float easedT = Mathf.SmoothStep(0.0f, 1.0f, t);
+            float newX = Mathf.Lerp(startX, menuCloseXPos, easedT);
+
+            menuRect.anchoredPosition = new Vector2(newX, menuRect.anchoredPosition.y);
+            yield return null;
+        }
+
+        menuRect.anchoredPosition = new Vector2(menuCloseXPos, menuRect.anchoredPosition.y);
+    }
+
 
     public void ToggleMenu()
     {
-        gameObject.SetActive(!gameObject.activeSelf);
+        if (isMenuShowing)
+        {
+            StartCoroutine(HideMenu());
+        }
+        else
+        {
+            StartCoroutine(ShowMenu());
+        }
+        isMenuShowing = !isMenuShowing;
     }
 }
