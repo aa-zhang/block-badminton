@@ -182,6 +182,7 @@ public class OfflineGameStateManager : MonoBehaviour
 
     private void GameMenu_OnGameStart()
     {
+        SpawnBirdie();
         RestartGameRpc();
     }
 
