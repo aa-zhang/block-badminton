@@ -28,11 +28,13 @@ public class GameMenu : MonoBehaviour
     [SerializeField] private List<Button> inGameButtonList = new List<Button>();
     [SerializeField] private List<Button> settingsButtonList = new List<Button>();
 
-    [SerializeField] private float minButtonXPos = -585f;
+    [SerializeField] private float minButtonXPos = -240f;
     [SerializeField] private float buttonXDiff = 100f;
+    [SerializeField] private float buttonYDiff = 140f;
     [SerializeField] private float delayBetweenButtons = 0.2f;
     [SerializeField] private float delayAfterSplashScreen = 1f;
 
+    private GameState gameState = GameState.TitleScreen;
 
     private RectTransform menuRect;
 
@@ -64,7 +66,7 @@ public class GameMenu : MonoBehaviour
         }
         // Wait for an additional delay after the splash screen finishes
         yield return new WaitForSeconds(delayAfterSplashScreen);
-        StartCoroutine(SequentialButtonsCoroutine(titleButtonList));
+        StartCoroutine(SequentiallyLoadButtons(titleButtonList));
     }
 
 
@@ -136,23 +138,26 @@ public class GameMenu : MonoBehaviour
         menuRect.anchoredPosition = new Vector2(menuCloseXPos, menuRect.anchoredPosition.y);
     }
 
-    private IEnumerator SequentialButtonsCoroutine(List<Button> buttons)
+    private IEnumerator SequentiallyLoadButtons(List<Button> buttons)
     {
         int buttonCounter = 0;
+        float startY = 0 + (buttons.Count - 3) * buttonYDiff;
         foreach (Button btn in buttons)
         {
             RectTransform btnRect = btn.GetComponent<RectTransform>();
-            StartCoroutine(LerpButtonPosition(btnRect, minButtonXPos + (-buttonXDiff * buttonCounter)));
+            float targetX = minButtonXPos - (buttonXDiff * buttonCounter);
+            float targetY = startY - (buttonYDiff * buttonCounter);
+            StartCoroutine(LerpButtonPosition(btnRect, targetX, targetY));
             buttonCounter++;
             yield return new WaitForSeconds(delayBetweenButtons); // Wait before moving next button
         }
     }
 
-    private IEnumerator LerpButtonPosition(RectTransform rectTransform, float targetX)
+    private IEnumerator LerpButtonPosition(RectTransform rectTransform, float targetX, float targetY)
     {
         float elapsed = 0f;
-        Vector2 startPos = rectTransform.anchoredPosition;
-        Vector2 targetPos = new Vector2(targetX, startPos.y);
+        Vector2 startPos = new Vector2(rectTransform.anchoredPosition.x, targetY);
+        Vector2 targetPos = new Vector2(targetX, targetY);
 
         while (elapsed < menuLerpDuration)
         {
@@ -168,18 +173,18 @@ public class GameMenu : MonoBehaviour
 
     public void ToggleMenu()
     {
-        // Hide menu
         if (menuState != MenuType.None)
         {
+            // Hide menu
             StartCoroutine(HideMenu());
             menuState = MenuType.None;
         }
-        // Show appropriate menu
-        else
+        else if (gameState == GameState.Playing || gameState == GameState.GameOver)
         {
+            // Show in-game menu
             StartCoroutine(ShowMenu());
-            StartCoroutine(SequentialButtonsCoroutine(titleButtonList));
-            menuState = MenuType.TitleScreen;
+            StartCoroutine(SequentiallyLoadButtons(inGameButtonList));
+            menuState = MenuType.InGame;
         }
     }
 }

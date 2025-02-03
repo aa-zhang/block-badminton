@@ -5,6 +5,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum GameState { TitleScreen, Playing, GameOver }
 
 public class OfflineGameStateManager : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class OfflineGameStateManager : MonoBehaviour
     private int playerTwoScore = 0;
     private int servingPlayerNum = 0;
 
-    private bool gameInProgress = false;
+    private GameState gameState = GameState.TitleScreen;
 
     [SerializeField] private GameObject birdiePrefab;
 
@@ -62,7 +63,7 @@ public class OfflineGameStateManager : MonoBehaviour
 
     private void InitiateGameRpc()
     {
-        gameInProgress = true;
+        gameState = GameState.Playing;
         //OnStartMatch();
     }
 
@@ -104,9 +105,9 @@ public class OfflineGameStateManager : MonoBehaviour
 
         servingPlayerNum = scoringPlayerNum;
 
-        CheckScore(); // sets gameInProgress to false if game has ended
+        CheckScore(); // changes game state if game has ended
 
-        if (gameInProgress && !gameEnv.isTraining)
+        if (gameState == GameState.Playing && !gameEnv.isTraining)
         {
             // Start next serve after a 1 second delay
             Invoke("BeginServeRpc", 1);
@@ -135,7 +136,7 @@ public class OfflineGameStateManager : MonoBehaviour
         if ((winningPlayerScore >= Constants.WINNING_SCORE && winningPlayerScore - losingPlayerScore >= 2) || winningPlayerScore == Constants.MAX_SCORE)
         {
             SetMatchTextRpc("Match Over!");
-            gameInProgress = false;
+            gameState = GameState.GameOver;
 
             if (playerOneScore >= Constants.WINNING_SCORE)
             {
@@ -185,7 +186,7 @@ public class OfflineGameStateManager : MonoBehaviour
         RestartGameRpc();
     }
 
-    public void RestartGameRpc()
+    private void RestartGameRpc()
     {
         // Hide menu and other UI
         //ShowMenuRpc(false);
