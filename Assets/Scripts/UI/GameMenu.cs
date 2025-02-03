@@ -73,6 +73,12 @@ public class GameMenu : MonoBehaviour
         StartCoroutine(SequentiallyLoadButtons(titleButtonList));
     }
 
+    public void ShowGameModes()
+    {
+        ResetButtonPositions();
+        HideTitleAndVersion();
+        StartCoroutine(SequentiallyLoadButtons(gameModeButtonList));
+    }
 
     public void PlayOfflineGame()
     {
@@ -104,6 +110,12 @@ public class GameMenu : MonoBehaviour
     public void ResetGameValues(int trainingEnvId)
     {
         OnGameRestart?.Invoke(trainingEnvId);
+    }
+
+    private void HideTitleAndVersion()
+    {
+        title.SetActive(false);
+        version.SetActive(false);
     }
 
 
@@ -205,8 +217,7 @@ public class GameMenu : MonoBehaviour
         else if (gameState == GameState.Playing || gameState == GameState.GameOver)
         {
             // Show in-game menu
-            title.SetActive(false);
-            version.SetActive(false);
+            HideTitleAndVersion();
 
             StartCoroutine(ShowMenu());
             StartCoroutine(SequentiallyLoadButtons(inGameButtonList));
