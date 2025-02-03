@@ -18,6 +18,7 @@ public class GameMenu : MonoBehaviour
 
     public static Action OnGameStart;
     public static Action<int> OnGameRestart;
+    public static Action OnReturnToTitleScreen;
 
     [SerializeField] private MenuType menuState = MenuType.TitleScreen;
     [SerializeField] private float menuOpenXPos = -70f;
@@ -76,7 +77,7 @@ public class GameMenu : MonoBehaviour
     public void ShowGameModes()
     {
         ResetButtonPositions();
-        HideTitleAndVersion();
+        SetTitleAndVersionVisibility(false);
         StartCoroutine(SequentiallyLoadButtons(gameModeButtonList));
     }
 
@@ -99,7 +100,12 @@ public class GameMenu : MonoBehaviour
 
     public void ReturnToStartScreen()
     {
-        SceneManager.LoadScene(0);
+        ResetGameValues(0);
+        OnReturnToTitleScreen?.Invoke();
+        ResetButtonPositions();
+        SetTitleAndVersionVisibility(true);
+        StartCoroutine(SequentiallyLoadButtons(titleButtonList));
+        menuState = MenuType.TitleScreen;
     }
 
     public void QuitGame()
@@ -112,10 +118,10 @@ public class GameMenu : MonoBehaviour
         OnGameRestart?.Invoke(trainingEnvId);
     }
 
-    private void HideTitleAndVersion()
+    private void SetTitleAndVersionVisibility(bool isVisible)
     {
-        title.SetActive(false);
-        version.SetActive(false);
+        title.SetActive(isVisible);
+        version.SetActive(isVisible);
     }
 
 
@@ -217,7 +223,7 @@ public class GameMenu : MonoBehaviour
         else if (gameState == GameState.Playing || gameState == GameState.GameOver)
         {
             // Show in-game menu
-            HideTitleAndVersion();
+            SetTitleAndVersionVisibility(false);
 
             StartCoroutine(ShowMenu());
             StartCoroutine(SequentiallyLoadButtons(inGameButtonList));

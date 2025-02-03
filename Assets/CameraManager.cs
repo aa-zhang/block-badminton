@@ -12,16 +12,23 @@ public class CameraManager : MonoBehaviour
     private void OnEnable()
     {
         GameMenu.OnGameStart += GameMenu_OnGameStart;
+        GameMenu.OnReturnToTitleScreen += GameMenu_OnReturnToTitleScreen;
     }
 
     private void OnDisable()
     {
         GameMenu.OnGameStart -= GameMenu_OnGameStart;
+        GameMenu.OnReturnToTitleScreen -= GameMenu_OnReturnToTitleScreen;
     }
 
     private void GameMenu_OnGameStart()
     {
         SwitchToGameCamera();
+    }
+
+    private void GameMenu_OnReturnToTitleScreen()
+    {
+        SwitchToStartCamera();
     }
 
     public void SwitchToGameCamera()
