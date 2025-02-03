@@ -27,6 +27,7 @@ public class GameMenu : MonoBehaviour
 
     [SerializeField] private GameObject title;
     [SerializeField] private GameObject version;
+    [SerializeField] private GameObject playText;
 
     [SerializeField] private List<Button> titleButtonList = new List<Button>();
     [SerializeField] private List<Button> gameModeButtonList = new List<Button>();
@@ -76,9 +77,7 @@ public class GameMenu : MonoBehaviour
 
     public void ShowGameModes()
     {
-        ResetButtonPositions();
-        SetTitleAndVersionVisibility(false);
-        StartCoroutine(SequentiallyLoadButtons(gameModeButtonList));
+        ShowGameModesMenu();
     }
 
     public void PlayOfflineGame()
@@ -102,10 +101,7 @@ public class GameMenu : MonoBehaviour
     {
         ResetGameValues(0);
         OnReturnToTitleScreen?.Invoke();
-        ResetButtonPositions();
-        SetTitleAndVersionVisibility(true);
-        StartCoroutine(SequentiallyLoadButtons(titleButtonList));
-        menuState = MenuType.TitleScreen;
+        ShowTitleScreenMenu();
     }
 
     public void QuitGame()
@@ -122,6 +118,36 @@ public class GameMenu : MonoBehaviour
     {
         title.SetActive(isVisible);
         version.SetActive(isVisible);
+    }
+
+    private void ShowTitleScreenMenu()
+    {
+        ResetButtonPositions();
+        title.SetActive(true);
+        version.SetActive(true);
+        playText.SetActive(false);
+        StartCoroutine(SequentiallyLoadButtons(titleButtonList));
+        menuState = MenuType.TitleScreen;
+    }
+
+    private void ShowGameModesMenu()
+    {
+        ResetButtonPositions();
+        title.SetActive(false);
+        version.SetActive(false);
+        playText.SetActive(true);
+        StartCoroutine(SequentiallyLoadButtons(gameModeButtonList));
+        menuState = MenuType.GameModeSelection;
+    }
+
+    private void ShowInGameMenu()
+    {
+        ResetButtonPositions();
+        title.SetActive(false);
+        version.SetActive(false);
+        playText.SetActive(false);
+        StartCoroutine(SequentiallyLoadButtons(inGameButtonList));
+        menuState = MenuType.InGame;
     }
 
 
@@ -218,16 +244,13 @@ public class GameMenu : MonoBehaviour
             // Hide menu
             StartCoroutine(HideMenu());
             menuState = MenuType.None;
-            ResetButtonPositions();
         }
         else if (gameState == GameState.Playing || gameState == GameState.GameOver)
         {
             // Show in-game menu
-            SetTitleAndVersionVisibility(false);
 
             StartCoroutine(ShowMenu());
-            StartCoroutine(SequentiallyLoadButtons(inGameButtonList));
-            menuState = MenuType.InGame;
+            ShowInGameMenu();
         }
     }
 }
