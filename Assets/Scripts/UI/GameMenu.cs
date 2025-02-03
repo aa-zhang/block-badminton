@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -22,6 +23,9 @@ public class GameMenu : MonoBehaviour
     [SerializeField] private float menuOpenXPos = -70f;
     [SerializeField] private float menuCloseXPos = 1150f;
     [SerializeField] private float menuLerpDuration = 0.25f;
+
+    [SerializeField] private GameObject title;
+    [SerializeField] private GameObject version;
 
     [SerializeField] private List<Button> titleButtonList = new List<Button>();
     [SerializeField] private List<Button> gameModeButtonList = new List<Button>();
@@ -73,6 +77,7 @@ public class GameMenu : MonoBehaviour
     public void PlayOfflineGame()
     {
         OnGameStart?.Invoke();
+        gameState = GameState.Playing;
         ToggleMenu();
     }
 
@@ -170,18 +175,39 @@ public class GameMenu : MonoBehaviour
         rectTransform.anchoredPosition = targetPos; // Ensure final position is exact
     }
 
+    private void ResetButtonPositions()
+    {
+        foreach (var button in titleButtonList.Concat(gameModeButtonList)
+                                          .Concat(inGameButtonList)
+                                          .Concat(settingsButtonList))
+        {
+            if (button != null)
+            {
+                RectTransform rectTransform = button.GetComponent<RectTransform>();
+                if (rectTransform != null)
+                {
+                    rectTransform.anchoredPosition = new Vector2(500, 0); // Default hidden button location
+                }
+            }
+        }
+    }
+
 
     public void ToggleMenu()
     {
-        if (menuState != MenuType.None)
+        if (menuState != MenuType.None && gameState != GameState.TitleScreen)
         {
             // Hide menu
             StartCoroutine(HideMenu());
             menuState = MenuType.None;
+            ResetButtonPositions();
         }
         else if (gameState == GameState.Playing || gameState == GameState.GameOver)
         {
             // Show in-game menu
+            title.SetActive(false);
+            version.SetActive(false);
+
             StartCoroutine(ShowMenu());
             StartCoroutine(SequentiallyLoadButtons(inGameButtonList));
             menuState = MenuType.InGame;

@@ -342,7 +342,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 137121044}
   m_OnClick:
     m_PersistentCalls:
@@ -957,7 +957,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 305219581}
   m_OnClick:
     m_PersistentCalls:
@@ -1656,7 +1656,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 424773726}
   m_OnClick:
     m_PersistentCalls:
@@ -2774,7 +2774,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 682606867}
   m_OnClick:
     m_PersistentCalls:
@@ -8528,6 +8528,8 @@ MonoBehaviour:
   menuOpenXPos: 0
   menuCloseXPos: 1300
   menuLerpDuration: 0.25
+  title: {fileID: 192124098}
+  version: {fileID: 1430034626}
   titleButtonList:
   - {fileID: 534963700}
   - {fileID: 1201159400}
@@ -8544,10 +8546,10 @@ MonoBehaviour:
   - {fileID: 682606866}
   - {fileID: 1270114593}
   settingsButtonList: []
-  minButtonXPos: -240
+  minButtonXPos: -150
   buttonXDiff: 100
   buttonYDiff: 140
-  delayBetweenButtons: 0.2
+  delayBetweenButtons: 0.1
   delayAfterSplashScreen: 0.75
 --- !u!1 &1516693488254894179
 GameObject:
