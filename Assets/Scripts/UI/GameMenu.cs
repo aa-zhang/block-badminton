@@ -99,7 +99,7 @@ public class GameMenu : MonoBehaviour
 
     public void ReturnToStartScreen()
     {
-        ResetGameValues(0);
+        OnGameRestart?.Invoke(0);
         OnReturnToTitleScreen?.Invoke();
         ShowTitleScreenMenu();
     }
@@ -112,6 +112,7 @@ public class GameMenu : MonoBehaviour
     public void ResetGameValues(int trainingEnvId)
     {
         OnGameRestart?.Invoke(trainingEnvId);
+        ToggleMenu();
     }
 
     private void SetTitleAndVersionVisibility(bool isVisible)
