@@ -4069,6 +4069,9 @@ MonoBehaviour:
   buttonYDiff: 140
   delayBetweenButtons: 0.1
   buttonLerpDuration: 0.2
+  moveLeftOffset: 20
+  moveRightOffset: 0
+  expandFactor: 1.1
   titleButtonList:
   - {fileID: 534963700}
   - {fileID: 1201159400}
