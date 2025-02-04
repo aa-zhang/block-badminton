@@ -31,20 +31,20 @@ public class ButtonAnimator : MonoBehaviour
                                     .Concat(inGameButtonList)
                                     .Concat(settingsButtonList)
                                     .ToList();
-        foreach (Button button in allButtons)
-        {
-            EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();
+        //foreach (Button button in allButtons)
+        //{
+        //    EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();
 
-            // OnPointerEnter (hover start)
-            EventTrigger.Entry entryEnter = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };
-            entryEnter.callback.AddListener((data) => { OnButtonHover(button); });
-            trigger.triggers.Add(entryEnter);
+        //    // OnPointerEnter (hover start)
+        //    EventTrigger.Entry entryEnter = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };
+        //    entryEnter.callback.AddListener((data) => { OnButtonHover(button); });
+        //    trigger.triggers.Add(entryEnter);
 
-            // OnPointerExit (hover end)
-            EventTrigger.Entry entryExit = new EventTrigger.Entry { eventID = EventTriggerType.PointerExit };
-            entryExit.callback.AddListener((data) => { OnButtonExit(button); });
-            trigger.triggers.Add(entryExit);
-        }
+        //    // OnPointerExit (hover end)
+        //    EventTrigger.Entry entryExit = new EventTrigger.Entry { eventID = EventTriggerType.PointerExit };
+        //    entryExit.callback.AddListener((data) => { OnButtonExit(button); });
+        //    trigger.triggers.Add(entryExit);
+        //}
     }
 
     public void LoadButtons(MenuType menuType)
