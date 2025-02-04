@@ -4336,6 +4336,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3975319129958154048, guid: 7f5a4d67287e9164cab273c0871aabb9,
         type: 3}
+      propertyPath: TrailModule.textureMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3975319129958154048, guid: 7f5a4d67287e9164cab273c0871aabb9,
+        type: 3}
+      propertyPath: SizeBySpeedModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3975319129958154048, guid: 7f5a4d67287e9164cab273c0871aabb9,
+        type: 3}
+      propertyPath: SizeBySpeedModule.range.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3975319129958154048, guid: 7f5a4d67287e9164cab273c0871aabb9,
+        type: 3}
+      propertyPath: TrailModule.textureScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3975319129958154048, guid: 7f5a4d67287e9164cab273c0871aabb9,
+        type: 3}
+      propertyPath: TrailModule.textureScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3975319129958154048, guid: 7f5a4d67287e9164cab273c0871aabb9,
+        type: 3}
       propertyPath: NoiseModule.strength.scalar
       value: 0.25
       objectReference: {fileID: 0}
@@ -4357,7 +4382,12 @@ PrefabInstance:
     - target: {fileID: 3975319129958154048, guid: 7f5a4d67287e9164cab273c0871aabb9,
         type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 15
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3975319129958154048, guid: 7f5a4d67287e9164cab273c0871aabb9,
+        type: 3}
+      propertyPath: EmissionModule.rateOverDistance.scalar
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4646954190611453874, guid: 7f5a4d67287e9164cab273c0871aabb9,
         type: 3}
@@ -4427,6 +4457,21 @@ PrefabInstance:
     - target: {fileID: 5380044007626411190, guid: 7f5a4d67287e9164cab273c0871aabb9,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5819306662277807541, guid: 7f5a4d67287e9164cab273c0871aabb9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5819306662277807541, guid: 7f5a4d67287e9164cab273c0871aabb9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5819306662277807541, guid: 7f5a4d67287e9164cab273c0871aabb9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5819306662277807541, guid: 7f5a4d67287e9164cab273c0871aabb9,
