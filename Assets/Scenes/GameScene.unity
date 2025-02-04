@@ -4015,6 +4015,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1065367226}
+  - component: {fileID: 1065367227}
   m_Layer: 0
   m_Name: Buttons
   m_TagString: Untagged
@@ -4051,6 +4052,40 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1065367227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065367225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45ef9ac473c943b4abf6e980e588b733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minButtonXPos: -150
+  buttonXDiff: 100
+  buttonYDiff: 140
+  delayBetweenButtons: 0.1
+  buttonLerpDuration: 0.2
+  titleButtonList:
+  - {fileID: 534963700}
+  - {fileID: 1201159400}
+  - {fileID: 1270114593}
+  gameModeButtonList:
+  - {fileID: 305278981}
+  - {fileID: 1960703800}
+  - {fileID: 754364408}
+  - {fileID: 305219580}
+  inGameButtonList:
+  - {fileID: 137121043}
+  - {fileID: 424773725}
+  - {fileID: 1201159400}
+  - {fileID: 682606866}
+  - {fileID: 1270114593}
+  settingsButtonList:
+  - {fileID: 305219580}
 --- !u!1 &1072954505
 GameObject:
   m_ObjectHideFlags: 0
@@ -9028,33 +9063,12 @@ MonoBehaviour:
   menuOpenXPos: 0
   menuCloseXPos: 1300
   menuLerpDuration: 0.25
+  delayAfterSplashScreen: 0.5
   title: {fileID: 192124098}
   version: {fileID: 1430034626}
   playText: {fileID: 1074428594}
   settingsText: {fileID: 12450997}
   optionsText: {fileID: 1452579694}
-  titleButtonList:
-  - {fileID: 534963700}
-  - {fileID: 1201159400}
-  - {fileID: 1270114593}
-  gameModeButtonList:
-  - {fileID: 305278981}
-  - {fileID: 1960703800}
-  - {fileID: 754364408}
-  - {fileID: 305219580}
-  inGameButtonList:
-  - {fileID: 137121043}
-  - {fileID: 424773725}
-  - {fileID: 1201159400}
-  - {fileID: 682606866}
-  - {fileID: 1270114593}
-  settingsButtonList:
-  - {fileID: 305219580}
-  minButtonXPos: -150
-  buttonXDiff: 100
-  buttonYDiff: 140
-  delayBetweenButtons: 0.1
-  delayAfterSplashScreen: 0.5
 --- !u!1 &1516693488254894179
 GameObject:
   m_ObjectHideFlags: 0
@@ -11126,11 +11140,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1180819479}
+  - {fileID: 1065367226}
   - {fileID: 192124099}
   - {fileID: 1074428595}
   - {fileID: 12450998}
   - {fileID: 1452579695}
-  - {fileID: 1065367226}
   m_Father: {fileID: 7455052550906737419}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
