@@ -8,12 +8,11 @@ using UnityEngine.UI;
 using UnityEngine.Rendering;
 using DG.Tweening;
 
+public enum MenuType { TitleScreen, GameModeSelection, InGame, Settings, None }
 
 
 public class GameMenu : MonoBehaviour
 {
-    public enum MenuType { TitleScreen, GameModeSelection, InGame, Settings, None }
-
     private static GameMenu instance;
     public static GameMenu Instance { get { return instance; } }
 
@@ -21,7 +20,7 @@ public class GameMenu : MonoBehaviour
     public static Action<int> OnGameRestart;
     public static Action OnReturnToTitleScreen;
 
-    [SerializeField] private MenuType menuState = MenuType.TitleScreen;
+    public MenuType menuState = MenuType.TitleScreen;
     [SerializeField] private float menuOpenXPos = -70f;
     [SerializeField] private float menuCloseXPos = 1150f;
     [SerializeField] private float menuLerpDuration = 0.25f;
@@ -100,7 +99,7 @@ public class GameMenu : MonoBehaviour
         OnGameRestart?.Invoke(0);
         OnReturnToTitleScreen?.Invoke();
         gameState = GameState.TitleScreen;
-        ShowTitleScreenMenu();
+        ShowMenu(MenuType.TitleScreen);
     }
 
     public void QuitGame()
@@ -114,85 +113,74 @@ public class GameMenu : MonoBehaviour
         ToggleMenu();
     }
 
-    private void SetTitleAndVersionVisibility(bool isVisible)
-    {
-        title.SetActive(isVisible);
-        version.SetActive(isVisible);
-    }
-
-    public void ShowTitleScreenMenu()
+    public void SetMenuOptions(MenuType menuType)
     {
         ResetButtonPositions();
-        title.SetActive(true);
-        version.SetActive(true);
-        playText.SetActive(false);
-        settingsText.SetActive(false);
-        optionsText.SetActive(false);
-        SequentiallyLoadButtons(titleButtonList);
-        menuState = MenuType.TitleScreen;
+
+        // Toggle UI elements based on the selected menu
+        title.SetActive(menuType == MenuType.TitleScreen);
+        version.SetActive(menuType == MenuType.TitleScreen);
+        playText.SetActive(menuType == MenuType.GameModeSelection);
+        settingsText.SetActive(menuType == MenuType.Settings);
+        optionsText.SetActive(menuType == MenuType.InGame);
+
+        // Load the corresponding button list
+        List<Button> buttonsToLoad = menuType switch
+        {
+            MenuType.TitleScreen => titleButtonList,
+            MenuType.GameModeSelection => gameModeButtonList,
+            MenuType.InGame => inGameButtonList,
+            MenuType.Settings => settingsButtonList,
+            _ => null
+        };
+
+        if (buttonsToLoad != null)
+        {
+            SequentiallyLoadButtons(buttonsToLoad);
+        }
+
+        menuState = menuType; // Update menu state
     }
 
-    public void ShowGameModesMenu()
-    {
-        ResetButtonPositions();
-        title.SetActive(false);
-        version.SetActive(false);
-        playText.SetActive(true);
-        settingsText.SetActive(false);
-        optionsText.SetActive(false);
-        SequentiallyLoadButtons(gameModeButtonList);
-        menuState = MenuType.GameModeSelection;
-    }
-
-    public void ShowInGameMenu()
-    {
-        ResetButtonPositions();
-        title.SetActive(false);
-        version.SetActive(false);
-        playText.SetActive(false);
-        settingsText.SetActive(false);
-        optionsText.SetActive(true);
-        SequentiallyLoadButtons(inGameButtonList);
-        menuState = MenuType.InGame;
-    }
-
-    public void ShowSettingsMenu()
-    {
-        ResetButtonPositions();
-        title.SetActive(false);
-        version.SetActive(false);
-        playText.SetActive(false);
-        settingsText.SetActive(true);
-        optionsText.SetActive(false);
-        SequentiallyLoadButtons(settingsButtonList);
-        menuState = MenuType.Settings;
-    }
 
     public void ShowPreviousMenu()
     {
-        // When the Back button is pressed
+        // This method is called when the Back button is pressed
+        MenuType previousMenu;
+
         if (gameState == GameState.Playing || gameState == GameState.GameOver)
         {
-            ShowInGameMenu();
+            previousMenu = MenuType.InGame;
         }
         else
         {
-            ShowTitleScreenMenu();
+            previousMenu = MenuType.TitleScreen;
         }
+
+        ShowMenu(previousMenu);
     }
 
-    public void ShowMenu()
+    public void ShowMenu(MenuType menuType)
     {
         menuRect.DOKill(); // Stop any existing tween
         menuRect.DOAnchorPosX(menuOpenXPos, menuLerpDuration)
             .SetEase(Ease.InOutQuad); // Eases in and out smoothly
+
+        SetMenuOptions(menuType);
     }
+
+    // Use these for button actions (since Unity won't let me call a method that has an Enum parameter)
+    public void ShowGameModesMenu() => ShowMenu(MenuType.GameModeSelection);
+    public void ShowSettingsMenu() => ShowMenu(MenuType.Settings);
+
 
     public void HideMenu()
     {
         menuRect.DOKill(); // Stop any existing tween
         menuRect.DOAnchorPosX(menuCloseXPos, menuLerpDuration)
             .SetEase(Ease.InOutQuad);
+
+        menuState = MenuType.None;
     }
 
     private void SequentiallyLoadButtons(List<Button> buttons)
@@ -206,7 +194,10 @@ public class GameMenu : MonoBehaviour
             float targetY = startY - (buttonYDiff * i);
 
             btnRect.DOKill(); // Stop any existing tween
-            btnRect.DOAnchorPos(new Vector2(targetX, targetY), menuLerpDuration)
+
+            // Immediately set the Y position to target Y
+            btnRect.anchoredPosition = new Vector2(btnRect.anchoredPosition.x, targetY);
+            btnRect.DOAnchorPosX(targetX, menuLerpDuration) // Lerp only the X position
                 .SetEase(Ease.InOutQuad)
                 .SetDelay(i * delayBetweenButtons); // Delay each button animation
         }
@@ -235,15 +226,11 @@ public class GameMenu : MonoBehaviour
     {
         if (menuState != MenuType.None && gameState != GameState.TitleScreen)
         {
-            // Hide menu
             HideMenu();
-            menuState = MenuType.None;
         }
         else if (gameState == GameState.Playing || gameState == GameState.GameOver)
         {
-            // Show in-game menu
-            ShowMenu();
-            ShowInGameMenu();
+            ShowMenu(MenuType.InGame);
         }
     }
 }
