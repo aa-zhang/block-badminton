@@ -24,6 +24,8 @@ public class ButtonAnimator : MonoBehaviour
     [SerializeField] private List<Button> settingsButtonList = new List<Button>();
 
     private List<Button> allButtons = new List<Button>();
+    private Dictionary<Button, Vector2> originalPositions = new Dictionary<Button, Vector2>(); // Prevent displacement when quickly hovering/unhovering
+    private bool areButtonsInAnimation = false;
 
     void Start()
     {
@@ -31,20 +33,20 @@ public class ButtonAnimator : MonoBehaviour
                                     .Concat(inGameButtonList)
                                     .Concat(settingsButtonList)
                                     .ToList();
-        //foreach (Button button in allButtons)
-        //{
-        //    EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();
+        foreach (Button button in allButtons)
+        {
+            EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();
 
-        //    // OnPointerEnter (hover start)
-        //    EventTrigger.Entry entryEnter = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };
-        //    entryEnter.callback.AddListener((data) => { OnButtonHover(button); });
-        //    trigger.triggers.Add(entryEnter);
+            // OnPointerEnter (hover start)
+            EventTrigger.Entry entryEnter = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };
+            entryEnter.callback.AddListener((data) => { OnButtonHover(button); });
+            trigger.triggers.Add(entryEnter);
 
-        //    // OnPointerExit (hover end)
-        //    EventTrigger.Entry entryExit = new EventTrigger.Entry { eventID = EventTriggerType.PointerExit };
-        //    entryExit.callback.AddListener((data) => { OnButtonExit(button); });
-        //    trigger.triggers.Add(entryExit);
-        //}
+            // OnPointerExit (hover end)
+            EventTrigger.Entry entryExit = new EventTrigger.Entry { eventID = EventTriggerType.PointerExit };
+            entryExit.callback.AddListener((data) => { OnButtonExit(button); });
+            trigger.triggers.Add(entryExit);
+        }
     }
 
     public void LoadButtons(MenuType menuType)
@@ -63,6 +65,7 @@ public class ButtonAnimator : MonoBehaviour
         if (buttonsToLoad != null)
         {
             AnimateButtons(buttonsToLoad);
+            areButtonsInAnimation = true;
         }
     }
 
@@ -76,13 +79,19 @@ public class ButtonAnimator : MonoBehaviour
             float targetX = minButtonXPos - (buttonXDiff * i);
             float targetY = startY - (buttonYDiff * i);
 
-            btnRect.DOKill(); // Stop any existing tween
-
             // Immediately set the Y position to target Y
+            int currButtonNum = i;
             btnRect.anchoredPosition = new Vector2(btnRect.anchoredPosition.x, targetY);
             btnRect.DOAnchorPosX(targetX, buttonLerpDuration) // Lerp only the X position
                 .SetEase(Ease.InOutQuad)
-                .SetDelay(i * delayBetweenButtons); // Delay each button animation
+                .SetDelay(i * delayBetweenButtons) // Delay each button animation
+                .OnComplete(() =>
+                {
+                    if (currButtonNum == buttons.Count - 1)
+                        areButtonsInAnimation = false; // Allow interactions once last button is done
+                });
+
+            originalPositions[buttons[i]] = new Vector2(targetX, targetY);
         }
     }
 
@@ -90,52 +99,41 @@ public class ButtonAnimator : MonoBehaviour
     {
         RectTransform hoveredRect = hoveredButton.GetComponent<RectTransform>();
 
-        // Move hovered button left & expand
-        hoveredRect.DOAnchorPos(hoveredRect.anchoredPosition + new Vector2(-moveLeftOffset, 0), buttonLerpDuration).SetEase(Ease.OutQuad);
-        hoveredRect.DOScale(Vector3.one * expandFactor, buttonLerpDuration).SetEase(Ease.OutQuad);
+        hoveredRect.DOKill();
 
-        // Move other buttons right
-        foreach (var button in allButtons)
-        {
-            RectTransform rect = button.GetComponent<RectTransform>();
-            if (rect != hoveredRect)
-            {
-                rect.DOAnchorPos(rect.anchoredPosition + new Vector2(moveRightOffset, 0), buttonLerpDuration).SetEase(Ease.OutQuad);
-            }
-        }
+        Vector2 originalPos = originalPositions[hoveredButton]; // Retrieve original position
+        Sequence seq = DOTween.Sequence();
+
+        seq.Append(hoveredRect.DOScale(Vector3.one * expandFactor, buttonLerpDuration).SetEase(Ease.OutQuad));
+        seq.Join(hoveredRect.DOAnchorPos(new Vector2(originalPos.x - moveLeftOffset, originalPos.y), buttonLerpDuration).SetEase(Ease.OutQuad));
+
     }
 
     private void OnButtonExit(Button hoveredButton)
     {
+        
         RectTransform hoveredRect = hoveredButton.GetComponent<RectTransform>();
 
-        // Reset hovered button position & size dynamically
-        hoveredRect.DOAnchorPos(hoveredRect.anchoredPosition + new Vector2(moveLeftOffset, 0), buttonLerpDuration).SetEase(Ease.OutQuad);
-        hoveredRect.DOScale(Vector3.one, buttonLerpDuration).SetEase(Ease.OutQuad);
-
-        // Reset other buttons
-        foreach (var button in allButtons)
+        Vector2 originalPos = originalPositions[hoveredButton]; // Retrieve original position
+        Sequence seq = DOTween.Sequence();
+        seq.Append(hoveredRect.DOScale(Vector3.one, buttonLerpDuration).SetEase(Ease.OutQuad));  // Scale down
+        if (!areButtonsInAnimation)
         {
-            RectTransform rect = button.GetComponent<RectTransform>();
-            if (rect != hoveredRect)
-            {
-                rect.DOAnchorPos(rect.anchoredPosition + new Vector2(-moveRightOffset, 0), buttonLerpDuration).SetEase(Ease.OutQuad);
-            }
+            // Only move button if menu is NOT in open/close animation
+            seq.Join(hoveredRect.DOAnchorPos(originalPos, buttonLerpDuration).SetEase(Ease.OutQuad));
         }
+
     }
 
     private void ResetButtonPositions()
     {
         foreach (var button in allButtons)
         {
-            if (button != null)
+            RectTransform rectTransform = button.GetComponent<RectTransform>();
+            if (rectTransform != null)
             {
-                RectTransform rectTransform = button.GetComponent<RectTransform>();
-                if (rectTransform != null)
-                {
-                    rectTransform.DOKill(); // Stop any ongoing animation
-                    rectTransform.anchoredPosition = new Vector2(500, 0); // Default hidden button location
-                }
+                rectTransform.DOKill(); // Stop any ongoing animation
+                rectTransform.anchoredPosition = new Vector2(500, 0); // Default hidden button location
             }
         }
     }
