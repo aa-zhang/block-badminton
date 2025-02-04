@@ -12,6 +12,7 @@ public class BirdieParticleController : MonoBehaviour
     private float timeSinceServe = 0;
     private bool timerActive = false;
     private bool blackFlashActive = false;
+    private Vector3 blackFlashAngle;
 
 
     // Start is called before the first frame update
@@ -53,6 +54,7 @@ public class BirdieParticleController : MonoBehaviour
             Instantiate(blackFlashHitEffectPrefab, transform.position, Quaternion.identity);
             blackFlashPs.Play();
             blackFlashActive = true;
+            blackFlashAngle = new Vector3(XYToAngle(-birdieRb.velocity.x, birdieRb.velocity.y), 90, 0);
             // start corountine for black lightning
             StartCoroutine(StopBlackFlashParticles());
 
@@ -84,7 +86,7 @@ public class BirdieParticleController : MonoBehaviour
     private void SetBlackFlashParticleAngle()
     {
         // Use negative x value to emit particles opposite to the velocity
-        blackFlashPs.transform.eulerAngles = new Vector3(XYToAngle(-birdieRb.velocity.x, birdieRb.velocity.y), 90, 0);
+        blackFlashPs.transform.rotation = Quaternion.Euler(-blackFlashAngle);
 
     }
 

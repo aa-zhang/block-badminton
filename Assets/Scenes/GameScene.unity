@@ -4354,6 +4354,11 @@ PrefabInstance:
       propertyPath: TrailModule.inheritParticleColor
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3975319129958154048, guid: 7f5a4d67287e9164cab273c0871aabb9,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 4646954190611453874, guid: 7f5a4d67287e9164cab273c0871aabb9,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -4424,6 +4429,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5819306662277807541, guid: 7f5a4d67287e9164cab273c0871aabb9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5819306662277807541, guid: 7f5a4d67287e9164cab273c0871aabb9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5819306662277807541, guid: 7f5a4d67287e9164cab273c0871aabb9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5819306662277807541, guid: 7f5a4d67287e9164cab273c0871aabb9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5819306662277807541, guid: 7f5a4d67287e9164cab273c0871aabb9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6962356067455933032, guid: 7f5a4d67287e9164cab273c0871aabb9,
         type: 3}
       propertyPath: m_Name
@@ -4435,6 +4465,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 13400000, guid: 1a1745d6af01961419912857043b5716,
         type: 2}
+    - target: {fileID: 8762950622111992379, guid: 7f5a4d67287e9164cab273c0871aabb9,
+        type: 3}
+      propertyPath: m_Time
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8762950622111992379, guid: 7f5a4d67287e9164cab273c0871aabb9,
+        type: 3}
+      propertyPath: m_PreviewTimeScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8762950622111992379, guid: 7f5a4d67287e9164cab273c0871aabb9,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].time
@@ -8969,7 +9009,7 @@ MonoBehaviour:
   buttonXDiff: 100
   buttonYDiff: 140
   delayBetweenButtons: 0.1
-  delayAfterSplashScreen: 0.75
+  delayAfterSplashScreen: 0.5
 --- !u!1 &1516693488254894179
 GameObject:
   m_ObjectHideFlags: 0
