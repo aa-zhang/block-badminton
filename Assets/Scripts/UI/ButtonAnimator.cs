@@ -14,9 +14,8 @@ public class ButtonAnimator : MonoBehaviour
     [SerializeField] private float buttonYDiff = 140f; // Y spacing between buttons
     [SerializeField] private float delayBetweenButtons = 0.1f;
     [SerializeField] private float buttonLerpDuration = 0.25f; 
-    [SerializeField] private float moveLeftOffset = 10f; // Hovered button moves left
-    [SerializeField] private float moveRightOffset = 5f; // Other buttons move right
-    [SerializeField] private float expandFactor = 1.1f; // Scale factor for hovered button
+    [SerializeField] private float moveLeftOffset = 10f; // hovered button moves left
+    [SerializeField] private float expandFactor = 1.1f; // hovered button increases in size
 
     [SerializeField] private List<Button> titleButtonList = new List<Button>();
     [SerializeField] private List<Button> gameModeButtonList = new List<Button>();
@@ -33,6 +32,7 @@ public class ButtonAnimator : MonoBehaviour
                                     .Concat(inGameButtonList)
                                     .Concat(settingsButtonList)
                                     .ToList();
+
         foreach (Button button in allButtons)
         {
             EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();
@@ -48,6 +48,7 @@ public class ButtonAnimator : MonoBehaviour
             trigger.triggers.Add(entryExit);
         }
     }
+
 
     public void LoadButtons(MenuType menuType)
     {
@@ -99,13 +100,9 @@ public class ButtonAnimator : MonoBehaviour
     {
         RectTransform hoveredRect = hoveredButton.GetComponent<RectTransform>();
 
-        hoveredRect.DOKill();
-
         Vector2 originalPos = originalPositions[hoveredButton]; // Retrieve original position
-        Sequence seq = DOTween.Sequence();
-
-        seq.Append(hoveredRect.DOScale(Vector3.one * expandFactor, buttonLerpDuration).SetEase(Ease.OutQuad));
-        seq.Join(hoveredRect.DOAnchorPos(new Vector2(originalPos.x - moveLeftOffset, originalPos.y), buttonLerpDuration).SetEase(Ease.OutQuad));
+        hoveredRect.DOScale(Vector3.one * expandFactor, buttonLerpDuration).SetEase(Ease.OutQuad);
+        hoveredRect.DOAnchorPos(new Vector2(originalPos.x - moveLeftOffset, originalPos.y), buttonLerpDuration).SetEase(Ease.OutQuad);
 
     }
 
@@ -115,12 +112,11 @@ public class ButtonAnimator : MonoBehaviour
         RectTransform hoveredRect = hoveredButton.GetComponent<RectTransform>();
 
         Vector2 originalPos = originalPositions[hoveredButton]; // Retrieve original position
-        Sequence seq = DOTween.Sequence();
-        seq.Append(hoveredRect.DOScale(Vector3.one, buttonLerpDuration).SetEase(Ease.OutQuad));  // Scale down
+        hoveredRect.DOScale(Vector3.one, buttonLerpDuration).SetEase(Ease.OutQuad);
         if (!areButtonsInAnimation)
         {
             // Only move button if menu is NOT in open/close animation
-            seq.Join(hoveredRect.DOAnchorPos(originalPos, buttonLerpDuration).SetEase(Ease.OutQuad));
+            hoveredRect.DOAnchorPos(originalPos, buttonLerpDuration).SetEase(Ease.OutQuad);
         }
 
     }
@@ -130,11 +126,9 @@ public class ButtonAnimator : MonoBehaviour
         foreach (var button in allButtons)
         {
             RectTransform rectTransform = button.GetComponent<RectTransform>();
-            if (rectTransform != null)
-            {
-                rectTransform.DOKill(); // Stop any ongoing animation
-                rectTransform.anchoredPosition = new Vector2(500, 0); // Default hidden button location
-            }
+            rectTransform.DOKill();
+            rectTransform.anchoredPosition = new Vector2(500, 0); // Default hidden button location
         }
+
     }
 }
