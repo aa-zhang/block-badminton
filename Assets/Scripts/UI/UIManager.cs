@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
         OfflineGameStateManager.OnWinnerTextChange += OfflineGameStateManager_OnWinnerTextChange;
         OfflineGameStateManager.OnPointChange += OfflineGameStateManager_OnPointChange;
         GameMenu.OnGameStart += GameMenu_OnGameStart;
+        GameMenu.OnReturnToTitleScreen += GameMenu_OnReturnToTitleScreen;
     }
 
     private void OnDisable()
@@ -29,6 +30,7 @@ public class UIManager : MonoBehaviour
         OfflineGameStateManager.OnWinnerTextChange -= OfflineGameStateManager_OnWinnerTextChange;
         OfflineGameStateManager.OnPointChange -= OfflineGameStateManager_OnPointChange;
         GameMenu.OnGameStart -= GameMenu_OnGameStart;
+        GameMenu.OnReturnToTitleScreen -= GameMenu_OnReturnToTitleScreen;
 
     }
 
@@ -42,6 +44,11 @@ public class UIManager : MonoBehaviour
     private void GameMenu_OnGameStart()
     {
         SetElementText(scoreText, "0 - 0");
+    }
+
+    private void GameMenu_OnReturnToTitleScreen()
+    {
+        SetElementText(scoreText, "");
     }
 
     private void OfflineGameStateManager_OnMatchTextChange(string text)
