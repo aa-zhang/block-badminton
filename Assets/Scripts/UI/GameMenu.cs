@@ -32,7 +32,7 @@ public class GameMenu : MonoBehaviour
 
     private ButtonAnimator buttonAnimator;
 
-    private GameState gameState = GameState.TitleScreen;
+    private GameState gameState = GameState.NotPlaying;
 
     private RectTransform menuRect;
 
@@ -90,7 +90,7 @@ public class GameMenu : MonoBehaviour
     {
         OnGameRestart?.Invoke(0);
         OnReturnToTitleScreen?.Invoke();
-        gameState = GameState.TitleScreen;
+        gameState = GameState.NotPlaying;
         ShowMenu(MenuType.TitleScreen);
     }
 
@@ -165,7 +165,7 @@ public class GameMenu : MonoBehaviour
 
     public void ToggleMenu()
     {
-        if (menuState != MenuType.None && gameState != GameState.TitleScreen)
+        if (menuState != MenuType.None && gameState != GameState.NotPlaying)
         {
             HideMenu();
         }

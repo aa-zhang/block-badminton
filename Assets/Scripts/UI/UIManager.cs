@@ -3,34 +3,70 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static System.Net.Mime.MediaTypeNames;
 
 public class UIManager : MonoBehaviour
 {
-    // Relay UI
-    [SerializeField] private Button createRelayButton;
-    [SerializeField] private TextMeshProUGUI roomCodeText;
-    [SerializeField] private Button joinRelayButton;
-    [SerializeField] private TMP_InputField roomCodeInput;
-    [SerializeField] private Button backButton;
-
-
     // Game UI
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI winnerText;
     [SerializeField] private TextMeshProUGUI matchText;
 
 
-    //private void OnEnable()
-    //{
-    //    CreateAndJoinRelay.OnRelayJoined += CreateAndJoinRelay_OnRelayJoined;
-    //    GameStateManager.OnStartMatch += GameStateManager_OnStartMatch;
-    //}
+    private void OnEnable()
+    {
+        OfflineGameStateManager.OnGameStateChange += OfflineGameStateManager_OnGameStateChange;
+        OfflineGameStateManager.OnMatchTextChange += OfflineGameStateManager_OnMatchTextChange;
+        OfflineGameStateManager.OnWinnerTextChange += OfflineGameStateManager_OnWinnerTextChange;
+        OfflineGameStateManager.OnPointChange += OfflineGameStateManager_OnPointChange;
+        GameMenu.OnGameStart += GameMenu_OnGameStart;
+    }
 
-    //private void OnDisable()
-    //{
-    //    CreateAndJoinRelay.OnRelayJoined -= CreateAndJoinRelay_OnRelayJoined;
-    //    GameStateManager.OnStartMatch -= GameStateManager_OnStartMatch;
-    //}
+    private void OnDisable()
+    {
+        OfflineGameStateManager.OnGameStateChange -= OfflineGameStateManager_OnGameStateChange;
+        OfflineGameStateManager.OnMatchTextChange -= OfflineGameStateManager_OnMatchTextChange;
+        OfflineGameStateManager.OnWinnerTextChange -= OfflineGameStateManager_OnWinnerTextChange;
+        OfflineGameStateManager.OnPointChange -= OfflineGameStateManager_OnPointChange;
+        GameMenu.OnGameStart -= GameMenu_OnGameStart;
+
+    }
+
+    private void OfflineGameStateManager_OnGameStateChange(GameState newGameState)
+    {
+        if (newGameState == GameState.Playing)
+        {
+        }
+    }
+
+    private void GameMenu_OnGameStart()
+    {
+        SetElementText(scoreText, "0 - 0");
+    }
+
+    private void OfflineGameStateManager_OnMatchTextChange(string text)
+    {
+        SetElementText(matchText, text);
+
+    }
+
+    private void OfflineGameStateManager_OnWinnerTextChange(string text)
+    {
+        SetElementText(winnerText, text);
+
+    }
+
+    private void OfflineGameStateManager_OnPointChange(int playerOneScore, int playerTwoScore)
+    {
+        SetElementText(scoreText, playerOneScore + " - " + playerTwoScore);
+    }
+
+
+    private void SetElementText(TextMeshProUGUI textElement, string text)
+    {
+        textElement.text = text;
+    }
+
 
     //private void CreateAndJoinRelay_OnRelayJoined(bool isHost, string joinCode)
     //{

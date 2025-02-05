@@ -1,30 +1,34 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-public enum GameState { TitleScreen, Playing, GameOver }
+public enum GameState { NotPlaying, Serving, Playing, GameOver }
 
 public class OfflineGameStateManager : MonoBehaviour
 {
-    // UI elements
-    public GameObject canvas;
-    public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI winnerText;
-    public TextMeshProUGUI matchText;
-
     // Score variables
     private int playerOneScore = 0;
     private int playerTwoScore = 0;
     private int servingPlayerNum = 0;
 
-    private GameState gameState = GameState.TitleScreen;
+    private GameState gameState = GameState.NotPlaying;
 
     [SerializeField] private GameObject birdiePrefab;
 
     // Events
+    public static Action<GameState> OnGameStateChange;
+    public static Action<string> OnMatchTextChange;
+    public static Action<string> OnWinnerTextChange;
+    public static Action<int, int> OnPointChange;
+
+
+
+
     public delegate void BirdieObjectHandler(GameObject birdie, int gameEnvId);
     public static BirdieObjectHandler OnBirdieInitialized;
 
@@ -42,16 +46,12 @@ public class OfflineGameStateManager : MonoBehaviour
         gameEnv = transform.root.GetComponent<GameEnvironmentManager>();
     }
 
-    private void FixedUpdate()
-    {
-        DisplayScore();
-    }
-
     private void OnEnable()
     {
         OfflineBirdieMovement.OnPointScored += BirdieMovement_OnPointScored;
         GameMenu.OnGameStart += GameMenu_OnGameStart;
         GameMenu.OnGameRestart += GameMenu_OnGameRestart;
+        OfflineServeController.OnHitServe += OfflineServeController_OnHitServe;
     }
 
     private void OnDisable()
@@ -59,11 +59,13 @@ public class OfflineGameStateManager : MonoBehaviour
         OfflineBirdieMovement.OnPointScored -= BirdieMovement_OnPointScored;
         GameMenu.OnGameStart -= GameMenu_OnGameStart;
         GameMenu.OnGameRestart -= GameMenu_OnGameRestart;
+        OfflineServeController.OnHitServe -= OfflineServeController_OnHitServe;
     }
 
     private void InitiateGameRpc()
     {
         gameState = GameState.Playing;
+        OnGameStateChange?.Invoke(gameState);
         //OnStartMatch();
     }
 
@@ -82,14 +84,22 @@ public class OfflineGameStateManager : MonoBehaviour
     private void SelectRandomServer()
     {
         // Select random number from {1, 2}
-        servingPlayerNum = Random.Range(1, 3);
+        servingPlayerNum = UnityEngine.Random.Range(1, 3);
         BeginServeRpc();
     }
 
 
     private void BeginServeRpc()
     {
+        gameState = GameState.Serving;
         OnBeginServe(servingPlayerNum, gameEnv.id);
+        OnGameStateChange(gameState);
+    }
+
+    private void OfflineServeController_OnHitServe()
+    {
+        gameState = GameState.Playing;
+        OnGameStateChange?.Invoke(gameState);
     }
 
     private void BirdieMovement_OnPointScored(int scoringPlayerNum)
@@ -103,9 +113,11 @@ public class OfflineGameStateManager : MonoBehaviour
             playerTwoScore++;
         }
 
+        OnPointChange?.Invoke(playerOneScore, playerTwoScore);
+
         servingPlayerNum = scoringPlayerNum;
 
-        CheckScore(); // changes game state if game has ended
+        CheckScore(); // check if game has ended
 
         if (gameState == GameState.Playing && !gameEnv.isTraining)
         {
@@ -124,53 +136,32 @@ public class OfflineGameStateManager : MonoBehaviour
         {
             if (winningPlayerScore == losingPlayerScore)
             {
-                SetMatchTextRpc("Deuce");
+                OnMatchTextChange?.Invoke("Deuce");
             }
             else
             {
-                SetMatchTextRpc("Match Point");
+                OnMatchTextChange?.Invoke("Match Point");
             }
         }
 
         // Check if a player has won
         if ((winningPlayerScore >= Constants.WINNING_SCORE && winningPlayerScore - losingPlayerScore >= 2) || winningPlayerScore == Constants.MAX_SCORE)
         {
-            SetMatchTextRpc("Match Over!");
+            OnMatchTextChange?.Invoke("Match Over!");
             gameState = GameState.GameOver;
+            OnGameStateChange?.Invoke(gameState);
 
             if (playerOneScore >= Constants.WINNING_SCORE)
             {
-                SetWinnerTextRpc("Player 1 wins!");
-                //ShowMenuRpc(true);
+                OnWinnerTextChange?.Invoke("Player 1 wins!");
             }
             else if (playerTwoScore >= Constants.WINNING_SCORE)
             {
-                SetWinnerTextRpc("Player 2 wins!");
-                //ShowMenuRpc(true);
+                OnWinnerTextChange?.Invoke("Player 2 wins!");
             }
         }
     }
-
-    //private void ShowMenuRpc(bool show)
-    //{
-    //    GameMenu.Instance.ShowMenu(show);
-    //}
-
-    private void SetMatchTextRpc(string text)
-    {
-        matchText.text = text;
-
-    }
-
-    private void SetWinnerTextRpc(string text)
-    {
-        winnerText.text = text;
-    }
-
-    private void DisplayScore()
-    {
-        scoreText.text = playerOneScore + " - " + playerTwoScore;
-    }
+    
 
     private void GameMenu_OnGameRestart(int gameEnvId)
     {
@@ -188,10 +179,9 @@ public class OfflineGameStateManager : MonoBehaviour
 
     private void RestartGameRpc()
     {
-        // Hide menu and other UI
-        //ShowMenuRpc(false);
-        SetMatchTextRpc("");
-        SetWinnerTextRpc("");
+        OnMatchTextChange?.Invoke("");
+        OnWinnerTextChange?.Invoke("");
+        OnPointChange?.Invoke(0, 0);
 
         // Reset score values
         playerOneScore = 0;
