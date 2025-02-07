@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour
     {
         OfflineGameStateManager.OnGameStateChange += OfflineGameStateManager_OnGameStateChange;
         OfflineGameStateManager.OnMatchTextChange += OfflineGameStateManager_OnMatchTextChange;
-        OfflineGameStateManager.OnWinnerTextChange += OfflineGameStateManager_OnWinnerTextChange;
+        OfflineGameStateManager.OnWinnerDetermined += OfflineGameStateManager_OnWinnerDetermined;
         OfflineGameStateManager.OnPointChange += OfflineGameStateManager_OnPointChange;
         GameMenu.OnGameStart += GameMenu_OnGameStart;
         GameMenu.OnReturnToTitleScreen += GameMenu_OnReturnToTitleScreen;
@@ -27,7 +27,7 @@ public class UIManager : MonoBehaviour
     {
         OfflineGameStateManager.OnGameStateChange -= OfflineGameStateManager_OnGameStateChange;
         OfflineGameStateManager.OnMatchTextChange -= OfflineGameStateManager_OnMatchTextChange;
-        OfflineGameStateManager.OnWinnerTextChange -= OfflineGameStateManager_OnWinnerTextChange;
+        OfflineGameStateManager.OnWinnerDetermined -= OfflineGameStateManager_OnWinnerDetermined;
         OfflineGameStateManager.OnPointChange -= OfflineGameStateManager_OnPointChange;
         GameMenu.OnGameStart -= GameMenu_OnGameStart;
         GameMenu.OnReturnToTitleScreen -= GameMenu_OnReturnToTitleScreen;
@@ -57,9 +57,16 @@ public class UIManager : MonoBehaviour
 
     }
 
-    private void OfflineGameStateManager_OnWinnerTextChange(string text)
+    private void OfflineGameStateManager_OnWinnerDetermined(int playerNum)
     {
-        SetElementText(winnerText, text);
+        if (playerNum == 0)
+        {
+            SetElementText(winnerText, "");
+        }
+        else
+        {
+            SetElementText(winnerText, "Player " + playerNum.ToString() + " wins!");
+        }
 
     }
 

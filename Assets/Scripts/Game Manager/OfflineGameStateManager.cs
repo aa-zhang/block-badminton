@@ -23,7 +23,7 @@ public class OfflineGameStateManager : MonoBehaviour
     // Events
     public static Action<GameState> OnGameStateChange;
     public static Action<string> OnMatchTextChange;
-    public static Action<string> OnWinnerTextChange;
+    public static Action<int> OnWinnerDetermined;
     public static Action<int, int> OnPointChange;
 
 
@@ -44,6 +44,7 @@ public class OfflineGameStateManager : MonoBehaviour
     void Start()
     {
         gameEnv = transform.root.GetComponent<GameEnvironmentManager>();
+        OnBirdieInitialized?.Invoke(birdiePrefab, gameEnv.id);
     }
 
     private void OnEnable()
@@ -68,18 +69,6 @@ public class OfflineGameStateManager : MonoBehaviour
         OnGameStateChange?.Invoke(gameState);
         //OnStartMatch();
     }
-
-    private void SpawnBirdie()
-    {
-        // Initialize birdie for clients
-        OnBirdieInitialized?.Invoke(birdiePrefab, gameEnv.id);
-
-        if (!gameEnv.isTraining)
-        {
-            SelectRandomServer();
-        }
-    }
-
 
     private void SelectRandomServer()
     {
@@ -153,11 +142,11 @@ public class OfflineGameStateManager : MonoBehaviour
 
             if (playerOneScore >= Constants.WINNING_SCORE)
             {
-                OnWinnerTextChange?.Invoke("Player 1 wins!");
+                OnWinnerDetermined?.Invoke(1);
             }
             else if (playerTwoScore >= Constants.WINNING_SCORE)
             {
-                OnWinnerTextChange?.Invoke("Player 2 wins!");
+                OnWinnerDetermined?.Invoke(2);
             }
         }
     }
@@ -173,14 +162,13 @@ public class OfflineGameStateManager : MonoBehaviour
 
     private void GameMenu_OnGameStart()
     {
-        SpawnBirdie();
         RestartGameRpc();
     }
 
     private void RestartGameRpc()
     {
         OnMatchTextChange?.Invoke("");
-        OnWinnerTextChange?.Invoke("");
+        OnWinnerDetermined?.Invoke(0);
         OnPointChange?.Invoke(0, 0);
 
         // Reset score values

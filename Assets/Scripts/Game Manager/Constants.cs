@@ -13,7 +13,7 @@ public static class Constants
     // Birdie serving position constants
     public static readonly Vector3 SERVING_OFFSET_PLAYER_ONE = new Vector3(1, -0.25f, 0);
     public static readonly Vector3 SERVING_OFFSET_PLAYER_TWO = new Vector3(-1, -0.25f, 0);
-    public static readonly Vector3 BIRDIE_DEFAULT_POSITION = new Vector3(0, 3.25f, 0);
+    public static readonly Vector3 BIRDIE_DEFAULT_POSITION = new Vector3(0, 6f, 0);
 
     // Serve arrow angle constants
     public static readonly Vector3 SERVE_ANGLE_HIGH = new Vector3(0, 0, 45);
