@@ -82,7 +82,7 @@ public class OfflineGameStateManager : MonoBehaviour
     {
         gameState = GameState.Serving;
         OnBeginServe(servingPlayerNum, gameEnv.id);
-        OnGameStateChange(gameState);
+        OnGameStateChange?.Invoke(gameState);
     }
 
     private void OfflineServeController_OnHitServe()
@@ -165,7 +165,7 @@ public class OfflineGameStateManager : MonoBehaviour
         RestartGameRpc();
     }
 
-    private void RestartGameRpc()
+    public void RestartGameRpc()
     {
         OnMatchTextChange?.Invoke("");
         OnWinnerDetermined?.Invoke(0);

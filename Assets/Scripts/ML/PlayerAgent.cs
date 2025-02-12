@@ -38,13 +38,15 @@ public class PlayerAgent : Agent
     {
         if (playerManager.playerNum == 1)
         {
-            GameMenu.Instance.ResetGameValues(gameEnv.id);
+            Debug.Log(gameEnv.id);
+            offlineGameStateManager.RestartGameRpc();
         }
     }
 
 
     public override void CollectObservations(VectorSensor sensor)
     {
+        Debug.Log("collecting observations");
         sensor.AddObservation(transform.localPosition);
         sensor.AddObservation(opponent.transform.localPosition);
 
