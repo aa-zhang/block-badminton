@@ -22,7 +22,6 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    private bool isGrounded = true;
     private bool canSwing = true;
     private bool canFastFall = false;
     private bool isFastFalling = false;
@@ -51,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void ApplyGravity()
     {
-        if (!isGrounded)
+        if (!IsGrounded())
         {
             playerRb.AddForce(new Vector3(0, Constants.GRAVITY * playerRb.mass, 0));
         }
@@ -91,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
     private void DetectJumpApex()
     {
         // Detect the apex of the jump
-        if (!isGrounded && playerRb.velocity.y <= 0 && !failedFastFalling)
+        if (!IsGrounded() && playerRb.velocity.y <= 0 && !failedFastFalling)
         {
             canFastFall = true;
             fastFallTimer = 0.0f;
@@ -147,10 +146,9 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
-        if (isGrounded && !serveController.isServing)
+        if (IsGrounded() && !serveController.isServing)
         {
             playerRb.velocity = new Vector3(playerRb.velocity.x, jumpHeight, 0f);
-            isGrounded = false;
         }
     }
 
@@ -243,6 +241,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private bool IsGrounded()
+    {
+        return (playerTransform.localPosition.y <= Constants.GROUND_Y_POS);
+    }
+
     public void SetCanSwing(bool canSwing)
     {
         this.canSwing = canSwing;
@@ -250,7 +253,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void ResetJumpVariables()
     {
-        isGrounded = true;
         canFastFall = false;
         isFastFalling = false;
     }

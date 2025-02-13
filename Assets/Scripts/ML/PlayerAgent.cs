@@ -84,6 +84,7 @@ public class PlayerAgent : Agent
         if (jumpAction == 0)
         {
             playerMovement.Jump();
+            AddReward(-0.01f);
         }
         else
         {
