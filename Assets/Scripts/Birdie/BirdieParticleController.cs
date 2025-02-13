@@ -13,12 +13,15 @@ public class BirdieParticleController : MonoBehaviour
     private bool timerActive = false;
     private bool blackFlashActive = false;
     private Vector3 blackFlashAngle;
+    private GameEnvironmentManager gameEnv;
 
 
     // Start is called before the first frame update
     void Start()
     {
         birdieRb = GetComponentInParent<Rigidbody>();
+        gameEnv = transform.root.GetComponent<GameEnvironmentManager>();
+
     }
 
     // Update is called once per frame
@@ -49,6 +52,11 @@ public class BirdieParticleController : MonoBehaviour
 
     private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum, int trainingEnvId)
     {
+        if (gameEnv.isTraining && gameEnv.id != trainingEnvId)
+        {
+            return;
+        }
+
         if (DetectBlackFlash(forceVector))
         {
             Instantiate(blackFlashHitEffectPrefab, transform.position, Quaternion.identity);

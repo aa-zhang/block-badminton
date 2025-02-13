@@ -46,7 +46,6 @@ public class PlayerAgent : Agent
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        Debug.Log("collecting observations");
         sensor.AddObservation(transform.localPosition);
         sensor.AddObservation(opponent.transform.localPosition);
 
