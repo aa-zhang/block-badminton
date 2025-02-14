@@ -17,6 +17,7 @@ public class OfflineGameStateManager : MonoBehaviour
     private int servingPlayerNum = 0;
 
     private GameState gameState = GameState.NotPlaying;
+    private PlayMode playMode;
 
     [SerializeField] private GameObject birdiePrefab;
 
@@ -68,6 +69,13 @@ public class OfflineGameStateManager : MonoBehaviour
     {
         // Select random number from {1, 2}
         servingPlayerNum = UnityEngine.Random.Range(1, 3);
+        BeginServeRpc();
+    }
+
+    private void SelectServer(int playerNum)
+    {
+        // Server is player 1 or 2
+        servingPlayerNum = playerNum;
         BeginServeRpc();
     }
 
@@ -154,8 +162,9 @@ public class OfflineGameStateManager : MonoBehaviour
         }
     }
 
-    private void GameMenu_OnGameStart()
+    private void GameMenu_OnGameStart(PlayMode playMode)
     {
+        this.playMode = playMode;
         RestartGameRpc();
     }
 
@@ -170,6 +179,14 @@ public class OfflineGameStateManager : MonoBehaviour
         playerTwoScore = 0;
 
         InitiateGameRpc();
-        SelectRandomServer();
+        if (playMode == PlayMode.Human)
+        {
+            SelectRandomServer();
+        }
+        else if (playMode == PlayMode.AI)
+        {
+            // Always let player serve first against AI
+            SelectServer(1);
+        }
     }
 }

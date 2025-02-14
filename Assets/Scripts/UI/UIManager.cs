@@ -41,7 +41,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void GameMenu_OnGameStart()
+    private void GameMenu_OnGameStart(PlayMode playMode)
     {
         SetElementText(scoreText, "0 - 0");
     }

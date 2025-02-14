@@ -7,6 +7,8 @@ using UnityEngine.Rendering;
 using DG.Tweening;
 
 public enum MenuType { TitleScreen, GameModeSelection, InGame, Settings, None }
+public enum PlayMode { Human, AI }
+
 
 
 public class GameMenu : MonoBehaviour
@@ -14,7 +16,8 @@ public class GameMenu : MonoBehaviour
     private static GameMenu instance;
     public static GameMenu Instance { get { return instance; } }
 
-    public static Action OnGameStart;
+    public static Action<PlayMode> OnGameStart;
+
     public static Action<int> OnGameRestart;
     public static Action OnReturnToTitleScreen;
 
@@ -71,14 +74,16 @@ public class GameMenu : MonoBehaviour
 
     public void PlayOfflineGame()
     {
-        OnGameStart?.Invoke();
+        OnGameStart?.Invoke(PlayMode.Human);
         gameState = GameState.Playing;
         ToggleMenu();
     }
 
     public void PlayAIGame()
     {
-        SceneManager.LoadScene(2);
+        OnGameStart?.Invoke(PlayMode.AI);
+        gameState = GameState.Playing;
+        ToggleMenu();
     }
 
     public void PlayOnlineGame()

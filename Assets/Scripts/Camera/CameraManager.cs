@@ -21,7 +21,7 @@ public class CameraManager : MonoBehaviour
         GameMenu.OnReturnToTitleScreen -= GameMenu_OnReturnToTitleScreen;
     }
 
-    private void GameMenu_OnGameStart()
+    private void GameMenu_OnGameStart(PlayMode playMode)
     {
         SwitchToGameCamera();
     }
