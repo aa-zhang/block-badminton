@@ -27,11 +27,6 @@ public class OfflineGameStateManager : MonoBehaviour
     public static Action<int, int> OnPointChange;
 
 
-
-
-    public delegate void BirdieObjectHandler(GameObject birdie, int gameEnvId);
-    public static BirdieObjectHandler OnBirdieInitialized;
-
     public delegate void StartMatchHandler();
     public static StartMatchHandler OnStartMatch;
 
@@ -44,7 +39,6 @@ public class OfflineGameStateManager : MonoBehaviour
     void Start()
     {
         gameEnv = transform.root.GetComponent<GameEnvironmentManager>();
-        OnBirdieInitialized?.Invoke(birdiePrefab, gameEnv.id);
     }
 
     private void OnEnable()

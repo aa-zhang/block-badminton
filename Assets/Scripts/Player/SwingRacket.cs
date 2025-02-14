@@ -12,6 +12,7 @@ public class SwingRacket : MonoBehaviour
 {
     private Transform racketTransform;
     private Transform birdieTransform;
+    private GameObject birdie;
     private Rigidbody birdieRb;
     private BirdieParticleController birdiePsController;
 
@@ -52,6 +53,13 @@ public class SwingRacket : MonoBehaviour
         gameEnv = transform.root.GetComponent<GameEnvironmentManager>();
     }
 
+    void Start()
+    {
+        birdie = transform.root.GetComponentInChildren<OfflineBirdieMovement>()?.gameObject;
+        birdieTransform = birdie.transform;
+        birdieRb = birdie.GetComponent<Rigidbody>();
+    }
+
     private void FixedUpdate()
     {
         if (inForwardSwingAnimation || inBackwardSwingAnimation)
@@ -59,35 +67,6 @@ public class SwingRacket : MonoBehaviour
             PerformSwingAnimation();
         }
     }
-
-    private void OnEnable()
-    {
-        OfflineGameStateManager.OnBirdieInitialized += OfflineGameStateManager_OnBirdieInitialized;
-
-    }
-
-    private void OnDisable()
-    {
-        OfflineGameStateManager.OnBirdieInitialized += OfflineGameStateManager_OnBirdieInitialized;
-
-    }
-
-    private void GameStateManager_OnBirdieInitialized(GameObject birdie)
-    {
-        birdieTransform = birdie.transform;
-        birdieRb = birdie.GetComponent<Rigidbody>();
-    }
-
-    private void OfflineGameStateManager_OnBirdieInitialized(GameObject birdie, int gameEnvId)
-    {
-        if (gameEnv.id != gameEnvId)
-        {
-            return;
-        }
-        birdieTransform = birdie.transform;
-        birdieRb = birdie.GetComponent<Rigidbody>();
-    }
-
 
     public void Swing(SwingType swingType)
     {

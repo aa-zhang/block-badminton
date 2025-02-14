@@ -12,6 +12,7 @@ public class OfflineServeController : MonoBehaviour, IServing
     private Rigidbody playerRb;
     private PlayerMovement playerMovement;
 
+    private GameObject birdie;
     private Transform birdieTransform;
     private OfflineBirdieMovement birdieMovement;
     private TrailRenderer birdieTrailRenderer;
@@ -38,6 +39,14 @@ public class OfflineServeController : MonoBehaviour, IServing
 
     }
 
+    void Start()
+    {
+        birdie = transform.root.GetComponentInChildren<OfflineBirdieMovement>()?.gameObject;
+        birdieTransform = birdie.transform;
+        birdieMovement = birdie.GetComponent<OfflineBirdieMovement>();
+        birdieTrailRenderer = birdie.GetComponent<TrailRenderer>();
+    }
+
     private void FixedUpdate()
     {
         if (isServing)
@@ -48,7 +57,6 @@ public class OfflineServeController : MonoBehaviour, IServing
 
     private void OnEnable()
     {
-        OfflineGameStateManager.OnBirdieInitialized += GameStateManager_OnBirdieInitialized;
         OfflineGameStateManager.OnBeginServe += GameStateManager_OnBeginServe;
         HitBirdie.OnBirdieHit += HitBirdie_OnBirdieHit;
         GameMenu.OnGameRestart += GameMenu_OnGameRestart;
@@ -56,7 +64,6 @@ public class OfflineServeController : MonoBehaviour, IServing
 
     private void OnDisable()
     {
-        OfflineGameStateManager.OnBirdieInitialized -= GameStateManager_OnBirdieInitialized;
         OfflineGameStateManager.OnBeginServe -= GameStateManager_OnBeginServe;
         HitBirdie.OnBirdieHit -= HitBirdie_OnBirdieHit;
         GameMenu.OnGameRestart -= GameMenu_OnGameRestart;
@@ -71,18 +78,6 @@ public class OfflineServeController : MonoBehaviour, IServing
 
         // Hide trail
         birdieTrailRenderer.Clear();
-    }
-
-    private void GameStateManager_OnBirdieInitialized(GameObject birdie, int gameEnvId)
-    {
-        if (gameEnv.isTraining && gameEnv.id != gameEnvId)
-        {
-            return;
-        }
-        // Attach spawned birdie to this script
-        birdieTransform = birdie.transform;
-        birdieMovement = birdie.GetComponent<OfflineBirdieMovement>();
-        birdieTrailRenderer = birdie.GetComponent<TrailRenderer>();
     }
 
     private void GameStateManager_OnBeginServe(int playerNum, int gameEnvId)
