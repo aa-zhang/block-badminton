@@ -15,6 +15,12 @@ public class BirdieParticleController : MonoBehaviour
     private Vector3 blackFlashAngle;
     private GameEnvironmentManager gameEnv;
 
+    void Awake()
+    {
+        // Trigger effects on start, since there is lag on first use of particle effect
+        TriggerEffects();
+
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +41,23 @@ public class BirdieParticleController : MonoBehaviour
         {
             SetBlackFlashParticleAngle();
         }
+    }
+
+    private IEnumerator EnableCameraShakeAfterDelay()
+    {
+        yield return new WaitForSeconds(1);
+        CartoonFX.CFXR_Effect.GlobalDisableCameraShake = false;
+    }
+
+    void TriggerEffects()
+    {
+        // Trigger black flash effect
+        CartoonFX.CFXR_Effect.GlobalDisableCameraShake = true;
+        Instantiate(blackFlashHitEffectPrefab, transform.position, Quaternion.identity);
+        StartCoroutine(EnableCameraShakeAfterDelay());
+        // Trigger normal hit effect
+        Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
+
     }
 
     private void OnEnable()
