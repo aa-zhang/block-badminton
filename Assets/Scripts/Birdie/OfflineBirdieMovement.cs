@@ -41,11 +41,13 @@ public class OfflineBirdieMovement : MonoBehaviour
     private void OnEnable()
     {
         HitBirdie.OnBirdieHit += HitBirdie_OnBirdieHit;
+        OfflineGameStateManager.OnBeginServe += OfflineGameStateManager_OnBeginServe;
     }
 
     private void OnDisable()
     {
         HitBirdie.OnBirdieHit -= HitBirdie_OnBirdieHit;
+        OfflineGameStateManager.OnBeginServe -= OfflineGameStateManager_OnBeginServe;
     }
 
     public void SetBirdieGravityRpc(bool enableGravity)
@@ -56,6 +58,17 @@ public class OfflineBirdieMovement : MonoBehaviour
     private void ApplyGravity()
     {
         birdieRb.AddForce(new Vector3(0, Constants.GRAVITY * birdieRb.mass, 0));
+    }
+
+    private void OfflineGameStateManager_OnBeginServe(int servingPlayerNum, int gameEnv)
+    {
+        if (this.gameEnv.id != gameEnv)
+        {
+            return;
+        }
+        SetBirdieGravityRpc(false);
+        SetBirdieCollisionRpc(true);
+        ResetVelocities();
     }
 
     private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum, int gameEnvId)

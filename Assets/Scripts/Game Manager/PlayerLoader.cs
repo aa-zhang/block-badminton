@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,21 +9,24 @@ public class PlayerLoader : MonoBehaviour
     [SerializeField] private GameObject playerTwo;
     [SerializeField] private GameObject aiPlayerOne;
     [SerializeField] private GameObject aiPlayerTwo;
-    // Start is called before the first frame update
+
+    public static Action<PlayMode> OnPlayersLoaded;
+
     
     private void OnEnable()
     {
-        GameModeManager.OnGameStart += GameModeManager_OnGameStart;
+        GameModeManager.OnGameStartRequested += GameModeManager_OnGameStartRequested;
     }
 
     private void OnDisable()
     {
-        GameModeManager.OnGameStart -= GameModeManager_OnGameStart;
+        GameModeManager.OnGameStartRequested -= GameModeManager_OnGameStartRequested;
     }
 
-    private void GameModeManager_OnGameStart(PlayMode playMode)
+    private void GameModeManager_OnGameStartRequested(PlayMode playMode)
     {
         playerTwo.SetActive(playMode == PlayMode.Human);
         aiPlayerTwo.SetActive(playMode == PlayMode.AI);
+        OnPlayersLoaded?.Invoke(playMode);
     }
 }

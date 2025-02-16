@@ -45,24 +45,15 @@ public class OfflineGameStateManager : MonoBehaviour
     private void OnEnable()
     {
         OfflineBirdieMovement.OnPointScored += BirdieMovement_OnPointScored;
-        GameModeManager.OnGameStart += GameModeManager_OnGameStart;
-        GameMenu.OnGameRestart += GameMenu_OnGameRestart;
+        PlayerLoader.OnPlayersLoaded += PlayerLoader_OnPlayersLoaded;
         OfflineServeController.OnHitServe += OfflineServeController_OnHitServe;
     }
 
     private void OnDisable()
     {
         OfflineBirdieMovement.OnPointScored -= BirdieMovement_OnPointScored;
-        GameModeManager.OnGameStart -= GameModeManager_OnGameStart;
-        GameMenu.OnGameRestart -= GameMenu_OnGameRestart;
+        PlayerLoader.OnPlayersLoaded -= PlayerLoader_OnPlayersLoaded;
         OfflineServeController.OnHitServe -= OfflineServeController_OnHitServe;
-    }
-
-    private void InitiateGameRpc()
-    {
-        gameState = GameState.Playing;
-        OnGameStateChange?.Invoke(gameState);
-        //OnStartMatch();
     }
 
     private void SelectRandomServer()
@@ -152,17 +143,8 @@ public class OfflineGameStateManager : MonoBehaviour
             }
         }
     }
-    
 
-    private void GameMenu_OnGameRestart(int gameEnvId)
-    {
-        if (gameEnv.id == gameEnvId)
-        {
-            RestartGameRpc();
-        }
-    }
-
-    private void GameModeManager_OnGameStart(PlayMode playMode)
+    private void PlayerLoader_OnPlayersLoaded(PlayMode playMode)
     {
         this.playMode = playMode;
         RestartGameRpc();
@@ -178,7 +160,6 @@ public class OfflineGameStateManager : MonoBehaviour
         playerOneScore = 0;
         playerTwoScore = 0;
 
-        InitiateGameRpc();
         if (playMode == PlayMode.Human)
         {
             SelectRandomServer();

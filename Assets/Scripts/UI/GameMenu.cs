@@ -16,7 +16,6 @@ public class GameMenu : MonoBehaviour
     public static GameMenu Instance { get { return instance; } }
 
 
-    public static Action<int> OnGameRestart;
     public static Action OnReturnToTitleScreen;
 
     public MenuType menuState = MenuType.TitleScreen;
@@ -35,6 +34,7 @@ public class GameMenu : MonoBehaviour
 
     private GameState gameState = GameState.NotPlaying;
     private int currentQualityLevel;
+    
 
 
     private RectTransform menuRect;
@@ -91,7 +91,6 @@ public class GameMenu : MonoBehaviour
 
     public void ReturnToStartScreen()
     {
-        OnGameRestart?.Invoke(0);
         OnReturnToTitleScreen?.Invoke();
         gameState = GameState.NotPlaying;
         ShowMenu(MenuType.TitleScreen);
@@ -102,12 +101,7 @@ public class GameMenu : MonoBehaviour
         Application.Quit();
     }
 
-    public void ResetGameValues(int trainingEnvId)
-    {
-        OnGameRestart?.Invoke(trainingEnvId);
-        ToggleMenu();
-    }
-
+    
     public void SetMenuOptions(MenuType menuType)
     {
         // Toggle UI elements based on the selected menu
@@ -128,7 +122,7 @@ public class GameMenu : MonoBehaviour
         // This method is called when the Back button is pressed
         MenuType previousMenu;
 
-        if (gameState == GameState.Playing || gameState == GameState.GameOver)
+        if (gameState == GameState.Playing || gameState == GameState.Serving || gameState == GameState.GameOver)
         {
             previousMenu = MenuType.InGame;
         }
@@ -165,7 +159,6 @@ public class GameMenu : MonoBehaviour
 
     public void ToggleMenu()
     {
-        Debug.Log(gameState);
         if (menuState != MenuType.None && gameState != GameState.NotPlaying)
         {
             HideMenu();

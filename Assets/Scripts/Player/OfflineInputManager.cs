@@ -107,7 +107,6 @@ public class OfflineInputManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && playerManager.playerNum == 1)
         {
             //playerControlsEnabled = enabled;
-            Debug.Log("toggle menu");
             GameMenu.Instance.ToggleMenu();
         }
     }

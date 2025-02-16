@@ -33,13 +33,13 @@ public class StaminaManager : MonoBehaviour
     private void OnEnable()
     {
         OfflineGameStateManager.OnBeginServe += GameStateManager_OnBeginServe;
-        GameMenu.OnGameRestart += GameMenu_OnGameRestart;
+        PlayerLoader.OnPlayersLoaded += PlayerLoader_OnPlayersLoaded;
     }
 
     private void OnDisable()
     {
         OfflineGameStateManager.OnBeginServe -= GameStateManager_OnBeginServe;
-        GameMenu.OnGameRestart -= GameMenu_OnGameRestart;
+        PlayerLoader.OnPlayersLoaded -= PlayerLoader_OnPlayersLoaded;
     }
 
     private void RegenerateStamina()
@@ -64,12 +64,8 @@ public class StaminaManager : MonoBehaviour
         ResetStamina();
     }
 
-    private void GameMenu_OnGameRestart(int gameEnvId)
+    private void PlayerLoader_OnPlayersLoaded(PlayMode playMode)
     {
-        if (gameEnv.isTraining && gameEnv.id != gameEnvId)
-        {
-            return;
-        }
         ResetStamina();
     }
 

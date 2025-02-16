@@ -2140,10 +2140,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1497158573091819786}
-        m_TargetAssemblyTypeName: GameMenu, Assembly-CSharp
-        m_MethodName: ResetGameValues
-        m_Mode: 3
+      - m_Target: {fileID: 6327896296813967829}
+        m_TargetAssemblyTypeName: GameModeManager, Assembly-CSharp
+        m_MethodName: RestartGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4585,6 +4585,11 @@ PrefabInstance:
       propertyPath: offlineGameStateManager
       value: 
       objectReference: {fileID: 2120568436}
+    - target: {fileID: 6139436698866874962, guid: c63b11fc75ad89e4b8513b90d6e6dc40,
+        type: 3}
+      propertyPath: m_Name
+      value: Serving Arrow
+      objectReference: {fileID: 0}
     - target: {fileID: 6161929481759349729, guid: c63b11fc75ad89e4b8513b90d6e6dc40,
         type: 3}
       propertyPath: m_Name

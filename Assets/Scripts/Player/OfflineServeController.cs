@@ -59,14 +59,14 @@ public class OfflineServeController : MonoBehaviour, IServing
     {
         OfflineGameStateManager.OnBeginServe += GameStateManager_OnBeginServe;
         HitBirdie.OnBirdieHit += HitBirdie_OnBirdieHit;
-        GameMenu.OnGameRestart += GameMenu_OnGameRestart;
+        GameMenu.OnReturnToTitleScreen += GameMenu_OnReturnToTitleScreen;
     }
 
     private void OnDisable()
     {
         OfflineGameStateManager.OnBeginServe -= GameStateManager_OnBeginServe;
         HitBirdie.OnBirdieHit -= HitBirdie_OnBirdieHit;
-        GameMenu.OnGameRestart -= GameMenu_OnGameRestart;
+        GameMenu.OnReturnToTitleScreen += GameMenu_OnReturnToTitleScreen;
     }
 
     private void HoldBirdieRpc()
@@ -93,10 +93,6 @@ public class OfflineServeController : MonoBehaviour, IServing
             isServing = true;
             isOpponentServing = false;
             serveArrow.SetActive(true);
-
-            birdieMovement.SetBirdieGravityRpc(false);
-            birdieMovement.SetBirdieCollisionRpc(true);
-            birdieMovement.ResetVelocities();
         }
         else
         {
@@ -146,12 +142,8 @@ public class OfflineServeController : MonoBehaviour, IServing
 
     }
 
-    private void GameMenu_OnGameRestart(int gameEnvId)
+    private void GameMenu_OnReturnToTitleScreen()
     {
-        if (gameEnv.isTraining && gameEnv.id != gameEnvId)
-        {
-            return;
-        }
         ResetPlayerPosition();
     }
 

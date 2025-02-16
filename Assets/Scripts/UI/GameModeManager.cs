@@ -8,17 +8,20 @@ public enum PlayMode { Human, AI }
 
 public class GameModeManager : MonoBehaviour
 {
-    public static Action<PlayMode> OnGameStart;
+    public static Action<PlayMode> OnGameStartRequested;
+    private PlayMode playMode;
 
     public void PlayOfflineGame()
     {
-        OnGameStart?.Invoke(PlayMode.Human);
+        OnGameStartRequested?.Invoke(PlayMode.Human);
+        playMode = PlayMode.Human;
         GameMenu.Instance.ToggleMenu();
     }
 
     public void PlayAIGame()
     {
-        OnGameStart?.Invoke(PlayMode.AI);
+        OnGameStartRequested?.Invoke(PlayMode.AI);
+        playMode = PlayMode.AI;
         GameMenu.Instance.ToggleMenu();
     }
 
@@ -26,4 +29,9 @@ public class GameModeManager : MonoBehaviour
     {
     }
 
+    public void RestartGame()
+    {
+        OnGameStartRequested?.Invoke(playMode);
+        GameMenu.Instance.ToggleMenu();
+    }
 }
