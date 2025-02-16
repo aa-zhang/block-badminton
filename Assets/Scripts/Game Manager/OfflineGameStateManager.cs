@@ -47,6 +47,7 @@ public class OfflineGameStateManager : MonoBehaviour
         OfflineBirdieMovement.OnPointScored += BirdieMovement_OnPointScored;
         PlayerLoader.OnPlayersLoaded += PlayerLoader_OnPlayersLoaded;
         OfflineServeController.OnHitServe += OfflineServeController_OnHitServe;
+        GameMenu.OnReturnToTitleScreen += GameMenu_OnReturnToTitleScreen;
     }
 
     private void OnDisable()
@@ -54,6 +55,7 @@ public class OfflineGameStateManager : MonoBehaviour
         OfflineBirdieMovement.OnPointScored -= BirdieMovement_OnPointScored;
         PlayerLoader.OnPlayersLoaded -= PlayerLoader_OnPlayersLoaded;
         OfflineServeController.OnHitServe -= OfflineServeController_OnHitServe;
+        GameMenu.OnReturnToTitleScreen -= GameMenu_OnReturnToTitleScreen;
     }
 
     private void SelectRandomServer()
@@ -150,7 +152,13 @@ public class OfflineGameStateManager : MonoBehaviour
         RestartGameRpc();
     }
 
-    public void RestartGameRpc()
+    private void GameMenu_OnReturnToTitleScreen()
+    {
+        gameState = GameState.NotPlaying;
+        OnGameStateChange?.Invoke(gameState);
+    }
+
+    private void ResetGameValues()
     {
         OnMatchTextChange?.Invoke("");
         OnWinnerDetermined?.Invoke(0);
@@ -159,6 +167,12 @@ public class OfflineGameStateManager : MonoBehaviour
         // Reset score values
         playerOneScore = 0;
         playerTwoScore = 0;
+
+    }
+
+    public void RestartGameRpc()
+    {
+        ResetGameValues();
 
         if (playMode == PlayMode.Human)
         {

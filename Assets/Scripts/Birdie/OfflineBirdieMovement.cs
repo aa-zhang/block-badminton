@@ -20,14 +20,17 @@ public class OfflineBirdieMovement : MonoBehaviour
     [SerializeField] private GameObject agent2;
 
     private GameEnvironmentManager gameEnv;
+    private BirdieParticleController birdiePsController;
+
 
     // Start is called before the first frame update
     void Awake()
     {
-        birdieRb = gameObject.GetComponent<Rigidbody>();
+        birdieRb = GetComponent<Rigidbody>();
         birdieTransform = gameObject.transform;
 
         gameEnv = transform.root.GetComponent<GameEnvironmentManager>();
+        birdiePsController = GetComponent<BirdieParticleController>();
     }
 
     private void FixedUpdate()
@@ -42,12 +45,14 @@ public class OfflineBirdieMovement : MonoBehaviour
     {
         HitBirdie.OnBirdieHit += HitBirdie_OnBirdieHit;
         OfflineGameStateManager.OnBeginServe += OfflineGameStateManager_OnBeginServe;
+        OfflineGameStateManager.OnGameStateChange += OfflineGameStateManager_OnGameStateChange;
     }
 
     private void OnDisable()
     {
         HitBirdie.OnBirdieHit -= HitBirdie_OnBirdieHit;
         OfflineGameStateManager.OnBeginServe -= OfflineGameStateManager_OnBeginServe;
+        OfflineGameStateManager.OnGameStateChange -= OfflineGameStateManager_OnGameStateChange;
     }
 
     public void SetBirdieGravityRpc(bool enableGravity)
@@ -69,6 +74,23 @@ public class OfflineBirdieMovement : MonoBehaviour
         SetBirdieGravityRpc(false);
         SetBirdieCollisionRpc(true);
         ResetVelocities();
+    }
+
+    private void OfflineGameStateManager_OnGameStateChange(GameState gameState)
+    {
+        if (gameState == GameState.NotPlaying)
+        {
+            birdiePsController.EnableTrailRenderer(false);
+            SetBirdieGravityRpc(false);
+            SetBirdieCollisionRpc(true);
+            ResetVelocities();
+            ResetPosition();
+        }
+        if (gameState == GameState.Serving)
+        {
+            birdiePsController.EnableTrailRenderer(true);
+        }
+        
     }
 
     private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum, int gameEnvId)
@@ -134,5 +156,12 @@ public class OfflineBirdieMovement : MonoBehaviour
         birdieRb.velocity = Vector3.zero;
         birdieRb.angularVelocity = Vector3.zero;
     }
+
+    private void ResetPosition()
+    {
+        birdieTransform.position = Constants.BIRDIE_DEFAULT_POSITION;
+    }
+
+    
 
 }

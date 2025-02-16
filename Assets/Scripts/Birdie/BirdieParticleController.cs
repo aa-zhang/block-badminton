@@ -8,6 +8,7 @@ public class BirdieParticleController : MonoBehaviour
     [SerializeField] private GameObject blackFlashHitEffectPrefab;
     [SerializeField] private ParticleSystem blackFlashPs;
     private Rigidbody birdieRb;
+    private TrailRenderer trailRenderer;
 
     private float timeSinceServe = 0;
     private bool timerActive = false;
@@ -27,7 +28,7 @@ public class BirdieParticleController : MonoBehaviour
     {
         birdieRb = GetComponentInParent<Rigidbody>();
         gameEnv = transform.root.GetComponent<GameEnvironmentManager>();
-
+        trailRenderer = GetComponent<TrailRenderer>();
     }
 
     // Update is called once per frame
@@ -134,6 +135,16 @@ public class BirdieParticleController : MonoBehaviour
         blackFlashPs.Stop();
         blackFlashActive = false;
         timerActive = false;
+    }
+
+    public void EnableTrailRenderer(bool enable)
+    {
+        if (trailRenderer.enabled != enable)
+        {
+            trailRenderer.Clear();
+            trailRenderer.enabled = enable;
+        }
+        
     }
 
 }

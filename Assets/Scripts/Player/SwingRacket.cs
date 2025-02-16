@@ -14,7 +14,6 @@ public class SwingRacket : MonoBehaviour
     private Transform birdieTransform;
     private GameObject birdie;
     private Rigidbody birdieRb;
-    private BirdieParticleController birdiePsController;
 
     private GameObject player;
     private PlayerManager playerManager;

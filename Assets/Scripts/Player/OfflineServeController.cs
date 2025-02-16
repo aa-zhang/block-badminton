@@ -66,7 +66,7 @@ public class OfflineServeController : MonoBehaviour, IServing
     {
         OfflineGameStateManager.OnBeginServe -= GameStateManager_OnBeginServe;
         HitBirdie.OnBirdieHit -= HitBirdie_OnBirdieHit;
-        GameMenu.OnReturnToTitleScreen += GameMenu_OnReturnToTitleScreen;
+        GameMenu.OnReturnToTitleScreen -= GameMenu_OnReturnToTitleScreen;
     }
 
     private void HoldBirdieRpc()
@@ -145,6 +145,9 @@ public class OfflineServeController : MonoBehaviour, IServing
     private void GameMenu_OnReturnToTitleScreen()
     {
         ResetPlayerPosition();
+        isServing = false;
+        isOpponentServing = false;
+        serveArrow.SetActive(false);
     }
 
     public void ChangeServeAngle()
