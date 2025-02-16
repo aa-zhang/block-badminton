@@ -19,7 +19,7 @@ public class UIManager : MonoBehaviour
         OfflineGameStateManager.OnMatchTextChange += OfflineGameStateManager_OnMatchTextChange;
         OfflineGameStateManager.OnWinnerDetermined += OfflineGameStateManager_OnWinnerDetermined;
         OfflineGameStateManager.OnPointChange += OfflineGameStateManager_OnPointChange;
-        GameMenu.OnGameStart += GameMenu_OnGameStart;
+        GameModeManager.OnGameStart += GameModeManager_OnGameStart;
         GameMenu.OnReturnToTitleScreen += GameMenu_OnReturnToTitleScreen;
     }
 
@@ -29,7 +29,7 @@ public class UIManager : MonoBehaviour
         OfflineGameStateManager.OnMatchTextChange -= OfflineGameStateManager_OnMatchTextChange;
         OfflineGameStateManager.OnWinnerDetermined -= OfflineGameStateManager_OnWinnerDetermined;
         OfflineGameStateManager.OnPointChange -= OfflineGameStateManager_OnPointChange;
-        GameMenu.OnGameStart -= GameMenu_OnGameStart;
+        GameModeManager.OnGameStart -= GameModeManager_OnGameStart;
         GameMenu.OnReturnToTitleScreen -= GameMenu_OnReturnToTitleScreen;
 
     }
@@ -41,7 +41,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void GameMenu_OnGameStart(PlayMode playMode)
+    private void GameModeManager_OnGameStart(PlayMode playMode)
     {
         SetElementText(scoreText, "0 - 0");
     }

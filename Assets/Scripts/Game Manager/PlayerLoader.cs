@@ -12,15 +12,15 @@ public class PlayerLoader : MonoBehaviour
     
     private void OnEnable()
     {
-        GameMenu.OnGameStart += GameMenu_OnGameStart;
+        GameModeManager.OnGameStart += GameModeManager_OnGameStart;
     }
 
     private void OnDisable()
     {
-        GameMenu.OnGameStart -= GameMenu_OnGameStart;
+        GameModeManager.OnGameStart -= GameModeManager_OnGameStart;
     }
 
-    private void GameMenu_OnGameStart(PlayMode playMode)
+    private void GameModeManager_OnGameStart(PlayMode playMode)
     {
         playerTwo.SetActive(playMode == PlayMode.Human);
         aiPlayerTwo.SetActive(playMode == PlayMode.AI);

@@ -7,7 +7,6 @@ using UnityEngine.Rendering;
 using DG.Tweening;
 
 public enum MenuType { TitleScreen, GameModeSelection, InGame, Settings, None }
-public enum PlayMode { Human, AI }
 
 
 
@@ -16,7 +15,6 @@ public class GameMenu : MonoBehaviour
     private static GameMenu instance;
     public static GameMenu Instance { get { return instance; } }
 
-    public static Action<PlayMode> OnGameStart;
 
     public static Action<int> OnGameRestart;
     public static Action OnReturnToTitleScreen;
@@ -36,6 +34,8 @@ public class GameMenu : MonoBehaviour
     private ButtonAnimator buttonAnimator;
 
     private GameState gameState = GameState.NotPlaying;
+    private int currentQualityLevel;
+
 
     private RectTransform menuRect;
 
@@ -56,9 +56,20 @@ public class GameMenu : MonoBehaviour
     private void Start()
     {
         menuRect = GetComponent<RectTransform>();
+        currentQualityLevel = QualitySettings.GetQualityLevel();
         buttonAnimator = GetComponentInChildren<ButtonAnimator>();
 
         StartCoroutine(WaitForSplashScreenToFinish());
+    }
+
+    private void OnEnable()
+    {
+        OfflineGameStateManager.OnGameStateChange += OfflineGameStateManager_OnGameStateChange;
+    }
+
+    private void OnDisable()
+    {
+        OfflineGameStateManager.OnGameStateChange -= OfflineGameStateManager_OnGameStateChange;
     }
 
     private IEnumerator WaitForSplashScreenToFinish()
@@ -72,24 +83,11 @@ public class GameMenu : MonoBehaviour
         SetMenuOptions(MenuType.TitleScreen);
     }
 
-    public void PlayOfflineGame()
+    private void OfflineGameStateManager_OnGameStateChange(GameState state)
     {
-        OnGameStart?.Invoke(PlayMode.Human);
-        gameState = GameState.Playing;
-        ToggleMenu();
+        gameState = state;
     }
 
-    public void PlayAIGame()
-    {
-        OnGameStart?.Invoke(PlayMode.AI);
-        gameState = GameState.Playing;
-        ToggleMenu();
-    }
-
-    public void PlayOnlineGame()
-    {
-        SceneManager.LoadScene(3);
-    }
 
     public void ReturnToStartScreen()
     {
@@ -165,16 +163,14 @@ public class GameMenu : MonoBehaviour
         menuState = MenuType.None;
     }
 
-    
-
-
     public void ToggleMenu()
     {
+        Debug.Log(gameState);
         if (menuState != MenuType.None && gameState != GameState.NotPlaying)
         {
             HideMenu();
         }
-        else if (gameState == GameState.Playing || gameState == GameState.GameOver)
+        else if (gameState == GameState.Playing || gameState == GameState.Serving || gameState == GameState.GameOver)
         {
             ShowMenu(MenuType.InGame);
         }

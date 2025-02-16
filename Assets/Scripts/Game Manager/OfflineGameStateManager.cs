@@ -45,7 +45,7 @@ public class OfflineGameStateManager : MonoBehaviour
     private void OnEnable()
     {
         OfflineBirdieMovement.OnPointScored += BirdieMovement_OnPointScored;
-        GameMenu.OnGameStart += GameMenu_OnGameStart;
+        GameModeManager.OnGameStart += GameModeManager_OnGameStart;
         GameMenu.OnGameRestart += GameMenu_OnGameRestart;
         OfflineServeController.OnHitServe += OfflineServeController_OnHitServe;
     }
@@ -53,7 +53,7 @@ public class OfflineGameStateManager : MonoBehaviour
     private void OnDisable()
     {
         OfflineBirdieMovement.OnPointScored -= BirdieMovement_OnPointScored;
-        GameMenu.OnGameStart -= GameMenu_OnGameStart;
+        GameModeManager.OnGameStart -= GameModeManager_OnGameStart;
         GameMenu.OnGameRestart -= GameMenu_OnGameRestart;
         OfflineServeController.OnHitServe -= OfflineServeController_OnHitServe;
     }
@@ -162,7 +162,7 @@ public class OfflineGameStateManager : MonoBehaviour
         }
     }
 
-    private void GameMenu_OnGameStart(PlayMode playMode)
+    private void GameModeManager_OnGameStart(PlayMode playMode)
     {
         this.playMode = playMode;
         RestartGameRpc();
