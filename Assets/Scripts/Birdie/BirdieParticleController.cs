@@ -5,6 +5,7 @@ using UnityEngine;
 public class BirdieParticleController : MonoBehaviour
 {
     [SerializeField] private GameObject hitEffectPrefab;
+    [SerializeField] private GameObject sparkEffectPrefab;
     [SerializeField] private GameObject blackFlashHitEffectPrefab;
     [SerializeField] private ParticleSystem blackFlashPs;
     private Rigidbody birdieRb;
@@ -95,8 +96,21 @@ public class BirdieParticleController : MonoBehaviour
         {
             Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
         }
-
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        {
+            // Get the first contact point of the collision
+            ContactPoint contact = collision.contacts[0];
+
+            // Get the exact position of the collision
+            Vector3 collisionPosition = contact.point;
+            Instantiate(sparkEffectPrefab, collisionPosition, Quaternion.Euler(0, 90, 0));
+        }
+    }
+
 
     private void OfflineServeController_OnHitServe()
     {
