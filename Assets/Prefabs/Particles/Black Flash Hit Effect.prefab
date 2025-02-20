@@ -9827,7 +9827,7 @@ GameObject:
   - component: {fileID: 1141330259687333426}
   - component: {fileID: 5161904656840288084}
   m_Layer: 0
-  m_Name: CFXR3 Hit Electric C (Air)
+  m_Name: Black Flash Hit Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

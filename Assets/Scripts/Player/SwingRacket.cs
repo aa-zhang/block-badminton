@@ -29,6 +29,8 @@ public class SwingRacket : MonoBehaviour
     public bool inForwardSwingAnimation = false;
     public bool inBackwardSwingAnimation = false;
     [SerializeField] private float racketSpeed = 0.09f;
+    [SerializeField] private GameObject swingEffectPrefab;
+
     private float racketTimer = 0f;
 
     private Vector3 defaultAngle = new Vector3(0, 0, 55);
@@ -77,6 +79,7 @@ public class SwingRacket : MonoBehaviour
 
         // Check the birdie position to determine how the player should swing
         overhand = !DetectUnderhandSwing();
+        PlaySwingParticles();
     }
 
     private bool DetectUnderhandSwing()
@@ -138,6 +141,26 @@ public class SwingRacket : MonoBehaviour
             racketTimer = 0f;
         }
 
+    }
+
+    private void PlaySwingParticles()
+    {
+        Vector3 effectRotation = swingEffectPrefab.transform.rotation.eulerAngles;
+
+        // Flip for underhand swing
+        if (!overhand)
+        {
+            effectRotation.x += 180; // Flip X-axis
+        }
+
+        // Mirror for player 2
+        if (playerManager.playerNum == 2)
+        {
+            effectRotation.y += 180; // Flip Y-axis
+        }
+
+        GameObject effect = Instantiate(swingEffectPrefab, player.transform.position, Quaternion.Euler(effectRotation));
+        effect.transform.SetParent(player.transform);
     }
 
 

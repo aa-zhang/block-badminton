@@ -4911,7 +4911,7 @@ GameObject:
   - component: {fileID: 1429954232896169632}
   - component: {fileID: 1429954232896169629}
   m_Layer: 0
-  m_Name: CFXR3 Hit Misc A
+  m_Name: Hit Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

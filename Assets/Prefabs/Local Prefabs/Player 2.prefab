@@ -244,6 +244,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!114 &7540425473426811518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1193,7 +1195,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1b3ed69f9ee723d48bed2bb71ebb1d12, type: 2}
+  - {fileID: 2100000, guid: 42c38995939e4444f899450251e14959, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
