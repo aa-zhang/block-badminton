@@ -57,10 +57,13 @@ public class Outline : MonoBehaviour {
   private Mode outlineMode;
 
   [SerializeField]
-  private Color outlineColor = Color.white;
+  private Color outlineColor = Color.black;
 
   [SerializeField, Range(0f, 10f)]
   private float outlineWidth = 2f;
+
+  [SerializeField]
+  private int renderQueue = 3200;
 
   [Header("Optional")]
 
@@ -273,6 +276,8 @@ public class Outline : MonoBehaviour {
 
     // Apply properties according to mode
     outlineFillMaterial.SetColor("_OutlineColor", outlineColor);
+    outlineMaskMaterial.renderQueue = renderQueue;
+    outlineFillMaterial.renderQueue = renderQueue + 10;
 
     switch (outlineMode) {
       case Mode.OutlineAll:

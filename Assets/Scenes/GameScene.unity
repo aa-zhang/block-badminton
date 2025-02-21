@@ -626,6 +626,7 @@ MonoBehaviour:
   outlineMode: 0
   outlineColor: {r: 0, g: 0, b: 0, a: 1}
   outlineWidth: 1
+  renderQueue: 3150
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -938,6 +939,7 @@ MonoBehaviour:
   outlineMode: 0
   outlineColor: {r: 0, g: 0, b: 0, a: 1}
   outlineWidth: 1
+  renderQueue: 3150
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -1096,6 +1098,7 @@ MonoBehaviour:
   outlineMode: 0
   outlineColor: {r: 0, g: 0, b: 0, a: 1}
   outlineWidth: 3
+  renderQueue: 3100
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -2905,6 +2908,7 @@ MonoBehaviour:
   outlineMode: 0
   outlineColor: {r: 0, g: 0, b: 0, a: 1}
   outlineWidth: 3
+  renderQueue: 3100
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -3069,6 +3073,7 @@ MonoBehaviour:
   outlineMode: 0
   outlineColor: {r: 0, g: 0, b: 0, a: 1}
   outlineWidth: 2
+  renderQueue: 3150
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -4377,6 +4382,7 @@ MonoBehaviour:
   outlineMode: 0
   outlineColor: {r: 0, g: 0, b: 0, a: 1}
   outlineWidth: 2
+  renderQueue: 3150
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -4698,6 +4704,7 @@ MonoBehaviour:
   outlineMode: 0
   outlineColor: {r: 0, g: 0, b: 0, a: 1}
   outlineWidth: 2
+  renderQueue: 3150
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -4957,6 +4964,7 @@ MonoBehaviour:
   outlineMode: 0
   outlineColor: {r: 0, g: 0, b: 0, a: 1}
   outlineWidth: 3
+  renderQueue: 3100
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -9170,6 +9178,7 @@ MonoBehaviour:
   outlineMode: 0
   outlineColor: {r: 0, g: 0, b: 0, a: 1}
   outlineWidth: 3
+  renderQueue: 3100
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -10341,6 +10350,7 @@ MonoBehaviour:
   outlineMode: 0
   outlineColor: {r: 0, g: 0, b: 0, a: 1}
   outlineWidth: 1
+  renderQueue: 3150
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
