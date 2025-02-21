@@ -109,7 +109,7 @@ public class OfflineBirdieMovement : MonoBehaviour
         enableGravity = true;
         birdieRb.velocity = forceVector;
         int rotationDirection = playerNum == 1 ? 1 : -1;
-        float rotationSpeed = Mathf.Abs(forceVector.y) / 5;
+        float rotationSpeed = Mathf.Abs(forceVector.y) / 3;
         birdieRb.angularVelocity = Vector3.forward * rotationDirection * rotationSpeed;
     }
 
