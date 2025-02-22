@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static System.Net.Mime.MediaTypeNames;
 
-public class UIManager : MonoBehaviour
+public class ScoreboardManager : MonoBehaviour
 {
     // Game UI
-    [SerializeField] private TextMeshProUGUI scoreText;
-    [SerializeField] private TextMeshProUGUI winnerText;
-    [SerializeField] private TextMeshProUGUI matchText;
+    [SerializeField] private Image background;
+    [SerializeField] private List<GameObject> pointObjects;
+    [SerializeField] private GameObject matchInfo;
 
 
     private void OnEnable()
@@ -35,20 +34,20 @@ public class UIManager : MonoBehaviour
     {
         if (newGameState == GameState.NotPlaying)
         {
-            SetElementText(scoreText, "");
-            SetElementText(matchText, "");
-            SetElementText(winnerText, "");
+            //SetElementText(scoreText, "");
+            //SetElementText(matchText, "");
+            //SetElementText(winnerText, "");
         }
     }
 
     private void PlayerLoader_OnPlayersLoaded(PlayMode playMode)
     {
-        SetElementText(scoreText, "0 - 0");
+        //SetElementText(scoreText, "0 - 0");
     }
 
     private void OfflineGameStateManager_OnMatchTextChange(string text)
     {
-        SetElementText(matchText, text);
+        //SetElementText(matchText, text);
 
     }
 
@@ -56,18 +55,18 @@ public class UIManager : MonoBehaviour
     {
         if (playerNum == 0)
         {
-            SetElementText(winnerText, "");
+            //SetElementText(winnerText, "");
         }
         else
         {
-            SetElementText(winnerText, "Player " + playerNum.ToString() + " wins!");
+            //SetElementText(winnerText, "Player " + playerNum.ToString() + " wins!");
         }
 
     }
 
     private void OfflineGameStateManager_OnPointChange(int playerOneScore, int playerTwoScore)
     {
-        SetElementText(scoreText, playerOneScore + " - " + playerTwoScore);
+        //SetElementText(scoreText, playerOneScore + " - " + playerTwoScore);
     }
 
 
