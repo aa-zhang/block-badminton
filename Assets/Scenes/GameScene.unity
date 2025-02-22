@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.6810214, g: 0.47438985, b: 0.4656729, a: 1}
+  m_IndirectSpecularColor: {r: 0.6810214, g: 0.47439, b: 0.4656728, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1858,7 +1858,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000029112044, y: -0.2139802, z: 0.0000000063771077, w: 0.976838}
+  m_LocalRotation: {x: 0.000000028975414, y: -0.23393016, z: 0.000000006971663, w: 0.97225344}
   m_LocalPosition: {x: 0.05862415, y: -1.6547598, z: 0.1780281}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5000,6 +5000,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1846338216}
     m_Modifications:
+    - target: {fileID: 294777717939919871, guid: c63b11fc75ad89e4b8513b90d6e6dc40,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1add062905861422a9a345cdfa679b09, type: 2}
     - target: {fileID: 804039420936764121, guid: c63b11fc75ad89e4b8513b90d6e6dc40,
         type: 3}
       propertyPath: m_Model
@@ -5201,7 +5206,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1056459797}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000025901722, y: 0.49460587, z: -0.000000014740405, w: 0.86911744}
+  m_LocalRotation: {x: 0.000000026192128, y: 0.4770764, z: -0.000000014217987, w: 0.87886184}
   m_LocalPosition: {x: 2.7886243, y: -1.6547598, z: -0.321972}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5567,6 +5572,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6582316040704869300, guid: ba373e8757089ff4182077f617a938cc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1add062905861422a9a345cdfa679b09, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6920,7 +6930,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1216954501}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000029112044, y: -0.2139802, z: 0.0000000063771077, w: 0.976838}
+  m_LocalRotation: {x: 0.000000028975414, y: -0.23393016, z: 0.000000006971663, w: 0.97225344}
   m_LocalPosition: {x: 0.05862415, y: -1.6547598, z: 0.1780281}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8838,6 +8848,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6582316040704869300, guid: a186ed66e02184727844d6732d5fc554,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0d2c4d27c80df4a359ccb7064d0b1c06, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
