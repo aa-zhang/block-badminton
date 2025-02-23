@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class ScoreboardManager : MonoBehaviour
 {
     // Game UI
+    private CanvasGroup canvasGroup;
+
     [SerializeField] private RectTransform background;
     [SerializeField] private List<Image> pointSquares;
-    private List<TextMeshProUGUI> pointObjectTexts = new List<TextMeshProUGUI>();
-
     [SerializeField] private RectTransform matchInfoBg;
-    private TextMeshProUGUI matchInfoText;
 
+    private List<TextMeshProUGUI> pointObjectTexts = new List<TextMeshProUGUI>();
+    private TextMeshProUGUI matchInfoText;
 
     private int backgroundDefaultWidth = 350;
     private int backgroundExtendWidth = 85; // extend background by this amount after each match
@@ -22,6 +24,7 @@ public class ScoreboardManager : MonoBehaviour
 
     void Start()
     {
+        canvasGroup = gameObject.GetComponent<CanvasGroup>();
         matchInfoText = matchInfoBg.GetComponentInChildren<TextMeshProUGUI>();
         for (int i = 0; i < pointSquares.Count; i++)
         {
@@ -32,6 +35,7 @@ public class ScoreboardManager : MonoBehaviour
 
     private void OnEnable()
     {
+        OfflineBirdieMovement.OnPointScored += BirdieMovement_OnPointScored;
         OfflineGameStateManager.OnGameStateChange += OfflineGameStateManager_OnGameStateChange;
         OfflineGameStateManager.OnMatchTextChange += OfflineGameStateManager_OnMatchTextChange;
         OfflineGameStateManager.OnMatchNumChange += OfflineGameStateManager_OnMatchNumChange;
@@ -41,6 +45,7 @@ public class ScoreboardManager : MonoBehaviour
 
     private void OnDisable()
     {
+        OfflineBirdieMovement.OnPointScored -= BirdieMovement_OnPointScored;
         OfflineGameStateManager.OnGameStateChange -= OfflineGameStateManager_OnGameStateChange;
         OfflineGameStateManager.OnMatchTextChange -= OfflineGameStateManager_OnMatchTextChange;
         OfflineGameStateManager.OnMatchNumChange += OfflineGameStateManager_OnMatchNumChange;
@@ -48,15 +53,17 @@ public class ScoreboardManager : MonoBehaviour
         PlayerLoader.OnPlayersLoaded -= PlayerLoader_OnPlayersLoaded;
     }
 
+    private void BirdieMovement_OnPointScored(int scoringPlayerNum)
+    {
+        canvasGroup.DOFade(1f, 0.5f);
+    }
+
     private void OfflineGameStateManager_OnGameStateChange(GameState newGameState)
     {
-        if (newGameState == GameState.NotPlaying)
+        if (newGameState == GameState.Playing || newGameState == GameState.NotPlaying)
         {
-            //SetElementText(scoreText, "");
-            //SetElementText(matchText, "");
-            //SetElementText(winnerText, "");
+            canvasGroup.DOFade(0f, 0.5f);
         }
-
     }
 
     private void PlayerLoader_OnPlayersLoaded(PlayMode playMode)
