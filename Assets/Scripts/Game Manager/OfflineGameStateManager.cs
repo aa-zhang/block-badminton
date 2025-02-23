@@ -14,6 +14,8 @@ public class OfflineGameStateManager : MonoBehaviour
     // Score variables
     private int playerOneScore = 0;
     private int playerTwoScore = 0;
+    private int playerOneMatchesWon = 0;
+    private int playerTwoMatchesWon = 0;
     private int servingPlayerNum = 0;
 
     private GameState gameState = GameState.NotPlaying;
@@ -23,6 +25,7 @@ public class OfflineGameStateManager : MonoBehaviour
 
     // Events
     public static Action<GameState> OnGameStateChange;
+    public static Action<int> OnMatchNumChange;
     public static Action<string> OnMatchTextChange;
     public static Action<int> OnWinnerDetermined;
     public static Action<int, int> OnPointChange;
@@ -115,34 +118,38 @@ public class OfflineGameStateManager : MonoBehaviour
         int winningPlayerScore = Mathf.Max(playerOneScore, playerTwoScore);
         int losingPlayerScore = Mathf.Min(playerOneScore, playerTwoScore);
 
-        // Check if the match is in a Deuce or Match Point state
         if (winningPlayerScore >= Constants.WINNING_SCORE - 1)
         {
-            if (winningPlayerScore == losingPlayerScore)
-            {
-                OnMatchTextChange?.Invoke("Deuce");
-            }
-            else
-            {
-                OnMatchTextChange?.Invoke("Match Point");
-            }
+            // Check if the match is in a Deuce or Match Point state
+            if (winningPlayerScore == losingPlayerScore) OnMatchTextChange?.Invoke("Deuce");
+            else OnMatchTextChange?.Invoke("Match Point");
         }
 
         // Check if a player has won
         if ((winningPlayerScore >= Constants.WINNING_SCORE && winningPlayerScore - losingPlayerScore >= 2) || winningPlayerScore == Constants.MAX_SCORE)
         {
-            OnMatchTextChange?.Invoke("Match Over!");
-            gameState = GameState.GameOver;
-            OnGameStateChange?.Invoke(gameState);
 
-            if (playerOneScore >= Constants.WINNING_SCORE)
+            if (playerOneScore >= Constants.WINNING_SCORE || playerTwoScore >= Constants.WINNING_SCORE)
             {
-                OnWinnerDetermined?.Invoke(1);
+                int winner = playerOneScore >= Constants.WINNING_SCORE ? 1 : 2;
+
+                if (winner == 1) playerOneMatchesWon++;
+                else playerTwoMatchesWon++;
+
+
+                if (playerOneMatchesWon >= 2 || playerTwoMatchesWon >= 2)
+                {
+                    gameState = GameState.GameOver;
+                    OnGameStateChange?.Invoke(gameState);
+                    OnMatchTextChange?.Invoke("Player " + winner + " wins!");
+                }
+                else
+                {
+                    OnMatchNumChange?.Invoke(playerOneMatchesWon + playerTwoMatchesWon);
+                    ResetGameValues();
+                }
             }
-            else if (playerTwoScore >= Constants.WINNING_SCORE)
-            {
-                OnWinnerDetermined?.Invoke(2);
-            }
+
         }
     }
 
@@ -163,6 +170,8 @@ public class OfflineGameStateManager : MonoBehaviour
         OnMatchTextChange?.Invoke("");
         OnWinnerDetermined?.Invoke(0);
         OnPointChange?.Invoke(0, 0);
+        OnMatchNumChange?.Invoke(0);
+
 
         // Reset score values
         playerOneScore = 0;

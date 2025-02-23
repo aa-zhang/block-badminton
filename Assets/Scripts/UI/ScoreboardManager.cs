@@ -7,16 +7,36 @@ using UnityEngine.UI;
 public class ScoreboardManager : MonoBehaviour
 {
     // Game UI
-    [SerializeField] private Image background;
+    [SerializeField] private RectTransform background;
     [SerializeField] private List<GameObject> pointObjects;
+    private List<TextMeshProUGUI> pointObjectTexts = new List<TextMeshProUGUI>();
+
     [SerializeField] private GameObject matchInfo;
+    private TextMeshProUGUI matchInfoText;
+
+
+    private int backgroundDefaultWidth = 350;
+    private int backgroundExtendWidth = 85; // extend background by this amount after each match
+    private int matchNum = 0;
+
+
+    void Start()
+    {
+        matchInfoText = matchInfo.GetComponentInChildren<TextMeshProUGUI>();
+        print(matchInfoText);
+        SetElementText(matchInfoText, "test");
+        for (int i = 0; i < pointObjects.Count; i++)
+        {
+            pointObjectTexts.Add(pointObjects[i].GetComponentInChildren<TextMeshProUGUI>());
+        }
+    }
 
 
     private void OnEnable()
     {
         OfflineGameStateManager.OnGameStateChange += OfflineGameStateManager_OnGameStateChange;
         OfflineGameStateManager.OnMatchTextChange += OfflineGameStateManager_OnMatchTextChange;
-        OfflineGameStateManager.OnWinnerDetermined += OfflineGameStateManager_OnWinnerDetermined;
+        OfflineGameStateManager.OnMatchNumChange += OfflineGameStateManager_OnMatchNumChange;
         OfflineGameStateManager.OnPointChange += OfflineGameStateManager_OnPointChange;
         PlayerLoader.OnPlayersLoaded += PlayerLoader_OnPlayersLoaded;
     }
@@ -25,7 +45,7 @@ public class ScoreboardManager : MonoBehaviour
     {
         OfflineGameStateManager.OnGameStateChange -= OfflineGameStateManager_OnGameStateChange;
         OfflineGameStateManager.OnMatchTextChange -= OfflineGameStateManager_OnMatchTextChange;
-        OfflineGameStateManager.OnWinnerDetermined -= OfflineGameStateManager_OnWinnerDetermined;
+        OfflineGameStateManager.OnMatchNumChange += OfflineGameStateManager_OnMatchNumChange;
         OfflineGameStateManager.OnPointChange -= OfflineGameStateManager_OnPointChange;
         PlayerLoader.OnPlayersLoaded -= PlayerLoader_OnPlayersLoaded;
     }
@@ -38,6 +58,7 @@ public class ScoreboardManager : MonoBehaviour
             //SetElementText(matchText, "");
             //SetElementText(winnerText, "");
         }
+
     }
 
     private void PlayerLoader_OnPlayersLoaded(PlayMode playMode)
@@ -47,26 +68,42 @@ public class ScoreboardManager : MonoBehaviour
 
     private void OfflineGameStateManager_OnMatchTextChange(string text)
     {
-        //SetElementText(matchText, text);
+        if (text.Length == 0) matchInfo.SetActive(false);
+        else SetElementText(matchInfoText, text);
 
     }
 
-    private void OfflineGameStateManager_OnWinnerDetermined(int playerNum)
+    private void OfflineGameStateManager_OnMatchNumChange(int matchNum)
     {
-        if (playerNum == 0)
+        this.matchNum = matchNum;
+        Vector2 newBackgroundWidth = background.sizeDelta;
+
+        if (matchNum == 0)
         {
-            //SetElementText(winnerText, "");
+            newBackgroundWidth.x = backgroundDefaultWidth;
+
+            for (int i = 2; i < 6; i++)
+            {
+                pointObjects[i].SetActive(false);
+            }
         }
         else
         {
-            //SetElementText(winnerText, "Player " + playerNum.ToString() + " wins!");
+            newBackgroundWidth.x += backgroundExtendWidth;
         }
+
+        pointObjects[matchNum * 2].SetActive(true);
+        pointObjects[matchNum * 2 + 1].SetActive(true);
+        background.sizeDelta = newBackgroundWidth;
+
+
 
     }
 
     private void OfflineGameStateManager_OnPointChange(int playerOneScore, int playerTwoScore)
     {
-        //SetElementText(scoreText, playerOneScore + " - " + playerTwoScore);
+        SetElementText(pointObjectTexts[matchNum * 2], playerOneScore.ToString());
+        SetElementText(pointObjectTexts[matchNum * 2 + 1], playerTwoScore.ToString());
     }
 
 

@@ -32,10 +32,7 @@ public class GameMenu : MonoBehaviour
 
     private ButtonAnimator buttonAnimator;
 
-    private GameState gameState = GameState.NotPlaying;
-    private int currentQualityLevel;
-    
-
+    private GameState gameState = GameState.NotPlaying;    
 
     private RectTransform menuRect;
 
@@ -56,7 +53,6 @@ public class GameMenu : MonoBehaviour
     private void Start()
     {
         menuRect = GetComponent<RectTransform>();
-        currentQualityLevel = QualitySettings.GetQualityLevel();
         buttonAnimator = GetComponentInChildren<ButtonAnimator>();
 
         StartCoroutine(WaitForSplashScreenToFinish());
