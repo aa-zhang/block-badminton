@@ -118,7 +118,7 @@ public class GameMenu : MonoBehaviour
         // This method is called when the Back button is pressed
         MenuType previousMenu;
 
-        if (gameState == GameState.Playing || gameState == GameState.Serving || gameState == GameState.GameOver)
+        if (gameState == GameState.Rallying || gameState == GameState.Serving || gameState == GameState.GameOver)
         {
             previousMenu = MenuType.InGame;
         }
@@ -159,7 +159,7 @@ public class GameMenu : MonoBehaviour
         {
             HideMenu();
         }
-        else if (gameState == GameState.Playing || gameState == GameState.Serving || gameState == GameState.GameOver)
+        else if (gameState == GameState.Rallying || gameState == GameState.Serving || gameState == GameState.GameOver)
         {
             ShowMenu(MenuType.InGame);
         }

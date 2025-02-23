@@ -55,14 +55,14 @@ public class ScoreboardManager : MonoBehaviour
 
     private void BirdieMovement_OnPointScored(int scoringPlayerNum)
     {
-        canvasGroup.DOFade(1f, 0.5f);
+        canvasGroup.DOFade(1f, 0.25f);
     }
 
     private void OfflineGameStateManager_OnGameStateChange(GameState newGameState)
     {
-        if (newGameState == GameState.Playing || newGameState == GameState.NotPlaying)
+        if (newGameState == GameState.Rallying || newGameState == GameState.NotPlaying)
         {
-            canvasGroup.DOFade(0f, 0.5f);
+            canvasGroup.DOFade(0f, 0.25f);
         }
     }
 

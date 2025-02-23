@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-public enum GameState { NotPlaying, Serving, Playing, GameOver }
+public enum GameState { NotPlaying, Serving, Rallying, GameOver }
 
 public class OfflineGameStateManager : MonoBehaviour
 {
@@ -85,7 +85,7 @@ public class OfflineGameStateManager : MonoBehaviour
 
     private void OfflineServeController_OnHitServe()
     {
-        gameState = GameState.Playing;
+        gameState = GameState.Rallying;
         OnGameStateChange?.Invoke(gameState);
     }
 
@@ -106,7 +106,7 @@ public class OfflineGameStateManager : MonoBehaviour
 
         CheckScore(); // check if game has ended
 
-        if (gameState == GameState.Playing && !gameEnv.isTraining)
+        if (gameState == GameState.Rallying && !gameEnv.isTraining)
         {
             // Start next serve after a 1 second delay
             Invoke("BeginServeRpc", 1);
