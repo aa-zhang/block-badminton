@@ -128,26 +128,22 @@ public class OfflineGameStateManager : MonoBehaviour
         // Check if a player has won
         if ((winningPlayerScore >= Constants.WINNING_SCORE && winningPlayerScore - losingPlayerScore >= 2) || winningPlayerScore == Constants.MAX_SCORE)
         {
+            int winner = playerOneScore >= Constants.WINNING_SCORE ? 1 : 2;
 
-            if (playerOneScore >= Constants.WINNING_SCORE || playerTwoScore >= Constants.WINNING_SCORE)
+            if (winner == 1) playerOneMatchesWon++;
+            else playerTwoMatchesWon++;
+
+
+            if (playerOneMatchesWon >= 2 || playerTwoMatchesWon >= 2)
             {
-                int winner = playerOneScore >= Constants.WINNING_SCORE ? 1 : 2;
-
-                if (winner == 1) playerOneMatchesWon++;
-                else playerTwoMatchesWon++;
-
-
-                if (playerOneMatchesWon >= 2 || playerTwoMatchesWon >= 2)
-                {
-                    gameState = GameState.GameOver;
-                    OnGameStateChange?.Invoke(gameState);
-                    OnMatchTextChange?.Invoke("Player " + winner + " wins!");
-                }
-                else
-                {
-                    OnMatchNumChange?.Invoke(playerOneMatchesWon + playerTwoMatchesWon);
-                    ResetGameValues();
-                }
+                gameState = GameState.GameOver;
+                OnGameStateChange?.Invoke(gameState);
+                OnMatchTextChange?.Invoke("Player " + winner + " wins!");
+            }
+            else
+            {
+                OnMatchNumChange?.Invoke(playerOneMatchesWon + playerTwoMatchesWon);
+                ResetGameValues(false);
             }
 
         }
@@ -165,23 +161,28 @@ public class OfflineGameStateManager : MonoBehaviour
         OnGameStateChange?.Invoke(gameState);
     }
 
-    private void ResetGameValues()
+    private void ResetGameValues(bool resetMatches)
     {
+        if (resetMatches)
+        {
+            OnMatchNumChange?.Invoke(0);
+            playerOneMatchesWon = 0;
+            playerTwoMatchesWon = 0;
+        }
+
         OnMatchTextChange?.Invoke("");
         OnWinnerDetermined?.Invoke(0);
         OnPointChange?.Invoke(0, 0);
-        OnMatchNumChange?.Invoke(0);
-
 
         // Reset score values
         playerOneScore = 0;
         playerTwoScore = 0;
-
     }
 
     public void RestartGameRpc()
     {
-        ResetGameValues();
+        ResetGameValues(true);
+
 
         if (playMode == PlayMode.Human)
         {

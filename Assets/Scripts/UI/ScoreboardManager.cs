@@ -8,10 +8,10 @@ public class ScoreboardManager : MonoBehaviour
 {
     // Game UI
     [SerializeField] private RectTransform background;
-    [SerializeField] private List<GameObject> pointObjects;
+    [SerializeField] private List<Image> pointSquares;
     private List<TextMeshProUGUI> pointObjectTexts = new List<TextMeshProUGUI>();
 
-    [SerializeField] private GameObject matchInfo;
+    [SerializeField] private RectTransform matchInfoBg;
     private TextMeshProUGUI matchInfoText;
 
 
@@ -22,12 +22,10 @@ public class ScoreboardManager : MonoBehaviour
 
     void Start()
     {
-        matchInfoText = matchInfo.GetComponentInChildren<TextMeshProUGUI>();
-        print(matchInfoText);
-        SetElementText(matchInfoText, "test");
-        for (int i = 0; i < pointObjects.Count; i++)
+        matchInfoText = matchInfoBg.GetComponentInChildren<TextMeshProUGUI>();
+        for (int i = 0; i < pointSquares.Count; i++)
         {
-            pointObjectTexts.Add(pointObjects[i].GetComponentInChildren<TextMeshProUGUI>());
+            pointObjectTexts.Add(pointSquares[i].GetComponentInChildren<TextMeshProUGUI>());
         }
     }
 
@@ -68,35 +66,46 @@ public class ScoreboardManager : MonoBehaviour
 
     private void OfflineGameStateManager_OnMatchTextChange(string text)
     {
-        if (text.Length == 0) matchInfo.SetActive(false);
-        else SetElementText(matchInfoText, text);
-
+        if (text.Length == 0)
+        {
+            matchInfoBg.gameObject.SetActive(false);
+        }
+        else
+        {
+            matchInfoBg.gameObject.SetActive(true);
+            SetElementText(matchInfoText, text);
+        }
     }
 
     private void OfflineGameStateManager_OnMatchNumChange(int matchNum)
     {
         this.matchNum = matchNum;
         Vector2 newBackgroundWidth = background.sizeDelta;
+        Vector2 newMatchInfoBgWidth = matchInfoBg.sizeDelta;
+
 
         if (matchNum == 0)
         {
-            newBackgroundWidth.x = backgroundDefaultWidth;
-
             for (int i = 2; i < 6; i++)
             {
-                pointObjects[i].SetActive(false);
+                pointSquares[i].gameObject.SetActive(false);
             }
+
+            newBackgroundWidth.x = backgroundDefaultWidth;
+            newMatchInfoBgWidth.x = backgroundDefaultWidth;
         }
         else
         {
             newBackgroundWidth.x += backgroundExtendWidth;
+            newMatchInfoBgWidth.x += backgroundExtendWidth;
+
         }
 
-        pointObjects[matchNum * 2].SetActive(true);
-        pointObjects[matchNum * 2 + 1].SetActive(true);
+        pointSquares[matchNum * 2].gameObject.SetActive(true);
+        pointSquares[matchNum * 2 + 1].gameObject.SetActive(true);
+
         background.sizeDelta = newBackgroundWidth;
-
-
+        matchInfoBg.sizeDelta = newMatchInfoBgWidth;
 
     }
 
@@ -111,28 +120,4 @@ public class ScoreboardManager : MonoBehaviour
     {
         textElement.text = text;
     }
-
-
-    //private void CreateAndJoinRelay_OnRelayJoined(bool isHost, string joinCode)
-    //{
-    //    if (isHost)
-    //    {
-    //        roomCodeText.text = joinCode;
-    //    }
-    //    createRelayButton.gameObject.SetActive(false);
-    //    joinRelayButton.gameObject.SetActive(false);
-    //    roomCodeInput.gameObject.SetActive(false);
-    //    backButton.gameObject.SetActive(false);
-    //}
-
-    //private void GameStateManager_OnStartMatch()
-    //{
-    //    roomCodeText.gameObject.SetActive(false);
-    //    scoreText.gameObject.SetActive(true);
-    //    matchText.gameObject.SetActive(true);
-    //    winnerText.gameObject.SetActive(true);
-    //}
-
-
-
 }
