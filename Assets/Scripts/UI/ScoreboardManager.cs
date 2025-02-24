@@ -4,7 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using Google.Protobuf.WellKnownTypes;
 
 public class ScoreboardManager : MonoBehaviour
 {
@@ -77,14 +76,16 @@ public class ScoreboardManager : MonoBehaviour
         else
         {
             Color winnerColor = winner == 1 ? winnerSquareRedColor : winnerSquareBlueColor;
-            matchWinnerSquares[matchNum - 1].color = winnerColor;
-            matchWinnerSquares[matchNum - 1].sprite = filledSquare;
-
             Sequence sequence = DOTween.Sequence();
-            sequence.Append(matchWinnerSquares[matchNum - 1].rectTransform.DOScale(2.5f, 0.2f).SetEase(Ease.InOutQuad)) // Increase size
-                    .Append(matchWinnerSquares[matchNum - 1].rectTransform.DOScale(1.75f, 0.2f).SetEase(Ease.InOutQuad)); // Decrease size
+            sequence.AppendInterval(1f) // Wait 1 second
+                    .AppendCallback(() =>  // Change sprite and color
+                    {
+                        matchWinnerSquares[matchNum - 1].color = winnerColor;
+                        matchWinnerSquares[matchNum - 1].sprite = filledSquare;
+                    })
+                    .Append(matchWinnerSquares[matchNum - 1].rectTransform.DOScale(2f, 0.2f).SetEase(Ease.InOutQuad)) // Increase size
+                    .Append(matchWinnerSquares[matchNum - 1].rectTransform.DOScale(1f, 0.2f).SetEase(Ease.InOutQuad)); // Decrease size
         }
-
     }
 
     private void OfflineGameStateManager_OnPointChange(int playerOneScore, int playerTwoScore)

@@ -32,7 +32,7 @@ public class GameMenu : MonoBehaviour
 
     private ButtonAnimator buttonAnimator;
 
-    private GameState gameState = GameState.NotPlaying;    
+    private GameState gameState = GameState.NotPlaying;
 
     private RectTransform menuRect;
 
@@ -97,7 +97,7 @@ public class GameMenu : MonoBehaviour
         Application.Quit();
     }
 
-    
+
     public void SetMenuOptions(MenuType menuType)
     {
         // Toggle UI elements based on the selected menu
@@ -120,6 +120,11 @@ public class GameMenu : MonoBehaviour
 
         if (gameState == GameState.Rallying || gameState == GameState.Serving || gameState == GameState.GameOver)
         {
+            previousMenu = MenuType.InGame;
+        }
+        else if (gameState == GameState.MatchOver)
+        {
+            // TODO: show match menue (same as game menu, but remove the resume button)
             previousMenu = MenuType.InGame;
         }
         else

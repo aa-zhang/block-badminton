@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-public enum GameState { NotPlaying, Serving, Rallying, GameOver }
+public enum GameState { NotPlaying, Serving, Rallying, GameOver, MatchOver } // 3 games in a match
 
 public class OfflineGameStateManager : MonoBehaviour
 {
@@ -111,13 +111,18 @@ public class OfflineGameStateManager : MonoBehaviour
             // Start next serve after a 1 second delay
             Invoke("BeginServeRpc", 1);
         }
+        else if (gameState == GameState.GameOver)
+        {
+            // Start next serve after a 3 second delay
+            Invoke("BeginServeRpc", 3);
+        }
     }
 
     private void CheckScore()
     {
         int winningPlayerScore = Mathf.Max(playerOneScore, playerTwoScore);
         int losingPlayerScore = Mathf.Min(playerOneScore, playerTwoScore);
-
+        OnMatchTextChange?.Invoke("");
         if (winningPlayerScore >= Constants.WINNING_SCORE - 1)
         {
             // Check if the match is in a Deuce or Match Point state
@@ -136,14 +141,19 @@ public class OfflineGameStateManager : MonoBehaviour
 
             if (playerOneMatchesWon >= 2 || playerTwoMatchesWon >= 2)
             {
-                gameState = GameState.GameOver;
+                gameState = GameState.MatchOver;
                 OnGameStateChange?.Invoke(gameState);
                 OnMatchTextChange?.Invoke("Player " + winner + " wins!");
             }
             else
             {
-                OnMatchNumChange?.Invoke(playerOneMatchesWon + playerTwoMatchesWon, winner);
-                ResetGameValues(false);
+                gameState = GameState.GameOver;
+                OnGameStateChange?.Invoke(gameState);
+
+                int matchNum = playerOneMatchesWon + playerTwoMatchesWon;
+                OnMatchTextChange?.Invoke("Game " + matchNum + " Over");
+                OnMatchNumChange?.Invoke(matchNum, winner);
+                Invoke("ResetGameValues", 2);
             }
 
         }
@@ -161,6 +171,11 @@ public class OfflineGameStateManager : MonoBehaviour
         OnGameStateChange?.Invoke(gameState);
     }
 
+    private void ResetGameValues()
+    {
+        ResetGameValues(false);
+    }
+
     private void ResetGameValues(bool resetMatches)
     {
         if (resetMatches)
@@ -170,7 +185,7 @@ public class OfflineGameStateManager : MonoBehaviour
             playerTwoMatchesWon = 0;
         }
 
-        OnMatchTextChange?.Invoke("");
+        OnMatchTextChange?.Invoke("Game " + (playerOneMatchesWon + playerTwoMatchesWon + 1) + " Begin!");
         OnWinnerDetermined?.Invoke(0);
         OnPointChange?.Invoke(0, 0);
 
