@@ -10,32 +10,24 @@ public class ScoreboardManager : MonoBehaviour
     // Game UI
     private CanvasGroup canvasGroup;
 
-    [SerializeField] private RectTransform background;
-    [SerializeField] private List<Image> pointSquares;
-    [SerializeField] private RectTransform matchInfoBg;
+    [SerializeField] private List<Image> matchWinnerSquares = new List<Image>();
+    [SerializeField] private TextMeshProUGUI matchInfo;
+    [SerializeField] private TextMeshProUGUI playerOneScore;
+    [SerializeField] private TextMeshProUGUI playerTwoScore;
 
-    private List<TextMeshProUGUI> pointObjectTexts = new List<TextMeshProUGUI>();
-    private TextMeshProUGUI matchInfoText;
-
-    private int backgroundDefaultWidth = 350;
-    private int backgroundExtendWidth = 85; // extend background by this amount after each match
-    private int matchNum = 0;
+    private Color winnerSquareEmptyColor = new Color(0f, 0f, 0f, 125f / 255f);
+    private Color winnerSquareRedColor = new Color(1f, 0f, 0f, 200f / 255f);
+    private Color winnerSquareBlueColor = new Color(0f, 0f, 1f, 200f / 255f);
 
 
     void Start()
     {
         canvasGroup = gameObject.GetComponent<CanvasGroup>();
-        matchInfoText = matchInfoBg.GetComponentInChildren<TextMeshProUGUI>();
-        for (int i = 0; i < pointSquares.Count; i++)
-        {
-            pointObjectTexts.Add(pointSquares[i].GetComponentInChildren<TextMeshProUGUI>());
-        }
     }
 
 
     private void OnEnable()
     {
-        OfflineBirdieMovement.OnPointScored += BirdieMovement_OnPointScored;
         OfflineGameStateManager.OnGameStateChange += OfflineGameStateManager_OnGameStateChange;
         OfflineGameStateManager.OnMatchTextChange += OfflineGameStateManager_OnMatchTextChange;
         OfflineGameStateManager.OnMatchNumChange += OfflineGameStateManager_OnMatchNumChange;
@@ -45,17 +37,11 @@ public class ScoreboardManager : MonoBehaviour
 
     private void OnDisable()
     {
-        OfflineBirdieMovement.OnPointScored -= BirdieMovement_OnPointScored;
         OfflineGameStateManager.OnGameStateChange -= OfflineGameStateManager_OnGameStateChange;
         OfflineGameStateManager.OnMatchTextChange -= OfflineGameStateManager_OnMatchTextChange;
         OfflineGameStateManager.OnMatchNumChange += OfflineGameStateManager_OnMatchNumChange;
         OfflineGameStateManager.OnPointChange -= OfflineGameStateManager_OnPointChange;
         PlayerLoader.OnPlayersLoaded -= PlayerLoader_OnPlayersLoaded;
-    }
-
-    private void BirdieMovement_OnPointScored(int scoringPlayerNum)
-    {
-        canvasGroup.DOFade(1f, 0.25f);
     }
 
     private void OfflineGameStateManager_OnGameStateChange(GameState newGameState)
@@ -68,63 +54,48 @@ public class ScoreboardManager : MonoBehaviour
 
     private void PlayerLoader_OnPlayersLoaded(PlayMode playMode)
     {
-        //SetElementText(scoreText, "0 - 0");
+        canvasGroup.DOFade(1f, 0.25f);
     }
 
     private void OfflineGameStateManager_OnMatchTextChange(string text)
     {
-        if (text.Length == 0)
-        {
-            matchInfoBg.gameObject.SetActive(false);
-        }
-        else
-        {
-            matchInfoBg.gameObject.SetActive(true);
-            SetElementText(matchInfoText, text);
-        }
+        SetElementText(matchInfo, text);
     }
 
-    private void OfflineGameStateManager_OnMatchNumChange(int matchNum)
+    private void OfflineGameStateManager_OnMatchNumChange(int matchNum, int winner)
     {
-        this.matchNum = matchNum;
-        Vector2 newBackgroundWidth = background.sizeDelta;
-        Vector2 newMatchInfoBgWidth = matchInfoBg.sizeDelta;
-
-
+        // color/reset the match winner squares
         if (matchNum == 0)
         {
-            for (int i = 2; i < 6; i++)
-            {
-                pointSquares[i].gameObject.SetActive(false);
-            }
-
-            newBackgroundWidth.x = backgroundDefaultWidth;
-            newMatchInfoBgWidth.x = backgroundDefaultWidth;
+            ResetMatchWinnerSquares();
         }
         else
         {
-            newBackgroundWidth.x += backgroundExtendWidth;
-            newMatchInfoBgWidth.x += backgroundExtendWidth;
-
+            Color winnerColor = winner == 1 ? winnerSquareRedColor : winnerSquareBlueColor;
+            matchWinnerSquares[matchNum - 1].color = winnerColor;
         }
-
-        pointSquares[matchNum * 2].gameObject.SetActive(true);
-        pointSquares[matchNum * 2 + 1].gameObject.SetActive(true);
-
-        background.sizeDelta = newBackgroundWidth;
-        matchInfoBg.sizeDelta = newMatchInfoBgWidth;
 
     }
 
     private void OfflineGameStateManager_OnPointChange(int playerOneScore, int playerTwoScore)
     {
-        SetElementText(pointObjectTexts[matchNum * 2], playerOneScore.ToString());
-        SetElementText(pointObjectTexts[matchNum * 2 + 1], playerTwoScore.ToString());
+        SetElementText(this.playerOneScore, playerOneScore.ToString());
+        SetElementText(this.playerTwoScore, playerTwoScore.ToString());
+        canvasGroup.DOFade(1f, 0.25f);
     }
 
 
     private void SetElementText(TextMeshProUGUI textElement, string text)
     {
         textElement.text = text;
+    }
+
+    private void ResetMatchWinnerSquares()
+    {
+        foreach (Image square in matchWinnerSquares)
+        {
+            square.color = winnerSquareEmptyColor;
+
+}
     }
 }

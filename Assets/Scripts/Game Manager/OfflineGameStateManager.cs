@@ -25,7 +25,7 @@ public class OfflineGameStateManager : MonoBehaviour
 
     // Events
     public static Action<GameState> OnGameStateChange;
-    public static Action<int> OnMatchNumChange;
+    public static Action<int, int> OnMatchNumChange;
     public static Action<string> OnMatchTextChange;
     public static Action<int> OnWinnerDetermined;
     public static Action<int, int> OnPointChange;
@@ -142,7 +142,7 @@ public class OfflineGameStateManager : MonoBehaviour
             }
             else
             {
-                OnMatchNumChange?.Invoke(playerOneMatchesWon + playerTwoMatchesWon);
+                OnMatchNumChange?.Invoke(playerOneMatchesWon + playerTwoMatchesWon, winner);
                 ResetGameValues(false);
             }
 
@@ -165,7 +165,7 @@ public class OfflineGameStateManager : MonoBehaviour
     {
         if (resetMatches)
         {
-            OnMatchNumChange?.Invoke(0);
+            OnMatchNumChange?.Invoke(0, 0);
             playerOneMatchesWon = 0;
             playerTwoMatchesWon = 0;
         }
