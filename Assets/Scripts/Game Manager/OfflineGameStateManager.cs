@@ -138,19 +138,19 @@ public class OfflineGameStateManager : MonoBehaviour
             if (winner == 1) playerOneMatchesWon++;
             else playerTwoMatchesWon++;
 
+            int matchNum = playerOneMatchesWon + playerTwoMatchesWon;
 
             if (playerOneMatchesWon >= 2 || playerTwoMatchesWon >= 2)
             {
                 gameState = GameState.MatchOver;
                 OnGameStateChange?.Invoke(gameState);
                 OnMatchTextChange?.Invoke("Player " + winner + " wins!");
+                OnMatchNumChange?.Invoke(matchNum, winner);
             }
             else
             {
                 gameState = GameState.GameOver;
                 OnGameStateChange?.Invoke(gameState);
-
-                int matchNum = playerOneMatchesWon + playerTwoMatchesWon;
                 OnMatchTextChange?.Invoke("Game " + matchNum + " Over");
                 OnMatchNumChange?.Invoke(matchNum, winner);
                 Invoke("ResetGameValues", 2);

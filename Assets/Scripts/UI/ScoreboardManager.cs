@@ -36,7 +36,6 @@ public class ScoreboardManager : MonoBehaviour
         OfflineGameStateManager.OnMatchTextChange += OfflineGameStateManager_OnMatchTextChange;
         OfflineGameStateManager.OnMatchNumChange += OfflineGameStateManager_OnMatchNumChange;
         OfflineGameStateManager.OnPointChange += OfflineGameStateManager_OnPointChange;
-        PlayerLoader.OnPlayersLoaded += PlayerLoader_OnPlayersLoaded;
     }
 
     private void OnDisable()
@@ -45,7 +44,6 @@ public class ScoreboardManager : MonoBehaviour
         OfflineGameStateManager.OnMatchTextChange -= OfflineGameStateManager_OnMatchTextChange;
         OfflineGameStateManager.OnMatchNumChange += OfflineGameStateManager_OnMatchNumChange;
         OfflineGameStateManager.OnPointChange -= OfflineGameStateManager_OnPointChange;
-        PlayerLoader.OnPlayersLoaded -= PlayerLoader_OnPlayersLoaded;
     }
 
     private void OfflineGameStateManager_OnGameStateChange(GameState newGameState)
@@ -54,11 +52,6 @@ public class ScoreboardManager : MonoBehaviour
         {
             canvasGroup.DOFade(0f, 0.25f);
         }
-    }
-
-    private void PlayerLoader_OnPlayersLoaded(PlayMode playMode)
-    {
-        canvasGroup.DOFade(1f, 0.25f);
     }
 
     private void OfflineGameStateManager_OnMatchTextChange(string text)
@@ -92,7 +85,16 @@ public class ScoreboardManager : MonoBehaviour
     {
         SetElementText(this.playerOneScore, playerOneScore.ToString());
         SetElementText(this.playerTwoScore, playerTwoScore.ToString());
-        canvasGroup.DOFade(1f, 0.25f);
+
+        Sequence sequence = DOTween.Sequence();
+
+        if (playerOneScore == 0 && playerTwoScore == 0)
+        {
+            sequence.AppendInterval(1f);
+
+        }
+        sequence.Append(canvasGroup.DOFade(1f, 0.25f));
+
     }
 
 

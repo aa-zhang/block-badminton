@@ -168,5 +168,10 @@ public class GameMenu : MonoBehaviour
         {
             ShowMenu(MenuType.InGame);
         }
+        else if (gameState == GameState.MatchOver)
+        {
+            // TODO: show match menue (same as game menu, but remove the resume button)
+            ShowMenu(MenuType.InGame);
+        }
     }
 }
