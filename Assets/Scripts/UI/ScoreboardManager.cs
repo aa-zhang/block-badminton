@@ -54,6 +54,7 @@ public class ScoreboardManager : MonoBehaviour
         if (newGameState == GameState.Rallying || newGameState == GameState.NotPlaying)
         {
             scoreboardFadeSequence?.Kill();
+            scoreboardFadeSequence = DOTween.Sequence();
             scoreboardFadeSequence.Append(canvasGroup.DOFade(0f, 0.25f));
         }
 
