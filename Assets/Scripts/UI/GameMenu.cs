@@ -87,6 +87,7 @@ public class GameMenu : MonoBehaviour
 
     public void ReturnToStartScreen()
     {
+        Time.timeScale = 1f; // Resume time (for camera to be able to move)
         OnReturnToTitleScreen?.Invoke();
         gameState = GameState.NotPlaying;
         ShowMenu(MenuType.TitleScreen);
@@ -139,7 +140,8 @@ public class GameMenu : MonoBehaviour
     {
         menuRect.DOKill(); // Stop any existing tween
         menuRect.DOAnchorPosX(menuOpenXPos, menuLerpDuration)
-            .SetEase(Ease.InOutQuad); // Eases in and out smoothly
+            .SetEase(Ease.InOutQuad) // Eases in and out smoothly
+            .SetUpdate(true); // Runs even when time is stopped
 
         SetMenuOptions(menuType);
     }
@@ -163,10 +165,12 @@ public class GameMenu : MonoBehaviour
         if (menuState != MenuType.None && gameState != GameState.NotPlaying)
         {
             HideMenu();
+            Time.timeScale = 1f; // Resume the game
         }
         else if (gameState == GameState.Rallying || gameState == GameState.Serving || gameState == GameState.GameOver)
         {
             ShowMenu(MenuType.InGame);
+            Time.timeScale = 0f; // Freeze the game
         }
         else if (gameState == GameState.MatchOver)
         {

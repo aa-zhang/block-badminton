@@ -86,6 +86,7 @@ public class ButtonAnimator : MonoBehaviour
             btnRect.DOAnchorPosX(targetX, buttonLerpDuration) // Lerp only the X position
                 .SetEase(Ease.InOutQuad)
                 .SetDelay(i * delayBetweenButtons) // Delay each button animation
+                .SetUpdate(true) // Runs even when time is stopped
                 .OnComplete(() =>
                 {
                     if (currButtonNum == buttons.Count - 1)
@@ -101,8 +102,12 @@ public class ButtonAnimator : MonoBehaviour
         RectTransform hoveredRect = hoveredButton.GetComponent<RectTransform>();
 
         Vector2 originalPos = originalPositions[hoveredButton]; // Retrieve original position
-        hoveredRect.DOScale(Vector3.one * expandFactor, buttonLerpDuration).SetEase(Ease.OutQuad);
-        hoveredRect.DOAnchorPos(new Vector2(originalPos.x - moveLeftOffset, originalPos.y), buttonLerpDuration).SetEase(Ease.OutQuad);
+        hoveredRect.DOScale(Vector3.one * expandFactor, buttonLerpDuration)
+            .SetEase(Ease.OutQuad)
+            .SetUpdate(true);
+        hoveredRect.DOAnchorPos(new Vector2(originalPos.x - moveLeftOffset, originalPos.y), buttonLerpDuration)
+            .SetEase(Ease.OutQuad)
+            .SetUpdate(true);
 
     }
 
@@ -112,11 +117,11 @@ public class ButtonAnimator : MonoBehaviour
         RectTransform hoveredRect = hoveredButton.GetComponent<RectTransform>();
 
         Vector2 originalPos = originalPositions[hoveredButton]; // Retrieve original position
-        hoveredRect.DOScale(Vector3.one, buttonLerpDuration).SetEase(Ease.OutQuad);
+        hoveredRect.DOScale(Vector3.one, buttonLerpDuration).SetEase(Ease.OutQuad).SetUpdate(true);
         if (!areButtonsInAnimation)
         {
             // Only move button if menu is NOT in open/close animation
-            hoveredRect.DOAnchorPos(originalPos, buttonLerpDuration).SetEase(Ease.OutQuad);
+            hoveredRect.DOAnchorPos(originalPos, buttonLerpDuration).SetEase(Ease.OutQuad).SetUpdate(true);
         }
 
     }

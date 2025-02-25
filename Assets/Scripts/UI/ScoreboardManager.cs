@@ -23,6 +23,9 @@ public class ScoreboardManager : MonoBehaviour
     private Color winnerSquareRedColor = new Color(1f, 0f, 0f, 200f / 255f);
     private Color winnerSquareBlueColor = new Color(0f, 0f, 1f, 200f / 255f);
 
+    private Sequence scoreboardFadeSequence;
+
+
 
     void Start()
     {
@@ -50,8 +53,10 @@ public class ScoreboardManager : MonoBehaviour
     {
         if (newGameState == GameState.Rallying || newGameState == GameState.NotPlaying)
         {
-            canvasGroup.DOFade(0f, 0.25f);
+            scoreboardFadeSequence?.Kill();
+            scoreboardFadeSequence.Append(canvasGroup.DOFade(0f, 0.25f));
         }
+
     }
 
     private void OfflineGameStateManager_OnMatchTextChange(string text)
@@ -86,14 +91,16 @@ public class ScoreboardManager : MonoBehaviour
         SetElementText(this.playerOneScore, playerOneScore.ToString());
         SetElementText(this.playerTwoScore, playerTwoScore.ToString());
 
-        Sequence sequence = DOTween.Sequence();
+        scoreboardFadeSequence?.Kill();
+
+        scoreboardFadeSequence = DOTween.Sequence();
 
         if (playerOneScore == 0 && playerTwoScore == 0)
         {
-            sequence.AppendInterval(1f);
+            scoreboardFadeSequence.AppendInterval(1f);
 
         }
-        sequence.Append(canvasGroup.DOFade(1f, 0.25f));
+        scoreboardFadeSequence.Append(canvasGroup.DOFade(1f, 0.25f));
 
     }
 
