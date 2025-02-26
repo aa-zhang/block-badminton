@@ -502,6 +502,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &9289122
 Transform:
   m_ObjectHideFlags: 0
@@ -1372,6 +1374,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &20802361
 Transform:
   m_ObjectHideFlags: 0
@@ -5822,6 +5826,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &89339554
 Transform:
   m_ObjectHideFlags: 0
@@ -13270,6 +13276,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &222134362
 Transform:
   m_ObjectHideFlags: 0
@@ -14432,6 +14440,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &241276800
 Transform:
   m_ObjectHideFlags: 0
@@ -14947,6 +14957,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &246074374
 Transform:
   m_ObjectHideFlags: 0
@@ -18436,6 +18448,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &304969500
 Transform:
   m_ObjectHideFlags: 0
@@ -28577,6 +28591,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &474205718
 Transform:
   m_ObjectHideFlags: 0
@@ -28888,6 +28904,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &484254421
 Transform:
   m_ObjectHideFlags: 0
@@ -32776,6 +32794,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &563921404
 Transform:
   m_ObjectHideFlags: 0
@@ -37689,6 +37709,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &652007763
 Transform:
   m_ObjectHideFlags: 0
@@ -39279,6 +39301,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &689003359
 Transform:
   m_ObjectHideFlags: 0
@@ -40970,6 +40994,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &713307561
 Transform:
   m_ObjectHideFlags: 0
@@ -42982,6 +43008,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &748462140
 Transform:
   m_ObjectHideFlags: 0
@@ -47877,6 +47905,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &835804584
 Transform:
   m_ObjectHideFlags: 0
@@ -53539,6 +53569,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &939742732
 Transform:
   m_ObjectHideFlags: 0
@@ -55652,6 +55684,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &977187335
 Transform:
   m_ObjectHideFlags: 0
@@ -60518,6 +60552,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &1043432860
 Transform:
   m_ObjectHideFlags: 0
@@ -61300,6 +61336,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &1049960278
 Transform:
   m_ObjectHideFlags: 0
@@ -65068,6 +65106,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &1109931445
 Transform:
   m_ObjectHideFlags: 0
@@ -69418,6 +69458,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &1181038000
 Transform:
   m_ObjectHideFlags: 0
@@ -73993,6 +74035,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &1256399365
 Transform:
   m_ObjectHideFlags: 0
@@ -78386,6 +78430,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &1315623741
 Transform:
   m_ObjectHideFlags: 0
@@ -79298,6 +79344,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &1326881419
 Transform:
   m_ObjectHideFlags: 0
@@ -80908,6 +80956,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &1347029740
 Transform:
   m_ObjectHideFlags: 0
@@ -83118,6 +83168,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &1372878254
 Transform:
   m_ObjectHideFlags: 0
@@ -84415,6 +84467,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &1388146531
 Transform:
   m_ObjectHideFlags: 0
@@ -85041,6 +85095,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &1395752468
 Transform:
   m_ObjectHideFlags: 0
@@ -87584,6 +87640,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &1439176823
 Transform:
   m_ObjectHideFlags: 0
@@ -88813,6 +88871,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &1465946400
 Transform:
   m_ObjectHideFlags: 0
@@ -92138,6 +92198,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &1519975562
 Transform:
   m_ObjectHideFlags: 0
@@ -94604,6 +94666,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &1553421321
 Transform:
   m_ObjectHideFlags: 0
@@ -97474,6 +97538,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &1599163389
 Transform:
   m_ObjectHideFlags: 0
@@ -98247,6 +98313,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &1615598225
 Transform:
   m_ObjectHideFlags: 0
@@ -105375,6 +105443,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &1731601155
 Transform:
   m_ObjectHideFlags: 0
@@ -110125,6 +110195,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &1822549373
 Transform:
   m_ObjectHideFlags: 0
@@ -113097,6 +113169,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &1862857008
 Transform:
   m_ObjectHideFlags: 0
@@ -113839,6 +113913,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &1872294674
 Transform:
   m_ObjectHideFlags: 0
@@ -114376,6 +114452,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &1888691858
 Transform:
   m_ObjectHideFlags: 0
@@ -118454,6 +118532,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &1951432575
 Transform:
   m_ObjectHideFlags: 0
@@ -119647,6 +119727,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &1964614165
 Transform:
   m_ObjectHideFlags: 0
@@ -120854,6 +120936,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &1983306657
 Transform:
   m_ObjectHideFlags: 0
@@ -122216,6 +122300,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &2001360153
 Transform:
   m_ObjectHideFlags: 0
@@ -123281,6 +123367,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &2020563768
 Transform:
   m_ObjectHideFlags: 0
@@ -124130,6 +124218,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &2044341024
 Transform:
   m_ObjectHideFlags: 0
@@ -125033,6 +125123,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &2062372640
 Transform:
   m_ObjectHideFlags: 0
@@ -126963,6 +127055,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &2082267217
 Transform:
   m_ObjectHideFlags: 0
@@ -128157,6 +128251,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!4 &2106993839
 Transform:
   m_ObjectHideFlags: 0

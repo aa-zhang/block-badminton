@@ -93,7 +93,7 @@ public class PlayerAgent : Agent
         if (swingAction == 0)
         {
             playerMovement.SwingRacket(SwingType.Heavy);
-            AddReward(-0.01f);
+            AddReward(-0.2f);
         }
         else
         {
@@ -125,13 +125,13 @@ public class PlayerAgent : Agent
         //}
     }
 
-    //private void HitBirdie_OnBirdieHit(Vector3 force, int playerNum)
-    //{
-    //    if (playerManager.playerNum == playerNum)
-    //    {
-    //        AddReward(0.2f);
-    //    }
-    //}
+    private void HitBirdie_OnBirdieHit(Vector3 force, int playerNum)
+    {
+        if (playerManager.playerNum == playerNum)
+        {
+            AddReward(0.2f);
+        }
+    }
 
     public void SetReward(int scoringPlayerNum)
     {

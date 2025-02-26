@@ -119,8 +119,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5, y: 1.3, z: 0.5}
-  m_Center: {x: 0.05, y: 1.2, z: 0}
+  m_Size: {x: 0.6, y: 1.3, z: 0.5}
+  m_Center: {x: 0, y: 1.2, z: 0}
 --- !u!114 &4087405344138035192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -971,6 +971,8 @@ MonoBehaviour:
   inForwardSwingAnimation: 0
   inBackwardSwingAnimation: 0
   racketSpeed: 0.09
+  swingEffectPrefab: {fileID: 7074040695727104176, guid: de052e813fb2a45afa50bc695d99a899,
+    type: 3}
 --- !u!114 &4445072935850979261
 MonoBehaviour:
   m_ObjectHideFlags: 0
