@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private IServing serveController;
     private StaminaManager staminaManager;
     private DashTrailController dashTrailController;
+    private Animator animator;
 
     [SerializeField] private float movementSpeed = 9f;
     [SerializeField] private float jumpHeight = 800f;
@@ -38,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
         staminaManager = GetComponent<StaminaManager>();
         dashTrailController = GetComponent<DashTrailController>();
         serveController = GetComponent<OfflineServeController>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void FixedUpdate()
@@ -113,6 +115,9 @@ public class PlayerMovement : MonoBehaviour
         if (CanGoLeft())
         {
             playerTransform.localPosition += Vector3.left * movementSpeed * Time.deltaTime;
+            animator.SetBool("IsMovingBackward", true);
+            animator.SetBool("IsMovingForward", false);
+
         }
     }
 
@@ -121,6 +126,8 @@ public class PlayerMovement : MonoBehaviour
         if (CanGoRight())
         {
             playerTransform.localPosition += Vector3.right * movementSpeed * Time.deltaTime;
+            animator.SetBool("IsMovingBackward", false);
+            animator.SetBool("IsMovingForward", true);
         }
     }
 
