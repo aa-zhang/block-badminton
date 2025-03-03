@@ -38,7 +38,6 @@ public class PlayerAgent : Agent
     {
         if (playerManager.playerNum == 1)
         {
-            Debug.Log(gameEnv.id);
             offlineGameStateManager.RestartGameRpc();
         }
     }
@@ -93,7 +92,7 @@ public class PlayerAgent : Agent
         if (swingAction == 0)
         {
             playerMovement.SwingRacket(SwingType.Heavy);
-            AddReward(-0.2f);
+            //AddReward(-0.01f);
         }
         else
         {
@@ -125,13 +124,13 @@ public class PlayerAgent : Agent
         //}
     }
 
-    private void HitBirdie_OnBirdieHit(Vector3 force, int playerNum)
-    {
-        if (playerManager.playerNum == playerNum)
-        {
-            AddReward(0.2f);
-        }
-    }
+    //private void HitBirdie_OnBirdieHit(Vector3 force, int playerNum)
+    //{
+    //    if (playerManager.playerNum == playerNum)
+    //    {
+    //        AddReward(0.02f);
+    //    }
+    //}
 
     public void SetReward(int scoringPlayerNum)
     {
