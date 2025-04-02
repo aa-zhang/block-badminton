@@ -108,8 +108,8 @@ public class OfflineGameStateManager : MonoBehaviour
 
         if (gameState == GameState.Rallying && !gameEnv.isTraining)
         {
-            // Start next serve after a 1 second delay
-            Invoke("BeginServeRpc", 1);
+            // Start next serve after a 1.5 second delay
+            Invoke("BeginServeRpc", 1.5f);
         }
         else if (gameState == GameState.GameOver)
         {

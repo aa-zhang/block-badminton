@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class AudienceMember : MonoBehaviour
 {
-    [SerializeField] private Transform birdieTransform;
+    [SerializeField] private Transform focusPoint;
+    [SerializeField] private bool recalculateLookDirection;
+    [SerializeField] private int teamNum;
 
     private float jumpHeight = 0.5f;  // How high the audience jumps
     private float minJumpDuration = 0.3f;  // Min time per jump
@@ -22,8 +24,12 @@ public class AudienceMember : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.DOLookAt(birdieTransform.position, 0.5f, AxisConstraint.Y)
-                 .SetEase(Ease.OutQuad);
+        if (recalculateLookDirection)
+        {
+            transform.DOLookAt(focusPoint.position, 0.5f, AxisConstraint.Y)
+                     .SetEase(Ease.OutQuad);
+        }
+
     }
 
     private void OnEnable()
@@ -39,6 +45,14 @@ public class AudienceMember : MonoBehaviour
 
 
     private void BirdieMovement_OnPointScored(int scoringPlayerNum)
+    {
+        if (scoringPlayerNum == teamNum)
+        {
+            StartCheerAnimation();
+        }
+    }
+
+    private void StartCheerAnimation()
     {
         float elapsedTime = 0f;
 
