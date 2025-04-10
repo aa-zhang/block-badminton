@@ -4405,7 +4405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fpsCounterText: {fileID: 1390138317}
   pingText: {fileID: 0}
-  DeltaType: 0
+  DeltaType: 1
 --- !u!1 &418094576
 GameObject:
   m_ObjectHideFlags: 0

@@ -55,16 +55,22 @@ public class AudienceMember : MonoBehaviour
     private void StartCheerAnimation()
     {
         float elapsedTime = 0f;
+        Vector3 originalPosition = transform.position;
 
         Sequence sequence = DOTween.Sequence();
 
         while (elapsedTime < totalDuration)
         {
             float jumpDuration = Random.Range(minJumpDuration, maxJumpDuration);
-            sequence.Append(transform.DOMoveY(transform.position.y + jumpHeight, jumpDuration / 2).SetEase(Ease.OutQuad))
-                    .Append(transform.DOMoveY(transform.position.y, jumpDuration / 2).SetEase(Ease.InQuad));
+
+            // Always jump from the original Y position
+            sequence.Append(transform.DOMoveY(originalPosition.y + jumpHeight, jumpDuration / 2).SetEase(Ease.OutQuad))
+                    .Append(transform.DOMoveY(originalPosition.y, jumpDuration / 2).SetEase(Ease.InQuad));
 
             elapsedTime += jumpDuration;
         }
+
+        sequence.Append(transform.DOMoveY(originalPosition.y, 0.2f).SetEase(Ease.OutQuad));
     }
+
 }
