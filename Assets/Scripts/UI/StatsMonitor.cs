@@ -44,9 +44,15 @@ public class StatsMonitor : MonoBehaviour
 	void Update()
 	{
 		{
-			fpsCounterText.text = $"{CalculateFPS()} FPS";
-			pingText.text = $"{GetPing()} Ping";
-		}
+			if (fpsCounterText != null && Time.timeScale != 0f)
+			{
+                fpsCounterText.text = $"{CalculateFPS()} FPS";
+            }
+			if (pingText != null)
+			{
+                pingText.text = $"{GetPing()} Ping";
+            }
+        }
 	}
 
 	private int CalculateFPS()

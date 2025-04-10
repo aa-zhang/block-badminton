@@ -23,6 +23,7 @@ public class GameMenu : MonoBehaviour
     [SerializeField] private float menuCloseXPos = 1150f;
     [SerializeField] private float menuLerpDuration = 0.25f;
     [SerializeField] private float delayAfterSplashScreen = 0.5f;
+    [SerializeField] private int fpsCap = 90;
 
     [SerializeField] private GameObject title;
     [SerializeField] private GameObject version;
@@ -38,7 +39,7 @@ public class GameMenu : MonoBehaviour
 
     private void Awake()
     {
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = fpsCap;
 
         if (instance != null && instance != this)
         {
