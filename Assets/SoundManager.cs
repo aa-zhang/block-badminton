@@ -7,15 +7,31 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip introClip;       // Played once
     [SerializeField] private AudioClip loopingClip;     // Looped after intro
     [SerializeField] private float volume = 1f;
+    [SerializeField] private List<AudioClip> hitClips;
 
     private AudioSource introSource;
     private AudioSource loopSource;
+    private AudioSource audioSource;
 
     void Start()
     {
         introSource = gameObject.AddComponent<AudioSource>();
         loopSource = gameObject.AddComponent<AudioSource>();
+        audioSource = gameObject.AddComponent<AudioSource>();
+
         StartCoroutine(StartMusicWhenReady());
+    }
+
+    private void OnEnable()
+    {
+        HitBirdie.OnBirdieHit += HitBirdie_OnBirdieHit;
+        GameMenu.OnReturnToTitleScreen += GameMenu_OnReturnToTitleScreen;
+    }
+
+    private void OnDisable()
+    {
+        HitBirdie.OnBirdieHit -= HitBirdie_OnBirdieHit;
+        GameMenu.OnReturnToTitleScreen -= GameMenu_OnReturnToTitleScreen;
     }
 
 
@@ -41,5 +57,16 @@ public class SoundManager : MonoBehaviour
         loopSource.clip = loopingClip;
         loopSource.loop = true;
         loopSource.PlayScheduled(loopStartTime);
+    }
+
+    private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum, int gameEnvId)
+    {
+        audioSource.clip = hitClips[0];
+        audioSource.Play();
+    }
+
+    private void GameMenu_OnReturnToTitleScreen()
+    {
+
     }
 }

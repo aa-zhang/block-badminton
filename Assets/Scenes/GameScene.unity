@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.68111056, g: 0.47475836, b: 0.4650742, a: 1}
+  m_IndirectSpecularColor: {r: 0.6811106, g: 0.47475815, b: 0.46507347, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3322,7 +3322,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000041247134, y: -0.20552024, z: 0.00000000866203, w: 0.9786529}
+  m_LocalRotation: {x: 0.000000041300517, y: -0.19939353, z: 0.000000008403808, w: 0.9799195}
   m_LocalPosition: {x: -0.14137578, y: -1.5847597, z: 0.08802807}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -13770,6 +13770,10 @@ MonoBehaviour:
   introClip: {fileID: 8300000, guid: aeff96fc8b550274fa7203ab7b066171, type: 3}
   loopingClip: {fileID: 8300000, guid: 08f72258e00c04b4eb90fce87d3c6c0a, type: 3}
   volume: 1
+  hitClips:
+  - {fileID: 8300000, guid: c1163a662ac7fa947b26dc33ccf72f4f, type: 3}
+  - {fileID: 8300000, guid: 06aaab7aa1ae6924db97421353a4bfbd, type: 3}
+  - {fileID: 8300000, guid: 711e831bee36e394b8b818d2d78ea242, type: 3}
 --- !u!4 &1070909801
 Transform:
   m_ObjectHideFlags: 0
@@ -17600,7 +17604,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1216954501}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000041247134, y: -0.20552024, z: 0.00000000866203, w: 0.9786529}
+  m_LocalRotation: {x: 0.000000041300517, y: -0.19939353, z: 0.000000008403808, w: 0.9799195}
   m_LocalPosition: {x: -0.14137578, y: -1.5847597, z: 0.08802807}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
