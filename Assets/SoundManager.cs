@@ -1,23 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
+
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
     [SerializeField] private AudioClip introClip;       // Played once
     [SerializeField] private AudioClip loopingClip;     // Looped after intro
-    [SerializeField] private float volume = 1f;
     [SerializeField] private List<AudioClip> hitClips;
 
-    private AudioSource introSource;
-    private AudioSource loopSource;
-    private AudioSource audioSource;
+    private AudioSource musicIntroSource;
+    private AudioSource musicLoopSource;
+    private AudioSource playerSFXAudioSource;
+    private AudioSource environmentAudioSource;
+
+    private float musicVolume = 1f;
+    private float playerSFXVolume = 0.3f;
+    private float environmentVolume = 1f;
+
 
     void Start()
     {
-        introSource = gameObject.AddComponent<AudioSource>();
-        loopSource = gameObject.AddComponent<AudioSource>();
-        audioSource = gameObject.AddComponent<AudioSource>();
+        musicIntroSource = gameObject.AddComponent<AudioSource>();
+        musicLoopSource = gameObject.AddComponent<AudioSource>();
+        playerSFXAudioSource = gameObject.AddComponent<AudioSource>();
+        environmentAudioSource = gameObject.AddComponent<AudioSource>();
+
+        musicIntroSource.volume = musicVolume;
+        musicLoopSource.volume = musicVolume;
+        playerSFXAudioSource.volume = playerSFXVolume;
+        environmentAudioSource.volume = environmentVolume;
 
         StartCoroutine(StartMusicWhenReady());
     }
@@ -25,12 +38,14 @@ public class SoundManager : MonoBehaviour
     private void OnEnable()
     {
         HitBirdie.OnBirdieHit += HitBirdie_OnBirdieHit;
+        PlayerLoader.OnPlayersLoaded += PlayerLoader_OnPlayersLoaded;
         GameMenu.OnReturnToTitleScreen += GameMenu_OnReturnToTitleScreen;
     }
 
     private void OnDisable()
     {
         HitBirdie.OnBirdieHit -= HitBirdie_OnBirdieHit;
+        PlayerLoader.OnPlayersLoaded -= PlayerLoader_OnPlayersLoaded;
         GameMenu.OnReturnToTitleScreen -= GameMenu_OnReturnToTitleScreen;
     }
 
@@ -51,22 +66,26 @@ public class SoundManager : MonoBehaviour
         double loopStartTime = startTime + introDuration;
 
         // Schedule both
-        introSource.clip = introClip;
-        introSource.PlayScheduled(startTime);
+        musicIntroSource.clip = introClip;
+        musicIntroSource.PlayScheduled(startTime);
 
-        loopSource.clip = loopingClip;
-        loopSource.loop = true;
-        loopSource.PlayScheduled(loopStartTime);
+        musicLoopSource.clip = loopingClip;
+        musicLoopSource.loop = true;
+        musicLoopSource.PlayScheduled(loopStartTime);
     }
 
     private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum, int gameEnvId)
     {
-        audioSource.clip = hitClips[0];
-        audioSource.Play();
+        playerSFXAudioSource.PlayOneShot(hitClips[0]);
+    }
+
+    private void PlayerLoader_OnPlayersLoaded(PlayMode playMode)
+    {
+        musicLoopSource.DOFade(0.1f, 1f);  // Fade to target volume over time
     }
 
     private void GameMenu_OnReturnToTitleScreen()
     {
-
+        musicLoopSource.DOFade(1f, 1f);  // Fade to target volume over time
     }
 }
