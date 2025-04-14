@@ -10,6 +10,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip loopingClip;     // Looped after intro
     [SerializeField] private List<AudioClip> hitClips;
     [SerializeField] private AudioClip blackFlashClip;
+    [SerializeField] private AudioClip swingClip;
+    [SerializeField] private AudioClip jumpClip;
 
 
     private AudioSource musicIntroSource;
@@ -44,6 +46,8 @@ public class SoundManager : MonoBehaviour
         PlayerLoader.OnPlayersLoaded += PlayerLoader_OnPlayersLoaded;
         OfflineGameStateManager.OnGameStateChange += OfflineGameStateManager_OnGameStateChange;
         BirdieParticleController.OnBlackFlash += BirdieParticleController_OnBlackFlash;
+        PlayerMovement.OnJump += PlayerMovement_OnJump;
+        PlayerMovement.OnSwing += PlayerMovement_OnSwing;
     }
 
     private void OnDisable()
@@ -52,6 +56,8 @@ public class SoundManager : MonoBehaviour
         PlayerLoader.OnPlayersLoaded -= PlayerLoader_OnPlayersLoaded;
         OfflineGameStateManager.OnGameStateChange -= OfflineGameStateManager_OnGameStateChange;
         BirdieParticleController.OnBlackFlash -= BirdieParticleController_OnBlackFlash;
+        PlayerMovement.OnJump += PlayerMovement_OnJump;
+        PlayerMovement.OnSwing += PlayerMovement_OnSwing;
     }
 
 
@@ -87,7 +93,7 @@ public class SoundManager : MonoBehaviour
             playerSFXAudioSource.PlayOneShot(hitClips[2]);
             playServeSound = false;
         }
-        else if (forceVector.y < -6)
+        else if (forceVector.y < -5)
         {
             playerSFXAudioSource.PlayOneShot(hitClips[1]);
         }
@@ -104,7 +110,7 @@ public class SoundManager : MonoBehaviour
 
     private void PlayerLoader_OnPlayersLoaded(PlayMode playMode)
     {
-        musicLoopSource.DOFade(0.1f, 1f);  // Fade to target volume over time
+        musicLoopSource.DOFade(0.2f, 1f);  // Fade to target volume over time
     }
 
     private void OfflineGameStateManager_OnGameStateChange(GameState gameState)
@@ -121,5 +127,15 @@ public class SoundManager : MonoBehaviour
 
         state = gameState;
 
+    }
+
+    private void PlayerMovement_OnJump()
+    {
+        playerSFXAudioSource.PlayOneShot(jumpClip);
+    }
+
+    private void PlayerMovement_OnSwing()
+    {
+        playerSFXAudioSource.PlayOneShot(swingClip);
     }
 }

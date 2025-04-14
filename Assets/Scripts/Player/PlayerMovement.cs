@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -21,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool fastFallEnabled = false;
     [SerializeField] private bool moveWhenServingEnabled = true;
 
+    public static Action OnSwing;
+    public static Action OnJump;
 
 
     private bool canSwing = true;
@@ -156,6 +159,7 @@ public class PlayerMovement : MonoBehaviour
         if (IsGrounded() && !serveController.isServing)
         {
             playerRb.velocity = new Vector3(playerRb.velocity.x, jumpHeight, 0f);
+            OnJump?.Invoke();
         }
     }
 
@@ -183,6 +187,7 @@ public class PlayerMovement : MonoBehaviour
         {
             canSwing = false;
             swingRacket.Swing(swingType);
+            OnSwing?.Invoke();
         }
     }
 
