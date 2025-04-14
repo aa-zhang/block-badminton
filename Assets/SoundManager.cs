@@ -9,6 +9,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip introClip;       // Played once
     [SerializeField] private AudioClip loopingClip;     // Looped after intro
     [SerializeField] private List<AudioClip> hitClips;
+    [SerializeField] private AudioClip blackFlashClip;
+
 
     private AudioSource musicIntroSource;
     private AudioSource musicLoopSource;
@@ -41,6 +43,7 @@ public class SoundManager : MonoBehaviour
         HitBirdie.OnBirdieHit += HitBirdie_OnBirdieHit;
         PlayerLoader.OnPlayersLoaded += PlayerLoader_OnPlayersLoaded;
         OfflineGameStateManager.OnGameStateChange += OfflineGameStateManager_OnGameStateChange;
+        BirdieParticleController.OnBlackFlash += BirdieParticleController_OnBlackFlash;
     }
 
     private void OnDisable()
@@ -48,6 +51,7 @@ public class SoundManager : MonoBehaviour
         HitBirdie.OnBirdieHit -= HitBirdie_OnBirdieHit;
         PlayerLoader.OnPlayersLoaded -= PlayerLoader_OnPlayersLoaded;
         OfflineGameStateManager.OnGameStateChange -= OfflineGameStateManager_OnGameStateChange;
+        BirdieParticleController.OnBlackFlash -= BirdieParticleController_OnBlackFlash;
     }
 
 
@@ -80,20 +84,22 @@ public class SoundManager : MonoBehaviour
         Debug.Log(state);
         if (playServeSound)
         {
-            Debug.Log('1');
             playerSFXAudioSource.PlayOneShot(hitClips[2]);
             playServeSound = false;
         }
-        else if (forceVector.y < -7)
+        else if (forceVector.y < -6)
         {
-            Debug.Log('2');
             playerSFXAudioSource.PlayOneShot(hitClips[1]);
         }
         else
         {
-            Debug.Log('3');
             playerSFXAudioSource.PlayOneShot(hitClips[0]);
         }
+    }
+
+    private void BirdieParticleController_OnBlackFlash()
+    {
+        playerSFXAudioSource.PlayOneShot(blackFlashClip);
     }
 
     private void PlayerLoader_OnPlayersLoaded(PlayMode playMode)

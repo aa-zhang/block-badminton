@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,9 @@ public class BirdieParticleController : MonoBehaviour
     private bool blackFlashActive = false;
     private Vector3 blackFlashAngle;
     private GameEnvironmentManager gameEnv;
+
+    public static Action OnBlackFlash;
+
 
     void Awake()
     {
@@ -90,7 +94,7 @@ public class BirdieParticleController : MonoBehaviour
             blackFlashAngle = new Vector3(XYToAngle(-birdieRb.velocity.x, birdieRb.velocity.y), 90, 0);
             // start corountine for black lightning
             StartCoroutine(StopBlackFlashParticles());
-
+            OnBlackFlash?.Invoke();
         }
         else
         {

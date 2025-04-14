@@ -13773,6 +13773,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b4ef2bdae0e8ee54580801d0ed79960d, type: 3}
   - {fileID: 8300000, guid: 5ed70ad4a7f2bad41a3f6ab32cd31dc7, type: 3}
   - {fileID: 8300000, guid: b10f9f81e83e8144e910fc1da63d06e3, type: 3}
+  blackFlashClip: {fileID: 8300000, guid: e0ea686f62242014aaa0c7bd7f8dd8f2, type: 3}
 --- !u!4 &1070909801
 Transform:
   m_ObjectHideFlags: 0
