@@ -13769,7 +13769,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   introClip: {fileID: 8300000, guid: aeff96fc8b550274fa7203ab7b066171, type: 3}
   loopingClip: {fileID: 8300000, guid: 08f72258e00c04b4eb90fce87d3c6c0a, type: 3}
-  volume: 1
   hitClips:
   - {fileID: 8300000, guid: b4ef2bdae0e8ee54580801d0ed79960d, type: 3}
   - {fileID: 8300000, guid: 5ed70ad4a7f2bad41a3f6ab32cd31dc7, type: 3}

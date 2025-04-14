@@ -19,7 +19,8 @@ public class SoundManager : MonoBehaviour
     private float playerSFXVolume = 0.3f;
     private float environmentVolume = 1f;
 
-
+    private GameState state;
+    private bool playServeSound = true;
     void Start()
     {
         musicIntroSource = gameObject.AddComponent<AudioSource>();
@@ -39,14 +40,14 @@ public class SoundManager : MonoBehaviour
     {
         HitBirdie.OnBirdieHit += HitBirdie_OnBirdieHit;
         PlayerLoader.OnPlayersLoaded += PlayerLoader_OnPlayersLoaded;
-        GameMenu.OnReturnToTitleScreen += GameMenu_OnReturnToTitleScreen;
+        OfflineGameStateManager.OnGameStateChange += OfflineGameStateManager_OnGameStateChange;
     }
 
     private void OnDisable()
     {
         HitBirdie.OnBirdieHit -= HitBirdie_OnBirdieHit;
         PlayerLoader.OnPlayersLoaded -= PlayerLoader_OnPlayersLoaded;
-        GameMenu.OnReturnToTitleScreen -= GameMenu_OnReturnToTitleScreen;
+        OfflineGameStateManager.OnGameStateChange -= OfflineGameStateManager_OnGameStateChange;
     }
 
 
@@ -76,7 +77,23 @@ public class SoundManager : MonoBehaviour
 
     private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum, int gameEnvId)
     {
-        playerSFXAudioSource.PlayOneShot(hitClips[0]);
+        Debug.Log(state);
+        if (playServeSound)
+        {
+            Debug.Log('1');
+            playerSFXAudioSource.PlayOneShot(hitClips[2]);
+            playServeSound = false;
+        }
+        else if (forceVector.y < -7)
+        {
+            Debug.Log('2');
+            playerSFXAudioSource.PlayOneShot(hitClips[1]);
+        }
+        else
+        {
+            Debug.Log('3');
+            playerSFXAudioSource.PlayOneShot(hitClips[0]);
+        }
     }
 
     private void PlayerLoader_OnPlayersLoaded(PlayMode playMode)
@@ -84,8 +101,19 @@ public class SoundManager : MonoBehaviour
         musicLoopSource.DOFade(0.1f, 1f);  // Fade to target volume over time
     }
 
-    private void GameMenu_OnReturnToTitleScreen()
+    private void OfflineGameStateManager_OnGameStateChange(GameState gameState)
     {
-        musicLoopSource.DOFade(1f, 1f);  // Fade to target volume over time
+        if (gameState == GameState.NotPlaying)
+        {
+            musicLoopSource.DOFade(1f, 1f);  // Fade to target volume over time
+        }
+
+        if (gameState == GameState.Serving)
+        {
+            playServeSound = true;
+        }
+
+        state = gameState;
+
     }
 }
