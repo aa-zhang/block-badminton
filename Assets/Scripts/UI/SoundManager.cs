@@ -20,7 +20,7 @@ public class SoundManager : MonoBehaviour
     private AudioSource environmentAudioSource;
 
     private float musicVolume = 1f;
-    private float playerSFXVolume = 0.3f;
+    private float playerSFXVolume = 0.25f;
     private float environmentVolume = 1f;
 
     private GameState state;

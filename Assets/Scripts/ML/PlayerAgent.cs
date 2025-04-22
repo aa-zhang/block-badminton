@@ -48,7 +48,11 @@ public class PlayerAgent : Agent
         sensor.AddObservation(transform.localPosition);
         sensor.AddObservation(opponent.transform.localPosition);
 
-        sensor.AddObservation(birdie.transform.localPosition);
+        // Adjusting birdie position to account for z-offset
+        // TODO: remove this before training again
+        Vector3 birdiePosition = birdie.transform.localPosition;
+        birdiePosition.z = 0f;
+        sensor.AddObservation(birdiePosition);
         sensor.AddObservation(birdie.GetComponent<Rigidbody>().velocity);
 
         sensor.AddObservation(offlineServeController.isServing);
