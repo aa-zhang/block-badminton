@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Rendering;
 using DG.Tweening;
 
-public enum MenuType { TitleScreen, GameModeSelection, InGame, Settings, None }
+public enum MenuType { TitleScreen, GameModeSelection, InGame, Settings, Credits, None }
 
 
 
@@ -29,6 +29,7 @@ public class GameMenu : MonoBehaviour
     [SerializeField] private GameObject version;
     [SerializeField] private GameObject playText;
     [SerializeField] private GameObject settingsText;
+    [SerializeField] private GameObject creditsText;
     [SerializeField] private GameObject optionsText;
 
     private ButtonAnimator buttonAnimator;
@@ -107,6 +108,7 @@ public class GameMenu : MonoBehaviour
         version.SetActive(menuType == MenuType.TitleScreen);
         playText.SetActive(menuType == MenuType.GameModeSelection);
         settingsText.SetActive(menuType == MenuType.Settings);
+        creditsText.SetActive(menuType == MenuType.Credits);
         optionsText.SetActive(menuType == MenuType.InGame);
 
         buttonAnimator.LoadButtons(menuType);

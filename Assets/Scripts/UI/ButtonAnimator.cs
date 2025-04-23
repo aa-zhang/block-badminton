@@ -21,6 +21,7 @@ public class ButtonAnimator : MonoBehaviour
     [SerializeField] private List<Button> gameModeButtonList = new List<Button>();
     [SerializeField] private List<Button> inGameButtonList = new List<Button>();
     [SerializeField] private List<Button> settingsButtonList = new List<Button>();
+    [SerializeField] private List<Button> creditsButtonList = new List<Button>();
 
     private List<Button> allButtons = new List<Button>();
     private Dictionary<Button, Vector2> originalPositions = new Dictionary<Button, Vector2>(); // Prevent displacement when quickly hovering/unhovering
@@ -60,6 +61,7 @@ public class ButtonAnimator : MonoBehaviour
             MenuType.GameModeSelection => gameModeButtonList,
             MenuType.InGame => inGameButtonList,
             MenuType.Settings => settingsButtonList,
+            MenuType.Credits => creditsButtonList,
             _ => null
         };
 
