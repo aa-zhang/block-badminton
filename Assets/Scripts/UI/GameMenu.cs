@@ -27,10 +27,11 @@ public class GameMenu : MonoBehaviour
 
     [SerializeField] private GameObject title;
     [SerializeField] private GameObject version;
-    [SerializeField] private GameObject playText;
-    [SerializeField] private GameObject settingsText;
-    [SerializeField] private GameObject creditsText;
-    [SerializeField] private GameObject optionsText;
+    [SerializeField] private GameObject playHeader;
+    [SerializeField] private GameObject settingsHeader;
+    [SerializeField] private GameObject creditsHeader;
+    [SerializeField] private GameObject creditsContent;
+    [SerializeField] private GameObject optionsHeader;
 
     private ButtonAnimator buttonAnimator;
 
@@ -106,10 +107,11 @@ public class GameMenu : MonoBehaviour
         // Toggle UI elements based on the selected menu
         title.SetActive(menuType == MenuType.TitleScreen);
         version.SetActive(menuType == MenuType.TitleScreen);
-        playText.SetActive(menuType == MenuType.GameModeSelection);
-        settingsText.SetActive(menuType == MenuType.Settings);
-        creditsText.SetActive(menuType == MenuType.Credits);
-        optionsText.SetActive(menuType == MenuType.InGame);
+        playHeader.SetActive(menuType == MenuType.GameModeSelection);
+        settingsHeader.SetActive(menuType == MenuType.Settings);
+        creditsHeader.SetActive(menuType == MenuType.Credits);
+        creditsContent.SetActive(menuType == MenuType.Credits);
+        optionsHeader.SetActive(menuType == MenuType.InGame);
 
         buttonAnimator.LoadButtons(menuType);
 

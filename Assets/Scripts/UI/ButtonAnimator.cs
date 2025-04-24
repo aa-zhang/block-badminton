@@ -134,7 +134,7 @@ public class ButtonAnimator : MonoBehaviour
         {
             RectTransform rectTransform = button.GetComponent<RectTransform>();
             rectTransform.DOKill();
-            rectTransform.anchoredPosition = new Vector2(500, 0); // Default hidden button location
+            rectTransform.anchoredPosition = new Vector2(1000, 0); // Default hidden button location
         }
 
     }
