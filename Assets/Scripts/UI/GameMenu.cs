@@ -152,6 +152,8 @@ public class GameMenu : MonoBehaviour
     // Use these for button actions (since Unity won't let me call a method that has an Enum parameter)
     public void ShowGameModesMenu() => ShowMenu(MenuType.GameModeSelection);
     public void ShowSettingsMenu() => ShowMenu(MenuType.Settings);
+    public void ShowCreditsMenu() => ShowMenu(MenuType.Credits);
+
 
 
     public void HideMenu()
