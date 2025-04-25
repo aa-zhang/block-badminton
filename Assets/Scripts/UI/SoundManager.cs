@@ -87,7 +87,6 @@ public class SoundManager : MonoBehaviour
 
     private void HitBirdie_OnBirdieHit(Vector3 forceVector, int playerNum, int gameEnvId)
     {
-        Debug.Log(state);
         if (playServeSound)
         {
             playerSFXAudioSource.PlayOneShot(hitClips[2]);

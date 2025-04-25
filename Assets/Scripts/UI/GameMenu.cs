@@ -42,6 +42,7 @@ public class GameMenu : MonoBehaviour
     private void Awake()
     {
         Application.targetFrameRate = fpsCap;
+        DOTween.SetTweensCapacity(3125, 125);
 
         if (instance != null && instance != this)
         {

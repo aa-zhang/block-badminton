@@ -37,7 +37,7 @@ public class HitBirdie : MonoBehaviour
 
     public void CalculateBirdieForce(bool isOverhandCollider)
     {
-        if ((swingRacket.overhand && !isOverhandCollider) || (!swingRacket.overhand && isOverhandCollider) || !swingRacket.inForwardSwingAnimation || swingRacket.alreadyMadeContact)
+        if ((swingRacket.overhand && !isOverhandCollider) || (!swingRacket.overhand && isOverhandCollider) || !swingRacket.inForwardSwingAnimation || swingRacket.alreadyMadeContact || (swingRacket.overhand && serveController.isServing))
         {
             // Ignore collision if collision was registered for the incorrect collider
             // OR racket is currently in the backward swinging animation
