@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+
 
 public class OfflineServeController : MonoBehaviour, IServing
 {
@@ -19,6 +21,9 @@ public class OfflineServeController : MonoBehaviour, IServing
 
     [SerializeField] private GameObject serveArrow;
     [SerializeField] private float lerpDuration = 0.1f;
+    private Transform arrowSprite;
+    [SerializeField] private float arrowFloatDistance = 1;
+    [SerializeField] private float arrowFloatDuration = 1;
 
     private ServeAngle currentServeAngle = ServeAngle.High;
 
@@ -45,6 +50,8 @@ public class OfflineServeController : MonoBehaviour, IServing
         birdieTransform = birdie.transform;
         birdieMovement = birdie.GetComponent<OfflineBirdieMovement>();
         birdieTrailRenderer = birdie.GetComponent<TrailRenderer>();
+        arrowSprite = serveArrow.transform.GetChild(0).transform;
+        StartArrowAnimation();
     }
 
     private void FixedUpdate()
@@ -67,6 +74,15 @@ public class OfflineServeController : MonoBehaviour, IServing
         OfflineGameStateManager.OnBeginServe -= GameStateManager_OnBeginServe;
         HitBirdie.OnBirdieHit -= HitBirdie_OnBirdieHit;
         GameMenu.OnReturnToTitleScreen -= GameMenu_OnReturnToTitleScreen;
+    }
+
+    private void StartArrowAnimation()
+    {
+        // Floaty arrow animation
+        Vector3 startPos = arrowSprite.localPosition;
+        arrowSprite.DOLocalMoveX(startPos.x + arrowFloatDistance, arrowFloatDuration)
+            .SetLoops(-1, LoopType.Yoyo)
+            .SetEase(Ease.InOutSine);
     }
 
     private void HoldBirdieRpc()

@@ -14904,6 +14904,16 @@ PrefabInstance:
       propertyPath: serveArrow
       value: 
       objectReference: {fileID: 1832297316}
+    - target: {fileID: 6802728469825989696, guid: c63b11fc75ad89e4b8513b90d6e6dc40,
+        type: 3}
+      propertyPath: arrowFloatDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6802728469825989696, guid: c63b11fc75ad89e4b8513b90d6e6dc40,
+        type: 3}
+      propertyPath: arrowFloatDuration
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 7078791049520243984, guid: c63b11fc75ad89e4b8513b90d6e6dc40,
         type: 3}
       propertyPath: m_IsActive
@@ -16135,6 +16145,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 8728143333224140412, guid: ba373e8757089ff4182077f617a938cc,
+        type: 3}
+      propertyPath: arrowFloatDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8728143333224140412, guid: ba373e8757089ff4182077f617a938cc,
+        type: 3}
+      propertyPath: arrowFloatDuration
+      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6127741815115368399, guid: ba373e8757089ff4182077f617a938cc, type: 3}
@@ -25838,6 +25858,16 @@ PrefabInstance:
       propertyPath: serveArrow
       value: 
       objectReference: {fileID: 49379984}
+    - target: {fileID: 8728143333224140412, guid: a186ed66e02184727844d6732d5fc554,
+        type: 3}
+      propertyPath: arrowFloatDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8728143333224140412, guid: a186ed66e02184727844d6732d5fc554,
+        type: 3}
+      propertyPath: arrowFloatDuration
+      value: 0.8
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6127741815115368399, guid: a186ed66e02184727844d6732d5fc554, type: 3}
     m_RemovedGameObjects:
