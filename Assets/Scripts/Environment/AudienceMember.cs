@@ -55,7 +55,6 @@ public class AudienceMember : MonoBehaviour
 
     private void StartCheerAnimation()
     {
-        float elapsedTime = 0f;
         Vector3 originalPosition = transform.position;
 
         Sequence sequence = DOTween.Sequence();
