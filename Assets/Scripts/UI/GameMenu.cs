@@ -42,7 +42,6 @@ public class GameMenu : MonoBehaviour
     private void Awake()
     {
         Application.targetFrameRate = fpsCap;
-        DOTween.SetTweensCapacity(3125, 125);
 
         if (instance != null && instance != this)
         {
@@ -178,7 +177,7 @@ public class GameMenu : MonoBehaviour
         else if (gameState == GameState.Rallying || gameState == GameState.Serving || gameState == GameState.GameOver)
         {
             ShowMenu(MenuType.InGame);
-            Time.timeScale = 0f; // Freeze the game
+            Time.timeScale = 0; // Freeze the game
         }
         else if (gameState == GameState.MatchOver)
         {

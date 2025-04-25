@@ -60,7 +60,6 @@ public class SoundManager : MonoBehaviour
         PlayerMovement.OnSwing += PlayerMovement_OnSwing;
     }
 
-
     IEnumerator StartMusicWhenReady()
     {
         // Wait until both clips are ready

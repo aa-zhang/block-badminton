@@ -84,6 +84,7 @@ public class ButtonAnimator : MonoBehaviour
 
             // Immediately set the Y position to target Y
             int currButtonNum = i;
+            btnRect.DOKill();
             btnRect.anchoredPosition = new Vector2(btnRect.anchoredPosition.x, targetY);
             btnRect.DOAnchorPosX(targetX, buttonLerpDuration) // Lerp only the X position
                 .SetEase(Ease.InOutQuad)
@@ -104,6 +105,7 @@ public class ButtonAnimator : MonoBehaviour
         RectTransform hoveredRect = hoveredButton.GetComponent<RectTransform>();
 
         Vector2 originalPos = originalPositions[hoveredButton]; // Retrieve original position
+        hoveredRect.DOKill();
         hoveredRect.DOScale(Vector3.one * expandFactor, buttonLerpDuration)
             .SetEase(Ease.OutQuad)
             .SetUpdate(true);
@@ -119,6 +121,7 @@ public class ButtonAnimator : MonoBehaviour
         RectTransform hoveredRect = hoveredButton.GetComponent<RectTransform>();
 
         Vector2 originalPos = originalPositions[hoveredButton]; // Retrieve original position
+        hoveredRect.DOKill();
         hoveredRect.DOScale(Vector3.one, buttonLerpDuration).SetEase(Ease.OutQuad).SetUpdate(true);
         if (!areButtonsInAnimation)
         {

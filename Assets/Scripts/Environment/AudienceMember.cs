@@ -26,6 +26,7 @@ public class AudienceMember : MonoBehaviour
     {
         if (recalculateLookDirection)
         {
+            transform.DOKill();
             transform.DOLookAt(focusPoint.position, 0.5f, AxisConstraint.Y)
                      .SetEase(Ease.OutQuad);
         }
@@ -59,15 +60,18 @@ public class AudienceMember : MonoBehaviour
 
         Sequence sequence = DOTween.Sequence();
 
-        while (elapsedTime < totalDuration)
+        // Calculate the number of jumps based on total duration and average jump duration
+        float totalJumpDuration = Random.Range(minJumpDuration, maxJumpDuration);
+        float jumpCount = totalDuration / totalJumpDuration;
+
+        for (int i = 0; i < jumpCount; i++)
         {
             float jumpDuration = Random.Range(minJumpDuration, maxJumpDuration);
+            float targetY = originalPosition.y + jumpHeight;
 
-            // Always jump from the original Y position
-            sequence.Append(transform.DOMoveY(originalPosition.y + jumpHeight, jumpDuration / 2).SetEase(Ease.OutQuad))
+            // Jump up and down, appending each movement to the sequence
+            sequence.Append(transform.DOMoveY(targetY, jumpDuration / 2).SetEase(Ease.OutQuad))
                     .Append(transform.DOMoveY(originalPosition.y, jumpDuration / 2).SetEase(Ease.InQuad));
-
-            elapsedTime += jumpDuration;
         }
 
         sequence.Append(transform.DOMoveY(originalPosition.y, 0.2f).SetEase(Ease.OutQuad));
