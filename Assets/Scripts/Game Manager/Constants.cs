@@ -34,4 +34,11 @@ public static class Constants
     public static readonly float FAST_FALL_TIME_FRAME = 0.1f;
     public static readonly float FAST_FALL_SPEED = -150f;
 
+    // Referee flag constants (multiply x-pos by -1 for red flag)
+    public static readonly Vector3 FLAG_DOWN_POSITION = new Vector3(0.3f, -0.75f, 0);
+    public static readonly Vector3 FLAG_DOWN_ROTATION = new Vector3(-180, 0, 0);
+    public static readonly Vector3 FLAG_UP_POSITION = new Vector3(0.3f, 0.75f, 0);
+    public static readonly Vector3 FLAG_UP_ROTATION = new Vector3(0, 90, 0);
+
+
 }
