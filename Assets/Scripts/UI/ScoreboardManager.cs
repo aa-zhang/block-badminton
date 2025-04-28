@@ -89,26 +89,49 @@ public class ScoreboardManager : MonoBehaviour
 
     private void OfflineGameStateManager_OnPointChange(int playerOneScore, int playerTwoScore)
     {
+        // Get current scores from text
+        int currentPlayerOneScore = int.Parse(this.playerOneScore.text);
+        int currentPlayerTwoScore = int.Parse(this.playerTwoScore.text);
+
         SetElementText(this.playerOneScore, playerOneScore.ToString());
         SetElementText(this.playerTwoScore, playerTwoScore.ToString());
 
         scoreboardFadeSequence?.Kill();
-
         scoreboardFadeSequence = DOTween.Sequence();
 
+        // Delay before showing scoreboard on new match
         if (playerOneScore == 0 && playerTwoScore == 0)
         {
             scoreboardFadeSequence.AppendInterval(1f);
-
         }
         scoreboardFadeSequence.Append(canvasGroup.DOFade(1f, 0.25f));
 
+        // Check who scored
+        if (playerOneScore > currentPlayerOneScore)
+        {
+            AnimateScoreText(this.playerOneScore);
+        }
+        else if (playerTwoScore > currentPlayerTwoScore)
+        {
+            AnimateScoreText(this.playerTwoScore);
+        }
     }
+
 
 
     private void SetElementText(TextMeshProUGUI textElement, string text)
     {
         textElement.text = text;
+    }
+
+
+    private void AnimateScoreText(TextMeshProUGUI textElement)
+    {
+        textElement.transform.DOKill();
+        Sequence pulse = DOTween.Sequence();
+        pulse.AppendInterval(0.2f);
+        pulse.Append(textElement.transform.DOScale(2f, 0.25f)); // Scale up
+        pulse.Append(textElement.transform.DOScale(1f, 0.25f));   // Scale back down
     }
 
     private void ResetMatchWinnerSquares()

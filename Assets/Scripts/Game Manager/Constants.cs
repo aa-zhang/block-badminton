@@ -36,9 +36,9 @@ public static class Constants
 
     // Referee flag constants (multiply x-pos by -1 for red flag)
     public static readonly Vector3 FLAG_DOWN_POSITION = new Vector3(0.3f, -0.75f, 0);
-    public static readonly Vector3 FLAG_DOWN_ROTATION = new Vector3(-180, 0, 0);
-    public static readonly Vector3 FLAG_UP_POSITION = new Vector3(0.3f, 0.75f, 0);
-    public static readonly Vector3 FLAG_UP_ROTATION = new Vector3(0, 90, 0);
+    public static readonly Vector3 FLAG_DOWN_ROTATION = new Vector3(180, 0, 0);
+    public static readonly Vector3 FLAG_UP_POSITION = new Vector3(0.65f, 0.75f, 0);
+    public static readonly Vector3 FLAG_UP_ROTATION = new Vector3(345, 90, 0);
 
 
 }
