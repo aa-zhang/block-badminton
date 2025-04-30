@@ -13,6 +13,7 @@ public class AudienceMember : MonoBehaviour
     private float minJumpDuration = 0.3f;  // Min time per jump
     private float maxJumpDuration = 0.6f;  // Max time per jump
     private float totalDuration = 2f;  // Total celebration time
+    private float jumpCount = 5;  // Num of jumps
 
 
     // Start is called before the first frame update
@@ -58,10 +59,6 @@ public class AudienceMember : MonoBehaviour
         Vector3 originalPosition = transform.position;
 
         Sequence sequence = DOTween.Sequence();
-
-        // Calculate the number of jumps based on total duration and average jump duration
-        float totalJumpDuration = Random.Range(minJumpDuration, maxJumpDuration);
-        float jumpCount = totalDuration / totalJumpDuration;
 
         for (int i = 0; i < jumpCount; i++)
         {
