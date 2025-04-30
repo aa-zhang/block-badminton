@@ -16529,6 +16529,12 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 2950094436699677461, guid: 7f5a4d67287e9164cab273c0871aabb9,
         type: 3}
+      propertyPath: landingMarkerPrefab
+      value: 
+      objectReference: {fileID: 5121571489052341770, guid: d4452846a2f82de488ef7fed68947280,
+        type: 3}
+    - target: {fileID: 2950094436699677461, guid: 7f5a4d67287e9164cab273c0871aabb9,
+        type: 3}
       propertyPath: blackFlashHitEffectPrefab
       value: 
       objectReference: {fileID: 1141330259687333427, guid: 896c6e2fdf7f8449e8db4df7fdf150c3,

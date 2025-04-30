@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+
 
 public class BirdieParticleController : MonoBehaviour
 {
@@ -9,6 +11,7 @@ public class BirdieParticleController : MonoBehaviour
     [SerializeField] private GameObject sparkEffectPrefab;
     [SerializeField] private GameObject blackFlashHitEffectPrefab;
     [SerializeField] private ParticleSystem blackFlashPs;
+    [SerializeField] private GameObject landingMarkerPrefab;
     private Rigidbody birdieRb;
     private TrailRenderer trailRenderer;
 
@@ -17,6 +20,7 @@ public class BirdieParticleController : MonoBehaviour
     private bool blackFlashActive = false;
     private Vector3 blackFlashAngle;
     private GameEnvironmentManager gameEnv;
+    private bool firstImpact = true;
 
     public static Action OnBlackFlash;
 
@@ -104,14 +108,20 @@ public class BirdieParticleController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        // Get the first contact point of the collision
+        ContactPoint contact = collision.contacts[0];
+
+        // Get the exact position of the collision
+        Vector3 collisionPosition = contact.point;
+
         if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
-            // Get the first contact point of the collision
-            ContactPoint contact = collision.contacts[0];
-
-            // Get the exact position of the collision
-            Vector3 collisionPosition = contact.point;
             Instantiate(sparkEffectPrefab, collisionPosition, Quaternion.Euler(0, 90, 0));
+        }
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("Floor") && firstImpact)
+        {
+            ShowLandingMarker(collisionPosition);
+            firstImpact = false;
         }
     }
 
@@ -120,6 +130,7 @@ public class BirdieParticleController : MonoBehaviour
     {
         timeSinceServe = 0;
         timerActive = true;
+        firstImpact = true;
     }
 
 
@@ -165,4 +176,11 @@ public class BirdieParticleController : MonoBehaviour
         
     }
 
+    private void ShowLandingMarker(Vector3 position)
+    {
+        GameObject marker = Instantiate(landingMarkerPrefab, position, Quaternion.Euler(90f, 0f, 0f));
+        SpriteRenderer sr = marker.GetComponent<SpriteRenderer>();
+        sr.DOFade(0f, 0.5f).SetDelay(2f);
+        Destroy(marker, 3f);
+    }
 }
