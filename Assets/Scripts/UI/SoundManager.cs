@@ -12,6 +12,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip blackFlashClip;
     [SerializeField] private AudioClip swingClip;
     [SerializeField] private AudioClip jumpClip;
+    [SerializeField] private AudioClip pointScoredClip;
+    [SerializeField] private AudioClip pointScoredClip2;
 
 
     private AudioSource musicIntroSource;
@@ -48,6 +50,7 @@ public class SoundManager : MonoBehaviour
         BirdieParticleController.OnBlackFlash += BirdieParticleController_OnBlackFlash;
         PlayerMovement.OnJump += PlayerMovement_OnJump;
         PlayerMovement.OnSwing += PlayerMovement_OnSwing;
+        OfflineBirdieMovement.OnPointScored += BirdieMovement_OnPointScored;
     }
 
     private void OnDisable()
@@ -56,8 +59,9 @@ public class SoundManager : MonoBehaviour
         PlayerLoader.OnPlayersLoaded -= PlayerLoader_OnPlayersLoaded;
         OfflineGameStateManager.OnGameStateChange -= OfflineGameStateManager_OnGameStateChange;
         BirdieParticleController.OnBlackFlash -= BirdieParticleController_OnBlackFlash;
-        PlayerMovement.OnJump += PlayerMovement_OnJump;
-        PlayerMovement.OnSwing += PlayerMovement_OnSwing;
+        PlayerMovement.OnJump -= PlayerMovement_OnJump;
+        PlayerMovement.OnSwing -= PlayerMovement_OnSwing;
+        OfflineBirdieMovement.OnPointScored -= BirdieMovement_OnPointScored;
     }
 
     IEnumerator StartMusicWhenReady()
@@ -136,4 +140,17 @@ public class SoundManager : MonoBehaviour
     {
         playerSFXAudioSource.PlayOneShot(swingClip);
     }
+
+    private void BirdieMovement_OnPointScored(int scoringPlayerNum)
+    {
+        if (scoringPlayerNum == 1)
+        {
+            playerSFXAudioSource.PlayOneShot(pointScoredClip);
+        }
+        else
+        {
+            playerSFXAudioSource.PlayOneShot(pointScoredClip2);
+        }
+    }
+
 }

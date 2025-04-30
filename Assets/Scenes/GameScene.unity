@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.6811106, g: 0.47475815, b: 0.46507347, a: 1}
+  m_IndirectSpecularColor: {r: 0.68111056, g: 0.47475836, b: 0.4650742, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -15295,7 +15295,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -150}
+  m_AnchoredPosition: {x: 0, y: -150.00006}
   m_SizeDelta: {x: 100, y: -900}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1065367227
@@ -15499,6 +15499,8 @@ MonoBehaviour:
   blackFlashClip: {fileID: 8300000, guid: e0ea686f62242014aaa0c7bd7f8dd8f2, type: 3}
   swingClip: {fileID: 8300000, guid: e7dbf95f761371f438b391115ad03089, type: 3}
   jumpClip: {fileID: 8300000, guid: 74a08d07d4d924142975fc435abb134a, type: 3}
+  pointScoredClip: {fileID: 8300000, guid: 712800429befcf14c9a59ef0c8b32621, type: 3}
+  pointScoredClip2: {fileID: 8300000, guid: b69e6a95ae801e1488af896fb2ba21a4, type: 3}
 --- !u!4 &1070909801
 Transform:
   m_ObjectHideFlags: 0
