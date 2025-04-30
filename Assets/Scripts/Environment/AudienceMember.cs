@@ -12,7 +12,6 @@ public class AudienceMember : MonoBehaviour
     private float jumpHeight = 0.5f;  // How high the audience jumps
     private float minJumpDuration = 0.3f;  // Min time per jump
     private float maxJumpDuration = 0.6f;  // Max time per jump
-    private float totalDuration = 2f;  // Total celebration time
     private float jumpCount = 5;  // Num of jumps
 
 

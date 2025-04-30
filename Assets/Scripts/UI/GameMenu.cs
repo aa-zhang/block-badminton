@@ -34,6 +34,7 @@ public class GameMenu : MonoBehaviour
     [SerializeField] private GameObject optionsHeader;
 
     private ButtonAnimator buttonAnimator;
+    private GameModeManager gameModeManager;
 
     private GameState gameState = GameState.NotPlaying;
 
@@ -57,8 +58,22 @@ public class GameMenu : MonoBehaviour
     {
         menuRect = GetComponent<RectTransform>();
         buttonAnimator = GetComponentInChildren<ButtonAnimator>();
+        gameModeManager = GetComponent<GameModeManager>();
 
         StartCoroutine(WaitForSplashScreenToFinish());
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameMenu.Instance.ToggleMenu();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && gameState == GameState.MatchOver)
+        {
+            gameModeManager.RestartGame(false);
+        }
     }
 
     private void OnEnable()

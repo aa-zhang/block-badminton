@@ -18,6 +18,8 @@ public class ScoreboardManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI matchInfo;
     [SerializeField] private TextMeshProUGUI playerOneScore;
     [SerializeField] private TextMeshProUGUI playerTwoScore;
+    [SerializeField] private TextMeshProUGUI playAgainText;
+
 
     private Color winnerSquareEmptyColor = new Color(0f, 0f, 0f, 130f / 255f);
     private Color winnerSquareRedColor = new Color(1f, 0f, 0f, 200f / 255f);
@@ -30,6 +32,7 @@ public class ScoreboardManager : MonoBehaviour
     void Start()
     {
         canvasGroup = gameObject.GetComponent<CanvasGroup>();
+        StartPlayAgainPulse();
     }
 
 
@@ -51,13 +54,21 @@ public class ScoreboardManager : MonoBehaviour
 
     private void OfflineGameStateManager_OnGameStateChange(GameState newGameState)
     {
-        if (newGameState == GameState.Rallying || newGameState == GameState.NotPlaying)
+        if (newGameState == GameState.MatchOver)
         {
-            scoreboardFadeSequence?.Kill();
-            scoreboardFadeSequence = DOTween.Sequence();
-            scoreboardFadeSequence.Append(canvasGroup.DOFade(0f, 0.25f));
+            SetElementText(playAgainText, "Press Space to Play Again");
         }
+        else
+        {
+            SetElementText(playAgainText, "");
 
+            if (newGameState == GameState.Rallying || newGameState == GameState.NotPlaying)
+            {
+                scoreboardFadeSequence?.Kill();
+                scoreboardFadeSequence = DOTween.Sequence();
+                scoreboardFadeSequence.Append(canvasGroup.DOFade(0f, 0.25f));
+            }
+        }
     }
 
     private void OfflineGameStateManager_OnMatchTextChange(string text)
@@ -132,6 +143,13 @@ public class ScoreboardManager : MonoBehaviour
         pulse.AppendInterval(0.2f);
         pulse.Append(textElement.transform.DOScale(2f, 0.25f)); // Scale up
         pulse.Append(textElement.transform.DOScale(1f, 0.25f));   // Scale back down
+    }
+
+    private void StartPlayAgainPulse()
+    {
+        playAgainText.transform.DOScale(1.1f, 1f) // Grow to 120% over 0.5s
+            .SetEase(Ease.InOutSine)
+            .SetLoops(-1, LoopType.Yoyo); // Loop forever, back and forth
     }
 
     private void ResetMatchWinnerSquares()

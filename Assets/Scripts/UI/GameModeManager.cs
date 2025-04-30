@@ -29,9 +29,12 @@ public class GameModeManager : MonoBehaviour
     {
     }
 
-    public void RestartGame()
+    public void RestartGame(bool toggleMenu)
     {
         OnGameStartRequested?.Invoke(playMode);
-        GameMenu.Instance.ToggleMenu();
+        if (toggleMenu)
+        {
+            GameMenu.Instance.ToggleMenu();
+        }
     }
 }
